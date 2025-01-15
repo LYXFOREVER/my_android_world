@@ -1,165 +1,43 @@
-# AndroidWorld
+首先，本项目只能在liunx或者macos上面运行。win上面有的库装不上，跑不了。
 
-[![Unittests](https://github.com/google-research/android_world/actions/workflows/pytest.yml/badge.svg)](https://github.com/google-research/android_world/actions/workflows/pytest.yml)
+# 模拟器配置
 
-<p align="center">
-<a href="https://google-research.github.io/android_world/">Website</a> •
-<a href="https://arxiv.org/pdf/2405.14573">Paper</a> •
-<a href="https://google-research.github.io/android_world/task_list.html">Tasks</a> •
-<a href="https://docs.google.com/spreadsheets/d/1cchzP9dlTZ3WXQTfYNhh3avxoLipqHN75v1Tb86uhHo/edit?gid=0#gid=0">Leaderboard</a>
-</p>
+项目是建立在androidWorld上面的，因此首先要按照androidWorld说的来操作。（除了下载代码的那一部分，主要是配置一下依赖库）
 
-![Overview](assets/overview.png)
+https://github.com/google-research/android_world?tab=readme-ov-file
 
-**AndroidWorld** is an environment for building and benchmarking autonomous computer control agents.
+值得一提的是，由于大部分app不支持x86-64的模拟器，我建议使用的模拟器配置和androidWorld默认的并不相同。我的系统配置如下：
 
-It runs on a live Android emulator and contains a highly reproducible benchmark of 116 hand-crafted tasks across 20 apps, which are dynamically instantiated with randomly-generated parameters to create millions of unique task variations.
+![image](https://github.com/user-attachments/assets/53ae0932-7e69-4af8-92d1-b420e6eaca8f)
 
-In addition to the built-in tasks, AndroidWorld also supports the popular web benchmark, MiniWoB++ from [Liu et al.](http://arxiv.org/abs/1802.08802).
+就是系统镜像不一样，其他的都是一样的。
 
-Key features of AndroidWorld include:
+# app配置与对应的任务池
 
-* 📝 **116 diverse tasks** across 20 real-world apps
-* 🎲 **Dynamic task instantiation** for millions of unique variations
-* 🏆 **Durable reward signals** for reliable evaluation
-* 🌐 **Open environment** with access to millions of Android apps and websites
-* 💾 **Lightweight footprint** (2 GB memory, 8 GB disk)
-* 🔧 **Extensible design** to easily add new tasks and benchmarks
-* 🖥️ **Integration with MiniWoB++** web-based tasks
+### app安装
 
-See demo videos on our [website](https://google-research.github.io/android_world/).
+然后是app的选择。代码中选择的是bilibili，因此apks文件夹里面要准备哔哩哔哩的安装包。需要注意虽然代码中有安装apk的函数，但是调用之后基本上总是失败，目前还在处理原因。事实上可以在avd上手动下载bilibili（要能打开的，在网上多找几个版本然后筛选。版本兼容性是个难以回避的问题），也可以正常运行代码。代码可以检测出来app已经下载了，可以运行。无视apk安装失败的报错即可。
 
-## Installation
+注意，虽然app是在avd上手动下载的，但这个apk还是要放在./apks这个文件夹里面，用于提取包名等信息。
 
-1. Set up the Android Emulator
-   1. Download Android Studio [here](https://developer.android.com/studio?gad_source=1&gclid=Cj0KCQjw3ZayBhDRARIsAPWzx8oLcadBD0vAq8xmUutaunLGSzhgEtLz4xVZ_SpV4G0xJazS7LxQkDsaAuveEALw_wcB&gclsrc=aw.ds)
-   2. Create an Android Virtual Device (AVD) by following these instructions. For hardware select **Pixel 6**, for System Image select **Tiramisu, API Level 33**, and choose AVD name as **AndroidWorldAvd**. [Watch the setup video.](https://github.com/google-research/android_world/assets/162379927/efc33980-8b36-44be-bb2b-a92d4c334a50)
+### app对应的任务池
 
-1. Launch the Android Emulator from the command line
+每个app的任务池是相互独立的，都以json文件的形式保存在task_pool文件夹里面，任务池文件的名字就是对应app的包名。每个任务都有一个字典表示，其中exe选项为1代表这个任务执行过，以后运行代码的时候就不会执行这个任务（想要再次执行的话可以把1手动改成0）.success选项代表执行过后任务的完成情况。
 
-    Launch the emulator from the command line, not using the Android Studio UI, with the `-grpc 8554` flag which is needed communication with accessibility forwarding app.
+想要运行新app的话不用管这个任务池。没有与当前app对应的任务吃的话，代码会自己创建。但是创建新任务会需要app首页截图，把他保存在一个地方然后把路径复制到这里就行：
 
-    ```bash
-    # Typically it's located in ~/Android/Sdk/emulator/emulator or
-    # ~/Library/Android/sdk/emulator/emulator
-    EMULATOR_NAME=AndroidWorldAvd # From previous step
-    ~/Library/Android/sdk/emulator/emulator -avd $EMULATOR_NAME -no-snapshot -grpc 8554
-    ```
+![image](https://github.com/user-attachments/assets/4da38e08-805e-43fe-a0e2-08e5ff2b935b)
 
-1. [Optional] It's recommended to use `conda`, which you can download [here](https://docs.anaconda.com/free/miniconda/miniconda-install/).
+# 启动程序
 
-    ```
-    conda create -n android_world python=3.11.8
-    conda activate android_world
-    ```
+正常在终端启动模拟器，就可以跑代码了（记得设置OPENAI_KEY）。启动模拟器的命令如下（模拟器的名字可以修改）：
 
-1. Install the latest [AndroidEnv](https://github.com/google-deepmind/android_env):
-
-    ```python
-    git clone https://github.com/google-deepmind/android_env.git
-    cd android_env
-    python setup.py install
-    ```
-
-1. Install AndroidWorld. *Note: Python 3.11 or above is required.*
-
-    ```python
-    git clone https://github.com/google-research/android_world.git
-    cd ./android_world
-    pip install -r requirements.txt
-    python setup.py install
-    ```
-
-1. Add model provider APIs as environment variables.
-
-    ```bash
-    # Add to .bashrc.
-    export OPENAI_API_KEY=your-key
-    export GCP_API_KEY=your-key
-    ```
-
-1. Install `ffmpeg`, if not already installed.
-
-    ```bash
-    # Linux (Ubuntu/Debian)
-    # sudo apt update && sudo apt install ffmpeg
-
-    # macOS
-    brew install ffmpeg
-    ```
-
-## Quickstart
-
-Run the `minimal_task_runner.py` script to see the basic mechanics of AndroidWorld components. It initializes the environment, sets up a task, and runs the default agent, M3A, on it.
-```bash
-python minimal_task_runner.py --task=ContactsAddContact
+```jsx
+emulator  -avd "AndroidWorldAvd_oldversion" -no-snapshot -no-window -grpc 8554
 ```
 
-If you don't specify a task, a random task will be selected. *NOTE: If you want to try open-source apps, i.e. not included with Android OS, please run `--perform_emulator_setup` in the script below.*
+和androidWorld示例代码minimal_task_runner.py类似，运行负责mcts探索的run_mcts_task.py:
 
-## Run the benchmark
-
-Note: **Task Step Limits Update**
-As of 11/18/2024, the max_steps/step_budget for each task in AndroidWorld have been updated to approximately **2x the human average completion time**. This adjustment ensures agents have sufficient time to complete tasks, while also reducing overhead of running thebenchmark. [Here](https://docs.google.com/spreadsheets/d/1KF-vY0Uy47o0mnursvs-HmS6hreU6U3rPrAjgEfjMK4/edit?usp=sharing) are the per-task updates.
-
-```bash
-python run.py \
-  --suite_family=android_world \
-  --agent_name=t3a_gpt4 \
-  --perform_emulator_setup \
-  --tasks=ContactsAddContact,ClockStopWatchRunning \  # Optional: Just run on a subset.
+```jsx
+python run_task_mcts.py --task=UniversalTaskFramework
 ```
-
-The first time you run this script, you must install the necessary apps and set permissions by specifying `--perform_emulator_setup`. This is a one-time setup. It may take several minutes depending on the connection speed.
-
-Above we specify the optional `--tasks` flag to run on a subset of tasks. Leave it empty to run on the entire AndroidWorld suite.
-
-The `n_task_combinations` argument specifies how many parameter permutations to use for each task. For example, for an SMS task, it would correspond to different phone number/message combinations for each run.
-
-If a run fails part-way through, you can resume it by re-running the script with the `--checkpoint_dir` flag pointing to the output directory from the original run.
-
-## Running MiniWoB++ tasks
-
-To run the MiniWoB++ web-based tasks in AndroidWorld, simply set
-`--suite_family=miniwob` and `--perform_emulator_setup` in the command above.
-
-A key advantage of running MiniWoB++ tasks is that common input elements are
-rendered as native, commonly used Android UI widgets, rather than as HTML. Thus agents must learn to use universal
-widgets such as time- and date-pickers:
-
-<p align="center">
-   <img src="assets/miniwob.png" style="width:30%">
-</p>
-
-## Create your own agent
-
-In addition to the agents we provide [here](https://github.com/google-research/android_world/tree/main/android_world/agents), you can also easily create your own agent and run the benchmark with it as follows.
-
-1. Create an agent class that inherits from [EnvironmentInteractingAgent](https://github.com/google-research/android_world/blob/6e4feb00702735c9a7485f4ae714528a058cb2b7/android_world/agents/base_agent.py#L39C1-L39C44) and implement the [step](https://github.com/google-research/android_world/blob/6e4feb00702735c9a7485f4ae714528a058cb2b7/android_world/agents/base_agent.py#L116) method.
-In the current workflow, the agent tries to complete a task in a for loop. In each round, the [step](https://github.com/google-research/android_world/blob/6e4feb00702735c9a7485f4ae714528a058cb2b7/android_world/agents/base_agent.py#L116) method will be called and this is where you implement your agent's logic. A typical approach involves first gathering information like the current screenshot, the UI elements (like buttons, icons) through the AndroidEnv instance within the agent, selecting one of the [supported actions](https://github.com/google-research/android_world/blob/main/android_world/env/json_action.py), executing it through the AndroidEnv and returning an [AgentInteractionResult](https://github.com/google-research/android_world/blob/6e4feb00702735c9a7485f4ae714528a058cb2b7/android_world/agents/base_agent.py#L26). The `done` property on AgentInteractionResult should be set to true to indicate that the task is finished.
-
-2. Import your agent in [run.py](https://github.com/google-research/android_world/blob/main/run.py) and also add it into the [_get_agent](https://github.com/google-research/android_world/blob/15471441ac306ff08bca87454b1b546ae81db7af/run.py#L147) method which takes in your agent's name and return an instance of it.
-
-3. Now you can run the benchmark with your new agent using the command above with the `agent_name` flag changed to your agent's name.
-
-## Adding new tasks
-
-Please see [the guide](https://github.com/google-research/android_world/blob/main/docs/tasks_guide.md) on adding new tasks to AndroidWorld.
-
-## Citation
-
-If you use our environment or data, please cite our paper:
-
-```
-@misc{rawles2024androidworlddynamicbenchmarkingenvironment,
-      title={AndroidWorld: A Dynamic Benchmarking Environment for Autonomous Agents},
-      author={Christopher Rawles and Sarah Clinckemaillie and Yifan Chang and Jonathan Waltz and Gabrielle Lau and Marybeth Fair and Alice Li and William Bishop and Wei Li and Folawiyo Campbell-Ajala and Daniel Toyama and Robert Berry and Divya Tyamagundlu and Timothy Lillicrap and Oriana Riva},
-      year={2024},
-      eprint={2405.14573},
-      archivePrefix={arXiv},
-      primaryClass={cs.AI},
-      url={https://arxiv.org/abs/2405.14573},
-}
-```
-
-*This is not an officially supported Google product.*
