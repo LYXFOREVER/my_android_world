@@ -28,16 +28,37 @@ https://github.com/google-research/android_world?tab=readme-ov-file
 
 ![image](https://github.com/user-attachments/assets/4da38e08-805e-43fe-a0e2-08e5ff2b935b)
 
-# 启动程序
+# 启动程序的方法
 
-正常在终端启动模拟器，就可以跑代码了（记得设置OPENAI_KEY）。启动模拟器的命令如下（模拟器的名字可以修改）：
-
-```jsx
-emulator  -avd "AndroidWorldAvd_oldversion" -no-snapshot -no-window -grpc 8554
-```
-
-和androidWorld示例代码minimal_task_runner.py类似，运行负责mcts探索的run_mcts_task.py:
+探索需要调用gpt，因此使用前需要修改api网址和key。在代码文件
 
 ```jsx
-python run_task_mcts.py --task=UniversalTaskFramework
+android_world/android_world/agents/infer.py
 ```
+
+当中，可以看到对gpt等模型的封装。在predict_mm函数中修改api的网址：
+
+![image](https://github.com/user-attachments/assets/0c4baf90-bb3f-4525-ae1f-1597b40c870a)
+
+然后设置openai key：
+
+```jsx
+export OPENAI_API_KEY=sk-……
+```
+
+配置完这些之后就可以启动程序了。启动程序的命令如下：
+
+```jsx
+python run_task_mcts.py --task=UniversalTaskFramework  --console_port 5554 --grpc_port 8554 --apk_path apks/iBiliPlayer-bili.apk --app_screenshot apks/bilibili_homepage_screenshot.png
+```
+
+其中，run_task_mcts.py代表本次要使用的代码文件；
+
+--task=UniversalTaskFramework表示本次运行的是原创任务（用来和android world原版任务区分）；
+
+--console_port 5554 --grpc_port 8554是模拟器的参数。该代码会自动启动模拟器，这些参数决定了模拟器的端口等信息；
+
+--apk_path apks/iBiliPlayer-bili.apk表示本次使用的app的apk文件路径，代码需要这个文件来获取app的一些信息。
+
+--app_screenshot apks/bilibili_homepage_screenshot.png是app的首页截图，生成新任务的时候会需要。
+

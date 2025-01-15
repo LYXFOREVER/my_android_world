@@ -33,4 +33,5 @@ poetry.lock
 /processed_history
 /raw_history_pkl
 /temp_state
+/gpt_usage.json
 androidWorld.zip
