@@ -135,6 +135,10 @@ class AsyncEnv(abc.ABC):
   def execute_action(self, action: json_action.JSONAction) -> None:
     """Executes action on the environment."""
 
+  @abc.abstractmethod
+  def execute_action_v2(self, action: json_action.JSONAction) -> None:
+    """Executes action on the environment."""
+
   @property
   @abc.abstractmethod
   def foreground_activity_name(self) -> str:
@@ -195,6 +199,7 @@ class AsyncEnv(abc.ABC):
 
 def _process_timestep(timestep: dm_env.TimeStep) -> State:
   """Parses timestep observation and returns State."""
+  
   return State(
       pixels=timestep.observation['pixels'],
       forest=timestep.observation[
@@ -205,6 +210,26 @@ def _process_timestep(timestep: dm_env.TimeStep) -> State:
       ],
   )
 
+import subprocess
+
+def get_avd_dns():
+    # 执行 adb 命令获取 DNS 信息
+    command = ['adb', 'shell', 'getprop', 'net.dns1']
+    
+    try:
+        # 执行命令并获取输出
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+        # 获取命令输出结果
+        dns = result.stdout.strip()  # 去掉可能的多余空白
+        if result.returncode == 0:
+            return dns
+        else:
+            print(f"Error: {result.stderr}")
+            return None
+    except Exception as e:
+        print(f"Failed to execute adb command: {e}")
+        return None
 
 class AsyncAndroidEnv(AsyncEnv):
   """Async environment interface using AndroidEnv to communicate with device."""
@@ -212,15 +237,17 @@ class AsyncAndroidEnv(AsyncEnv):
   interaction_cache = ''
 
   def __init__(
-      self, controller: android_world_controller.AndroidWorldController
+      self, controller: android_world_controller.AndroidWorldController, console_port: int
   ):
     self._controller = controller
     self._prior_state = None
+    self.console_port = console_port
     # Variable used to temporarily save interactions between agent and user.
     # Like when agent use answer action to answer user questions, we
     # use this to save the agent response. Or later on when agent has the
     # ability to ask user question, user's answer will be saved here as well.
     self.interaction_cache = ''
+    print('16. DNS为',get_avd_dns())
 
   @property
   def controller(self) -> android_world_controller.AndroidWorldController:
@@ -238,9 +265,9 @@ class AsyncAndroidEnv(AsyncEnv):
 
   def _get_stable_state(
       self,
-      stability_threshold: int = 3,
+      stability_threshold: int = 8,
       sleep_duration: float = 0.5,
-      timeout: float = 6.0,
+      timeout: float = 10.0,
   ) -> State:
     """Checks if the UI elements remain stable over a number of checks and returns the state.
 
@@ -301,7 +328,23 @@ class AsyncAndroidEnv(AsyncEnv):
         action,
         state.ui_elements,
         self.logical_screen_size,
-        self.controller,
+        self.controller,# 这个地方输入的是controller，到了对面函数就变成了env，能写出这种代码的也是神人了,害我找半天
+        self.console_port,
+    )
+
+  def execute_action_v2(self, action):
+    if action.action_type == json_action.ANSWER:
+      self.interaction_cache = action.text
+      if action.text:
+        self.display_message(action.text, header='Agent answered:')
+      return
+    state = self.get_state(wait_to_stabilize=False)
+    actuation.execute_adb_action_v2(
+        action,
+        state.ui_elements,
+        self.logical_screen_size,
+        self.controller, # 这个地方输入的是controller，到了对面函数就变成了env，能写出这种代码的也是神人了,害我找半天
+        self.console_port,
     )
 
   def hide_automation_ui(self) -> None:

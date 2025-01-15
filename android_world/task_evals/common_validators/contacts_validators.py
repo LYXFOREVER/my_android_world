@@ -48,6 +48,7 @@ class AddContact(task_eval.TaskEval):
         in contacts
     )
 
+  # 应该是通过查数据库看有没有我们需要的那个条目来判断我们的经典任务有没有完成
   def is_successful(self, env: interface.AsyncEnv) -> float:
     contact_found = self._has_contact(
         contacts_utils.list_contacts(env.controller)

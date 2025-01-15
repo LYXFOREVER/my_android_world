@@ -23,3 +23,14 @@ poetry.lock
 
 # PyCharm
 .idea
+
+# 不想上传的大文件
+/apks
+/check_mctstree
+/data_history
+/extracted_apk
+/mcts_data_history
+/processed_history
+/raw_history_pkl
+/temp_state
+androidWorld.zip

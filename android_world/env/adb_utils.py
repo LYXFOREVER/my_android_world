@@ -25,6 +25,12 @@ from android_env.components import errors
 from android_env.proto import adb_pb2
 import immutabledict
 
+import subprocess
+from androguard.core.apk import APK
+import zipfile
+import xml.etree.ElementTree as ET
+from android_world.env import interface
+
 T = TypeVar('T')
 
 _DEFAULT_TIMEOUT_SECS = 10
@@ -135,6 +141,488 @@ _DEFAULT_URIS: dict[str, str] = {
     'email': 'mailto:',
     'gallery': 'content://media/external/images/media/',
 }
+
+def run_adb_command(adb_path='adb', command=None):
+    """
+    :param adb_path: adb 工具路径，如果在系统环境中配置了adb路径，则不需要传递，否则需要
+    :param command: 实际相关命令
+    :return: 执行命令结果
+    """
+    if command is None:
+        command = []
+    try:
+        command.insert(0, adb_path)
+        return subprocess.run(command, check=True, text=True, capture_output=True, encoding='utf-8')
+    except subprocess.CalledProcessError as e:
+        print(f"Error executing command: {e}")
+        return None
+
+import os
+
+def get_file_type(file_path: str) -> str:
+    """
+    判断文件是 APK 还是 APKM
+    :param file_path: 文件路径
+    :return: 'APK' 或 'APKM'
+    """
+    # 获取文件扩展名
+    _, ext = os.path.splitext(file_path)
+
+    if ext.lower() == '.apk':
+        return 'APK'
+    elif ext.lower() == '.apkm':
+        return 'APKM'
+    else:
+        raise ValueError("Invalid file type. Only .apk and .apkm files are supported.")
+
+# 获取包名，活动名的简单方法
+def get_package_name(apk_path: str) -> str:
+    # 加载 APK 文件
+    apk = APK(apk_path)
+    
+    # 获取应用包名
+    print("apk加载完成，看看包名")
+    package_name = apk.get_package()
+    print("获取包名咯")
+    return package_name
+
+def get_package_name_for_apkm(apkm_path: str) -> str:
+    # 解压 .apkm 文件，获取其中的 APK 文件
+    import zipfile
+    if not zipfile.is_zipfile(apkm_path):
+        raise ValueError("The provided file is not a valid .apkm file.")
+    
+    # 创建一个临时文件夹来解压 APK 文件
+    extract_dir = "/tmp/apkm_extracted"
+    os.makedirs(extract_dir, exist_ok=True)
+    
+    with zipfile.ZipFile(apkm_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_dir)
+    
+    # 遍历解压后的文件，查找 APK 文件
+    apk_files = [f for f in os.listdir(extract_dir) if f.endswith('.apk')]
+    if not apk_files:
+        raise ValueError("No APK files found in the .apkm file.")
+    
+    # 选择第一个 APK 文件并加载
+    apk_path = os.path.join(extract_dir, apk_files[0])
+    apk = APK(apk_path)
+    
+    # 获取并返回包名
+    package_name = apk.get_package()
+    
+    # 清理临时文件夹
+    for file in os.listdir(extract_dir):
+        file_path = os.path.join(extract_dir, file)
+        if os.path.isfile(file_path):
+            os.remove(file_path)
+    
+    _clean_up(extract_dir)
+    
+    return package_name
+
+def is_app_installed(package_name, emulator_name=None):
+    """检查应用是否已经安装"""
+    adb_command = ['adb']
+    if emulator_name:
+        adb_command += ['-s', emulator_name]
+    adb_command += ['shell', 'pm', 'list', 'packages', package_name]
+    
+    result = subprocess.run(adb_command, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    
+    # 如果包名出现在列表中，则表示已安装
+    if result.returncode == 0 and package_name in result.stdout.decode():
+        return True
+    return False
+
+def install_apk_lyx(apk_path, emulator_name=None):
+    """安装 APK 到 Android 虚拟机"""
+    adb_command = ['adb']
+    if emulator_name:
+        adb_command += ['-s', emulator_name]
+    adb_command += ['install', apk_path]
+    
+    try:
+        result = subprocess.run(adb_command, check=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        print(f"APK 安装成功: {result.stdout.decode()}")
+    except subprocess.CalledProcessError as e:
+        print(f"安装失败: {e.stderr.decode()}")
+
+def install_apkm(apkm_path: str):
+    """
+    判断 .apkm 文件是否已安装，如果没有安装，则安装它。
+    :param apkm_path: .apkm 文件路径
+    """
+    if not os.path.exists(apkm_path):
+        raise FileNotFoundError(f"The .apkm file {apkm_path} does not exist.")
+
+    # 解压 .apkm 文件
+    extract_dir = "/tmp/apkm_extracted"
+    os.makedirs(extract_dir, exist_ok=True)
+    import zipfile
+    with zipfile.ZipFile(apkm_path, 'r') as zip_ref:
+        zip_ref.extractall(extract_dir)
+
+    # 查找解压后的 APK 文件
+    apk_files = [f for f in os.listdir(extract_dir) if f.endswith('.apk')]
+    if not apk_files:
+        raise ValueError("No APK files found in the .apkm file.")
+    
+    # 获取 APK 文件的包名，遍历解压后的 APK 文件
+    for apk_file in apk_files:
+        apk_path = os.path.join(extract_dir, apk_file)
+        package_name = get_package_name(apk_path)
+        
+        # 如果已安装，则返回
+        if is_app_installed(package_name):
+            print(f"The app with package name {package_name} is already installed.")
+            _clean_up(extract_dir)
+            return
+
+    # 如果没有安装，安装 APK 文件
+    for apk_file in apk_files:
+        apk_path = os.path.join(extract_dir, apk_file)
+        print(f"Installing {apk_path}...")
+        install_apk_lyx(apk_path)
+
+    # 清理临时文件
+    _clean_up(extract_dir)
+
+def get_main_activity(apk_path):
+    # 调用 aapt 工具获取 AndroidManifest.xml 中的活动信息
+    command = f"aapt dump badging {apk_path}"
+    result = subprocess.run(command, shell=True, capture_output=True, text=True)
+    
+    # 查找包含主活动信息的行
+    for line in result.stdout.splitlines():
+        if "launchable-activity" in line:
+            # 提取主活动名称
+            activity = line.split("name='")[1].split("'")[0]
+            return activity
+        elif "activity" in line and "android.intent.action.MAIN" in line and "android.intent.category.LAUNCHER" in line:
+            # 这些也是主活动喜欢的名字
+            activity = line.split("name='")[1].split("'")[0]
+            return activity
+    
+    # 到了这一步，说明之前的方法都无效。那就再试一试树法
+    # 先用apktool提取出xml
+    command = f"apktool d {apk_path} -o extracted_apk -f"
+    subprocess.run(command, shell=True)
+
+    # 读取 AndroidManifest.xml 中的权限
+    manifest_path = "extracted_apk/AndroidManifest.xml"
+    activity = get_main_activity_from_manifest(manifest_path)
+
+    return activity # 当然仍然有可能是none
+
+def get_main_activity_from_manifest(manifest_path):
+    # 解析 AndroidManifest.xml
+    tree = ET.parse(manifest_path)
+    root = tree.getroot()
+
+    # 在 root 中查找所有的 <activity> 元素
+    for activity in root.findall('application/activity'):
+        # 查找该 activity 下的 <intent-filter> 元素
+        for intent_filter in activity.findall('intent-filter'):
+            actions = intent_filter.findall('action')
+            categories = intent_filter.findall('category')
+
+            # 检查是否包含 MAIN 和 LAUNCHER
+            is_main = any(action.attrib.get('android:name') == 'android.intent.action.MAIN' for action in actions)
+            is_launcher = any(category.attrib.get('android:name') == 'android.intent.category.LAUNCHER' for category in categories)
+
+            if is_main and is_launcher:
+                # 如果找到了 MAIN 和 LAUNCHER，提取 activity 的名称
+                return activity.attrib.get('android:name')
+
+    return 'unkown main activity'
+
+def get_main_activity_for_apkm(file_path):
+    """
+    获取 APK 或 APKM 文件的主活动名称。
+    :param file_path: APK 或 APKM 文件路径
+    :return: 主活动名称，或者 None 如果找不到主活动
+    """
+    if file_path.endswith(".apkm"):
+        # 如果是 .apkm 文件，先解压并处理其中的 APK 文件
+        extract_dir = "/tmp/apkm_extracted"
+        os.makedirs(extract_dir, exist_ok=True)
+        
+        # 解压 .apkm 文件
+        import zipfile
+        with zipfile.ZipFile(file_path, 'r') as zip_ref:
+            zip_ref.extractall(extract_dir)
+        
+        # 查找解压后的 APK 文件
+        apk_files = [f for f in os.listdir(extract_dir) if f.endswith('.apk')]
+        
+        if not apk_files:
+            raise ValueError("No APK files found in the .apkm file.")
+        
+        # 只处理base.apk
+        base_apk_path = os.path.join(extract_dir, 'base.apk')
+        if not os.path.exists(base_apk_path):
+            print(f"base.apk not found in extracted APK directory.")
+            return None
+        
+        activity = get_main_activity(base_apk_path)
+        
+        # 如果没有找到主活动
+        _clean_up(extract_dir)
+        return activity
+    else:
+        # 如果是 APK 文件，直接处理
+        return get_main_activity(file_path)
+
+
+def _clean_up(extract_dir):
+    """
+    清理解压后的临时文件，删除目录及其所有内容。
+    :param extract_dir: 解压目录
+    """
+    import shutil
+    if os.path.exists(extract_dir):
+        shutil.rmtree(extract_dir)
+
+def get_permissions(apk_path):
+    """
+    给定.apk文件路径，获取其权限
+    """
+    # 使用 apktool 反编译 APK，获取权限信息
+    command = f"apktool d {apk_path} -o extracted_apk -f"
+    subprocess.run(command, shell=True)
+
+    # 读取 AndroidManifest.xml 中的权限
+    manifest_path = "extracted_apk/AndroidManifest.xml"
+
+    if not os.path.exists(manifest_path):
+        print(f"AndroidManifest.xml not found in extracted APK directory.")
+        return ['Unknown permission']
+
+    permissions = []
+    with open(manifest_path, 'r') as f:
+        content = f.read()
+        # 简单的正则表达式查找权限
+        permissions = re.findall(r'permission="([^"]+)"', content)
+    
+    return permissions
+
+def extract_apkm(apkm_path, extract_dir):
+    """
+    解压 .apkm 文件，提取其中的 APK 文件。
+    :param apkm_path: .apkm 文件路径
+    :param extract_dir: 解压目录
+    :return: 解压后的 APK 文件路径列表
+    """
+    with zipfile.ZipFile(apkm_path, 'r') as apkm:
+        apkm.extractall(extract_dir)
+    
+    # 获取解压后的所有文件
+    extracted_files = os.listdir(extract_dir)
+    # 筛选出所有的 APK 文件
+    apk_files = [os.path.join(extract_dir, file) for file in extracted_files if file.endswith('.apk')]
+    return apk_files
+
+def get_apkm_permissions(apkm_path):
+    """
+    获取 .apkm 文件中所有 APK 文件的权限信息。
+    :param apkm_path: .apkm 文件路径
+    :return: 各 APK 文件的权限信息
+    """
+    # 创建一个临时目录来解压 .apkm 文件
+    temp_dir = "/tmp/apkm_extracted"
+    os.makedirs(temp_dir, exist_ok=True)
+
+    # 解压 .apkm 文件并提取 APK 文件
+    extract_apkm(apkm_path, temp_dir)
+
+    # 只处理base.apk
+    base_apk_path = os.path.join(temp_dir, 'base.apk')
+    if not os.path.exists(base_apk_path):
+        print(f"base.apk not found in extracted APK directory.")
+        return []
+    
+    permissions = get_permissions(base_apk_path)
+    
+    # 清理解压后的临时文件
+    _clean_up(temp_dir)
+
+    return permissions
+
+def stop_app(package_name, device_name=None):
+    """
+    强制停止指定包名的应用，只对指定的设备或模拟器进行操作。
+
+    参数:
+    package_name (str): 要停止的应用包名。
+    device_name (str): 要操作的设备或模拟器的名称。如果为 None，则报错。
+    """
+    if package_name is None:
+       return
+    
+    def run_adb_command(command):
+        """执行 adb 命令并返回输出"""
+        try:
+            result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+            return result
+        except subprocess.CalledProcessError as e:
+            print(f"执行命令时出错: {' '.join(command)}")
+            print(f"错误信息: {e.stderr}")
+            return None
+
+    def get_connected_devices():
+        """获取已连接的设备列表"""
+        output = run_adb_command(['adb', 'devices'])
+        if output is None:
+            return []
+        devices = []
+        for line in output.stdout.splitlines()[1:]:  # 跳过第一行
+            if line.strip():
+                parts = line.split()
+                if len(parts) >= 2 and parts[1] == 'device':
+                    devices.append(parts[0])
+        return devices
+    
+    # 获取已连接的设备
+    devices = get_connected_devices()
+
+    if not devices:
+        print("未检测到已连接的设备。请确保 AVD 已启动并通过 ADB 连接。")
+        return
+
+    if device_name:
+        if device_name not in devices:
+            print(f"指定的设备 '{device_name}' 未连接。")
+            return
+        devices = [device_name]  # 仅操作指定的设备
+    else:
+        print("没有指定模拟器名称。请通过 'device_name' 参数指定设备。")
+        return
+
+    # 对指定的设备执行停止应用操作
+    for device in devices:
+        print(f"在设备 {device} 上停止应用: {package_name}")
+        command = ['adb', '-s', device, 'shell', 'am', 'force-stop', package_name]
+        result = run_adb_command(command)
+        
+        if result and result.returncode == 0:
+            print(f"成功停止应用 {package_name} 在设备 {device} 上。")
+        else:
+            print(f"在设备 {device} 上停止应用 {package_name} 失败。")
+            if result:
+                print(result.stderr)
+
+import sys
+def force_stop_all_third_party_apps(device_name=None, excluded_packages=None):
+    """
+    强制停止所有通过 ADB 连接的 Android 设备上的第三方应用，排除指定的应用。
+    
+    参数:
+    device_name (str): 要操作的设备或模拟器的名称。如果为 None，将自动检测设备。
+    excluded_packages (list): 需要排除不关闭的应用包名列表。
+    """
+    
+    if excluded_packages is None:
+        excluded_packages = []
+    
+    def run_adb_command(command):
+        """
+        执行 adb 命令并返回输出。
+        """
+        try:
+            result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True, check=True)
+            return result.stdout
+        except subprocess.CalledProcessError as e:
+            print(f"执行命令时出错: {' '.join(command)}")
+            print(f"错误信息: {e.stderr}")
+            return
+
+    def get_connected_devices():
+        """
+        获取已连接的设备列表。
+        """
+        output = run_adb_command(['adb', 'devices'])
+        devices = []
+        for line in output.splitlines()[1:]:  # 跳过第一行
+            if line.strip():
+                parts = line.split()
+                if len(parts) >= 2 and parts[1] == 'device':
+                    devices.append(parts[0])
+        return devices
+
+    def get_third_party_packages(device):
+        """
+        获取第三方（用户安装的）应用包名列表。
+        """
+        output = run_adb_command(['adb', '-s', device, 'shell', 'pm', 'list', 'packages', '-3'])
+        packages = []
+        for line in output.splitlines():
+            match = re.match(r'package:(\S+)', line)
+            if match:
+                packages.append(match.group(1))
+        return packages
+
+    def force_stop_app(device, package):
+        """
+        强制停止指定设备上的指定应用。
+        """
+        run_adb_command(['adb', '-s', device, 'shell', 'am', 'force-stop', package])
+        print(f"已强制停止应用: {package}")
+
+    # 获取已连接的设备
+    devices = get_connected_devices()
+    if not devices:
+        print("未检测到已连接的设备。请确保 AVD 已启动并通过 ADB 连接。")
+        return
+
+    if device_name:
+        if device_name not in devices:
+            print(f"指定的设备 '{device_name}' 未连接。")
+            return
+        device = device_name
+    elif len(devices) > 1:
+        print("检测到多个设备，请指定要操作的设备。")
+        for idx, device in enumerate(devices):
+            print(f"{idx + 1}. {device}")
+        choice = input("请输入设备编号: ")
+        try:
+            device_index = int(choice) - 1
+            if device_index < 0 or device_index >= len(devices):
+                raise ValueError
+            device = devices[device_index]
+        except ValueError:
+            print("无效的选择。")
+            return
+    else:
+        device = devices[0]
+
+    print(f"操作设备: {device}")
+
+    # 获取第三方应用包名
+    packages = get_third_party_packages(device)
+    if not packages:
+        print("未找到第三方应用。")
+        return
+
+    # 排除指定的应用包名
+    packages_to_stop = [pkg for pkg in packages if pkg not in excluded_packages]
+    excluded = [pkg for pkg in packages if pkg in excluded_packages]
+
+    if excluded:
+        print(f"以下应用被排除不关闭: {', '.join(excluded)}")
+
+    if not packages_to_stop:
+        print("没有需要关闭的第三方应用。")
+        return
+
+    print(f"找到 {len(packages_to_stop)} 个第三方应用。开始强制停止...")
+
+    # 强制停止所有第三方应用，排除指定的应用
+    for package in packages_to_stop:
+        force_stop_app(device, package)
+
+    print("所有第三方应用（排除指定应用）已被强制停止。")
+
 
 
 def check_ok(response: adb_pb2.AdbResponse, message=None) -> None:
@@ -457,8 +945,8 @@ def _split_words_and_newlines(text: str) -> Iterable[str]:
     if i < len(lines) - 1:
       yield '\n'
 
-
-def type_text(
+# 给原来的输入函数改了个名，暂时不用了
+def type_text_oldversion(
     text: str,
     env: env_interface.AndroidEnvInterface,
     timeout_sec: Optional[float] = _DEFAULT_TIMEOUT_SECS,
@@ -484,6 +972,23 @@ def type_text(
       continue
     formatted = _adb_text_format(word)
     logging.info('Attempting to type word: %r', formatted)
+
+    # 尝试解决输入不了中文的问题
+    # 将文本转换为 Unicode 格式的 adb 命令
+    #formatted = ''.join([f'\\u{ord(c):04x}' for c in text])  # 转为 Unicode 转义形式
+    #command = f"adb shell input text {formatted}"
+    #logging.info("Executing command: %s", command)
+
+    #try:
+    #    result = subprocess.run(command, shell=True, timeout=timeout_sec, capture_output=True, text=True)
+    #    if result.returncode == 0:
+    #        logging.info("Text input successful: %s", result.stdout)
+    #    else:
+    #        logging.error("Failed to input text. Error: %s", result.stderr)
+    #except subprocess.TimeoutExpired:
+    #    logging.error("Command timed out after %s seconds", timeout_sec)
+    #except Exception as e:
+    #    logging.error("Unexpected error: %s", e)
     response = env.execute_adb_call(
         adb_pb2.AdbRequest(
             input_text=adb_pb2.AdbRequest.InputText(text=formatted),
@@ -493,6 +998,139 @@ def type_text(
 
     if response.status != adb_pb2.AdbResponse.Status.OK:
       logging.error('Failed to type word: %r', formatted)
+
+# 尝试用这个输入中文，失败。可能不能加那么多花活
+def type_text_fail(
+    text: str,
+    env: env_interface.AndroidEnvInterface,
+    timeout_sec: Optional[float] = _DEFAULT_TIMEOUT_SECS,
+) -> None:
+    """通过 ADBKeyBoard 向 AVD 中逐词输入指定文本。
+
+    该函数使用 ADBKeyBoard 解决原方法无法输入中文的问题。按单词输入有助于防止长文本字符串输入顺序错乱或超时。
+
+    Args:
+        text: 要输入的文本字符串。
+        env: 环境接口。
+        timeout_sec: 超时时间。对于较长文本应适当增加。
+    """
+    words = _split_words_and_newlines(text)
+    for word in words:
+        if word == '\n':
+            logging.info('Found \\n, pressing enter button.')
+            press_enter_button(env)
+            continue
+        
+        # 使用 ADBKeyBoard 发送文本广播
+        command = f"adb shell am broadcast -a ADB_INPUT_TEXT --es msg '{word}'"
+        logging.info("Executing command: %s", command)
+        
+        try:
+            result = subprocess.run(command, shell=True, timeout=timeout_sec, capture_output=True, text=True)
+            if result.returncode == 0:
+                logging.info("Text input successful: %s", result.stdout)
+            else:
+                logging.error("Failed to input text. Error: %s", result.stderr)
+        except subprocess.TimeoutExpired:
+            logging.error("Command timed out after %s seconds", timeout_sec)
+        except Exception as e:
+            logging.error("Unexpected error: %s", e)
+
+def type_text(
+    text: str,
+    env: env_interface.AndroidEnvInterface,
+    #env: interface.AsyncAndroidEnv,
+    #env: android_world_controller.AndroidWorldController,
+    timeout_sec: Optional[float] = _DEFAULT_TIMEOUT_SECS,
+    console_port:int = 5554,
+) -> None:
+    """通过 ADBKeyBoard 向 AVD 中逐词输入指定文本。
+
+    该函数使用 ADBKeyBoard 解决原方法无法输入中文的问题。按单词输入有助于防止长文本字符串输入顺序错乱或超时。
+
+    Args:
+        text: 要输入的文本字符串。
+        env: 环境接口。
+        timeout_sec: 超时时间。对于较长文本应适当增加。
+    """
+    # 使用 ADBKeyBoard 发送文本广播
+    print("输入之前先确定一下目前是什么个输入法:")
+    get_default_input_method(console_port=console_port)
+    emulator_name = 'emulator-' + str(console_port)
+    #command = f"adb shell am broadcast -a ADB_INPUT_TEXT --es msg '{text}'"
+    command = f"adb -s {emulator_name} shell am broadcast -a ADB_INPUT_TEXT --es msg '{text}'"
+    logging.info("Executing command: %s", command)
+    
+    try:
+        result = subprocess.run(command, shell=True, timeout=timeout_sec, capture_output=True, text=True)
+        if result.returncode == 0:
+            print("Text input successful: %s", result.stdout)
+        else:
+            print("Failed to input text. Error: %s", result.stderr)
+    except subprocess.TimeoutExpired:
+        print("Command timed out after %s seconds", timeout_sec)
+    except Exception as e:
+        print("Unexpected error: %s", e)
+
+def enable_adb_keyboard(console_port:int = 5554,):
+    """
+    Enables and sets the ADB keyboard on the specified emulator.
+    
+    Args:
+        emulator_name (str): The name of the emulator, e.g., 'emulator-5554'.
+    """
+    emulator_name = 'emulator-' + str(console_port)
+    enable_command = f"adb -s {emulator_name} shell ime enable com.android.adbkeyboard/.AdbIME"
+    set_command = f"adb -s {emulator_name} shell ime set com.android.adbkeyboard/.AdbIME"
+    
+    try:
+        # Enable ADB keyboard
+        result = subprocess.run(enable_command, shell=True, capture_output=True, text=True)
+        if result.returncode == 0:
+            logging.info("ADB keyboard enabled: %s", result.stdout)
+        else:
+            logging.error("Failed to enable ADB keyboard: %s", result.stderr)
+        
+        # Set ADB keyboard
+        result = subprocess.run(set_command, shell=True, capture_output=True, text=True)
+        if result.returncode == 0:
+            logging.info("ADB keyboard set: %s", result.stdout)
+        else:
+            logging.error("Failed to set ADB keyboard: %s", result.stderr)
+            
+    except subprocess.TimeoutExpired:
+        logging.error("Command timed out")
+    except Exception as e:
+        logging.error("Unexpected error: %s", e)
+
+def get_default_input_method(console_port:int = 5554,) -> str:
+    """
+    Retrieves the current default input method on the specified emulator.
+    
+    Args:
+        emulator_name (str): The name of the emulator, e.g., 'emulator-5554'.
+    
+    Returns:
+        str: The default input method if successful, or an error message.
+    """
+    emulator_name = 'emulator-' + str(console_port)
+    command = f"adb -s {emulator_name} shell settings get secure default_input_method"
+    
+    try:
+        result = subprocess.run(command, shell=True, capture_output=True, text=True)
+        if result.returncode == 0:
+            default_input_method = result.stdout.strip()
+            print("Default input method: %s", default_input_method)
+            return default_input_method
+        else:
+            print("Failed to get default input method: %s", result.stderr)
+            return "Error: Unable to retrieve input method"
+    except subprocess.TimeoutExpired:
+        print("Command timed out")
+        return "Error: Command timed out"
+    except Exception as e:
+        print("Unexpected error: %s", e)
+        return f"Error: {e}"
 
 
 def issue_generic_request(
@@ -611,6 +1249,12 @@ def _launch_default_app(
       data_uri,
   ]
   response = issue_generic_request(adb_command, env, timeout_sec)
+  # 使用新方法启动app
+  #import subprocess
+  #response = subprocess.run(adb_command, capture_output=True)
+  #print("获得subprocess回复了，来看看是啥：")
+  #print(response.stdout.decode())  # 查看输出
+  #print(response.stderr.decode())  # 查看错误
   return response
 
 
@@ -629,7 +1273,7 @@ def launch_app(
     The name of the app that is launched.
   """
 
-  if app_name in _DEFAULT_URIS:
+  if app_name.lower() in _DEFAULT_URIS:
     _launch_default_app(app_name, env)
     return app_name
 
@@ -677,6 +1321,32 @@ def close_app(
     logging.error('Failed to close app: %r', app_name)
     return None
   package_name = extract_package_name(activity)
+  issue_generic_request(
+      ['shell', 'am', 'force-stop', package_name], env, timeout_sec
+  )
+  return app_name
+
+def close_app_lyx(
+    app_name: str,
+    main_activity: str,
+    env: env_interface.AndroidEnvInterface,
+    timeout_sec: Optional[float] = _DEFAULT_TIMEOUT_SECS,
+) -> Optional[str]:
+  """Uses regex and ADB package name to try to directly close an app.
+
+  Args:
+    app_name: 原本是app本身的名字，现在实际上是app的包名
+    env: The environment.
+    timeout_sec: The timeout.
+
+  Returns:
+    The app name that is closed.
+  """
+  activity = main_activity
+  if activity is None:
+    logging.error('Failed to close app: %r', app_name)
+    return None
+  package_name = app_name
   issue_generic_request(
       ['shell', 'am', 'force-stop', package_name], env, timeout_sec
   )

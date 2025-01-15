@@ -1,0 +1,253 @@
+[
+    {
+        "id": 0,
+        "task_description": "Open YouTube and watch a video from your history.",
+        "executed": 0,
+        "succeeded": 0.0
+    },
+    {
+        "id": 1,
+        "task_description": "Browse trending videos by navigating to the 'Trending' section from the bottom navigation bar.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "Search for a specific video or channel using the search bar at the top of the app.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "Watch a video of your choice by tapping on its thumbnail from the search results or recommended videos.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "Like a video by tapping the 'thumbs up' icon below the video player.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "Subscribe to a new channel by tapping the 'Subscribe' button on a channel's page or directly below the video player of any video from that channel.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "Leave a comment on a video by scrolling to the comment section below the video player, typing your comment, and hitting 'Post'.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "Adjust video playback quality by tapping the gear icon in the video player and selecting your preferred resolution.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "Navigate to and manage your personal YouTube library including your watch history, uploads, and playlists by selecting the 'Library' option in the bottom navigation bar.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "Turn on notifications for a channel you are subscribed to by tapping the bell icon on the channel's page.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "Launch the YouTube app and use the search bar to find a video titled 'Easy baking recipes.' Then watch the first video that appears in the search results.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 11,
+        "task_description": "Open the YouTube app, explore the 'Trending' section and select any video from the 'Music' category to watch.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "Start the YouTube app, navigate to the 'Subscriptions' tab, choose any channel you're subscribed to, and play the most recent video uploaded by that channel.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 13,
+        "task_description": "Open the app and play a specific video by typing its exact name in the search bar, then select the video from the search results and play it.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "Open the app, browse the trending section by navigating to the appropriate tab, choose a video from the list, and watch it for at least 1 minute.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 15,
+        "task_description": "Open the app, visit a subscribed channel from the 'Subscriptions' tab, select any video from the channel's video list, and like the video.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "Launch the app and navigate to the subscriptions tab to browse the latest videos from subscribed channels.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "Open the app, use the search bar to find a specific 'how-to' tutorial video, watch it for a couple of minutes, then pause the video.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "Start the app, explore the trending tab, select any video that has more than 1 million views, watch the first minute, and then leave a comment.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 19,
+        "task_description": "Launch the YouTube app and adjust the video playback quality settings to 1080p for a smoother viewing experience.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 20,
+        "task_description": "Open YouTube, search for a video related to the game Fallout, and watch it.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 21,
+        "task_description": "Open the YouTube app, navigate to the 'Trending' section from the bottom menu, and watch the first video listed.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 22,
+        "task_description": "Use the YouTube app to find a cooking channel, subscribe to it, and then navigate to the 'Library' tab to confirm the channel has been added to your subscriptions.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 23,
+        "task_description": "Launch the YouTube app and navigate to the 'Trending' section to browse currently popular videos.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 24,
+        "task_description": "Open the YouTube app, use the search bar to find the channel 'National Geographic', and subscribe to it.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 25,
+        "task_description": "Start the YouTube app, locate and play the first video from your 'Watch Later' playlist.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 26,
+        "task_description": "Launch the YouTube app and watch a video from the recommendations on the home screen",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 27,
+        "task_description": "Subscribe to a new channel by using the search function to find a channel and subscribing to it from the channel's main page",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 28,
+        "task_description": "Create and name a new playlist, then add a video to this playlist using the 'Save' button under a video",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 29,
+        "task_description": "Launch the YouTube app and search for a specific video using the search bar at the top of the home screen.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 30,
+        "task_description": "Watch any video from the 'Trending' section and adjust the video quality to 1080p via the settings gear icon in the video player.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 31,
+        "task_description": "Subscribe to a channel by opening any video from that channel and tapping the 'Subscribe' button below the video player.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 32,
+        "task_description": "Launch the YouTube app and search for a specific video by entering keywords 'guitar lessons' into the search bar. Select the first video from the search results and watch it for at least 30 seconds.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 33,
+        "task_description": "Open the YouTube app, use the \u2018Explore\u2019 feature to navigate to the 'Gaming' category. Choose any video from the featured list and watch it fully. Like the video after watching.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 34,
+        "task_description": "Start the YouTube app and navigate to 'Library'. From your library, go to the 'Watch later' playlist and play the first video in the list. Watch the video for at least one minute.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 35,
+        "task_description": "Search for a specific video using the search bar and play it.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 36,
+        "task_description": "Subscribe to a new channel that you find interesting.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 37,
+        "task_description": "Create a playlist with at least three different videos and play it sequentially.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 38,
+        "task_description": "Open the YouTube app and search for a video on a topic of your interest.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 39,
+        "task_description": "Create a new playlist in your YouTube account and add a video to it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 40,
+        "task_description": "Like a video you just watched and leave a comment on it.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

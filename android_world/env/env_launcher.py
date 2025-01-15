@@ -27,7 +27,35 @@ from android_world.utils import datetime_utils
 # AndroidWorld is tested and developed on Pixel 6 with API 33. Other
 # configurations may be supported, but are not yet tested.
 _ANDROID_WORLD_API_LEVEL = 33
+#_ANDROID_WORLD_API_LEVEL = 30 # 换了新的模拟器了
 
+import subprocess
+
+def get_avd_dns():
+    # 执行 adb 命令获取 DNS 信息
+    command = ['adb', 'shell', 'getprop', 'net.dns1']
+    
+    try:
+        # 执行命令并获取输出
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+        # 获取命令输出结果
+        dns = result.stdout.strip()  # 去掉可能的多余空白
+        if result.returncode == 0:
+            return dns
+        else:
+            print(f"Error: {result.stderr}")
+            return None
+    except Exception as e:
+        print(f"Failed to execute adb command: {e}")
+        return None
+
+# 获取 AVD 的 DNS
+dns = get_avd_dns()
+if dns:
+    print(f"AVD DNS: {dns}")
+else:
+    print("Unable to retrieve DNS.")
 
 def _get_env(
     console_port: int, adb_path: str, grpc_port: int
@@ -36,7 +64,9 @@ def _get_env(
   controller = android_world_controller.get_controller(
       console_port, adb_path, grpc_port
   )
-  return interface.AsyncAndroidEnv(controller)
+  print('马上需要联网（报错）了！')
+  print('15. DNS为',get_avd_dns())
+  return interface.AsyncAndroidEnv(controller,console_port=console_port)
 
 
 def verify_api_level(env: interface.AsyncEnv) -> None:
@@ -122,6 +152,11 @@ def load_and_setup_env(
   Returns:
     An interactable Android environment.
   """
-  env = _get_env(console_port, adb_path, grpc_port)
+  print('准备_get_env了！')
+  env = _get_env(console_port, adb_path, grpc_port) # 这个还真不需要改
+  print('17. DNS为',get_avd_dns())
+  print('获取了env！准备设置env')
   setup_env(env, emulator_setup, freeze_datetime)
+  print('18. DNS为',get_avd_dns())
   return env
+

@@ -85,7 +85,11 @@ def _plot_element_cartoon(
   _, axs = plt.subplots(1, 2, figsize=(13, 12))
   if screenshot is not None:
     axs[1].imshow(screenshot)
-  ax = axs[0]
+  ax = axs[0] 
+  #_, axs = plt.subplots(1, 1, figsize=(13, 12))
+  #if screenshot is not None:
+  #  axs.imshow(screenshot)
+  #ax = axs
 
   for element in elements:
     bbox = copy.deepcopy(element.bbox_pixels)
@@ -134,8 +138,109 @@ def _plot_element_cartoon(
         )
 
   ax.invert_yaxis()
+
+  # 这一段也是自己加上的
+  #axs = ax
   return axs
 
+def _plot_element_cartoon_lyx(
+    elements: list[representation_utils.UIElement],
+    screenshot: np.ndarray | None = None,
+    max_text_length: int = 30,
+) -> tuple[plt.Axes, plt.Axes]:
+    """Plots UI element bboxes and associated properties over the provided screenshot.
+
+    Args:
+      elements: The elements to plot.
+      screenshot: If provided: the screenshot (should be a NumPy array).
+      max_text_length: Maximum length of text to show.
+
+    Returns:
+      Plot of screen with bounding boxes and text.
+    """
+    # Create figure and axes (1 row, 2 columns)
+    _, axs = plt.subplots(1, 1, figsize=(7, 12))
+
+    # If a screenshot is provided, display it on the second subplot
+    if screenshot is not None:
+        axs.imshow(screenshot)
+
+    # Iterate over the UI elements to draw their bounding boxes and text
+    for element in elements:
+        bbox = copy.deepcopy(element.bbox_pixels)
+        if bbox is None:
+            continue
+
+        # Normalize bounding box coordinates if a screenshot is provided
+        if screenshot is not None:
+            bbox.x_min /= screenshot.shape[1]
+            bbox.x_max /= screenshot.shape[1]
+            bbox.y_min /= screenshot.shape[0]
+            bbox.y_max /= screenshot.shape[0]
+        else:
+            # If no screenshot, use default screen size for normalization
+            bbox.x_min /= 1080
+            bbox.x_max /= 1080
+            bbox.y_min /= 2400
+            bbox.y_max /= 2400
+
+        if bbox:
+            # Calculate width and height of the bounding box
+            width = bbox.x_max - bbox.x_min
+            height = bbox.y_max - bbox.y_min
+
+            # Create a rectangle patch for the bounding box
+            rect = patches.Rectangle(
+                (bbox.x_min * screenshot.shape[1], bbox.y_min * screenshot.shape[0]),
+                width * screenshot.shape[1],
+                height * screenshot.shape[0],
+                linewidth=1,
+                edgecolor='r',
+                facecolor='none',
+            )
+            axs.add_patch(rect)
+
+            # Check if the element has text and display it
+            #text = _get_element_text(element)
+            text = None # 我不想要写上文字
+            if text:
+                if len(text) > max_text_length:
+                    text = text[0:max_text_length] + '...'
+                axs.text(
+                    bbox.x_min * screenshot.shape[1],
+                    bbox.y_min * screenshot.shape[0],
+                    text,
+                    fontsize=10,
+                    ha='left',
+                    va='bottom',
+                    color='r',  # Optional: Color text
+                )
+
+    # Invert y-axis to match the typical image coordinates (from top-left)
+    #axs.invert_yaxis()
+
+    # Return the axes object for further customization or saving
+    return axs
+
+def plot_ui_elements_lyx(
+    state: interface.State,
+    max_text_length: int = 30,
+) -> plt.Axes | tuple[plt.Axes, plt.Axes]:
+  """Plots UI elements and optionally screenshot and action.
+
+  Args:
+    state: State of the environment.
+    max_text_length: Maximum length of text to show.
+
+  Returns:
+    The axes from the plot.
+  """
+  axs = _plot_element_cartoon_lyx(
+      state.ui_elements,
+      screenshot=state.pixels,
+      max_text_length=max_text_length,
+  )
+  return axs
 
 def plot_ui_elements(
     state: interface.State,

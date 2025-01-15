@@ -33,6 +33,33 @@ from android_world.env import representation_utils
 from android_world.utils import file_utils
 import dm_env
 
+import subprocess
+
+def get_avd_dns():
+    # 执行 adb 命令获取 DNS 信息
+    command = ['adb', 'shell', 'getprop', 'net.dns1']
+    
+    try:
+        # 执行命令并获取输出
+        result = subprocess.run(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+        
+        # 获取命令输出结果
+        dns = result.stdout.strip()  # 去掉可能的多余空白
+        if result.returncode == 0:
+            return dns
+        else:
+            print(f"Error: {result.stderr}")
+            return None
+    except Exception as e:
+        print(f"Failed to execute adb command: {e}")
+        return None
+
+# 获取 AVD 的 DNS
+dns = get_avd_dns()
+if dns:
+    print(f"AVD DNS: {dns}")
+else:
+    print("Unable to retrieve DNS.")
 
 def _has_wrapper(
     env: env_interface.AndroidEnvInterface,
@@ -75,9 +102,10 @@ def get_a11y_tree(
   """
   if not _has_wrapper(env, a11y_grpc_wrapper.A11yGrpcWrapper):
     raise ValueError(
-        'Must use a11y_grpc_wrapper.A11yGrpcWrapper to get the a11y tree.'
+        'Must use a11y_grpc_wrapper.A11yGrpcWrapper to get the a11y tree.'#要有包装器才能查可获得树，这个东西挺重要
     )
-  env = cast(a11y_grpc_wrapper.A11yGrpcWrapper, env)
+  env = cast(a11y_grpc_wrapper.A11yGrpcWrapper, env)#这个 cast 函数的作用是让类型检查工具认为 val 被转换成了 typ 类型，但实际上它并没有进行任何实际的转换操作。第一个参数没有作用
+  #因此上面这行代码只是告诉大家这个env是a11y_grpc_wrapper.A11yGrpcWrapper类而已
   if adb_utils.retry(3)(adb_utils.check_airplane_mode)(env):
     logging.warning(
         'Airplane mode is on -- cannot retrieve a11y tree via gRPC. Turning'
@@ -93,6 +121,8 @@ def get_a11y_tree(
   for _ in range(max_retries):
     try:
       forest = env.accumulate_new_extras()['accessibility_tree'][-1]  # pytype:disable=attribute-error
+      # 可访问性树似乎是一个字典，不过最好还是看看
+      #print("当前可访问性树为:",forest)
       return forest
     except KeyError:
       logging.warning('Could not get a11y tree, retrying.')
@@ -103,7 +133,7 @@ def get_a11y_tree(
   return forest
 
 
-_TASK_PATH = '/tmp/default.textproto'
+_TASK_PATH = '/data7/Users/lyx/code/androidWorld/android_env/default.textproto'
 DEFAULT_ADB_PATH = '~/Android/Sdk/platform-tools/adb'
 
 
@@ -135,6 +165,7 @@ class A11yMethod(enum.Enum):
 def apply_a11y_forwarder_app_wrapper(
     env: env_interface.AndroidEnvInterface, install_a11y_forwarding_app: bool
 ) -> env_interface.AndroidEnvInterface:
+  print("进入函数")
   return a11y_grpc_wrapper.A11yGrpcWrapper(
       env,
       install_a11y_forwarding=install_a11y_forwarding_app,
@@ -162,13 +193,18 @@ class AndroidWorldController(base_wrapper.BaseWrapper):
   ):
     self._original_env = env
     if a11y_method == A11yMethod.A11Y_FORWARDER_APP:
+      print('马上要获取那个奇怪的app了')
       self._env = apply_a11y_forwarder_app_wrapper(
           env, install_a11y_forwarding_app
       )
+      print('奇怪了，怎么出来了还没有改变dns?')
+      print('12. DNS为',get_avd_dns())
       self._env.reset()  # Initializes required server services in a11y wrapper.
+      print('13. DNS为',get_avd_dns())
     else:
       self._env = env
     self._a11y_method = a11y_method
+    print('14. DNS为',get_avd_dns())
 
   @property
   def device_screen_size(self) -> tuple[int, int]:
@@ -317,6 +353,8 @@ def get_controller(
           adb_controller=config_classes.AdbControllerConfig(adb_path=adb_path),
       ),
   )
+  print('get_controller的config设置完成了')
   android_env_instance = loader.load(config)
   logging.info('Setting up AndroidWorldController.')
-  return AndroidWorldController(android_env_instance)
+  print('可以返回AndroidWorldController了')
+  return AndroidWorldController(android_env_instance, console_port)

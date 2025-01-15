@@ -115,7 +115,7 @@ class EnvironmentInteractingAgent(abc.ABC):
               self._transition_pause
           )
       )
-      return self.env.get_state(wait_to_stabilize=False)
+      return self.env.get_state(wait_to_stabilize=False)#获取当前状态的函数
 
   @abc.abstractmethod
   def step(self, goal: str) -> AgentInteractionResult:

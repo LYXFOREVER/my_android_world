@@ -24,12 +24,12 @@ from android_world.env import android_world_controller
 from android_world.env import json_action
 from android_world.env import representation_utils
 
-
 def execute_adb_action(
     action: json_action.JSONAction,
     screen_elements: list[Any],  # list[UIElement]
     screen_size: tuple[int, int],
     env: android_world_controller.AndroidWorldController,
+    console_port: int,
 ) -> None:
   """Execute an action based on a JSONAction object.
 
@@ -39,10 +39,16 @@ def execute_adb_action(
       screen_size: The (width, height) of the screen.
       env: The environment to execute the action in.
   """
+  adb_utils.enable_adb_keyboard(console_port=console_port) # 设定默认输入法
   if action.action_type in ['click', 'double_tap', 'long_press']:
     idx = action.index
-    x = action.x
-    y = action.y
+    screen_width, screen_height = screen_size
+    if action.x is not None and action.y is not None:
+      x = int(action.x * screen_width)
+      y = int(action.y * screen_height)
+    else:
+      x = action.x
+      y = action.y
     if idx is not None:
       if idx < 0 or idx >= len(screen_elements):
         raise ValueError(
@@ -77,8 +83,177 @@ def execute_adb_action(
       click_action = copy.deepcopy(action)
       click_action.action_type = 'click'
       execute_adb_action(click_action, screen_elements, screen_size, env)
+      time.sleep(3.0) # 延长一点等待时间，防止avd太卡
+      adb_utils.type_text(text, env, timeout_sec=10,console_port=console_port)
+      adb_utils.press_enter_button(env)
+    else:
+      logging.warning(
+          'Input_text action indicated, but no text provided. No '
+          'action will be executed.'
+      )
+
+  elif action.action_type == 'keyboard_enter':
+    adb_utils.press_enter_button(env)
+
+  elif action.action_type == 'navigate_home':
+    adb_utils.press_home_button(env)
+
+  elif action.action_type == 'navigate_back':
+    adb_utils.press_back_button(env)
+
+  elif action.action_type == 'press_keyboard':
+    adb_utils.press_keyboard_generic(action.keycode, env)
+
+  elif action.action_type == 'scroll':
+
+    screen_width, screen_height = screen_size
+    if action.index:
+      x_min, y_min, x_max, y_max = (
+          max(screen_elements[action.index].bbox_pixels.x_min, 0),
+          max(screen_elements[action.index].bbox_pixels.y_min, 0),
+          min(screen_elements[action.index].bbox_pixels.x_max, screen_width),
+          min(screen_elements[action.index].bbox_pixels.y_max, screen_height),
+      )
+    else:
+      x_min, y_min, x_max, y_max = (0, 0, screen_width, screen_height)
+
+    start_x, start_y = (x_min + x_max) // 2, (y_min + y_max) // 2
+    direction = action.direction
+    if direction == 'down':
+      end_x, end_y = (x_min + x_max) // 2, y_min
+    elif direction == 'up':
+      end_x, end_y = (x_min + x_max) // 2, y_max
+    elif direction == 'right':
+      end_x, end_y = x_min, (y_min + y_max) // 2
+    elif direction == 'left':
+      end_x, end_y = x_max, (y_min + y_max) // 2
+    else:
+      print('Invalid direction')
+      return
+    command = adb_utils.generate_swipe_command(
+        int(start_x), int(start_y), int(end_x), int(end_y)
+    )
+    adb_utils.issue_generic_request(command, env)
+
+  elif action.action_type == 'swipe':  # Inverse of scroll.
+    screen_width, screen_height = screen_size
+    mid_x, mid_y = 0.5 * screen_width, 0.5 * screen_height
+    direction = action.direction
+    if direction == 'down':
+      start_x, start_y = mid_x, 0
+      end_x, end_y = mid_x, screen_height
+    elif direction == 'up':
+      start_x, start_y = mid_x, screen_height
+      end_x, end_y = mid_x, 0
+    elif direction == 'left':
+      start_x, start_y = 0, mid_y
+      end_x, end_y = screen_width, mid_y
+    elif direction == 'right':
+      start_x, start_y = screen_width, mid_y
+      end_x, end_y = 0, mid_y
+    else:
+      print('Invalid direction')
+      return
+    command = adb_utils.generate_swipe_command(
+        int(start_x), int(start_y), int(end_x), int(end_y), 500
+    )
+    adb_utils.issue_generic_request(command, env)
+
+  elif action.action_type == 'open_app':
+    app_name = action.app_name
+    if app_name:
+      adb_utils.launch_app(app_name, env)
+    else:
+      raise ValueError('No app name provided')
+
+  elif action.action_type == 'wait':
+    time.sleep(1.0)
+
+  elif action.action_type == 'launch_adb_activity':
+    if action.activity_nickname == 'app_drawer':
+      adb_utils.press_home_button(env)
       time.sleep(1.0)
-      adb_utils.type_text(text, env, timeout_sec=10)
+      start_x, start_y = int(screen_size[0] / 2), int(screen_size[1] * 0.9)
+      end_x = start_x
+      end_y = int(0.3 * screen_size[1])
+      request = adb_utils.generate_swipe_command(start_x, start_y, end_x, end_y)
+      adb_utils.issue_generic_request(request, env)
+    elif action.activity_nickname == 'quick_settings':
+      start_x, start_y = int(screen_size[0] / 2), 30
+      end_x = start_x
+      end_y = int(0.3 * screen_size[1])
+      request = adb_utils.generate_swipe_command(
+          start_x, start_y, end_x, end_y, duration_ms=10
+      )
+      adb_utils.issue_generic_request(request, env)
+  elif action.action_type == 'change_orientation':
+    adb_utils.change_orientation(action.orientation, env)
+  elif action.action_type == json_action.UNKNOWN:
+    print('Unknown action type; no action will be executed. Try again...')
+  else:
+    print('Invalid action type')
+
+def execute_adb_action_v2(
+    action: json_action.JSONAction,
+    screen_elements: list[Any],  # list[UIElement]
+    screen_size: tuple[int, int],
+    env: android_world_controller.AndroidWorldController,
+    console_port: int, 
+) -> None:
+  """Execute an action based on a JSONAction object.
+  干的活和之前的一样，但是遇到ui对象不对的时候会返回情况
+
+  Args:
+      action: JSONAction object containing the action to be executed.
+      screen_elements: List of UI elements on the screen.
+      screen_size: The (width, height) of the screen.
+      env: The environment to execute the action in.
+  """
+  adb_utils.enable_adb_keyboard(console_port=console_port) # 设定默认输入法
+  if action.action_type in ['click', 'double_tap', 'long_press']:
+    idx = action.index
+    # 不是哥么，这里原版的x,y不乘以屏幕边界是什么意思？还要我自己来操作？
+    screen_width, screen_height = screen_size
+    if action.x is not None and action.y is not None:
+      x = int(action.x * screen_width)
+      y = int(action.y * screen_height)
+    else:
+      x = action.x
+      y = action.y
+    if idx is not None:
+      if idx < 0 or idx >= len(screen_elements):
+        print("操作的ui id 不对！可能是页面发生了变化，只能放弃了")
+        return -1
+      element = screen_elements[idx]
+      if element.bbox_pixels is None:
+        raise ValueError('Bbox is not present on element.')
+      x, y = element.bbox_pixels.center
+      x, y = int(x), int(y)
+      if action.action_type == 'click':
+        adb_utils.tap_screen(x, y, env)
+      elif action.action_type == 'double_tap':
+        adb_utils.double_tap(x, y, env)
+      else:
+        adb_utils.long_press(x, y, env)
+    elif x is not None and y is not None:
+      if action.action_type == 'click':
+        adb_utils.tap_screen(x, y, env)
+      elif action.action_type == 'double_tap':
+        adb_utils.double_tap(x, y, env)
+      else:
+        adb_utils.long_press(x, y, env)
+    else:
+      raise ValueError(f'Invalid click action: {action}')
+
+  elif action.action_type == 'input_text':
+    text = action.text
+    if text:
+      # First focus on enter text UI element.
+      click_action = copy.deepcopy(action)
+      click_action.action_type = 'click'
+      execute_adb_action(click_action, screen_elements, screen_size, env, console_port=console_port)
+      time.sleep(3.0) # 延长一点等待时间，防止avd太卡
+      adb_utils.type_text(text, env, timeout_sec=10,console_port=console_port)
       adb_utils.press_enter_button(env)
     else:
       logging.warning(

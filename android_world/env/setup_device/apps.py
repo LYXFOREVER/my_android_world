@@ -37,7 +37,7 @@ APP_DATA = os.path.join(os.path.dirname(__file__), 'app_data')
 
 def download_app_data(file_name: str) -> str:
   """Downloads file from a GCS bucket, if not cached, and installs it."""
-  cache_dir = "/tmp/android_world/app_data"
+  cache_dir = "/data5/GUIAgent/apps"
   remote_url = (
       f"https://storage.googleapis.com/gresearch/android_world/{file_name}"
   )

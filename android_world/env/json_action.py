@@ -45,7 +45,7 @@ _ACTION_TYPES = (
     NAVIGATE_HOME,
     NAVIGATE_BACK,
     KEYBOARD_ENTER,
-    OPEN_APP,
+    OPEN_APP, # 恢复对open app动作的支持
     STATUS,
     WAIT,
     LONG_PRESS,

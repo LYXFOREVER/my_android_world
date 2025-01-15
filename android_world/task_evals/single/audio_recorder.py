@@ -81,7 +81,7 @@ class AudioRecorderRecordAudio(_AudioRecorder):
   def generate_random_params(cls) -> dict[str, str | int]:
     return {}
 
-
+#这些类就代表了一个任务
 class AudioRecorderRecordAudioWithFileName(_AudioRecorder):
   """Task for checking that one audio recording with file_name has been completed."""
 
@@ -121,6 +121,7 @@ class AudioRecorderRecordAudioWithFileName(_AudioRecorder):
       return 0.0
     return 1.0
 
+  #每个类都有下面这个函数，用来随机生成参数
   @classmethod
   def generate_random_params(cls) -> dict[str, str | int]:
     name = [

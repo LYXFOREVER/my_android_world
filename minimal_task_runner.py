@@ -74,7 +74,7 @@ _DEVICE_CONSOLE_PORT = flags.DEFINE_integer(
     ' retrieved by looking at the output of `adb devices`. In general, the'
     ' first connected device is port 5554, the second is 5556, and'
     ' so on.',
-)
+)# 事实上我们的虚拟机名字就叫做emulator-5554
 
 _TASK = flags.DEFINE_string(
     'task',
@@ -92,8 +92,12 @@ def _main() -> None:
   )
   env_launcher.verify_api_level(env)
   env.reset(go_home=True)
+  #这里是一个专门管理任务目录的类
   task_registry = registry.TaskRegistry()
+  print("task_registry:",task_registry)
+  #获取任务对应的类型
   aw_registry = task_registry.get_registry(task_registry.ANDROID_WORLD_FAMILY)
+  #print("在这里aw_registry在这里:",aw_registry)
   if _TASK.value:
     if _TASK.value not in aw_registry:
       raise ValueError('Task {} not found in registry.'.format(_TASK.value))
@@ -102,6 +106,9 @@ def _main() -> None:
     task_type: Type[task_eval.TaskEval] = random.choice(
         list(aw_registry.values())
     )
+  #这个时候task_type已经被确定化为一个类了。每个任务都有一个专门的类，里面包含着is_success沙的函数
+  #如果是这样的话，我是不是可以自定义新任务？
+  #获取随机参数
   params = task_type.generate_random_params()
   task = task_type(params)
   task.initialize_task(env)
@@ -109,7 +116,7 @@ def _main() -> None:
 
   print('Goal: ' + str(task.goal))
   is_done = False
-  for _ in range(task.complexity * 10):
+  for _ in range(int(task.complexity * 10)):
     response = agent.step(task.goal)
     if response.done:
       is_done = True
@@ -121,9 +128,29 @@ def _main() -> None:
   )
   env.close()
 
+  # 自作主张的部分，保存一下本次的路径
+  import pickle
+  from datetime import datetime
+
+  # 获取当前时间
+  current_time = datetime.now()
+
+  # 格式化时间为 年_月_日_时_分_秒
+  formatted_time = current_time.strftime("%Y_%m_%d_%H_%M_%S")
+
+  history_json_name = formatted_time + '_history.pkl'
+  doc_path = 'raw_history_pkl/'
+  path = doc_path + history_json_name
+
+  goal_and_history = {'goal':str(task.goal), 'history':agent.history}
+
+  with open(path, 'wb') as file:
+    pickle.dump(goal_and_history, file)
+  print('history文件保存完毕了')
+
 
 def main(argv: Sequence[str]) -> None:
-  del argv
+  del argv  # 虽然参数其实无所谓，但是命令行里不输入任务的话，开局检测过不去
   _main()
 
 

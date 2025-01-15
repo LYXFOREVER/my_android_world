@@ -41,6 +41,9 @@ from android_world.task_evals.single import system
 from android_world.task_evals.single import vlc
 from android_world.task_evals.single.calendar import calendar
 
+# TODO:加上自己的任务包
+from android_world.task_evals.lyx_single import lyx_test_task
+
 
 def get_information_retrieval_task_path() -> None:
   return None
@@ -63,19 +66,24 @@ class TaskRegistry:
   ANDROID_WORLD_FAMILY: Final[str] = 'android_world'  # Entire suite.
   ANDROID_FAMILY: Final[str] = 'android'  # Subset.
   INFORMATION_RETRIEVAL_FAMILY: Final[str] = 'information_retrieval'  # Subset.
+  LYX_ANDROID_WORLD_FAMILY: Final[str] = 'lyx_android_world' # 我滴任务
 
-  # The MiniWoB family.
+  # The MiniWoB family.就是那些网页任务
   MINIWOB_FAMILY: Final[str] = 'miniwob'
   MINIWOB_FAMILY_SUBSET: Final[str] = 'miniwob_subset'
 
   # Task registries; they contain a mapping from each task name to its class,
   # to construct instances of a task.
   ANDROID_TASK_REGISTRY = {}
+  LYX_ANDROID_TASK_REGISTRY = {}
+
   INFORMATION_RETRIEVAL_TASK_REGISTRY = (
       information_retrieval_registry.InformationRetrievalRegistry[
           information_retrieval.InformationRetrieval
       ](filename=get_information_retrieval_task_path()).registry
   )
+  # 泛型部分 information_retrieval.InformationRetrieval 表示该注册器类的类型参数，表示这个注册器用于管理的对象类型是 InformationRetrieval。
+  # 因该就是负责把任务名字对应到任务的类的
 
   MINIWOB_TASK_REGISTRY = miniwob_registry.TASK_REGISTRY
 
@@ -104,9 +112,18 @@ class TaskRegistry:
       return miniwob_registry.TASK_REGISTRY_SUBSET
     elif family == self.INFORMATION_RETRIEVAL_FAMILY:
       return self.INFORMATION_RETRIEVAL_TASK_REGISTRY
+    elif family == self.LYX_ANDROID_WORLD_FAMILY:
+      return self.LYX_ANDROID_TASK_REGISTRY
     else:
       raise ValueError(f'Unsupported family: {family}')
 
+  # self.ANDROID_TASK_REGISTRY一开始是空的，通过register_task函数把下面这些任务给加上去了
+  # 获取任务名的方法非常简单，就是在 class TaskEval 里面，直接把类名变成字符串罢了。
+  _LYX_TASKS = (
+      # TODO:加上自己的任务
+      lyx_test_task.BillbiliOpenVideo, # 逗号很重要，没有逗号那就不是元组了
+      lyx_test_task.UniversalTaskFramework, # 万用框架
+  )
   _TASKS = (
       # keep-sorted start
       audio_recorder.AudioRecorderRecordAudio,
@@ -127,7 +144,7 @@ class TaskRegistry:
       clock.ClockStopWatchPausedVerify,
       clock.ClockStopWatchRunning,
       clock.ClockTimerEntry,
-      contacts.ContactsAddContact,
+      contacts.ContactsAddContact,# 这个就是平时样例的任务。可见我们只需要把任务类的名字写上去就可以了
       contacts.ContactsNewContactDraft,
       expense.ExpenseAddMultiple,
       expense.ExpenseAddMultipleFromGallery,
@@ -229,6 +246,8 @@ class TaskRegistry:
   def __init__(self):
     for task in self._TASKS:
       self.register_task(self.ANDROID_TASK_REGISTRY, task)
+    for task in self._LYX_TASKS:
+      self.register_task(self.LYX_ANDROID_TASK_REGISTRY, task)
 
   # Add names with "." notation for autocomplete in Colab.
   names = types.SimpleNamespace(**{

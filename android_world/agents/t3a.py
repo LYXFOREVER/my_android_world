@@ -23,6 +23,7 @@ from android_world.env import interface
 from android_world.env import json_action
 from android_world.env import representation_utils
 
+# 修改prompt,取消open app命令，让gpt自己滑动屏幕找到目标app
 PROMPT_PREFIX = (
     'You are an agent who can operate an Android phone on behalf of a user.'
     " Based on user's goal/request, you may\n"
@@ -65,9 +66,12 @@ PROMPT_PREFIX = (
     ' specific UI element, leave it empty when scroll the whole screen:'
     ' `{{"action_type": "scroll", "direction": <up, down, left, right>,'
     ' "index": <optional_target_index>}}`\n'
-    '- Open an app (nothing will happen if the app is not installed):'
-    ' `{{"action_type": "open_app", "app_name": <name>}}`\n'
+    #'- Open an app (nothing will happen if the app is not installed):'
+    #' `{{"action_type": "open_app", "app_name": <name>}}`\n'
     '- Wait for the screen to update: `{{"action_type": "wait"}}`\n'
+    '- Open app:If you want to open an app, you can slide the screen '
+    '(for example, scroll down the app list by `{{"action_type": "scroll", "direction": "down"}}`) '
+    'to find the app you need and open it by clicking\n'
 )
 
 GUIDANCE = (
@@ -81,7 +85,7 @@ GUIDANCE = (
     '- Sometimes you may need to navigate the phone to gather information'
     ' needed to complete the task, for example if user asks'
     ' "what is my schedule tomorrow", then you may want to open the calendar'
-    ' app (using the `open_app` action), look up information there, answer'
+    ' app (if you cant find the calendar, scroll down to seach in the app list), look up information there, answer'
     " user's question (using the `answer` action) and finish (using"
     ' the `status` action with complete as goal_status).\n'
     '- For requests that are questions (or chat messages), remember to use'
@@ -91,9 +95,9 @@ GUIDANCE = (
     '- If the desired state is already achieved (e.g., enabling Wi-Fi when'
     " it's already on), you can just complete the task.\n"
     'Action Related\n'
-    '- Use the `open_app` action whenever you want to open an app'
-    ' (nothing will happen if the app is not installed), do not use the'
-    ' app drawer to open an app unless all other ways have failed.\n'
+    #'- Use the `open_app` action whenever you want to open an app'
+    #' (nothing will happen if the app is not installed), do not use the'
+    #' app drawer to open an app unless all other ways have failed.\n'
     '- Use the `input_text` action whenever you want to type'
     ' something (including password) instead of clicking characters on the'
     ' keyboard one by one. Sometimes there is some default text in the text'
@@ -182,6 +186,81 @@ SUMMARIZATION_PROMPT_TEMPLATE = (
     'Summary of this step: '
 )
 
+TASK_COMPLETION_PROMPT_TEMPLATE = (
+    '\nYou are an expert familiar with Android mobile applications and have a deep understanding of mobile apps. \n'
+    'The user goal is: \n{goal} \n'
+    'They have completed the operation, but they are unsure whether they have achieved the original goal. '
+    'Your task is to determine whether they have accomplished their goal. '
+    'Below is a description of the page screenshot after the user has finished their operation. '
+    'These descriptions record the UI elements on the page: \n'
+    '{element_list} \n'
+    'By comparing the final screenshot with the user original goal, you need to judge whether the user has completed their goal. '
+    'You should first explain in detail, step by step, the basis and reasoning behind your judgment, and then output your final decision.'
+    'If the goal is achieved, the result is 1; otherwise, it is 0.'
+    'Your output format should be as follows: \n'
+    'Reason: ... \n'
+    'Judgment result: {{"result":1 (or 0)}}\n'
+    'Now, provide your reasoning and judgment:'
+)
+
+GENERATE_NEW_TASK_PROMPT_TEMPLATE = (
+    'You have a deep understanding of the functionalities of various mobile apps.'
+    'I have an Android app with the following information:\n'
+    '- Package Name: {package_name}\n'
+    '- Main Activity: {main_activity}\n'
+    '- Permissions: {permissions}\n\n'
+    'I have also sent you the homepage screenshot of the app.'
+    'Based on this information, generate a list of executable tasks that a user can perform specifically within this app. '
+    'The tasks should explicitly mention that they are performed **inside this app**. For example, if the app name is "NameOfApp", instead of saying "Search for a video," say "Search for a video on NameOfApp." '
+    'This ensures there is no ambiguity about the app being referred to.\n'
+    '**Important Safety Requirements:**\n'
+    '- Avoid generating any tasks that involve risky or irreversible actions, such as purchasing items, transferring money, deleting files, or changing critical settings.\n'
+    '- Avoid tasks that could lead to harm, financial loss, or privacy issues for the user.\n'
+    '- Ensure the tasks are safe, reversible, and do not involve any commitments or irreversible outcomes.\n\n'
+    '**Examples of risky tasks to avoid:**\n'
+    '- "Purchase an item from the app store."\n'
+    '- "Delete an account from this app."\n'
+    '- "Send money to another user."\n\n'
+    '**Examples of safe tasks to generate:**\n'
+    '- "Add an item to the shopping cart within this app."\n'
+    '- "Follow a new content creator within this app."\n'
+    '- "Search for a specific type of content within this app."\n\n'
+    'The tasks should be related to launching the app, using its core features, and performing common user interactions.\n'
+    'You should first describe the general features of the app, and then output the tasks that can be performed specifically in this app. '
+    'Make sure that the difficulty of these tasks is neither too hard nor too easy; ideally, they should be tasks that a skilled human user could complete in around 7 steps. '
+    'When generating tasks, you should avoid creating tasks that involve multiple apps or tasks that have pre-requisite requirements. \n'
+    'For example, "Share the video with a friend" would involve other apps, and "Upload a video" requires having a video ready in advance. '
+    'Such tasks should be avoided.\n'
+    'The output format should be as follows:\n\n'
+    'This app\'s name is ……'
+    'The app generally has the following features:\n'
+    'Generated tasks:\n{{"task_description": "a task that explicitly refers to this app"}}{{"task_description": "a task that explicitly refers to this app"}}...\n'
+    'You should generate around 10 tasks.'
+)
+EXPAND_TASK_POOL_PROMPT_TEMPLATE = (
+    'You have a deep understanding of the functionalities of various mobile apps.'
+    'I have an Android app with the following information:\n'
+    '- Package Name: {package_name}\n'
+    '- Main Activity: {main_activity}\n'
+    '- Permissions: {permissions}\n\n'
+    'There is a task on this app assigned to the GUI agent to perform, with the task description as follows:\n'
+    '{task_description}\n'
+    'The agent has executed this task, but it failed, possibly due to improper task design. '
+    'You need to use this task as material to generate a similar but executable successful task.\n'
+    'The tasks should be related to launching the app, using its core features, and performing common user interactions.\n'
+    'You should first describe the general features of the app, and then output the tasks that can be performed on this app. '
+    'Make sure that the difficulty of these tasks is neither too hard nor too easy; ideally, they should be tasks that a skilled human user could complete in around 7 steps. '
+    'When generating tasks, you should avoid creating tasks that involve multiple apps or tasks that have pre-requisite requirements. \n'
+    'For example, "Share the video with a friend" would involve other apps, and "Upload a video" requires having a video ready in advance. '
+    'Such tasks should be avoided.\n'
+    'Additionally, since the agent finds it difficult to perceive the passage of time, you should not create tasks that involve time-based requirements. '
+    'For example, tasks like "read this article for 30 seconds" or "watch this entire video" should be avoided as well.\n'
+    'The output format should be as follows:\n\n'
+    'The app generally has the following features:\n'
+    'Generated tasks:\n{{"task_description": "a task"}}{{"task_description": "a task"}}...\n'
+    'You should generate around 3 tasks.'
+)
+
 
 def _generate_ui_elements_description_list_full(
     ui_elements: list[representation_utils.UIElement],
@@ -202,6 +281,67 @@ def _generate_ui_elements_description_list_full(
       tree_info += f'UI element {index}: {str(ui_element)}\n'
   return tree_info
 
+def _task_complete_prompt(
+    goal: str,
+    ui_elements_description: str,
+) -> str:
+  """生成判断任务是否完成用的命令
+
+  Args:
+    goal: The current task goal.
+    ui_elements_description: A list of descriptions for the UI elements.注意不是UIElement对象，要先把原来的过一道_generate_ui_elements_description_list_full
+  Returns:
+    The text prompt for task completement judgement that will be sent to gpt4v.
+  """
+  return TASK_COMPLETION_PROMPT_TEMPLATE.format(
+      goal=goal,
+      element_list=ui_elements_description
+      if ui_elements_description
+      else 'Not available',
+  )
+
+def generate_new_task_by_appinfo(
+    package_name: str,
+    main_activity_name: str,
+    permission: str,
+) -> str:
+  """通过app信息生成新任务的命令。遇到新app的时候会需要使用
+  
+  Args:
+    package_name: app包名
+    main_activity_name: 主活动名
+    permission: app需要的权限
+  Returns:
+    The text prompt for 生成新任务 that will be sent to gpt.
+  """
+  return GENERATE_NEW_TASK_PROMPT_TEMPLATE.format(
+      package_name=package_name,
+      main_activity=main_activity_name,
+      permissions=permission,
+  )
+
+def generate_new_task_by_failed_task(
+    package_name: str,
+    main_activity_name: str,
+    permission: str,
+    failed_task: str,
+) -> str:
+  """通过失败的任务生成新任务的命令。
+  
+  Args:
+    package_name: app包名
+    main_activity_name: 主活动名
+    permission: app需要的权限
+    failed_task: 本次素材
+  Returns:
+    The text prompt for 生成新任务 that will be sent to gpt.
+  """
+  return EXPAND_TASK_POOL_PROMPT_TEMPLATE.format(
+      package_name=package_name,
+      main_activity=main_activity_name,
+      permissions=permission,
+      task_description=failed_task,
+  )
 
 def _action_selection_prompt(
     goal: str,
@@ -299,6 +439,7 @@ class T3A(base_agent.EnvironmentInteractingAgent):
     self.additional_guidelines = task_guidelines
 
   def step(self, goal: str) -> base_agent.AgentInteractionResult:
+    #这里记录着每一步是怎么生成的
     step_data = {
         'before_screenshot': None,
         'after_screenshot': None,
@@ -313,8 +454,9 @@ class T3A(base_agent.EnvironmentInteractingAgent):
     }
     print('----------step ' + str(len(self.history) + 1))
 
-    state = self.get_post_transition_state()
-    logical_screen_size = self.env.logical_screen_size
+    state = self.get_post_transition_state()# 获取上一个动作之后现在的屏幕状态。手机可能会卡一下，所以一般会等1s。
+    # state是一个对象。不过其实核心就是三个：截图，可访问性树，ui元素列表
+    logical_screen_size = self.env.logical_screen_size # 就是app的页面大小。app可能没有把手机的像素全用上
 
     ui_elements = state.ui_elements
     before_element_list = _generate_ui_elements_description_list_full(
@@ -325,6 +467,7 @@ class T3A(base_agent.EnvironmentInteractingAgent):
     step_data['before_screenshot'] = state.pixels.copy()
     step_data['before_element_list'] = ui_elements
 
+    # 生成本次要用的prompt
     action_prompt = _action_selection_prompt(
         goal,
         [
@@ -339,7 +482,7 @@ class T3A(base_agent.EnvironmentInteractingAgent):
         action_prompt,
     )
 
-    if is_safe == False:  # pylint: disable=singleton-comparison
+    if is_safe is False:  # pylint: disable=singleton-comparison
       #  is_safe could be None
       action_output = """Reason: Triggered LLM safety classifier.
 Action: {"action_type": "status", "goal_status": "infeasible"}"""
@@ -367,6 +510,7 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
           step_data,
       )
 
+    # 输出一下gpt的回复。之后就要提取动作了
     print('Action: ' + action)
     print('Reason: ' + reason)
 
@@ -410,6 +554,7 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
             adb_utils.get_orientation(self.env.controller),
         )
 
+    # status那就代表结束了；可能是完成了，可能是放弃了
     if converted_action.action_type == 'status':
       if converted_action.goal_status == 'infeasible':
         print('Agent stopped since it thinks mission impossible.')
@@ -423,6 +568,7 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
     if converted_action.action_type == 'answer':
       print('Agent answered with: ' + converted_action.text)
 
+    # 执行行动
     try:
       self.env.execute_action(converted_action)
     except Exception as e:  # pylint: disable=broad-exception-caught

@@ -20,6 +20,7 @@ from typing import Any, Optional
 from android_world.env import representation_utils
 import cv2
 import numpy as np
+from typing import List, Tuple
 
 
 def _logical_to_physical(
@@ -251,6 +252,51 @@ def parse_reason_action_output(
   )
   action = action_result.group(1).strip() if action_result else None
   return reason, action
+
+
+
+def parse_multiple_reason_action_output(
+    raw_reason_action_output: str,
+) -> List[Tuple[str, str]]:
+    """Parses multiple reason-action pairs from the raw LLM output.
+
+    Args:
+        raw_reason_action_output: A string that may contain multiple segments of:
+            'Reason: ...\nAction: ...'
+
+    Returns:
+        A list of (reason, action) tuples for all matches found.
+    """
+    #pattern = r'Reason:(.*?)Action:(.*?)\n'  # 使用非贪婪匹配(.*?)，并注意换行处理
+    pattern = r'Reason:(.*?)Action:(.*?)(?=\n|$)'
+    matches = re.findall(pattern, raw_reason_action_output, flags=re.DOTALL)
+
+    # matches将是一个列表，元素类似于("reason内容", "action内容")
+    # 去掉首尾空白
+    result = [(m[0].strip(), m[1].strip()) for m in matches]
+
+    return result
+
+def extract_first_digit(raw_string: str) -> Optional[str]:
+    """
+    从给定的字符串中提取第一个数字（仅一位数）。
+
+    Args:
+        raw_string (str): 输入的字符串，可能包含无意义的空格或换行符。
+
+    Returns:
+        Optional[str]: 第一个找到的数字字符，如果没有找到则返回 None。
+    """
+    # 定义正则表达式模式，匹配任意一个数字
+    pattern = r'\d'
+    
+    # 使用 re.search 查找第一个匹配
+    match = re.search(pattern, raw_string)
+    
+    if match:
+        return match.group()
+    else:
+        return -1
 
 
 def _generate_screenshot_table(task_result: dict[str, Any], i: int) -> str:

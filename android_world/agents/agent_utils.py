@@ -39,3 +39,28 @@ def extract_json(s: str) -> Optional[dict[str, Any]]:
       return None
   else:
     return None
+  
+from typing import Optional, List, Any
+def extract_mutil_json(s: str) -> Optional[List[dict[str, Any]]]:
+    """Extracts all JSON objects from a string.
+
+    Args:
+        s: A string containing JSON objects. E.g., "{'hello': 'world'}" or
+           "let's think step-by-step, ..., {'hello': 'world'}, {'foo': 'bar'}".
+
+    Returns:
+        A list of JSON objects found in the string.
+    """
+    pattern = r'\{.*?\}'  # Match curly braces with content inside.
+    matches = re.findall(pattern, s)  # Find all matches
+    
+    json_objects = []
+    for match in matches:
+        try:
+            # Try to convert the matched string to a dictionary
+            json_objects.append(ast.literal_eval(match))
+        except (SyntaxError, ValueError) as error:
+            print('Cannot extract JSON, skipping due to error %s', error)
+            continue  # Skip the invalid ones
+    
+    return json_objects if json_objects else None
