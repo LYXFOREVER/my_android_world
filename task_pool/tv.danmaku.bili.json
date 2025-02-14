@@ -87,7 +87,7 @@
         "id": 14,
         "task_description": "在bilibili中查看动态，在动态中的最新视频中评论‘沙发’.",
         "executed": 1,
-        "succeeded": 1.0
+        "succeeded": 0.0
     },
     {
         "id": 15,
@@ -99,7 +99,7 @@
         "id": 16,
         "task_description": "在bilibili中查看up主‘科学透镜’的主页.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 1.0
     },
     {
         "id": 17,
@@ -110,73 +110,73 @@
     {
         "id": 18,
         "task_description": "在bilibili中查看我的粉丝.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 19,
         "task_description": "在bilibili中查找并关注up主‘央视新闻’.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 20,
         "task_description": "在bilibili中查找并观看英雄联盟直播.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 21,
         "task_description": "在bilibili中查看我收藏的视频.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 22,
         "task_description": "在bilibili中查看我缓存的视频.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 23,
         "task_description": "我想要买手办，请在bilibili的会员购中查看一下火影忍者的手办.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 24,
         "task_description": "在bilibili的会员购中查看我的订单.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 25,
         "task_description": "在bilibili中搜索有关迪迦奥特曼的视频.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 26,
         "task_description": "在bilibili中搜索搞笑视频.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 27,
         "task_description": "在bilibili中搜索有关鬼畜的视频.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 28,
         "task_description": "在bilibili中找到番剧‘鬼灭之刃’.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 29,
         "task_description": "在bilibili中观看一个有关王者荣耀的直播.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     }
 ]

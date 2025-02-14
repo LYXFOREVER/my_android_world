@@ -192,14 +192,18 @@ def _main():
     #agent_high_level_actor = agent_generate_task
     #agent_grounded_actor = m3a.M3A(env, infer.AtlasWrapper())
     #这里是经典实验配置
-    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
-    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
-    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6)) # 新增summary职能
-    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
+    #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
+    #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
+    #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6)) # 新增summary职能
+    #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
+    agent_generate_task = m3a.M3A(env, infer.GeminiGradioWrapper())
+    actor = m3a.M3A(env, infer.GeminiGradioWrapper())
+    critic = m3a.M3A(env, infer.GeminiGradioWrapper()) # 新增summary职能
+    vision = m3a.M3A(env, infer.GeminiGradioWrapper())
     #cogagent = m3a.M3A(env, infer.CogAgentAPIWrapper())
     # 以下都是需要循环多次执行的
-    try: 
-        for i in range(4):
+    for i in range(100):
+        try:
             env.reset(go_home=True)
             stop_app(package_name, device_name=emulator_name) # 杀掉app后台，这样就可以回到app主页了
             print('环境reset完毕')
@@ -335,16 +339,20 @@ def _main():
                 )
                 # 保存单条轨迹，格式和之前类似
                 write_trajectry_to_file(result.trace_of_nodes, doc_path=doc_path, env=env, task_goal=task_description)
+                draw_action(doc_path=doc_path, trajectry_lenth=len(result.trace_of_nodes),)
             
             else:
                 print("本次搜索完全失败，无成功轨迹，只能保存一个pkl了")
             save_mcts_tree(root=result.tree_state, doc_path=doc_path)
             save_task_goal(task_goal=task_description, doc_path=doc_path)
-
-    except Exception as e:
-        print("遇到了错误:",e)
-        print("代码中断了，结束的时候顺手把模拟器关掉")
-        stop_emulator(_DEVICE_CONSOLE_PORT.value)
+        except KeyboardInterrupt:
+            # 当用户按下 Ctrl + C 时，打印提示信息并终止程序
+            print("你手动终止了程序。把模拟器关掉再退出")
+            stop_emulator(_DEVICE_CONSOLE_PORT.value)
+            sys.exit(1)
+        except Exception as e:
+            print("遇到了错误:",e,",并非手动中断。这样的话不如先跳过当下这个任务，继续下一个")
+            continue
 
     # 代码跑完了记得把模拟器关掉
     print("顺利完成任务，结束的时候顺手把模拟器关掉")

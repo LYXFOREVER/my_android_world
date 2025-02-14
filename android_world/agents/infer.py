@@ -118,6 +118,24 @@ SAFETY_SETTINGS_BLOCK_NONE = {
     ),
 }
 
+def array_to_jpeg_bytes(image: np.ndarray) -> bytes:
+  """Converts a numpy array into a byte string for a JPEG image."""
+  image = Image.fromarray(image)
+  return image_to_jpeg_bytes(image)
+
+
+def image_to_jpeg_bytes(image: Image.Image) -> bytes:
+  in_mem_file = io.BytesIO()
+  if image.mode == 'RGBA':
+    image = image.convert('RGB')
+  image.save(in_mem_file, format='JPEG')
+  # Reset file pointer to start
+  in_mem_file.seek(0)
+  img_bytes = in_mem_file.read()
+  return img_bytes
+
+def encode_image(image: np.ndarray) -> str:
+    return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
 
 class GeminiGcpWrapper(LlmWrapper, MultimodalLlmWrapper):
   """Gemini GCP interface."""
@@ -257,6 +275,105 @@ class GeminiGcpWrapper(LlmWrapper, MultimodalLlmWrapper):
       elif isinstance(item, Image.Image):
         converted.append(item)
     return converted
+  
+class GeminiGradioWrapper(LlmWrapper, MultimodalLlmWrapper):
+  """Gemini 2.0 flash interface，但是使用自己的服务器。每次使用的时候都需要手动修改一下本次服务器的地址
+      目前只接受文本
+  """
+
+  def __init__(
+      self,
+      max_retry: int = 3,
+  ):
+    self.llm = Client("https://5b9103a70fae1c4ddb.gradio.live")
+    if max_retry <= 0:
+      max_retry = 3
+      print('Max_retry must be positive. Reset it to 3')
+    self.max_retry = min(max_retry, 5)
+
+  def predict(
+      self,
+      text_prompt: str,
+      enable_safety_checks: bool = True,
+      generation_config: generation_types.GenerationConfigType | None = None,
+  ) -> tuple[str, Optional[bool], Any]:
+    return self.predict_mm(
+        text_prompt, [], enable_safety_checks, generation_config
+    )
+
+  def is_safe(self, raw_response):
+    try:
+      return (
+          raw_response.candidates[0].finish_reason
+          != answer_types.FinishReason.SAFETY
+      )
+    except Exception:  # pylint: disable=broad-exception-caught
+      #  Assume safe if the response is None or doesn't have candidates.
+      return True
+
+  def predict_mm(
+      self,
+      text_prompt: str,
+      images: list[np.ndarray],
+  ) -> tuple[str, Optional[bool], Any]:
+    counter = self.max_retry
+    retry_delay = 1.0
+    output = None
+
+    # 处理一下将要发送过去的图像
+    image_str_list = []
+    for image in images:
+      image_str_list.append(encode_image(image))
+    images_str = str(image_str_list)  
+
+    while counter > 0:
+      try:
+        output = self.llm.predict(
+            text_prompt,
+            images_str,
+        )
+        return output, True, output
+      except Exception as e:  # pylint: disable=broad-exception-caught
+        counter -= 1
+        print('Error calling LLM, will retry in {retry_delay} seconds')
+        print(e)
+        if counter > 0:
+          # Expo backoff
+          time.sleep(retry_delay)
+          retry_delay *= 2
+
+    if (output is not None) and (not self.is_safe(output)):
+      return ERROR_CALLING_LLM, False, output
+    return ERROR_CALLING_LLM, None, None
+
+  def generate(
+      self,
+      contents: (
+          content_types.ContentsType | list[str | np.ndarray | Image.Image]
+      ),
+      safety_settings: safety_types.SafetySettingOptions | None = None,
+      generation_config: generation_types.GenerationConfigType | None = None,
+  ) -> tuple[str, Any]:
+    """Exposes the generate_content API.
+
+    Args:
+      contents: The input to the LLM.
+      safety_settings: Safety settings.
+      generation_config: Generation config.
+
+    Returns:
+      The output text and the raw response.
+    Raises:
+      RuntimeError:
+    """
+    pass
+
+  def convert_content(
+      self,
+      contents: list[str | np.ndarray | Image.Image],
+  ) -> content_types.ContentsType:
+    """Converts a list of contents to a ContentsType."""
+    pass
 
 class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
   """OpenAI GPT4 wrapper.但不使用request库
@@ -305,6 +422,9 @@ class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
                 temperature=temperature,
                 messages=messages,
             )
+            if response is None:
+               retries += 1
+               continue
             return response
         except (RequestException) as e:
             retries += 1

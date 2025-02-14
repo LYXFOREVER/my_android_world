@@ -1269,6 +1269,131 @@ def _summarize_textonly_prompt(
       reason=reason,
   )
 
+GENERATE_ONE_STEP_DESCRIPTION_TAMPLATE = (
+    'You are an expert at envisioning specific tasks corresponding to changes in mobile screenshots.'
+    'I will provide you with the following:\n'
+    '1. The type of action currently being executed. The type of action currently being executed, which'
+    'can be one of the types: click, SCROLL, input_text……. If the action is input_text,'
+    'an additional value representing the input will be provided. If the action is SCROLL, an additional'
+    'scroll direction will be provided.'
+    '2. Screenshots of the interface before and after the current action is performed'
+    '(or ui descrption of the screenshots).'
+    'If the action is'
+    'CLICK, the pre-action screenshot will include a red bbox highlighting the element being interacted'
+    'with (if applicable). Pay particular attention to the content of the element corresponding to the red'
+    'bbox.\n'
+    'Your task is to envision a  Sub-Instruction based on the current action and the corresponding'
+    'changes in screenshots. Here is the detail:\n'
+    'Sub-Instruction: Based on the interface change caused by the current action, generate a corresponding'
+    'natural language instruction for the current action. The instruction should be concise, clear, and'
+    'executable. It must include specific details critical to the operation, such as file names, times, or'
+    'other content as they appear in the screenshots. For example: “Scroll left to open the app drawer,'
+    'displaying all installed applications on the devic”, “Click the chat interface, allowing the user to'
+    'view and participate in conversation”, “Type the username ‘Agent’, preparing for the next step in'
+    'logging into the account”.\n'
+    'You only need to return the Sub-Instruction you envision.\n'
+    'Current Action: {current_action}'
+    'UI_description_before_action: {ui_before_action}'
+    'UI_description_after_action: {ui_after_action}'
+    'Now, please return the Sub-Instruction'
+)
+def _generate_one_step_description_prompt(
+    ui_before_action:str,
+    ui_after_action:str,
+    action:str = None,
+) -> str:
+  if ui_before_action is None or ui_after_action is None:
+    ui_before_action:str = 'No description, please check the screenshot'
+    ui_after_action:str = 'No description, please check the screenshot'
+  return GENERATE_ONE_STEP_DESCRIPTION_TAMPLATE.format(
+    current_action=action,
+    ui_before_action=ui_before_action,
+    ui_after_action=ui_after_action,
+  )
+
+GENERATE_HIGH_LEVEL_DESCRIPTION_TAMPLATE = (
+  'You are a GUI agent who are good at analyze a series of low-level actions '
+  'performed by a user on their mobile device and provide a high-level task description '
+  'that summarizes the user primary objective.'
+  'Your task is to analyze a series of low-level actions performed by a user on their mobile device '
+  'and provide a high-level task description that summarizes the users primary objective. '
+  'Please focus on identifying the main goal or purpose behind these actions and describe it '
+  'in a concise and clear manner.\n'
+  'Here are the low-level actions performed by the user:\n\n'
+  '{sub_instruction_list}\n\n'
+  'Based on the above actions, please provide a high-level task description that captures the user overall goal.'
+  'Here is some examples you can refer to:\n\n'
+  'Example input:\n'
+  'Step 1 - Opened the Bilibili app\n'
+  'Step 2 - Tapped the search bar and entered the text "Demon Slayer"\n\n'
+  'Based on the above actions, you can return:\n\n'
+  'The user goal is to "search for the anime "Demon Slayer" on Bilibili."\n\n'
+  'Now return your answer'
+)
+
+def _generate_high_level_description_prompt(
+    sub_instruction_list:list[str]
+):
+  sub_instruction_list_str = ""
+  for i,sub_instruction in enumerate(sub_instruction_list):
+    sub_instruction_str = "Step "+str(i+1)+" - "+sub_instruction+"\n"
+    sub_instruction_list_str += sub_instruction_str
+
+  return GENERATE_HIGH_LEVEL_DESCRIPTION_TAMPLATE.format(
+    sub_instruction_list=sub_instruction_list_str
+  )
+  
+import numpy as np
+class MultimodelTaskGen():
+  """用来根据已有的轨迹生成任务描述的类"""
+  def __init__(
+      self,
+      llm: infer.MultimodalLlmWrapper,
+  ):
+    """初始化.
+
+    Args:
+      llm: The multimodal LLM wrapper.
+    """
+    self.llm = llm
+  
+  def generate_one_step_description(
+      self,
+      screenshot_before_action:np.ndarray = None,
+      screenshot_after_action:np.ndarray = None,
+      ui_before_action:str = None,
+      ui_after_action:str = None,
+      action:str = None,
+  ):
+    images_to_send = []
+    if screenshot_before_action is not None and screenshot_after_action is not None:
+      images_to_send.append(screenshot_before_action)
+      images_to_send.append(screenshot_after_action)
+    
+    text_prompt = _generate_one_step_description_prompt(
+      ui_before_action=ui_before_action,
+      ui_after_action=ui_after_action,
+      action=action
+    )
+
+    sub_instruction, _, _ = self.llm.predict_mm(
+      text_prompt,
+      images_to_send,
+    )
+
+    return sub_instruction
+
+  def generate_high_level_description(
+      self,
+      sub_instruction_list:list[str],
+  ):
+    text_prompt = _generate_high_level_description_prompt(sub_instruction_list=sub_instruction_list)
+    high_level_description, _, _ = self.llm.predict_mm(
+      text_prompt,
+      [],
+    )
+    return high_level_description
+    
 
 class M3A(base_agent.EnvironmentInteractingAgent):
   """M3A which stands for Multimodal Autonomous Agent for Android."""
@@ -2068,7 +2193,7 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
       node = node.parent
     history_summary.reverse()
 
-    action_prompt = _mutil_action_selection_textonly_prompt(
+    action_prompt = _mutil_action_selection_prompt(
         task_goal,
         [
             'Step ' + str(i + 1) + '- ' + summary
@@ -2081,11 +2206,10 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
     while not raw_response:
       action_output, is_safe, raw_response = self.llm.predict_mm(
           action_prompt,
-          [],
-          #[
-          #    raw_screenshot,
-          #    before_screenshot,
-          #],# 就是给原始图像和som图像的意思，是同一张截图
+          [
+              raw_screenshot,
+              before_screenshot,
+          ],# 就是给原始图像和som图像的意思，是同一张截图
       )
       #print("get_actions阶段，llm给出的原始输出是:")
       #print(action_output)

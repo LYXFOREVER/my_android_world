@@ -195,8 +195,6 @@ def save_state(state, doc = "temp_state/"):
     while len(subdirs) > limit:
         oldest = subdirs.pop(0)
         shutil.rmtree(oldest)
-    
-
 
 class WorldModel:
     def __init__(self, env: interface.AsyncEnv, task_goal: str, critic, vision, package_name: str = None):
@@ -1102,6 +1100,10 @@ def write_trajectry_to_file(trajectry, doc_path: str, env: interface.AsyncEnv, t
         # 现在ui_list_description就是一个列表了，里面的一个字典代表一个ui元素。"ui_description"对应此ui的描述，"ui_bbox"部分记录坐标
         item['ui_list_description'] = ui_elements_list
         item['action_output'] = node.action_output
+        if node.action is not None:
+            item['action'] = node.action.json_str()
+        else:
+            item['action'] = None
         item['summary'] = node.summary
         item['summary_prompt'] = node.summary_prompt
         ui_action_summary.append(item)
@@ -1122,3 +1124,74 @@ def save_task_goal(task_goal: str, doc_path: str):
     import json
     with open(file_path, "w") as f:
         json.dump(task_goal_dict, f, ensure_ascii=False, indent=4)  # indent 用于格式化输出
+
+from PIL import Image, ImageDraw
+def draw_ui_border(image_path, output_path, ui_bbox, border_color=(255, 0, 0), border_width=5):
+    """
+    在图像上绘制UI边框。
+
+    参数:
+        image_path (str): 输入图像的路径。
+        output_path (str): 输出图像的路径。
+        ui_bbox (list): UI边界的坐标，格式为 [x1, x2, y1, y2]。
+        border_color (tuple): 边框颜色，默认为红色 (255, 0, 0)。
+        border_width (int): 边框宽度，默认为 5。
+    """
+    try:
+        # 打开图像
+        image = Image.open(image_path)
+        
+        # 创建一个可以在图像上绘图的对象
+        draw = ImageDraw.Draw(image)
+        
+        # 解析UI边界
+        x1, x2, y1, y2 = ui_bbox
+        
+        # 绘制边框
+        draw.rectangle([(x1, y1), (x2, y2)], outline=border_color, width=border_width)
+        
+        # 保存图像
+        image.save(output_path)
+        print(f"带有红色边框的图像已保存到 {output_path}")
+    except Exception as e:
+        print(f"发生错误：{e}")
+import shutil
+def copy_file(source_path, destination_path):
+    try:
+        # 复制文件从 source_path 到 destination_path
+        shutil.copy(source_path, destination_path)
+        #print(f"文件已成功复制到 {destination_path}")
+    except FileNotFoundError:
+        print(f"错误：源文件 {source_path} 未找到。")
+    except PermissionError:
+        print(f"错误：没有权限访问 {source_path} 或写入 {destination_path}。")
+    except Exception as e:
+        print(f"发生错误：{e}")
+import json
+import ast
+def draw_action(doc_path, trajectry_lenth):
+    ui_action_summary_list_path = os.path.join(doc_path, 'ui_action_summary.json')
+    with open(ui_action_summary_list_path, 'r', encoding='utf-8') as file:
+        ui_action_summary_list = json.load(file)
+
+    for i in range(trajectry_lenth-1):
+        # 获取ui信息
+        ui_element_list = ui_action_summary_list[i]["ui_list_description"] # 包含本页面所有ui的列表
+
+        # 获取动作信息
+        action = ui_action_summary_list[i+1]["action"]
+        action_dic = ast.literal_eval(action)
+
+        # 确定原始图片和目标图片
+        image_name = str(i) + '.png'
+        image_with_action_name = str(i) + '_with_action.png'
+        image_path = os.path.join(doc_path, image_name)
+        output_with_action_path = os.path.join(doc_path, image_with_action_name)
+
+        # 判断是否需要绘制动作
+        if "index" in action_dic:
+            ui_index = action_dic["index"]
+            ui_bbox = ui_element_list[ui_index]["ui_bbox"]
+            draw_ui_border(image_path, output_with_action_path, ui_bbox)
+        else:
+            copy_file(image_path, output_with_action_path)
