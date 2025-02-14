@@ -285,7 +285,7 @@ class GeminiGradioWrapper(LlmWrapper, MultimodalLlmWrapper):
       self,
       max_retry: int = 3,
   ):
-    self.llm = Client("https://5b9103a70fae1c4ddb.gradio.live")
+    self.llm = Client("https://dec2d09595bb8f202e.gradio.live")
     if max_retry <= 0:
       max_retry = 3
       print('Max_retry must be positive. Reset it to 3')
@@ -294,11 +294,9 @@ class GeminiGradioWrapper(LlmWrapper, MultimodalLlmWrapper):
   def predict(
       self,
       text_prompt: str,
-      enable_safety_checks: bool = True,
-      generation_config: generation_types.GenerationConfigType | None = None,
   ) -> tuple[str, Optional[bool], Any]:
     return self.predict_mm(
-        text_prompt, [], enable_safety_checks, generation_config
+        text_prompt, []
     )
 
   def is_safe(self, raw_response):

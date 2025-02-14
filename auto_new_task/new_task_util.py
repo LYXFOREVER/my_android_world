@@ -79,7 +79,7 @@ def create_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity
     else:
         print(f"File '{file_name}' already exists.")
 
-def extend_file_in_task_pool(agent: t3a.T3A,file_name,package_name,main_activity_name,permission):
+def extend_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity_name,permission):
     """
     扩展该app的任务池
     假如该app的任务池已经建立，但是任务都执行过一边了，就会调用这个函数，利用执行过但是失败了的任务产生新任务

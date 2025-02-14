@@ -57,7 +57,8 @@
         "id": 9,
         "task_description": "在bilibili中观看一场直播并发送弹幕“哈哈哈”.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 10,
@@ -75,7 +76,8 @@
         "id": 12,
         "task_description": "在bilibili中搜索与猫有关的视频，并在视频的评论区下发表评论“猫猫好可爱”.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 13,
@@ -178,5 +180,41 @@
         "task_description": "在bilibili中观看一个有关王者荣耀的直播.",
         "executed": 1,
         "succeeded": 1.0
+    },
+    {
+        "id": 30,
+        "task_description": "在哔哩哔哩中搜索'原神'并播放。",
+        "executed": 0,
+        "succeeded": 0.0
+    },
+    {
+        "id": 31,
+        "task_description": "在哔哩哔哩App中，找到一个关注的UP主，并进入其主页查看ta发布的最新视频。",
+        "executed": 0,
+        "succeeded": 0.0
+    },
+    {
+        "id": 32,
+        "task_description": "在哔哩哔哩App中，进入首页推荐的任意一个视频，点赞并发表一条评论，内容为'这个视频真不错!'",
+        "executed": 0,
+        "succeeded": 0.0
+    },
+    {
+        "id": 33,
+        "task_description": "Open Bilibili and search for '拜年祭'.",
+        "executed": 0,
+        "succeeded": 0.0
+    },
+    {
+        "id": 34,
+        "task_description": "Open Bilibili, navigate to the 'Anime' category, and then scroll through the list and tap on any video. After the video starts, tap the like button.",
+        "executed": 0,
+        "succeeded": 0.0
+    },
+    {
+        "id": 35,
+        "task_description": "Open Bilibili, go to the 'Live' section, and tap on any live streaming channel to open it. Then, send a bullet comment that says '666'.",
+        "executed": 0,
+        "succeeded": 0
     }
 ]
