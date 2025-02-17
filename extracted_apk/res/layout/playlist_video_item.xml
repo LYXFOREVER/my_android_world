@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.common.ui.swipelayout.SwipeLayout android:id="@id/swipe_layout" android:layout_width="fill_parent" android:layout_height="wrap_content" yt:end_background="?ytAdditiveBackground"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <android.support.constraint.ConstraintLayout android:orientation="vertical" android:id="@id/playlist_video_item" android:paddingBottom="10.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false">
+        <com.google.android.libraries.youtube.common.ui.CircularImageView android:layout_gravity="center_horizontal" android:id="@id/contributor_avatar" android:layout_width="24.0dip" android:layout_height="24.0dip" android:layout_marginTop="10.0dip" android:src="@null" android:scaleType="centerCrop" android:contentDescription="@null" android:layout_marginStart="@dimen/playlist_start_padding" yt:layout_constraintStart_toStartOf="@id/video_wrapper" yt:layout_constraintTop_toTopOf="parent" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/detailed_video_title_font_size" android:textColor="?ytTextSecondary" android:ellipsize="end" android:gravity="center_horizontal" android:id="@id/contributor_name" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:layout_marginStart="10.0dip" yt:layout_constraintStart_toEndOf="@id/contributor_avatar" yt:layout_constraintTop_toTopOf="@id/contributor_avatar" yt:robotoFont="regular" />
+        <FrameLayout android:id="@id/video_wrapper" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_marginTop="10.0dip" yt:layout_constraintEnd_toEndOf="parent" yt:layout_constraintStart_toStartOf="parent" yt:layout_constraintTop_toBottomOf="@id/contributor_avatar" yt:layout_constraintWidth_max="@dimen/playlist_header_max_width">
+            <include android:layout_width="fill_parent" android:layout_height="wrap_content" android:baselineAligned="false" layout="@layout/playlist_video_item_body" />
+        </FrameLayout>
+    </android.support.constraint.ConstraintLayout>
+</com.google.android.libraries.youtube.common.ui.swipelayout.SwipeLayout>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/edit_fragment_container" android:background="?ytOverlayBackgroundSolid" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <com.google.android.libraries.youtube.creation.common.ui.ShortsEditCoordinatorLayout android:id="@id/edit_video_container" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <com.google.android.libraries.youtube.creation.editor.ShortsPlayerViewContainer android:layout_gravity="center_horizontal" android:id="@id/shorts_edit_player_view_wrapper" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <com.google.android.libraries.youtube.creation.editor.ShortsPlayerView android:layout_gravity="center" android:id="@id/shorts_edit_player_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                <com.google.android.libraries.youtube.creation.common.ui.CreationFeatureDescriptionView android:layout_gravity="center" android:id="@id/creation_feature_description_view" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+                <include layout="@layout/sticker_trash_can" />
+            </com.google.android.libraries.youtube.creation.editor.ShortsPlayerViewContainer>
+            <FrameLayout android:layout_gravity="top" android:id="@id/shorts_edit_top_bar_container" android:layout_width="fill_parent" android:layout_height="@dimen/reel_edit_top_bar_height">
+                <com.google.android.libraries.youtube.creation.common.ui.CreationButtonView android:id="@id/edit_thumbnail_back" android:layout_width="wrap_content" android:layout_height="wrap_content" yt:buttonContentDescription="@string/shorts_edit_thumbnail_exit" yt:creationButtonLayout="shorts_camera" yt:iconDrawable="@null" />
+                <ImageView android:layout_gravity="end" android:id="@id/edit_thumbnail_done" android:background="@drawable/shorts_circular_icon_bg_light_dynamic" android:padding="8.0dip" android:layout_width="40.0dip" android:layout_height="40.0dip" android:contentDescription="@string/shorts_edit_thumbnail_done" android:layout_marginEnd="16.0dip" android:layout_marginVertical="10.0dip" yt:srcCompat="@drawable/ic_camera_done" />
+            </FrameLayout>
+            <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <include android:layout_gravity="end|center|top" android:id="@id/edit_expandy_toolbar" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:importantForAccessibility="yes" layout="@layout/expandy_toolbar" />
+            </RelativeLayout>
+            <include android:layout_width="fill_parent" android:layout_height="fill_parent" layout="@layout/reel_add_text" />
+        </com.google.android.libraries.youtube.creation.common.ui.ShortsEditCoordinatorLayout>
+    </FrameLayout>
+    <LinearLayout android:layout_gravity="bottom|center" android:orientation="vertical" android:id="@id/shorts_edit_bottom_bar" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.google.android.libraries.youtube.creation.trim.ShortsVideoTrimView2 android:layout_gravity="bottom" android:id="@id/shorts_timeline_filmstrip" android:paddingTop="@dimen/trim_view_padding_vertical" android:paddingBottom="@dimen/trim_view_padding_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:layout_marginHorizontal="12.0dip" yt:alignBoundsToThumbnails="true" yt:enablePlayhead="true" yt:enableThumbnailPlayhead="true" yt:snapToFrames="none" yt:trimBorderWidth="0.0dip" yt:trimHandlePaddingWidth="0.0dip" yt:trimHandleWidth="0.0dip" />
+        <SeekBar android:layout_gravity="bottom" android:id="@id/video_seek_bar" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="48.0dip" />
+    </LinearLayout>
+</LinearLayout>

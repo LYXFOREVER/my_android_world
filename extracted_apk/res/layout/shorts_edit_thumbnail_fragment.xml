@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.creation.common.ui.CreationButtonView android:id="@id/edit_thumbnail_back" android:layout_width="wrap_content" android:layout_height="wrap_content" yt:buttonContentDescription="@string/shorts_edit_thumbnail_exit" yt:iconDrawable="@null" />
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <com.google.android.libraries.youtube.common.ui.FixedAspectRatioFrameLayout android:layout_gravity="center_horizontal" android:id="@id/player_view_container" android:layout_width="wrap_content" android:layout_height="fill_parent">
+            <FrameLayout android:layout_gravity="center" android:id="@id/player_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        </com.google.android.libraries.youtube.common.ui.FixedAspectRatioFrameLayout>
+    </FrameLayout>
+    <com.google.android.libraries.youtube.creation.trim.ShortsVideoTrimView2 android:id="@id/shorts_timeline_filmstrip" android:paddingTop="@dimen/trim_view_padding_vertical" android:paddingBottom="@dimen/trim_view_padding_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="12.0dip" android:layout_marginHorizontal="12.0dip" yt:alignBoundsToThumbnails="true" yt:enablePlayhead="true" yt:enableThumbnailPlayhead="true" yt:snapToFrames="none" yt:trimBorderWidth="0.0dip" yt:trimHandlePaddingWidth="0.0dip" yt:trimHandleWidth="0.0dip" />
+    <SeekBar android:id="@id/video_seek_bar" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="48.0dip" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeButton android:layout_gravity="end" android:id="@id/edit_thumbnail_done" android:layout_width="wrap_content" android:layout_height="@dimen/shorts_rounded_button_height" android:layout_margin="12.0dip" android:text="@string/shorts_edit_thumbnail_done" android:contentDescription="@string/shorts_edit_thumbnail_done" style="@style/ShortsRoundedButton" />
+</LinearLayout>

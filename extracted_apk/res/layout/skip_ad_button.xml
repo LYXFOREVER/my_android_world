@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/skip_ad_button_container" android:contentDescription="@string/skip_ad" style="@style/TextBannerContainer">
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:id="@id/skip_ad_button_text" android:text="@string/skip_ad" style="@style/TextBannerText" />
+        <ImageView android:layout_gravity="center_vertical" android:id="@id/skip_ad_button_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:contentDescription="@null" android:alpha="0.8" />
+    </LinearLayout>
+</merge>

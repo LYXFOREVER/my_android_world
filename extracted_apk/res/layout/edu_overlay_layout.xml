@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/seek_undo_edu_container" style="@style/GenericEduContainerStyle"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/edu_wrapper" android:animateLayoutChanges="true" style="@style/GenericEduWrapperStyle">
+        <com.airbnb.lottie.LottieAnimationView android:id="@id/start_lottie_animation_view" android:visibility="gone" android:layout_width="24.0dip" android:layout_height="36.0dip" android:scaleType="centerInside" android:layout_marginHorizontal="6.0dip" yt:lottie_autoPlay="true" yt:lottie_loop="true" yt:lottie_rawRes="@raw/seek_anim" />
+        <ImageView android:id="@id/edu_preceding_icon" android:visibility="gone" android:longClickable="false" android:layout_width="wrap_content" android:layout_height="32.0dip" android:tint="?ytStaticBrandWhite" android:contentDescription="@null" android:paddingHorizontal="2.0dip" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:id="@id/edu_text" android:paddingHorizontal="2.0dip" style="@style/GenericEduTextStyle" />
+        <ImageView android:id="@id/edu_trailing_icon" android:visibility="gone" android:longClickable="false" android:layout_width="wrap_content" android:layout_height="32.0dip" android:tint="?ytStaticBrandWhite" android:contentDescription="@null" android:paddingHorizontal="2.0dip" />
+    </LinearLayout>
+</FrameLayout>

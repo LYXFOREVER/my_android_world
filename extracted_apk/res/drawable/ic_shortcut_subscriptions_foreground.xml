@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector android:height="108.0dip" android:width="108.0dip" android:viewportWidth="48.0" android:viewportHeight="48.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:translateX="12.0" android:translateY="12.0">
+        <path android:fillColor="@color/shortcut_foreground" android:pathData="M20,7H4V6h16V7zM22,9v12H2V9H22zM15,15l-5,-3v6L15,15zM17,3H7v1h10V3z" />
+    </group>
+</vector>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="128.0dip" android:layout_height="128.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <ImageView android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@null" android:scaleType="fitXY" android:contentDescription="@string/date_sticker_image" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="48.0dip" android:textColor="@color/yt_black1" android:layout_gravity="center" android:id="@id/date" android:layout_width="wrap_content" android:layout_height="wrap_content" yt:youTubeSansFont="bold" />
+</FrameLayout>

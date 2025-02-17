@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/photo_picker_header_top_margin" android:layout_marginBottom="@dimen/photo_picker_header_bottom_margin" android:layout_marginStart="16.0dip" android:layout_marginEnd="@dimen/photo_picker_header_horizontal_margin"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/photo_picker_photos_header_image" android:layout_width="@dimen/photo_picker_header_photo_size" android:layout_height="@dimen/photo_picker_header_photo_size" android:importantForAccessibility="no" android:layout_marginEnd="@dimen/photo_picker_header_text_image_spacing" />
+    <com.google.android.material.textview.MaterialTextView android:textAppearance="?textAppearanceOverline" android:textColor="@color/photo_picker_header_title_text_color" android:gravity="center_vertical" android:id="@id/photo_picker_photos_header_name" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</LinearLayout>

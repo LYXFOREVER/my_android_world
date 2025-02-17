@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:layout_gravity="start" android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="14.0sp" android:textColor="?ytStaticBrandBlack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/shorts_text_to_speech_dialog_title" android:textFontWeight="500" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="14.0sp" android:textColor="?ytStaticBrandBlack" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/shorts_text_to_speech_dialog_paragraph" android:layout_marginEnd="16.0dip" />
+</LinearLayout>

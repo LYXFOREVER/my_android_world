@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.creation.common.ui.ShortsEditTextToSpeechTooltipButtonView android:orientation="horizontal" android:id="@id/shorts_voice_tooltip_button" android:layout_width="wrap_content" android:layout_height="@dimen/shorts_edit_tooltip_item_height" android:paddingStart="@dimen/shorts_edit_tooltip_item_padding" android:paddingEnd="@dimen/shorts_edit_tooltip_item_padding" app:buttonText="" app:iconDrawable="@null"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />

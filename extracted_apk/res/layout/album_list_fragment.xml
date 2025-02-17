@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/album_list_fragment" android:background="?ytBrandBackgroundSolid" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="horizontal" android:id="@id/header_container" android:padding="@dimen/reels_bottom_sheet_padding" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:id="@id/album_page_title" android:padding="@dimen/reels_bottom_sheet_header_item_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/gallery_header_select_album" android:layout_weight="1.0" android:textDirection="locale" android:textAlignment="gravity" yt:robotoFont="medium" style="@style/ReelsBottomSheetTitle" />
+        <ImageView android:layout_gravity="center" android:id="@id/album_page_close_button" android:background="@drawable/close_button_background" android:padding="@dimen/reels_bottom_sheet_header_item_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:tint="?ytTextSecondary" android:layout_weight="0.0" android:contentDescription="@string/accessibility_bottom_sheet_close_button" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb" android:scrollbarStyle="insideOverlay" android:id="@id/album_list_recycler_view" android:scrollbars="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/album_list_recycler_view_top_margin" />
+</LinearLayout>

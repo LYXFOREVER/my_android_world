@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ViewStub android:id="@id/app_promo_ad_cta_overlay_stub" android:layout="@layout/app_promo_ad_cta_overlay" android:inflatedId="@id/app_promo_ad_cta_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/modern_app_promo_ad_cta_overlay_stub" android:layout="@layout/modern_app_promo_ad_cta_overlay" android:inflatedId="@id/modern_app_promo_ad_cta_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/two_line_headline_collapsible_ad_cta_overlay_stub" android:layout="@layout/two_line_headline_collapsible_ad_cta_overlay" android:inflatedId="@id/two_line_headline_collapsible_ad_cta_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/two_line_headline_collapsible_ad_cta_overlay_stub_v2" android:layout="@layout/two_line_headline_collapsible_ad_cta_overlay_v2" android:inflatedId="@id/two_line_headline_collapsible_ad_cta_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/elements_ad_cta_overlay_stub" android:layout="@layout/elements_ad_cta_overlay" android:inflatedId="@id/elements_ad_cta_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/leave_behind_ad_cta_overlay_stub" android:layout="@layout/leave_behind_ad_cta_overlay" android:inflatedId="@id/leave_behind_ad_cta_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/leave_behind_ad_cta_overlay_stub_v2" android:layout="@layout/leave_behind_ad_cta_overlay_v2" android:inflatedId="@id/leave_behind_ad_cta_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</FrameLayout>

@@ -1,0 +1,2 @@
+
+syn|50c7e7c54d7db186¡var xg=class extends L{static j(){return new xg(z(1))}static parse(a){return new xg(A(a,1))}create(a){return new xg(a)}static get h(){return new M(170382688,a=>I(a,170382688,b=>new xg(b),1),(a,b)=>{F(a,170382688,b,11)})}get h(){return J(this.g,1,a=>new R(a),0)}set h(a){F(this.g,1,a,11)}};(†ãöëÔøùãP

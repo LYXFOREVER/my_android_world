@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/reel_ghost_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:gravity="bottom|center" android:layout_gravity="end|bottom|center" android:orientation="vertical" android:id="@id/reel_dyn_lazy_loader_bar" android:layout_width="@dimen/reel_player_right_dyn_bar_width" android:layout_height="wrap_content">
+        <include layout="@layout/reel_player_right_lazy_loader_cell" />
+        <include layout="@layout/reel_player_right_lazy_loader_cell" />
+        <include layout="@layout/reel_player_right_lazy_loader_cell" />
+        <include layout="@layout/reel_player_right_lazy_loader_cell" />
+        <include layout="@layout/reel_player_right_lazy_loader_cell" />
+        <include layout="@layout/reel_player_right_lazy_loader_pivot_cell" />
+    </LinearLayout>
+    <com.airbnb.lottie.LottieAnimationView android:layout_gravity="start|bottom|center" android:id="@id/reel_lazy_loader_anim" android:paddingBottom="@dimen/reel_player_right_container_lazy_loader_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="fitStart" android:paddingStart="@dimen/reel_player_right_container_lazy_loader_padding" app:lottie_autoPlay="true" app:lottie_loop="true" app:lottie_rawRes="@raw/lazy_loader_rhs_large_avatar" />
+</FrameLayout>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:paddingBottom="@dimen/generated_thumbnail_prompt_term_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/generated_thumbnail_prompt_term_bottom_margin" android:layout_marginHorizontal="@dimen/generated_thumbnail_prompt_term_margin" android:paddingHorizontal="@dimen/generated_thumbnail_prompt_term_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.android.libraries.youtube.rendering.ui.spec.typography.YouTubeAppCompatTextView android:id="@id/term_text" android:background="@drawable/prompt_term_dashed_underline" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:includeFontPadding="false" />
+</FrameLayout>

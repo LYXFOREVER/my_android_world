@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout android:id="@id/accessibility_layer_container" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:backgroundViewId="@id/main_layout_wrapper">
+        <FrameLayout android:id="@id/creation_modes_fragment_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <com.google.android.apps.youtube.app.common.ui.bottomui.BottomUiContainer android:layout_gravity="bottom|center" android:id="@id/bottom_ui_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout android:gravity="center" android:id="@id/creation_modes_activity_loading_layout" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:progressViewLayout="@layout/creation_modes_loading_layout" />
+    </com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout>
+</FrameLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <ViewStub android:id="@id/avatar_stub" android:layout="@layout/chip_cloud_chip_avatar" android:inflatedId="@id/chip_cloud_chip_avatar" android:layout_width="@dimen/cloud_chip_height" android:layout_height="@dimen/cloud_chip_height" />
+    <ViewStub android:layout_gravity="center_vertical" android:id="@id/icon_stub" android:layout="@layout/chip_cloud_chip_icon" android:inflatedId="@id/chip_cloud_chip_icon" android:layout_width="@dimen/cloud_chip_icon_height" android:layout_height="@dimen/cloud_chip_icon_height" android:layout_marginStart="@dimen/cloud_chip_icon_start_margin" />
+    <ViewStub android:layout_gravity="center_vertical" android:id="@id/checkbox_icon_stub" android:layout="@layout/chip_cloud_chip_checkbox_icon" android:inflatedId="@id/chip_cloud_chip_checkbox_icon" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <ViewStub android:id="@id/text_stub" android:layout="@layout/chip_cloud_chip_text" android:inflatedId="@id/chip_cloud_chip_text" android:layout_width="wrap_content" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/modern_text_stub" android:layout="@layout/chip_cloud_chip_modern_text" android:inflatedId="@id/chip_cloud_chip_modern_text" android:layout_width="wrap_content" android:layout_height="fill_parent" />
+    <ViewStub android:layout_gravity="center" android:id="@id/tune_it_emoji_stub" android:layout="@layout/chip_cloud_chip_tune_it_emoji" android:inflatedId="@id/chip_cloud_chip_tune_it_emoji" android:layout_width="wrap_content" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/tune_it_text_stub" android:layout="@layout/chip_cloud_chip_tune_it_text" android:inflatedId="@id/chip_cloud_chip_tune_it_text" android:layout_width="wrap_content" android:layout_height="fill_parent" />
+</merge>

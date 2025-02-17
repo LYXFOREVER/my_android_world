@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.creation.common.ui.ShortsEditCoordinatorLayout android:id="@id/shorts_edit_container" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.constraintlayout.widget.ConstraintLayout android:id="@id/shorts_edit_constraint_container" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/edit_fragment_container" android:layout_width="0.0dip" android:layout_height="0.0dip" android:clipToOutline="true" app:layout_constraintBottom_toTopOf="@id/edit_bottom_bar_container" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toTopOf="parent">
+            <include layout="@layout/shorts_edit_fragment_2" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+        <View android:id="@id/edit_background_protection" android:background="@android:color/transparent" android:layout_width="0.0dip" android:layout_height="60.0dip" app:layout_constraintBottom_toBottomOf="@id/edit_fragment_container" app:layout_constraintLeft_toLeftOf="@id/edit_fragment_container" app:layout_constraintRight_toRightOf="@id/edit_fragment_container" />
+        <FrameLayout android:id="@id/edit_bottom_bar_container" android:layout_width="0.0dip" android:layout_height="@dimen/shorts_edit_bottom_bar_container_height" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintLeft_toLeftOf="parent" app:layout_constraintRight_toRightOf="parent" app:layout_constraintTop_toBottomOf="@id/edit_fragment_container">
+            <include layout="@layout/shorts_edit_bottom_bar" />
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/popup_content" android:layout_width="fill_parent" android:layout_height="wrap_content" app:layout_behavior="com.google.android.libraries.youtube.creation.common.ui.LockedBottomSheetBehavior" />
+    <FrameLayout android:layout_gravity="bottom" android:id="@id/draggable_popup_content" android:layout_width="fill_parent" android:layout_height="wrap_content" app:behavior_hideable="true" app:behavior_peekHeight="0.0dip" app:behavior_skipCollapsed="true" app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+</com.google.android.libraries.youtube.creation.common.ui.ShortsEditCoordinatorLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/shorts_camera_corner_icon_fill_color" />
+            <corners android:radius="@dimen/shorts_camera_corner_icon_border_corner_radius" />
+            <stroke android:width="@dimen/shorts_camera_corner_icon_stroke_width" android:color="@color/shorts_camera_corner_icon_stroke_color" />
+        </shape>
+    </item>
+    <item android:drawable="@null" android:left="@dimen/shorts_camera_next_button_layout_padding" android:top="@dimen/shorts_camera_next_button_layout_padding" android:right="@dimen/shorts_camera_next_button_layout_padding" android:bottom="@dimen/shorts_camera_next_button_layout_padding" />
+</layer-list>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/miniplayer_chevron_container" android:background="@drawable/miniplayer_chevron_background" android:layout_width="24.0dip" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.TouchImageView android:layout_gravity="center|left" android:id="@id/miniplayer_left_chevron" android:layout_width="24.0dip" android:layout_height="fill_parent" android:src="@drawable/chevron_miniplayer_stashed" android:scaleType="center" android:tint="?ytTextSecondary" android:rotation="180.0" android:layoutDirection="ltr" style="@style/YouTubePlayerButton" />
+    <com.google.android.libraries.youtube.common.ui.TouchImageView android:layout_gravity="center|right" android:id="@id/miniplayer_right_chevron" android:layout_width="24.0dip" android:layout_height="fill_parent" android:src="@drawable/chevron_miniplayer_stashed" android:scaleType="center" android:tint="?ytTextSecondary" android:layoutDirection="ltr" style="@style/YouTubePlayerButton" />
+</FrameLayout>

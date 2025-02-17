@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.common.ui.RoundedFrameLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:corners="8.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout android:id="@id/video_player_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:minWidth="200.0dip" android:minHeight="200.0dip" android:layout_alignParentBottom="true">
+        <SurfaceView android:orientation="vertical" android:id="@id/video_player_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout>
+</com.google.android.libraries.youtube.common.ui.RoundedFrameLayout>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+        <include layout="@layout/section_list" />
+        <FrameLayout android:layout_gravity="bottom" android:id="@id/fab_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/pivot_fab_bottom_margin" />
+    </FrameLayout>
+    <FrameLayout android:id="@id/footer_container" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+</LinearLayout>

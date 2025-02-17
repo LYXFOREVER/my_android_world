@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@id/photo_picker_past_profile_photos_menu_item" android:visible="true" android:title="@string/op3_menu_past_profile_pictures" app:showAsAction="never" />
+    <item android:id="@id/photo_picker_help_menu_item" android:visible="true" android:title="@string/op3_menu_help" app:showAsAction="never" />
+    <item android:id="@id/photo_picker_send_feedback_menu_item" android:visible="true" android:title="@string/op3_menu_send_feedback" app:showAsAction="never" />
+</menu>

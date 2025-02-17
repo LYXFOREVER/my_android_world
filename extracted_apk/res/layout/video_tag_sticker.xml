@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView android:layout_gravity="center" android:layout_width="wrap_content" android:layout_height="wrap_content" card_view:cardBackgroundColor="?ytTextPrimary" card_view:cardCornerRadius="@dimen/dynamic_sticker_bg_corner" card_view:cardElevation="@dimen/video_sticker_elevation"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto" xmlns:card_view="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="wrap_content" android:layout_height="@dimen/dynamic_sticker_height">
+        <ImageView android:id="@id/video_link_icon" android:focusable="false" android:layout_width="@dimen/dynamic_sticker_icon_size" android:layout_height="@dimen/dynamic_sticker_icon_size" android:src="@null" android:layout_centerVertical="true" android:contentDescription="@null" android:layout_marginStart="@dimen/dynamic_sticker_icon_start_margin" android:layout_marginEnd="@dimen/dynamic_sticker_text_icon_margin" android:layout_alignParentStart="true" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/dynamic_sticker_text_size" android:textColor="?ytTextPrimaryInverse" android:ellipsize="end" android:id="@id/video_title_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" android:maxEms="@integer/user_mention_sticker_max_ems" android:includeFontPadding="false" android:layout_centerVertical="true" android:layout_marginEnd="@dimen/dynamic_sticker_end_margin" android:layout_toEndOf="@id/video_link_icon" card_view:youTubeSansFont="semibold" />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

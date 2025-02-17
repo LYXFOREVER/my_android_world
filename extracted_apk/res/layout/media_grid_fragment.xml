@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/media_grid_fragment" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/media_grid_root" android:background="?ytBrandBackgroundSolid" android:padding="0.0dip" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:gravity="start|center" android:orientation="vertical" android:id="@id/gallery_header" android:padding="@dimen/reels_bottom_sheet_padding" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_weight="0.0">
+            <LinearLayout android:gravity="start|center" android:orientation="horizontal" android:id="@id/gallery_header_cross_button_and_title" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <ImageView android:id="@id/close_button" android:background="@drawable/close_button_background" android:padding="@dimen/reels_bottom_sheet_header_item_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:tint="?ytTextPrimary" android:contentDescription="@string/accessibility_bottom_sheet_close_button" android:layout_marginStart="@dimen/gallery_header_icon_margin" />
+                <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/gallery_header_title_text" android:id="@id/gallery_title" android:padding="@dimen/reels_bottom_sheet_header_item_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" yt:robotoFont="medium" yt:youTubeSansFont="bold" style="@style/ReelsBottomSheetTitle" />
+            </LinearLayout>
+            <include android:id="@id/media_picker_album_selection_header" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/media_picker_album_select_gallery_header" />
+            <LinearLayout android:orientation="vertical" android:id="@id/partial_permissions_banner_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginStart="16.0dip" android:layout_marginEnd="16.0dip" />
+        </LinearLayout>
+        <FrameLayout android:id="@id/gallery_contents" android:padding="0.0dip" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0">
+            <LinearLayout android:layout_gravity="center" android:orientation="vertical" android:id="@id/gallery_grid_container" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <com.google.android.libraries.youtube.creation.mediapicker.MediaGridRecyclerView android:scrollbarThumbVertical="@drawable/scrollbar_vertical_thumb" android:scrollbarStyle="insideOverlay" android:gravity="center" android:id="@id/media_grid_recycler_view" android:background="@color/gallery_recycler_view_background" android:paddingLeft="0.0dip" android:paddingTop="@dimen/gallery_thumb_margin" android:paddingRight="0.0dip" android:paddingBottom="0.0dip" android:scrollbars="vertical" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0" android:overScrollMode="never" />
+                <include android:id="@id/multi_select_footer" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/multi_select_footer_view" />
+            </LinearLayout>
+            <LinearLayout android:gravity="center" android:orientation="vertical" android:id="@id/media_grid_zero_state" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <TextView android:textSize="@dimen/gallery_text_size_primary" android:textColor="?ytTextPrimary" android:id="@id/media_grid_zero_state_grid_text_primary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/gallery_text_primary_top_margin" />
+                <TextView android:textSize="@dimen/gallery_text_size_secondary" android:textColor="?ytTextPrimary" android:id="@id/media_grid_zero_state_grid_text_secondary" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/gallery_text_secondary_top_margin" />
+            </LinearLayout>
+        </FrameLayout>
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

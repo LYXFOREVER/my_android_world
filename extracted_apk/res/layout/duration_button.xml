@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:layout_gravity="center" android:id="@id/duration_button_background" android:background="@drawable/duration_toggle_button_background" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody2b" android:textColor="?ytTextPrimary" android:layout_gravity="center" android:id="@id/duration_button_text" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+</FrameLayout>

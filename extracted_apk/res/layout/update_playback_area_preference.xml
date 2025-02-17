@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <ViewSwitcher android:id="@id/widget_container" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="4.0dip" android:layout_alignParentEnd="true">
+        <com.google.android.libraries.youtube.common.ui.YouTubeButton android:textAppearance="?ytTextAppearanceButton" android:textSize="@dimen/extra_small_font_size" android:textColor="?ytCallToAction" android:id="@id/cta_button" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16.0dip" android:textAllCaps="true" yt:robotoFont="medium" />
+        <ProgressBar android:id="@id/loading_spinner" android:layout_width="wrap_content" android:layout_height="fill_parent" style="?android:progressBarStyle" />
+    </ViewSwitcher>
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:padding="16.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_toStartOf="@id/widget_container" android:layout_alignParentStart="true">
+        <TextView android:textAppearance="?ytTextAppearanceTitle2" android:id="@android:id/title" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        <TextView android:textAppearance="?ytTextAppearanceBody2a" android:textColor="?ytTextSecondary" android:id="@android:id/summary" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

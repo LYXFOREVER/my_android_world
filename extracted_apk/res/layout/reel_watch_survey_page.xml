@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="@color/reel_player_survey_background" android:layout_width="fill_parent" android:layout_height="fill_parent" android:contentDescription="@string/reel_accessibility_survey_page" android:layoutDirection="locale"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/reel_player_back_button" />
+    <FrameLayout android:id="@id/reel_watch_survey_element_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_centerInParent="true" android:importantForAccessibility="yes" />
+    <include layout="@layout/reel_player_navigation_controls" />
+</RelativeLayout>

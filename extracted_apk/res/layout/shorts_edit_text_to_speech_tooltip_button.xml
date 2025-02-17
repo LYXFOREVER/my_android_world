@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:layout_width="@dimen/shorts_edit_tooltip_button_width" android:layout_height="wrap_content">
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody2b" android:textSize="@dimen/shorts_edit_tooltip_button_text_size" android:textColor="?ytTextPrimary" android:id="@id/shorts_edit_text_to_speech_tooltip_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:lineSpacingExtra="@dimen/shorts_edit_tooltip_button_line_spacing_extra" android:layout_marginStart="@dimen/shorts_edit_tooltip_button_text_margin" android:layout_marginEnd="@dimen/shorts_edit_tooltip_button_text_margin" android:layout_alignParentStart="true" />
+        <com.airbnb.lottie.LottieAnimationView android:id="@id/shorts_edit_text_to_speech_tooltip_animation" android:visibility="invisible" android:layout_width="@dimen/shorts_edit_tooltip_button_drawable_icon_size" android:layout_height="wrap_content" android:layout_marginEnd="@dimen/shorts_edit_tooltip_button_margin_end" android:layout_toEndOf="@id/shorts_edit_text_to_speech_tooltip_text" app:lottie_loop="true" app:lottie_rawRes="@raw/music_sound_wave_playing" />
+        <ImageView android:id="@id/shorts_edit_text_to_speech_tooltip_icon" android:clickable="false" android:layout_width="@dimen/shorts_edit_tooltip_button_drawable_icon_size" android:layout_height="wrap_content" android:tint="?ytTextPrimary" android:layout_centerVertical="true" android:contentDescription="@string/shorts_a11y_tts_selected_voice" android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+</merge>

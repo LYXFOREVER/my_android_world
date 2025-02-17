@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:orientation="vertical" android:id="@id/sticker_catalog_container" android:background="?ytBaseBackground" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <RelativeLayout android:id="@id/sticker_top_container" android:layout_width="wrap_content" android:layout_height="@dimen/tab_header_height">
+            <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="20.0sp" android:textColor="?ytStaticBrandWhite" android:gravity="center_vertical" android:id="@id/sticker_catalog_title" android:layout_width="wrap_content" android:layout_height="fill_parent" android:layout_marginStart="12.0dip" android:layout_alignParentStart="true" yt:robotoFont="medium" />
+            <ProgressBar android:id="@id/spinner" android:visibility="gone" android:layout_width="24.0dip" android:layout_height="24.0dip" android:layout_margin="12.0dip" android:layout_alignWithParentIfMissing="true" android:layout_toStartOf="@id/sticker_catalog_close" style="@style/ReelStickerCatalogSpinner" />
+            <ImageView android:id="@id/sticker_catalog_close" android:background="?selectableItemBackgroundBorderless" android:padding="12.0dip" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_centerVertical="true" android:contentDescription="@string/reel_accessibility_close_activity" android:layout_alignParentEnd="true" />
+        </RelativeLayout>
+        <com.google.android.libraries.youtube.rendering.ui.tabs.DefaultTabsBar android:id="@id/sticker_page_tab_bar" android:layout_width="fill_parent" android:layout_height="@dimen/tab_header_height" yt:tab_content_color="?ytStaticBrandWhite" yt:tab_scroll_margin="@dimen/tab_header_height" />
+        <include android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/tabs_bar" />
+    </LinearLayout>
+</merge>

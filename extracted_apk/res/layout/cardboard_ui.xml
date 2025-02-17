@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageButton android:layout_gravity="start|center|top" android:id="@id/ui_back_button" android:layout_width="84.0dip" android:layout_height="84.0dip" android:src="@drawable/cardboard_oss_quantum_ic_close_white_24" android:contentDescription="\@strings/back_button_description" style="@style/UiButton" />
+    <FrameLayout android:layout_gravity="bottom|center" android:id="@id/ui_alignment_marker" android:background="@color/alignment_marker_color" android:layout_width="@dimen/alignment_marker_thickness" android:layout_height="@dimen/alignment_marker_height" />
+    <ImageButton android:layout_gravity="end|center|top" android:id="@id/ui_settings_button" android:layout_width="84.0dip" android:layout_height="84.0dip" android:src="@drawable/cardboard_oss_quantum_ic_settings_white_24" android:contentDescription="\@strings/back_button_description" style="@style/UiButton" />
+</FrameLayout>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout style="@style/PlayerOverlayEduContainerStyle"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <LinearLayout style="@style/PlayerOverlayEduWrapperStyle">
+        <ImageView android:id="@id/fine_scrubbing_edu_up_icon" android:longClickable="false" android:layout_width="wrap_content" android:layout_height="32.0dip" android:src="@null" android:tint="?ytStaticBrandWhite" android:contentDescription="@null" android:layout_marginEnd="12.0dip" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:id="@id/fine_scrubbing_edu_text" android:text="@string/fine_scrubbing_edu" style="@style/PlayerOverlayEduTextStyle" />
+    </LinearLayout>
+</FrameLayout>

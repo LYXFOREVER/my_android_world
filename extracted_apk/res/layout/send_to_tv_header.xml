@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody2b" android:textSize="20.0sp" android:textStyle="bold" android:gravity="bottom|center" android:id="@id/send_to_tv_header_title" android:paddingBottom="@dimen/send_to_tv_header_title_padding_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="32.0dip" android:paddingStart="18.0dip" android:paddingEnd="18.0dip" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?textAppearanceSubhead" android:gravity="center_vertical" android:id="@id/send_to_tv_header_subtitle" android:paddingBottom="@dimen/send_to_tv_header_image_padding_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingStart="18.0dip" android:paddingEnd="18.0dip" />
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/imageView" android:paddingBottom="@dimen/send_to_tv_header_image_padding_bottom" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:contentDescription="@string/send_to_tv_image_content_description" />
+</LinearLayout>

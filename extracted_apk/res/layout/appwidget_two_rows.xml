@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:theme="@style/AAG.Theme.AppWidget" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="vertical" android:id="@id/quick_actions_layout_wrapper" android:layout_width="fill_parent" android:layout_height="fill_parent" android:baselineAligned="false"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/bg_appwidget_container" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="@dimen/widget_one_row_height" android:layout_margin="0.0dip" android:baselineAligned="false" style="@style/AAG.AppWidget.Background">
+        <include layout="@layout/appwidget_searchbar" />
+    </LinearLayout>
+    <LinearLayout android:orientation="horizontal" android:id="@id/quick_actions_buttons_layout" android:layout_width="fill_parent" android:layout_height="@dimen/widget_min_height_actions" android:baselineAligned="false" android:radius="@dimen/widget_container_corner" style="@style/AAG.AppWidget.Background.SurfaceVariant">
+        <FrameLayout android:id="@id/button_home_container" android:background="@drawable/bg_aag_appwidget_button_rect_tall" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" android:layout_marginStart="@dimen/widget_second_row_button_margin" android:layout_marginEnd="@dimen/widget_second_row_button_margin">
+            <TextView android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/home" android:drawableTop="@null" style="@style/WidgetSearchButtonMedium" />
+            <Button android:id="@id/widget_home_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:contentDescription="@string/home" style="@style/WidgetSearchButtonMedium" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/button_shorts_container" android:background="@drawable/bg_aag_appwidget_button_rect_tall" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" android:layout_marginStart="@dimen/widget_second_row_button_margin" android:layout_marginEnd="@dimen/widget_second_row_button_margin">
+            <TextView android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/shorts" android:drawableTop="@null" style="@style/WidgetSearchButtonMedium" />
+            <Button android:id="@id/widget_shorts_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:contentDescription="@string/shorts" style="@style/WidgetSearchButtonMedium" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/button_subscription_container" android:background="@drawable/bg_aag_appwidget_button_rect_tall" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" android:layout_marginStart="@dimen/widget_second_row_button_margin" android:layout_marginEnd="@dimen/widget_second_row_button_margin">
+            <TextView android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/subscriptions" android:drawableTop="@null" style="@style/WidgetSearchButtonMedium" />
+            <Button android:id="@id/widget_subscriptions_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:contentDescription="@string/subscriptions" style="@style/WidgetSearchButtonMedium" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/button_library_container" android:background="@drawable/bg_aag_appwidget_button_rect_tall" android:visibility="gone" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" android:layout_marginStart="@dimen/widget_second_row_button_margin">
+            <TextView android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/library" android:drawableTop="@null" style="@style/WidgetSearchButtonMedium" />
+            <Button android:id="@id/widget_library_button" android:layout_width="fill_parent" android:layout_height="fill_parent" android:contentDescription="@string/library" style="@style/WidgetSearchButtonMedium" />
+        </FrameLayout>
+    </LinearLayout>
+</LinearLayout>

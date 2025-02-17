@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/pull_to_full_modern_edu_text_size" android:textColor="?ytOverlayTextPrimary" android:gravity="center" android:id="@id/pull_to_full_modern_edu" android:layout_width="0.0dip" android:layout_height="0.0dip" android:text="@string/pull_to_full_modern_edu_text"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

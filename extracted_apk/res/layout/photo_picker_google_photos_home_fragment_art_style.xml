@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewAnimator android:id="@id/photo_picker_view_animator_container" android:layout_width="fill_parent" android:layout_height="fill_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.core.widget.NestedScrollView android:id="@id/photo_picker_content_view" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="vertical" android:id="@id/photo_picker_google_photos_home_sections_container" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </androidx.core.widget.NestedScrollView>
+    <com.google.android.material.progressindicator.LinearProgressIndicator android:id="@id/photo_picker_loading_view" android:layout_width="fill_parent" android:layout_height="wrap_content" android:indeterminate="true" app:indicatorColor="?colorPrimaryGoogle" app:indicatorSize="4.0dip" />
+    <com.google.android.libraries.user.profile.photopicker.common.view.error.FullscreenErrorView android:id="@id/photo_picker_error_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</ViewAnimator>

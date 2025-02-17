@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <corners android:radius="@dimen/reel_effects_control_input_container_corner_radius_for_circle" />
+    <solid android:color="?ytRaisedBackground" />
+</shape>

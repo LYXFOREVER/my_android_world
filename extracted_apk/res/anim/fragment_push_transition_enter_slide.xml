@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<set android:interpolator="@android:interpolator/fast_out_slow_in" android:shareInterpolator="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <translate android:duration="@integer/fragment_push_slide_duration_ms" android:fromXDelta="100.0%p" android:toXDelta="0.0" />
+</set>

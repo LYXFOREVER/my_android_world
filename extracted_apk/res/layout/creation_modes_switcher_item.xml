@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/creation_modes_switcher_item" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.android.libraries.youtube.creation.common.ui.modeswitcher.CreationModesSwitcherButtonView android:textAppearance="?ytTextAppearanceBody2b" android:textColor="@color/creation_modes_switcher_button_view_text" android:gravity="center" android:id="@id/creation_mode_button" android:paddingLeft="@dimen/creation_modes_switcher_button_pad" android:paddingRight="@dimen/creation_modes_switcher_button_pad" android:layout_width="wrap_content" android:layout_height="@dimen/creation_modes_switcher_height" android:includeFontPadding="false" app:robotoFont="medium"
+      xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto" />
+    <ImageView android:layout_gravity="end|center|top" android:id="@id/creation_mode_new_feature_indicator" android:visibility="gone" android:layout_width="@dimen/creation_mode_new_feature_indicator_size" android:layout_height="@dimen/creation_mode_new_feature_indicator_size" android:src="@drawable/shorts_new_feature_indicator" />
+</FrameLayout>

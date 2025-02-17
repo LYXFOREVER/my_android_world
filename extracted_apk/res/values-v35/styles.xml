@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="OptOutEdgeToEdgeEnforcement" />
+    <style name="Theme.YouTube.Dark" parent="@style/Base.V35.Theme.YouTube.Dark" />
+    <style name="Theme.YouTube.ElementsDialogFullScreen" parent="@style/Base.Theme.YouTube.ElementsDialogFullScreen">
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+    </style>
+    <style name="Theme.YouTube.Light" parent="@style/Base.V35.Theme.YouTube.Light" />
+    <style name="Base.V35.Theme.YouTube.Dark" parent="@style/Base.V27.Theme.YouTube.Dark">
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+    </style>
+    <style name="Base.V35.Theme.YouTube.Light" parent="@style/Base.V27.Theme.YouTube.Light">
+        <item name="android:windowLayoutInDisplayCutoutMode">always</item>
+    </style>
+</resources>

@@ -1,0 +1,743 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Base.Theme.AppCompat" parent="@style/Base.V28.Theme.AppCompat" />
+    <style name="Base.Theme.AppCompat.Light" parent="@style/Base.V28.Theme.AppCompat.Light" />
+    <style name="Base.V14.ThemeOverlay.GoogleMaterial.MaterialAlertDialog" parent="@style/ThemeOverlay.MaterialComponents.MaterialAlertDialog">
+        <item name="android:backgroundDimAmount">0.6</item>
+        <item name="android:checkedTextViewStyle">@style/Widget.GoogleMaterial.CheckedTextView</item>
+        <item name="android:dialogCornerRadius">@dimen/google_dialog_corner_radius</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.GoogleMaterial</item>
+        <item name="buttonBarButtonStyle">@style/Widget.GoogleMaterial.Button.TextButton.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.GoogleMaterial.Button.TextButton.Dialog</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.GoogleMaterial.Button.TextButton.Dialog.Flush</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.GoogleMaterial.Button.TextButton.Dialog</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.GoogleMaterial.Body.Text</item>
+        <item name="materialAlertDialogTitleTextStyle">@style/MaterialAlertDialog.GoogleMaterial.Title.Text</item>
+    </style>
+    <style name="Base.V14.ThemeOverlay.MaterialComponents.MaterialAlertDialog" parent="@style/ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:backgroundDimAmount">@dimen/m3_comp_scrim_container_opacity</item>
+        <item name="android:checkedTextViewStyle">@style/Widget.MaterialComponents.CheckedTextView</item>
+        <item name="android:dialogCornerRadius">@null</item>
+        <item name="alertDialogStyle">@style/MaterialAlertDialog.MaterialComponents</item>
+        <item name="buttonBarButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
+        <item name="buttonBarNegativeButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
+        <item name="buttonBarNeutralButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog.Flush</item>
+        <item name="buttonBarPositiveButtonStyle">@style/Widget.MaterialComponents.Button.TextButton.Dialog</item>
+        <item name="materialAlertDialogBodyTextStyle">@style/MaterialAlertDialog.MaterialComponents.Body.Text</item>
+        <item name="materialAlertDialogButtonSpacerVisibility">@integer/mtrl_view_invisible</item>
+    </style>
+    <style name="CreationEntryDialog" parent="@style/Theme.YouTube.Light.Dialog">
+        <item name="android:windowBackground">?ytBaseBackground</item>
+        <item name="android:windowAnimationStyle">@style/CreationEntryDialogAnimation</item>
+        <item name="android:windowLayoutInDisplayCutoutMode">never</item>
+    </style>
+    <style name="SucGlifMaterialButton.Primary" parent="@style/Widget.Material3.Button">
+        <item name="android:theme">@style/SucGlifMaterialButton.Primary</item>
+        <item name="android:buttonStyle">@style/SucGlifMaterialButton.Primary</item>
+        <item name="android:textSize">?sucFooterBarButtonTextSize</item>
+        <item name="android:paddingLeft">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingRight">?sucFooterButtonPaddingEnd</item>
+        <item name="android:minHeight">?sucFooterBarButtonMinHeight</item>
+        <item name="android:insetTop">0.0dip</item>
+        <item name="android:insetBottom">0.0dip</item>
+        <item name="android:lineSpacingExtra">?sucFooterButtonTextLineSpacingExtra</item>
+        <item name="android:textAllCaps">?sucFooterBarButtonAllCaps</item>
+        <item name="android:fontFamily">?sucFooterBarButtonFontFamily</item>
+        <item name="android:paddingStart">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingEnd">?sucFooterButtonPaddingEnd</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:buttonCornerRadius">?sucFooterBarButtonCornerRadius</item>
+        <item name="android:textFontWeight">?sucFooterBarButtonFontWeight</item>
+        <item name="sucMaterialButtonStyle">@style/SucGlifMaterialButton.Primary</item>
+        <item name="viewInflaterClass">com.google.android.material.theme.MaterialComponentsViewInflater</item>
+    </style>
+    <style name="SucGlifMaterialButton.Secondary" parent="@style/Widget.Material3.Button.OutlinedButton">
+        <item name="android:theme">@style/SucGlifMaterialButton.Secondary</item>
+        <item name="android:buttonStyle">@style/SucGlifMaterialButton.Secondary</item>
+        <item name="android:textSize">?sucFooterBarButtonTextSize</item>
+        <item name="android:paddingLeft">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingRight">?sucFooterButtonPaddingEnd</item>
+        <item name="android:minWidth">0.0dip</item>
+        <item name="android:minHeight">?sucFooterBarButtonMinHeight</item>
+        <item name="android:insetTop">0.0dip</item>
+        <item name="android:insetBottom">0.0dip</item>
+        <item name="android:lineSpacingExtra">?sucFooterButtonTextLineSpacingExtra</item>
+        <item name="android:textAllCaps">?sucFooterBarButtonAllCaps</item>
+        <item name="android:fontFamily">?sucFooterBarButtonFontFamily</item>
+        <item name="android:paddingStart">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingEnd">?sucFooterButtonPaddingEnd</item>
+        <item name="android:colorControlHighlight">@color/suc_customization_button_highlight_ripple</item>
+        <item name="android:buttonCornerRadius">?sucFooterBarButtonCornerRadius</item>
+        <item name="android:textFontWeight">?sucFooterBarButtonFontWeight</item>
+        <item name="sucFooterBarButtonColorControlHighlight">@color/suc_customization_button_highlight_ripple</item>
+        <item name="sucMaterialOutlinedButtonStyle">@style/SucGlifMaterialButton.Secondary</item>
+        <item name="viewInflaterClass">com.google.android.material.theme.MaterialComponentsViewInflater</item>
+    </style>
+    <style name="SucPartnerCustomizationButton.Primary" parent="@android:style/Widget.Material.Button.Colored">
+        <item name="android:theme">@style/SucPartnerCustomizationButton.Primary</item>
+        <item name="android:buttonStyle">@style/SucPartnerCustomizationButton.Primary</item>
+        <item name="android:paddingLeft">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingRight">?sucFooterButtonPaddingEnd</item>
+        <item name="android:textAllCaps">?sucFooterBarButtonAllCaps</item>
+        <item name="android:fontFamily">?sucFooterBarButtonFontFamily</item>
+        <item name="android:paddingStart">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingEnd">?sucFooterButtonPaddingEnd</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:buttonCornerRadius">?sucFooterBarButtonCornerRadius</item>
+    </style>
+    <style name="SucPartnerCustomizationButton.Secondary" parent="@android:style/Widget.Material.Button.Borderless.Colored">
+        <item name="android:theme">@style/SucPartnerCustomizationButton.Secondary</item>
+        <item name="android:buttonStyle">@style/SucPartnerCustomizationButton.Secondary</item>
+        <item name="android:paddingLeft">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingRight">?sucFooterButtonPaddingEnd</item>
+        <item name="android:minWidth">0.0dip</item>
+        <item name="android:textAllCaps">?sucFooterBarButtonAllCaps</item>
+        <item name="android:fontFamily">?sucFooterBarButtonFontFamily</item>
+        <item name="android:paddingStart">?sucFooterButtonPaddingStart</item>
+        <item name="android:paddingEnd">?sucFooterButtonPaddingEnd</item>
+        <item name="android:colorControlHighlight">@color/suc_customization_button_highlight_ripple</item>
+        <item name="android:buttonCornerRadius">?sucFooterBarButtonCornerRadius</item>
+        <item name="sucFooterBarButtonColorControlHighlight">@color/suc_customization_button_highlight_ripple</item>
+    </style>
+    <style name="SudGlifButton.Primary" parent="@style/Widget.AppCompat.Button.Colored">
+        <item name="android:theme">@style/SudGlifButton.Primary</item>
+        <item name="android:buttonStyle">@style/SudGlifButton.Primary</item>
+        <item name="android:paddingLeft">@dimen/sud_glif_button_padding</item>
+        <item name="android:paddingRight">@dimen/sud_glif_button_padding</item>
+        <item name="android:textAllCaps">?sudButtonAllCaps</item>
+        <item name="android:fontFamily">?sudButtonFontFamily</item>
+        <item name="android:stateListAnimator">@null</item>
+        <item name="android:buttonCornerRadius">?sudButtonCornerRadius</item>
+        <item name="buttonStyle">@style/SudGlifButton.Primary</item>
+        <item name="textAllCaps">?sudButtonAllCaps</item>
+    </style>
+    <style name="SudGlifButton.Secondary" parent="@style/Widget.AppCompat.Button.Borderless.Colored">
+        <item name="android:theme">@style/SudGlifButton.Secondary</item>
+        <item name="android:buttonStyle">@style/SudGlifButton.Secondary</item>
+        <item name="android:paddingLeft">@dimen/sud_glif_button_padding</item>
+        <item name="android:paddingRight">@dimen/sud_glif_button_padding</item>
+        <item name="android:minWidth">0.0dip</item>
+        <item name="android:textAllCaps">?sudButtonAllCaps</item>
+        <item name="android:fontFamily">?sudButtonFontFamily</item>
+        <item name="android:colorControlHighlight">@color/sud_flat_button_highlight</item>
+        <item name="android:buttonCornerRadius">?sudButtonCornerRadius</item>
+        <item name="buttonStyle">@style/SudGlifButton.Secondary</item>
+        <item name="colorControlHighlight">@color/sud_flat_button_highlight</item>
+        <item name="textAllCaps">?sudButtonAllCaps</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.BodyLarge" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContent</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContent</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.BodyMedium" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContent</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContent</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.BodySmall" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContent</item>
+        <item name="android:letterSpacing">0.00833333</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContent</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.DisplayLarge" parent="@style/TextAppearance.AppCompat.Display3">
+        <item name="android:textSize">57.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamily</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">64.0sp</item>
+        <item name="fontFamily">?themeFontFamily</item>
+        <item name="lineHeight">64.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.DisplayMedium" parent="@style/TextAppearance.AppCompat.Display2">
+        <item name="android:textSize">45.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamily</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">52.0sp</item>
+        <item name="fontFamily">?themeFontFamily</item>
+        <item name="lineHeight">52.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.DisplaySmall" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">36.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamily</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">44.0sp</item>
+        <item name="fontFamily">?themeFontFamily</item>
+        <item name="lineHeight">44.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.BodyLarge" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.BodyMedium" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.BodySmall" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.DisplayLarge" parent="@style/TextAppearance.AppCompat.Display3">
+        <item name="android:textSize">57.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">64.0sp</item>
+        <item name="fontFamily">?themeFontFamilyMedium</item>
+        <item name="lineHeight">64.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.DisplayMedium" parent="@style/TextAppearance.AppCompat.Display2">
+        <item name="android:textSize">45.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">52.0sp</item>
+        <item name="fontFamily">?themeFontFamilyMedium</item>
+        <item name="lineHeight">52.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.DisplaySmall" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">36.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">44.0sp</item>
+        <item name="fontFamily">?themeFontFamilyMedium</item>
+        <item name="lineHeight">44.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.HeadlineLarge" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">32.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">40.0sp</item>
+        <item name="fontFamily">?themeFontFamilyMedium</item>
+        <item name="lineHeight">40.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.HeadlineMedium" parent="@style/TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">28.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">36.0sp</item>
+        <item name="fontFamily">?themeFontFamilyMedium</item>
+        <item name="lineHeight">36.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.HeadlineSmall" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">32.0sp</item>
+        <item name="fontFamily">?themeFontFamilyMedium</item>
+        <item name="lineHeight">32.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.LabelLarge" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentBold</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentBold</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.LabelMedium" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentBold</item>
+        <item name="android:letterSpacing">0.00833333</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentBold</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.LabelSmall" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentBold</item>
+        <item name="android:letterSpacing">0.00909091</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentBold</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.TitleLarge" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">22.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">28.0sp</item>
+        <item name="fontFamily">?themeFontFamilyMedium</item>
+        <item name="lineHeight">28.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.TitleMedium" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentBold</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentBold</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.Emphasized.TitleSmall" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentBold</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentBold</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.HeadlineLarge" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">32.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamily</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">40.0sp</item>
+        <item name="fontFamily">?themeFontFamily</item>
+        <item name="lineHeight">40.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.HeadlineMedium" parent="@style/TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">28.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamily</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">36.0sp</item>
+        <item name="fontFamily">?themeFontFamily</item>
+        <item name="lineHeight">36.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.HeadlineSmall" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamily</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">32.0sp</item>
+        <item name="fontFamily">?themeFontFamily</item>
+        <item name="lineHeight">32.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.LabelLarge" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.LabelMedium" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.00833333</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.LabelSmall" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.00909091</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.TitleLarge" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">22.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamily</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">28.0sp</item>
+        <item name="fontFamily">?themeFontFamily</item>
+        <item name="lineHeight">28.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.TitleMedium" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.Gm3.Sys.Typescale.TitleSmall" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">?themeFontFamilyContentMedium</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.BodyLarge" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.03125</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.BodyLarge.Emphasized" parent="@style/TextAppearance.AppCompat.Body2">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.009375</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.BodyMedium" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.01785714</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.BodyMedium.Emphasized" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.01785714</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.BodySmall" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.03333333</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.BodySmall.Emphasized" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textStyle">normal</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.03333333</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.DisplayLarge" parent="@style/TextAppearance.AppCompat.Display3">
+        <item name="android:textSize">57.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="android:letterSpacing">-0.00438596</item>
+        <item name="android:lineHeight">64.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="lineHeight">64.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.DisplayLarge.Emphasized" parent="@style/TextAppearance.AppCompat.Display3">
+        <item name="android:textSize">57.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">64.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="lineHeight">64.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.DisplayMedium" parent="@style/TextAppearance.AppCompat.Display2">
+        <item name="android:textSize">45.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">52.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="lineHeight">52.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.DisplayMedium.Emphasized" parent="@style/TextAppearance.AppCompat.Display2">
+        <item name="android:textSize">45.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">52.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="lineHeight">52.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.DisplaySmall" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">36.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">44.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="lineHeight">44.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.DisplaySmall.Emphasized" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">36.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">44.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="lineHeight">44.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.HeadlineLarge" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">32.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">40.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="lineHeight">40.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.HeadlineLarge.Emphasized" parent="@style/TextAppearance.AppCompat.Display1">
+        <item name="android:textSize">32.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">40.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="lineHeight">40.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.HeadlineMedium" parent="@style/TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">28.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">36.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="lineHeight">36.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.HeadlineMedium.Emphasized" parent="@style/TextAppearance.AppCompat.Headline">
+        <item name="android:textSize">28.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">36.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="lineHeight">36.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.HeadlineSmall" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">32.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="lineHeight">32.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.HeadlineSmall.Emphasized" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">24.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">32.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="lineHeight">32.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.LabelLarge" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.00714286</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.LabelLarge.Emphasized" parent="@style/TextAppearance.AppCompat.Body1">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.00714286</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.LabelMedium" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.04166667</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.LabelMedium.Emphasized" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">12.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.04166667</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.LabelSmall" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.04545455</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.LabelSmall.Emphasized" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">11.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.04545455</item>
+        <item name="android:lineHeight">16.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">16.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.TitleLarge" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">22.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">28.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_regular</item>
+        <item name="lineHeight">28.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.TitleLarge.Emphasized" parent="@style/TextAppearance.AppCompat.Title">
+        <item name="android:textSize">22.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="android:letterSpacing">0.0</item>
+        <item name="android:lineHeight">28.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_brand_medium</item>
+        <item name="lineHeight">28.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.TitleMedium" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.009375</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.TitleMedium.Emphasized" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">16.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.009375</item>
+        <item name="android:lineHeight">24.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">24.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.TitleSmall" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="android:letterSpacing">0.00714286</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_medium</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="TextAppearance.M3.Sys.Typescale.TitleSmall.Emphasized" parent="@style/TextAppearance.AppCompat.Subhead">
+        <item name="android:textSize">14.0sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="android:letterSpacing">0.00714286</item>
+        <item name="android:lineHeight">20.0sp</item>
+        <item name="fontFamily">@string/m3_ref_typeface_plain_regular</item>
+        <item name="lineHeight">20.0sp</item>
+    </style>
+    <style name="Theme.YouTube.Dark" parent="@style/Base.V28.Theme.YouTube.Dark" />
+    <style name="Theme.YouTube.Light" parent="@style/Base.V28.Theme.YouTube.Light" />
+    <style name="Widget.GoogleMaterial3.OpenSearchBar" parent="@android:style/Widget">
+        <item name="android:textAppearance">@style/TextAppearance.GoogleMaterial3.OpenSearchBar</item>
+        <item name="android:minHeight">@dimen/gm3_opensearchbar_height</item>
+        <item name="android:paddingStart">@dimen/gm3_opensearchbar_padding_start</item>
+        <item name="android:outlineSpotShadowColor">@android:color/transparent</item>
+        <item name="android:outlineAmbientShadowColor">@android:color/transparent</item>
+        <item name="backgroundTint">?colorSurface</item>
+        <item name="defaultMarginsEnabled">true</item>
+        <item name="defaultScrollFlagsEnabled">true</item>
+        <item name="elevation">@dimen/gm3_opensearchbar_elevation</item>
+        <item name="enforceMaterialTheme">true</item>
+        <item name="hideNavigationIcon">false</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.GoogleMaterial3.OpenSearch</item>
+        <item name="maxButtonHeight">@dimen/gm3_opensearchbar_height</item>
+        <item name="shapeAppearance">?shapeAppearanceMediumComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.GoogleMaterial3.OpenSearchBar</item>
+    </style>
+    <style name="Widget.Material3.AppBarLayout" parent="@style/Widget.MaterialComponents.AppBarLayout.Surface">
+        <item name="android:background">?colorSurface</item>
+        <item name="android:stateListAnimator">@animator/m3_appbar_state_list_animator</item>
+        <item name="android:outlineSpotShadowColor">@android:color/transparent</item>
+        <item name="android:outlineAmbientShadowColor">@android:color/transparent</item>
+        <item name="liftOnScroll">true</item>
+        <item name="liftOnScrollColor">?colorSurfaceContainer</item>
+    </style>
+    <style name="Widget.Material3.BottomNavigationView" parent="@style/Base.Widget.Material3.BottomNavigationView">
+        <item name="android:outlineSpotShadowColor">@android:color/transparent</item>
+        <item name="android:outlineAmbientShadowColor">@android:color/transparent</item>
+    </style>
+    <style name="Widget.Material3.SearchBar" parent="@android:style/Widget">
+        <item name="android:textAppearance">@style/TextAppearance.Material3.SearchBar</item>
+        <item name="android:minHeight">@dimen/m3_searchbar_height</item>
+        <item name="android:paddingStart">@dimen/m3_searchbar_padding_start</item>
+        <item name="android:outlineSpotShadowColor">@android:color/transparent</item>
+        <item name="android:outlineAmbientShadowColor">@android:color/transparent</item>
+        <item name="backgroundTint">?colorSurfaceContainerHigh</item>
+        <item name="defaultMarginsEnabled">true</item>
+        <item name="defaultScrollFlagsEnabled">true</item>
+        <item name="elevation">@dimen/m3_searchbar_elevation</item>
+        <item name="enforceMaterialTheme">true</item>
+        <item name="hideNavigationIcon">false</item>
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Material3.Search</item>
+        <item name="maxButtonHeight">@dimen/m3_searchbar_height</item>
+        <item name="shapeAppearance">?shapeAppearanceMediumComponent</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Material3.SearchBar</item>
+    </style>
+    <style name="Widget.Material3.Toolbar" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:outlineSpotShadowColor">@android:color/transparent</item>
+        <item name="android:outlineAmbientShadowColor">@android:color/transparent</item>
+        <item name="contentInsetStartWithNavigation">0.0dip</item>
+        <item name="subtitleTextAppearance">?textAppearanceTitleMedium</item>
+        <item name="titleTextAppearance">?textAppearanceTitleLarge</item>
+    </style>
+    <style name="Base.V28.Theme.AppCompat" parent="@style/Base.V26.Theme.AppCompat">
+        <item name="dialogCornerRadius">?android:dialogCornerRadius</item>
+    </style>
+    <style name="Base.V28.Theme.AppCompat.Light" parent="@style/Base.V26.Theme.AppCompat.Light">
+        <item name="dialogCornerRadius">?android:dialogCornerRadius</item>
+    </style>
+    <style name="Base.V28.Theme.YouTube.Dark" parent="@style/Base.V27.Theme.YouTube.Dark">
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+    <style name="Base.V28.Theme.YouTube.Light" parent="@style/Base.V27.Theme.YouTube.Light">
+        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+    </style>
+</resources>

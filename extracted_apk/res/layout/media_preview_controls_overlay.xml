@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/video_controller_container" android:background="?ytOverlayBackgroundMediumLight" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.google.android.libraries.youtube.common.ui.TouchImageView android:id="@id/player_control_play_pause_button" android:padding="16.0dip" android:focusable="false" android:clickable="false" android:layout_width="wrap_content" android:layout_height="wrap_content" android:scaleType="center" android:layout_centerInParent="true" android:contentDescription="@string/accessibility_play" android:layout_marginStart="32.0dip" android:layout_marginEnd="32.0dip" style="@style/PlayerButton" />
+        <com.google.android.libraries.youtube.creation.mediapicker.preview.ui.MediaPreviewVideoControllerView android:id="@id/video_controller_view" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</RelativeLayout>

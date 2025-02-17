@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:background="@drawable/posts_creation_attachment_button_background" android:focusable="true" android:clickable="true" android:layout_width="wrap_content" android:layout_height="40.0dip" android:foreground="?ytTouchFeedbackCircle" android:paddingStart="@dimen/visual_attach_button_padding" android:paddingEnd="@dimen/visual_attach_button_padding" android:layout_marginEnd="8.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/posts_creation_attachment_button_icon" android:layout_width="@dimen/visual_attach_button_icon_size" android:layout_height="@dimen/visual_attach_button_icon_size" android:src="@null" android:tint="?ytTextPrimary" android:contentDescription="@null" android:layout_marginEnd="@dimen/visual_attach_button_icon_margin_end" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody2b" android:ellipsize="end" android:id="@id/posts_creation_attachment_button_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" />
+</LinearLayout>

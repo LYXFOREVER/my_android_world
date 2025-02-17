@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout android:id="@id/watch_info_panel" android:background="?backgroundPrimary" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ViewStub android:id="@id/watch_cinematic_tablet_background_stub" android:layout="@layout/cinematic_container" android:inflatedId="@id/watch_cinematic_tablet_background" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <android.support.v7.widget.RecyclerView android:id="@id/watch_info_watch_list" android:focusable="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:smoothScrollbar="false" />
+</com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout>

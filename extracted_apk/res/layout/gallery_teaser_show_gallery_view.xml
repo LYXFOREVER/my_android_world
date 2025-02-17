@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="@drawable/gallery_teaser_image_view_rounded_corner" android:layout_width="@dimen/green_screen_media_item_thumbnail_view_size" android:layout_height="@dimen/green_screen_media_item_thumbnail_view_size" android:layout_marginTop="@dimen/gallery_teaser_image_view_margin" android:foreground="?ytTouchFeedbackCircle" android:contentDescription="@string/image_attachment_label" android:layout_marginHorizontal="@dimen/gallery_teaser_image_view_margin" android:clipToOutline="true"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:layout_width="@dimen/gallery_teaser_select_image_view_icon_size" android:layout_height="@dimen/gallery_teaser_select_image_view_icon_size" android:src="@null" />
+</FrameLayout>

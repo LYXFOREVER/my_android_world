@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:gravity="center_vertical" android:layout_width="@dimen/fine_scrubbing_film_strip_chapter_width" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/thumbnail" android:focusable="true" android:layout_width="fill_parent" android:layout_height="@dimen/fine_scrubbing_film_strip_height" android:scaleType="centerCrop" android:contentDescription="@null" />
+    <TextView android:textSize="12.0sp" android:textColor="?ytStaticBrandWhite" android:gravity="center" android:id="@id/title" android:background="?ytOverlayBackgroundMedium" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="@dimen/fine_scrubbing_film_strip_height" />
+</RelativeLayout>

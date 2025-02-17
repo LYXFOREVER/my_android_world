@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/bottom_sheet_footer_root" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/separator" android:background="?ytSeparator" android:layout_width="fill_parent" android:layout_height="@dimen/line_separator_height" />
+    <include layout="@layout/bottom_sheet_list_item" />
+</LinearLayout>

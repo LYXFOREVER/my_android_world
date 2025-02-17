@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.Toolbar android:id="@id/generated_image_themes_toolbar" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="48.0dip" android:paddingStart="0.0dip" android:paddingEnd="0.0dip">
+        <RelativeLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <com.google.android.libraries.youtube.common.ui.TouchImageView android:id="@id/close_dialog_button" android:layout_width="16.0dip" android:layout_height="16.0dip" android:src="@drawable/yt_outline_x_vd_theme_24" android:scaleType="center" android:layout_centerVertical="true" android:contentDescription="@string/accessibility_close_dialog" android:layout_marginStart="0.0dip" android:layout_alignParentStart="true" />
+            <com.google.android.libraries.youtube.rendering.ui.spec.typography.YouTubeAppCompatTextView android:textColor="?ytTextPrimary" android:id="@id/generated_image_themes_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textAlignment="viewStart" android:layout_marginStart="10.0dip" android:layout_toEndOf="@id/close_dialog_button" />
+        </RelativeLayout>
+    </android.support.v7.widget.Toolbar>
+    <com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout android:id="@id/content" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <android.support.v7.widget.RecyclerView android:id="@id/content_recycler_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout>
+</LinearLayout>

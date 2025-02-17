@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.creation.common.ui.entrypoint.EntryPointView android:id="@id/entry_point_view" android:focusable="true" android:clickable="true" android:layout_width="72.0dip" android:layout_height="72.0dip" android:layout_marginLeft="1.0dip" android:layout_marginRight="1.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:layout_gravity="center" android:id="@id/entry_point_icon_view" android:layout_width="64.0dip" android:layout_height="64.0dip" android:foreground="?ytTouchFeedbackCircle" android:scaleType="center" android:tint="@android:color/white" />
+</com.google.android.libraries.youtube.creation.common.ui.entrypoint.EntryPointView>

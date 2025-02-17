@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/lc_live_chat_container" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/live_chat_banner_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true">
+        <include android:id="@id/live_chat_banner" android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/live_chat_banner" />
+    </FrameLayout>
+    <com.google.android.libraries.youtube.livechat.ui.view.LiveChatRecyclerView android:id="@id/conversation_list_legacy" android:paddingBottom="8.0dip" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="fill_parent" android:divider="@null" android:dividerHeight="0.0dip" android:layout_below="@id/live_chat_banner_container" android:layout_alignParentBottom="true" android:importantForAccessibility="no" android:layout_marginStart="@dimen/lc_activity_horizontal_margin" android:layout_marginEnd="@dimen/lc_toolbelt_width" />
+    <ImageButton android:id="@id/more_comments_icon_legacy" android:background="@drawable/live_chat_more_comments_selector" android:layout_width="40.0dip" android:layout_height="40.0dip" android:layout_marginBottom="8.0dip" android:src="@null" android:layout_alignParentBottom="true" android:contentDescription="@string/live_chat_more_comments_cd" android:translationY="@dimen/live_chat_more_comments_button_horizontal_offset" android:importantForAccessibility="no" android:layout_marginStart="@dimen/live_chat_overlay_more_comments_icon_start_margin" />
+    <include android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" layout="@layout/live_chat_in_cameo_overlay" />
+</RelativeLayout>

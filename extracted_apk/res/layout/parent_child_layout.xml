@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/parent_child_layout_container" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ViewStub android:layout_gravity="top" android:id="@id/parent_view_stub" android:layout="@layout/parent_view_container" android:inflatedId="@id/parent_container" android:layout_width="@dimen/parent_view_width_in_wide_mode" android:layout_height="wrap_content" />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@id/section_list_refresher" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <LinearLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="fill_parent">
+            <LinearLayout android:orientation="vertical" android:id="@id/filter_container" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <include android:layout_width="fill_parent" android:layout_height="fill_parent" layout="@layout/section_list" />
+        </LinearLayout>
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</RelativeLayout>

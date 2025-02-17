@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <Space android:layout_width="fill_parent" android:layout_height="@dimen/confirm_dialog_message_top_margin" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/confirm_dialog_message_text_size" android:id="@id/confirm_dialog_subtitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="@dimen/confirm_dialog_message_horizontal_padding" yt:hyperlinksClickable="true" />
+</LinearLayout>

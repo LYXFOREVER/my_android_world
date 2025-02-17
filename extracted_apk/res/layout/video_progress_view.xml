@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/video_progress_container" android:background="?ytOverlayBackgroundSolid" android:layout_width="fill_parent" android:layout_height="50.0dip" android:layoutDirection="ltr"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textColor="?ytOverlayTextPrimary" android:gravity="right" android:id="@id/play_position_text" android:background="@android:color/transparent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginStart="16.0dip" />
+    <com.google.android.libraries.youtube.creation.common.ui.DspSeekBar android:id="@id/play_progress_bar" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxHeight="2.0dip" android:progressDrawable="@drawable/shorts_editable_video_controller_progress_bar" android:thumb="@drawable/play_progressbar_thumb" android:layout_centerVertical="true" android:layout_toStartOf="@id/video_duration_text" android:layout_toEndOf="@id/play_position_text" style="@android:style/Widget.ProgressBar.Horizontal" />
+    <TextView android:textColor="?ytOverlayTextPrimary" android:gravity="left" android:id="@id/video_duration_text" android:background="@android:color/transparent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:layout_marginEnd="16.0dip" android:layout_alignParentEnd="true" />
+    <com.google.android.libraries.youtube.creation.common.ui.ScrubberDspIndicatorView android:id="@id/dsp_indicator" android:layout_width="fill_parent" android:layout_height="20.0dip" android:layout_alignParentBottom="true" />
+</RelativeLayout>

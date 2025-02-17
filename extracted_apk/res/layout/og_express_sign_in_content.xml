@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.onegoogle.common.LockableNestedScrollView android:layout_gravity="bottom" android:id="@id/scrollable_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:importantForAccessibility="no">
+        <LinearLayout android:orientation="vertical" android:id="@id/content_container" android:paddingTop="?ogContentContainerPaddingTop" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <LinearLayout android:orientation="vertical" android:id="@id/header_container" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <FrameLayout android:layout_gravity="center_horizontal" android:id="@id/express_sign_in_header_logo_container" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="24.0dip" android:layout_marginTop="16.0dip" />
+                <LinearLayout android:orientation="vertical" android:id="@id/esi_custom_header_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip">
+                    <TextView android:textAppearance="?ogTextAppearanceSubhead1" android:textColor="@color/google_daynight_default_color_primary_text" android:gravity="center" android:id="@id/esi_custom_header_title" android:paddingTop="4.0dip" android:paddingBottom="4.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="8.0dip" android:layout_marginHorizontal="@dimen/og_express_sign_in_custom_header_horizontal_margin" />
+                    <TextView android:textAppearance="?ogTextAppearanceBody2" android:textColor="@color/google_daynight_default_color_secondary_text" android:gravity="center" android:id="@id/esi_custom_header_subtitle" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_marginHorizontal="@dimen/og_express_sign_in_custom_header_horizontal_margin" />
+                    <View android:id="@id/esi_custom_header_separator" android:background="?ogLightGrey" android:layout_width="fill_parent" android:layout_height="1.0dip" android:layout_marginTop="16.0dip" android:contentDescription="@null" />
+                </LinearLayout>
+            </LinearLayout>
+            <TextView android:textAppearance="?ogTextAppearanceOverline" android:textColor="?colorOnSurfaceVariant" android:id="@id/choose_an_account_a11y" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/og_choose_an_account_title" android:layout_marginHorizontal="?ogDialogCornerRadius" />
+            <FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <include android:id="@id/progress_container" layout="@layout/og_loading_indicator" />
+                <FrameLayout android:id="@id/accounts_content_container" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                    <com.google.android.material.card.MaterialCardView android:id="@id/important_box_card_view" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="?ogImportantBoxMarginTop" android:layout_marginHorizontal="?ogContainerExternalHorizontalSpacing" style="@style/OneGoogle.MaterialCardView">
+                        <LinearLayout android:orientation="vertical" android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                            <LinearLayout android:orientation="vertical" android:id="@id/selected_account_container" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                                <Space android:id="@id/selected_account_top_inset_spacing" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="0.0dip" />
+                                <com.google.android.libraries.onegoogle.accountmanagement.SelectedAccountView android:layout_gravity="center" android:id="@id/selected_account" android:background="?android:selectableItemBackground" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="?ogSelectedAccountViewMarginVertical" android:paddingHorizontal="?ogContainerInternalAdditionalHorizontalSpacing" />
+                            </LinearLayout>
+                            <LinearLayout android:orientation="vertical" android:id="@id/account_management_list_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                                <View android:id="@id/og_selected_account_to_account_management_divider" android:background="?ogLightGrey" android:layout_width="fill_parent" android:layout_height="?ogSeparatorHeight" android:contentDescription="@null" />
+                                <com.google.android.libraries.onegoogle.common.OverScrollControlledNestedScrollView android:id="@id/og_account_management_container" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                                    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                                        <android.support.v7.widget.RecyclerView android:id="@id/accounts_list" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+                                        <android.support.v7.widget.RecyclerView android:id="@id/account_management_actions_list" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+                                    </LinearLayout>
+                                </com.google.android.libraries.onegoogle.common.OverScrollControlledNestedScrollView>
+                            </LinearLayout>
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </FrameLayout>
+            </FrameLayout>
+        </LinearLayout>
+    </com.google.android.libraries.onegoogle.common.LockableNestedScrollView>
+    <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/footer_container" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton android:layout_gravity="center_horizontal" android:id="@id/sign_in_button" android:layout_width="?signInButtonWidth" android:layout_height="wrap_content" android:layout_marginTop="?ogSignInButtonMarginTop" android:layout_marginBottom="?ogFooterSpacing" android:minWidth="160.0dip" android:text="@string/og_sign_in_" android:layout_marginHorizontal="@dimen/og_sign_in_footer_horizontal_padding" app:backgroundTint="?colorPrimaryGoogle" style="?ogButton" />
+        <com.google.android.material.button.MaterialButton android:layout_gravity="center_horizontal" android:id="@id/continue_as_button" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="?ogContinueAsButtonMarginTop" android:layout_marginBottom="?ogFooterSpacing" android:layout_marginHorizontal="@dimen/og_sign_in_footer_horizontal_padding" app:backgroundTint="?colorPrimaryGoogle" style="?ogButton" />
+        <com.google.android.material.button.MaterialButton android:layout_gravity="center_horizontal" android:id="@id/secondary_action_button" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="@dimen/og_sign_in_footer_horizontal_padding" style="?secondaryActionButtonStyle" />
+        <View android:id="@id/disclaimer_separator" android:background="?ogLightGrey" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="1.0dip" android:contentDescription="@null" />
+        <TextView android:gravity="center" android:id="@id/disclaimer_text" android:paddingTop="?ogDisclaimerTopPadding" android:paddingBottom="?ogFooterSpacing" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="48.0dip" android:layout_marginHorizontal="@dimen/og_sign_in_footer_horizontal_padding" />
+        <com.google.android.material.button.MaterialButton android:layout_gravity="center_horizontal" android:id="@id/bottom_continue_as_button" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="?ogFooterSpacing" android:layout_marginHorizontal="@dimen/og_sign_in_footer_horizontal_padding" app:backgroundTint="?colorPrimaryGoogle" style="?ogButton" />
+        <com.google.android.material.button.MaterialButton android:layout_gravity="center_horizontal" android:id="@id/bottom_secondary_action_button" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="@dimen/og_sign_in_footer_horizontal_padding" style="?secondaryActionButtonStyle" />
+        <Space android:id="@id/footer_bottom_padding" android:layout_width="fill_parent" android:layout_height="?ogFooterBottomPadding" />
+    </LinearLayout>
+</merge>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.textview.MaterialTextView android:textAppearance="?textAppearanceOverline" android:textColor="@color/photo_picker_header_title_text_color" android:id="@id/photo_picker_suggested_section_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/photo_picker_header_top_margin" android:layout_marginBottom="@dimen/photo_picker_header_bottom_margin" android:layout_marginHorizontal="10.0dip" />
+    <TableLayout android:id="@id/photo_picker_suggested_photos_grid" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="2.0dip" android:stretchColumns="*" android:layout_marginHorizontal="6.0dip" />
+</merge>

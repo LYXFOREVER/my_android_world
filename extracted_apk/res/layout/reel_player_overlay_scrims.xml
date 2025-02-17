@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/reel_player_overlay_v2_scrims" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <View android:layout_gravity="top" android:id="@id/reel_scrim_top" android:background="@drawable/reel_scrim_top" android:layout_width="fill_parent" android:layout_height="@dimen/reel_scrim_height" />
+        <View android:layout_gravity="bottom" android:id="@id/reel_scrim_bottom" android:background="@drawable/reel_scrim_bottom" android:layout_width="fill_parent" android:layout_height="@dimen/reel_scrim_height" />
+    </FrameLayout>
+    <RelativeLayout android:id="@id/reel_player_overlay_v2_scrims_vertical" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <View android:id="@id/reel_scrim_vertical_top" android:background="@drawable/reel_scrim_vertical_top" android:layout_width="fill_parent" android:layout_height="@dimen/reel_scrim_vertical_height_top_gradient" android:layout_alignParentTop="true" />
+        <View android:id="@id/reel_scrim_vertical_bottom_static" android:background="@color/reel_scrim_vertical_color_gradient_medium" android:layout_width="fill_parent" android:layout_height="@dimen/reel_scrim_vertical_height_bottom_static" android:layout_alignParentBottom="true" />
+        <View android:id="@id/reel_scrim_vertical_bottom_gradient" android:background="@drawable/reel_scrim_vertical_bottom" android:layout_width="fill_parent" android:layout_height="@dimen/reel_scrim_vertical_height_bottom_gradient" android:layout_above="@id/reel_scrim_vertical_bottom_static" />
+        <View android:id="@id/reel_scrim_shorts_while_bottom_gradient" android:background="@drawable/reel_scrim_shorts_while_bottom" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="@dimen/reel_scrim_shorts_while_height_bottom_gradient" android:layout_alignParentBottom="true" />
+    </RelativeLayout>
+</merge>

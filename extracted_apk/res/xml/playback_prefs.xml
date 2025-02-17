@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.preferences.ProtoDataStoreSwitchPreference android:persistent="false" android:key="@string/autonav_item_key" app:iconSpaceReserved="false" />
+    <com.google.android.apps.youtube.app.ui.QuickSeekListPreference android:persistent="false" android:entries="@array/double_tap_length_entries" android:title="@string/pref_double_tap_skip_duration_title" android:key="@string/double_tap_skip_item_key" android:defaultValue="@string/pref_double_tap_skip_entry_default" android:entryValues="@array/double_tap_length_values" app:iconSpaceReserved="false" />
+    <com.google.android.libraries.youtube.common.ui.preferences.ProtoDataStoreSwitchPreference android:persistent="false" android:key="@string/zoom_item_key" app:iconSpaceReserved="false" />
+    <com.google.android.libraries.youtube.common.ui.preferences.ProtoDataStoreSwitchPreference android:persistent="false" android:title="@string/pref_background_pip_policy_title" android:key="@string/background_pip_key" android:summary="@string/pref_background_pip_policy_summary" android:defaultValue="true" app:iconSpaceReserved="false" />
+</PreferenceScreen>

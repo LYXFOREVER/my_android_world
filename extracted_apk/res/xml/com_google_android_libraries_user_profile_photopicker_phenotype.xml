@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<phenotype-registrations>
+    <phenotype-registration>
+        <configuration-package>com.google.android.libraries.user.profile.photopicker</configuration-package>
+        <log-sources>
+            <log-source>OBAKE</log-source>
+        </log-sources>
+        <auto-subpackage>true</auto-subpackage>
+        <params>gOowten7ywI=</params>
+    </phenotype-registration>
+</phenotype-registrations>

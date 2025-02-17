@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/engagement_panel_top_bar" android:background="@android:color/transparent" android:visibility="gone" android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:animateLayoutChanges="true"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.constraint.ConstraintLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <FrameLayout android:id="@id/engagement_panel_top_bar_element_view_container" android:layout_width="0.0dip" android:layout_height="fill_parent" app:layout_constraintEnd_toStartOf="@id/engagement_panel_top_bar_switch_camera_button" app:layout_constraintStart_toStartOf="parent" />
+        <com.google.android.libraries.youtube.creation.common.ui.CreationButtonView android:layout_gravity="end" android:id="@id/engagement_panel_top_bar_switch_camera_button" android:layout_width="wrap_content" android:layout_height="fill_parent" app:buttonContentDescription="@string/shorts_a11y_flip_camera" app:creationButtonLayout="expandy_toolbar" app:iconDrawable="@drawable/ic_arrow_flip" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toEndOf="@id/engagement_panel_top_bar_element_view_container" app:veType="@integer/shorts_creation_switch_camera_button_ve_type" />
+    </android.support.constraint.ConstraintLayout>
+    <FrameLayout android:id="@id/app_effects_control_input_container" android:paddingBottom="@dimen/reel_effects_control_input_container_bottom_margin" android:visibility="gone" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="@dimen/reel_effects_control_input_container_horizontal_margin" />
+</LinearLayout>

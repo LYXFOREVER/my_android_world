@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout android:id="@id/tabs_bar_view" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <FrameLayout android:id="@id/tabs_bar_content" android:layout_width="fill_parent" android:layout_height="?actionBarSize" android:layout_marginHorizontal="16.0dip" yt:layout_constraintBottom_toTopOf="@id/tabs_bar_bottom_separator" yt:layout_constraintEnd_toEndOf="parent" yt:layout_constraintStart_toStartOf="parent" yt:layout_constraintTop_toTopOf="parent">
+        <com.google.android.libraries.youtube.rendering.ui.tabs.DefaultTabsBar android:id="@id/tabs_bar" android:layout_width="wrap_content" android:layout_height="fill_parent" yt:bottom_divider_color="?ytOutline" yt:tab_content_color="?ytTextSecondary" yt:tab_highlight_color="?ytTextPrimary" yt:tab_scroll_margin="48.0dip" />
+    </FrameLayout>
+    <View android:id="@id/tabs_bar_bottom_separator" android:background="?ytOutline" android:layout_width="fill_parent" android:layout_height="1.0dip" yt:layout_constraintBottom_toBottomOf="parent" yt:layout_constraintEnd_toEndOf="parent" yt:layout_constraintStart_toStartOf="parent" yt:layout_constraintTop_toBottomOf="@id/tabs_bar_content" />
+</androidx.constraintlayout.widget.ConstraintLayout>

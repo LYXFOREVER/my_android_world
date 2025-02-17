@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.common.ui.RoundedFrameLayout android:id="@id/thumbnail_row_item" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginHorizontal="4.0dip" app:corners="@dimen/multi_select_corner_radius"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/thumbnail_image" android:layout_width="@dimen/thumbnail_item_size" android:layout_height="@dimen/thumbnail_item_size" android:scaleType="centerCrop" android:contentDescription="@null" />
+    <View android:layout_gravity="bottom|center" android:id="@id/thumb_image_view_scrim" android:background="@drawable/multi_select_thumbnail_scrim" android:layout_width="@dimen/thumbnail_item_size" android:layout_height="@dimen/thumbnail_item_size" android:contentDescription="@null" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="12.0sp" android:textColor="@color/gallery_thumb_duration_font_color" android:layout_gravity="bottom|center" android:id="@id/duration_text_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="4.0dip" android:shadowColor="@color/gallery_thumb_duration_shadow_color" android:shadowDy="1.0" android:shadowRadius="4.0" android:contentDescription="@null" app:robotoFont="medium" />
+</com.google.android.libraries.youtube.common.ui.RoundedFrameLayout>

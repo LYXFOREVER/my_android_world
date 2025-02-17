@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:paddingTop="@dimen/devicepicker_route_divider_padding" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/device_picker_section_header_divider" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/device_picker_section_header_holder" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody2b" android:gravity="center_vertical" android:id="@id/device_picker_section_header_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:minHeight="52.0dip" android:paddingStart="12.0dip" />
+        <ProgressBar android:gravity="center_vertical" android:id="@id/device_picker_section_header_progress_bar" android:visibility="visible" android:layout_width="20.0dip" android:layout_height="20.0dip" android:indeterminate="true" android:layout_marginStart="12.0dip" style="?android:progressBarStyle" />
+    </LinearLayout>
+</LinearLayout>

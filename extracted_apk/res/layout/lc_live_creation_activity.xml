@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/parent_view" android:background="?ytBrandBackgroundSolid" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <ImageButton android:id="@id/lc_intro_dialog_close_button" android:background="@drawable/lc_circle_background" android:visibility="gone" android:layout_width="@dimen/lc_24dp_image_button_container_size" android:layout_height="@dimen/lc_24dp_image_button_container_size" android:layout_margin="@dimen/lc_live_shared_mde_image_button_margin" android:src="@null" android:contentDescription="@string/lc_intro_dialog_close_button" />
+    <RelativeLayout android:id="@id/me_surface_container" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <SurfaceView android:id="@id/me_stream_view" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </RelativeLayout>
+    <SurfaceView android:id="@id/stream_view" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.google.android.libraries.youtube.livecreation.ui.view.AudioOnlyModeBackgroundView android:layout_gravity="center" android:id="@id/audio_only_background" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.google.android.libraries.youtube.livecreation.ui.view.ViewportOverlay android:id="@id/viewport_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent" app:viewportOverlayColor="@color/lc_viewport_overlay_color" />
+    <FrameLayout android:id="@id/stream_fragment_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:id="@id/error_fragment_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:layout_gravity="bottom|center" android:id="@id/bottom_ui_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout android:id="@id/lc_content_accessibility_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_alignParentBottom="true" yt:backgroundViewId="@id/main_layout_wrapper" xmlns:yt="http://schemas.android.com/apk/res-auto">
+        <FrameLayout android:id="@id/lc_content_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <include layout="@layout/engagement_panel_layout" />
+    </com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout>
+    <com.google.android.libraries.youtube.edit.ui.ViewAnimatorHelper android:id="@id/view_animator_helper" android:background="?ytBrandBackgroundSolid" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.google.android.libraries.youtube.creation.geo.LocationSearchView android:theme="@style/Metadataeditor.Location.Dark" android:id="@id/location_search_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <ViewStub android:id="@id/game_title_search" android:layout="@layout/lc_game_title_search" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </com.google.android.libraries.youtube.edit.ui.ViewAnimatorHelper>
+    <FrameLayout android:id="@id/element_fragment" android:layout_width="fill_parent" android:layout_height="fill_parent" app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior" />
+</RelativeLayout>

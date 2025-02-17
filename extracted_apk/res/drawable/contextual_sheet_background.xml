@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="?ytRaisedBackground" />
+    <corners android:radius="@dimen/contextual_sheet_corner_radius" />
+    <padding android:left="@dimen/contextual_sheet_padding" android:top="@dimen/contextual_sheet_padding" android:right="@dimen/contextual_sheet_padding" android:bottom="@dimen/contextual_sheet_padding" />
+</shape>

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.apps.youtube.app.settings.offline.SmartDownloadsStorageControls android:persistent="false" android:id="@id/smart_downloads_storage_controls" android:layout_width="fill_parent" android:layout_height="wrap_content" android:key="smart_downloads_storage_controls"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

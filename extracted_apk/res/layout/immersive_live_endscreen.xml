@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:id="@id/immersive_live_endscreen" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layoutDirection="locale">
+        <FrameLayout android:id="@id/immersive_live_endscreen_element_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:importantForAccessibility="no" />
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/immersive_live_endscreen_header" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentTop="true" android:layoutDirection="locale" android:layout_alignParentStart="true">
+            <ImageView android:layout_gravity="start|center|top" android:id="@id/immersive_live_endscreen_back_button" android:background="@drawable/reel_circular_button_background" android:padding="@dimen/reel_header_option_button_padding" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:tint="?ytOverlayTextPrimary" android:contentDescription="@string/reel_accessibility_player_back_button" android:layout_marginStart="@dimen/immersive_live_back_button_start_margin" />
+        </LinearLayout>
+    </RelativeLayout>
+</merge>

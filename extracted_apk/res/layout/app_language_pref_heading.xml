@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView android:textStyle="bold" android:textColor="?ytTextSecondary" android:gravity="center_vertical" android:id="@id/app_language_pref_entry_heading" android:layout_width="fill_parent" android:layout_height="36.0dip" android:paddingStart="?listPreferredItemPaddingStart" android:paddingEnd="?listPreferredItemPaddingEnd"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

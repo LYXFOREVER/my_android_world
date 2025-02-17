@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?textAppearanceButton" android:textColor="?ytStaticBrandWhite" android:gravity="center_horizontal" android:id="@id/create_option_button" android:background="@drawable/post_modern_add_poll_button_background" android:layout_width="fill_parent" android:layout_height="@dimen/modern_poll_option_height" android:layout_marginTop="@dimen/modern_add_option_margin_top" android:layout_marginHorizontal="@dimen/modern_add_option_margin_horizontal" android:paddingVertical="@dimen/modern_add_option_padding_vertical"
+  xmlns:android="http://schemas.android.com/apk/res/android" />

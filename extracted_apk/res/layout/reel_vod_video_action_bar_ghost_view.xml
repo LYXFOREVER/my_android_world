@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="64.0dip" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:gravity="center" android:layout_width="@dimen/reel_player_right_cell_width" android:layout_height="@dimen/reel_player_right_cell_height" android:src="@drawable/lazy_loader_icon" android:scaleType="center" android:contentDescription="@null" />
+    <ImageView android:gravity="center" android:layout_width="@dimen/reel_player_right_cell_width" android:layout_height="@dimen/reel_player_right_cell_height" android:src="@drawable/lazy_loader_icon" android:scaleType="center" android:contentDescription="@null" />
+    <ImageView android:gravity="center" android:layout_width="@dimen/reel_player_right_cell_width" android:layout_height="@dimen/reel_player_right_cell_height" android:src="@drawable/lazy_loader_icon" android:scaleType="center" android:contentDescription="@null" />
+    <ImageView android:gravity="center" android:layout_width="@dimen/reel_player_right_cell_width" android:layout_height="@dimen/reel_player_right_cell_height" android:src="@drawable/lazy_loader_icon" android:scaleType="center" android:contentDescription="@null" />
+</LinearLayout>

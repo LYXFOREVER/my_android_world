@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/spotlight_controls" android:paddingTop="@dimen/spotlight_controls_padding" android:paddingBottom="@dimen/spotlight_controls_padding" android:focusable="false" android:clickable="false" android:layout_width="fill_parent" android:layout_height="@dimen/spotlight_controls_height" android:paddingStart="@dimen/spotlight_controls_padding" android:paddingEnd="@dimen/spotlight_controls_padding"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:id="@id/spotlight_audio_toggle" style="@style/SpotlightModeButtonContainer">
+        <com.google.android.libraries.youtube.common.ui.TouchImageView android:id="@id/spotlight_audio_toggle_image" android:src="@null" style="@style/SpotlightModeButton" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:id="@id/spotlight_audio_toggle_text" android:text="@string/spotlight_controls_volume" style="@style/SpotlightModeButtonText" />
+    </LinearLayout>
+    <LinearLayout android:id="@id/spotlight_caption_toggle" style="@style/SpotlightModeButtonContainer">
+        <com.google.android.libraries.youtube.common.ui.TouchImageView android:id="@id/spotlight_caption_toggle_image" style="@style/SpotlightModeButton" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:id="@id/spotlight_caption_toggle_text" android:text="@string/spotlight_controls_captions" style="@style/SpotlightModeButtonText" />
+    </LinearLayout>
+    <LinearLayout android:id="@id/spotlight_save_to_watch_later_button" style="@style/SpotlightModeButtonContainer">
+        <com.google.android.libraries.youtube.common.ui.TouchImageView android:id="@id/spotlight_save_to_watch_later_button_image" android:src="@null" style="@style/SpotlightModeButton" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:text="@string/spotlight_controls_watch_later" style="@style/SpotlightModeButtonText" />
+    </LinearLayout>
+    <LinearLayout android:id="@id/spotlight_next_button" style="@style/SpotlightModeButtonContainer">
+        <com.google.android.libraries.youtube.common.ui.TouchImageView android:id="@id/spotlight_next_button_image" android:src="@null" style="@style/SpotlightModeButton" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:text="@string/spotlight_controls_next" style="@style/SpotlightModeButtonText" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:id="@id/ad_badge_layout" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.rendering.ui.spec.typography.YouTubeAppCompatTextView android:textColor="?ytTextPrimary" android:layout_gravity="center_vertical" android:id="@id/ad_badge" android:background="@android:color/transparent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ad_badge" />
+    <com.google.android.libraries.youtube.rendering.ui.spec.typography.YouTubeAppCompatTextView android:textColor="?ytTextPrimary" android:layout_gravity="center_vertical" android:id="@id/ad_badge_separator" android:background="@android:color/transparent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/ad_badge_separator" android:layout_marginStart="4.0dip" />
+    <View android:layout_gravity="center_vertical" android:layout_width="0.0dip" android:layout_height="0.0dip" android:layout_marginStart="4.0dip" />
+</LinearLayout>

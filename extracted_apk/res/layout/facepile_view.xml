@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:orientation="horizontal" android:id="@id/facepile_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingVertical="6.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/extra_extra_small_font_size" android:id="@id/facepile_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingEnd="4.0dip" android:textFontWeight="400" />
+    <com.google.android.libraries.youtube.creation.videoeffects.stickers.interactivestickers.common.ui.AvatarView android:layout_gravity="center_horizontal" android:layout_width="28.0dip" android:layout_height="28.0dip" />
+    <com.google.android.libraries.youtube.creation.videoeffects.stickers.interactivestickers.common.ui.AvatarView android:layout_gravity="center_horizontal" android:layout_width="28.0dip" android:layout_height="28.0dip" android:layout_marginStart="-10.0dip" />
+    <com.google.android.libraries.youtube.creation.videoeffects.stickers.interactivestickers.common.ui.AvatarView android:layout_gravity="center_horizontal" android:layout_width="28.0dip" android:layout_height="28.0dip" android:layout_marginStart="-10.0dip" />
+</LinearLayout>

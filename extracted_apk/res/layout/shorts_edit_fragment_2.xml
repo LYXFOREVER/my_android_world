@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.creation.common.ui.ShortsEditCoordinatorLayout android:id="@id/edit_video_container" android:background="?ytOverlayBackgroundSolid" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.creation.editor.ShortsPlayerViewContainer android:layout_gravity="center_horizontal" android:id="@id/shorts_edit_player_view_wrapper" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.google.android.libraries.youtube.creation.editor.ShortsPlayerView android:layout_gravity="center" android:id="@id/shorts_edit_player_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <com.google.android.libraries.youtube.creation.common.ui.CreationFeatureDescriptionView android:layout_gravity="center" android:id="@id/creation_feature_description_view" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <include android:id="@id/text_sticker_generator" android:visibility="gone" layout="@layout/add_text_input" />
+        <include layout="@layout/sticker_trash_can" />
+        <TextView android:textColor="?ytOverlayTextPrimary" android:gravity="center" android:id="@id/tap_for_more_hint" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/tap_hint" android:shadowColor="?ytOverlayBackgroundMediumLight" android:shadowDx="@integer/reel_edit_video_tap_for_more_shadow" android:shadowDy="@integer/reel_edit_video_tap_for_more_shadow" android:shadowRadius="@integer/reel_edit_video_tap_for_more_shadow_radius" android:alpha="0.0" />
+    </com.google.android.libraries.youtube.creation.editor.ShortsPlayerViewContainer>
+    <include android:layout_gravity="top" android:layout_width="fill_parent" android:layout_height="@dimen/reel_edit_top_bar_height" layout="@layout/shorts_edit_top_bar" />
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <include android:layout_gravity="end|center|top" android:id="@id/edit_expandy_toolbar" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:importantForAccessibility="yes" layout="@layout/expandy_toolbar" />
+    </RelativeLayout>
+    <include android:layout_gravity="bottom" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="@dimen/shorts_edit_toolbar_with_scrim_height" layout="@layout/shorts_edit_toolbar" />
+    <include android:layout_width="fill_parent" android:layout_height="fill_parent" layout="@layout/reel_add_text" />
+    <include android:layout_width="fill_parent" android:layout_height="fill_parent" layout="@layout/interactive_sticker_edit_layer" />
+    <FrameLayout android:id="@id/loading_spinner_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <View android:id="@id/loading_scrim" android:background="?ytOverlayBackgroundMedium" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <ProgressBar android:layout_gravity="center" android:id="@id/loading_spinner" android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminate="true" android:indeterminateTint="?ytStaticBrandWhite" style="?android:progressBarStyle" />
+    </FrameLayout>
+</com.google.android.libraries.youtube.creation.common.ui.ShortsEditCoordinatorLayout>

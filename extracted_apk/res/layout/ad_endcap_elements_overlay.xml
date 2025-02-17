@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/ad_endcap_elements_overlay" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <include android:id="@id/skip_ad_button" layout="@layout/endcap_skip_button" />
+        <include android:id="@id/modern_skip_ad_button" layout="@layout/modern_endcap_skip_button" />
+    </RelativeLayout>
+</FrameLayout>

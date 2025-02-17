@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="oval">
+            <size android:height="32.0dip" android:width="32.0dip" />
+            <solid android:color="?ytAdditiveBackground" />
+        </shape>
+    </item>
+    <item>
+        <bitmap android:gravity="center" android:src="@null" android:tint="?ytTextPrimary" />
+    </item>
+</layer-list>

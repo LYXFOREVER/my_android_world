@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_gravity="center" android:id="@id/green_screen_media_item_thumbnail_container" android:layout_width="@dimen/reel_effects_control_input_media_outline_size" android:layout_height="@dimen/reel_effects_control_input_media_outline_size" android:contentDescription="@string/shorts_a11y_green_screen_gallery_button"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.android.libraries.youtube.creation.mediapicker.greenscreen.GreenScreenMediaThumbnailContainer android:layout_gravity="center" android:id="@id/control_input_media_thumbnail_container" android:layout_width="@dimen/reel_effects_control_input_media_thumbnail_size" android:layout_height="@dimen/reel_effects_control_input_media_thumbnail_size">
+        <FrameLayout android:layout_gravity="center" android:background="?ytAdditiveBackground" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <ImageView android:layout_gravity="center" android:layout_width="@dimen/green_screen_non_media_item_icon_size" android:layout_height="@dimen/green_screen_non_media_item_icon_size" android:src="@drawable/yt_outline_add_vd_theme_24" android:tint="?ytOverlayIconActiveOther" android:contentDescription="@null" />
+    </com.google.android.libraries.youtube.creation.mediapicker.greenscreen.GreenScreenMediaThumbnailContainer>
+</FrameLayout>

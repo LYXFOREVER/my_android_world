@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:top="@dimen/item_small_spacing" android:bottom="@dimen/item_small_spacing">
+        <shape android:shape="rectangle">
+            <solid android:color="?ytOutline" />
+            <corners android:radius="100.0dip" />
+        </shape>
+    </item>
+</layer-list>

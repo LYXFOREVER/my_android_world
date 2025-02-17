@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_gravity="bottom" android:focusable="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="@dimen/live_chat_modern_polls_margin" android:paddingEnd="@dimen/live_chat_modern_polls_margin"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout android:layout_gravity="bottom" android:orientation="vertical" android:id="@id/foreground_content" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <com.google.android.libraries.youtube.common.ui.CircularImageView android:layout_gravity="center" android:id="@id/poll_thumbnail" android:visibility="gone" android:layout_width="@dimen/live_chat_avatar_size" android:layout_height="@dimen/live_chat_avatar_size" android:contentDescription="@null" />
+            <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/live_chat_polls_metadata_text_size" android:layout_gravity="center_vertical" android:id="@id/poll_metadata_text" android:layout_width="0.0dip" android:layout_height="wrap_content" android:layout_weight="1.0" android:textDirection="locale" android:layout_marginStart="@dimen/live_chat_polls_metadata_margin" android:layout_marginEnd="@dimen/live_chat_immersive_polls_margin" />
+            <ImageButton android:layout_gravity="center" android:id="@id/live_chat_poll_context_menu_toggle" android:background="@null" android:layout_width="wrap_content" android:layout_height="@dimen/live_chat_polls_header_icon_size" android:scaleType="center" android:tint="?ytStaticWhite" android:layout_weight="0.0" android:contentDescription="@null" />
+        </LinearLayout>
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <ImageView android:layout_gravity="center" android:id="@id/poll_question_thumbnail" android:visibility="gone" android:layout_width="@dimen/live_chat_poll_question_avatar_width" android:layout_height="@dimen/live_chat_poll_question_avatar_height" android:contentDescription="@null" />
+            <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content">
+                <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/live_chat_polls_text_size" android:id="@id/poll_question_text" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minLines="1" android:lineSpacingMultiplier="@dimen/live_chat_poll_question_line_height" android:textDirection="locale" />
+                <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/live_chat_polls_subtext_text_size" android:id="@id/poll_question_subtext" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/live_chat_polls_subtext_margin_top" android:textDirection="locale" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout android:orientation="vertical" android:id="@id/poll_choices_container" android:paddingTop="@dimen/live_chat_polls_choices_container_margin_top" android:paddingBottom="@dimen/live_chat_immersive_polls_margin" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </LinearLayout>
+</RelativeLayout>

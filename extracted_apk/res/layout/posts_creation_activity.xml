@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout android:id="@id/accessibility_layer_container" android:fitsSystemWindows="true" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:backgroundViewId="@id/main_layout_wrapper"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout android:id="@id/posts_creation_engagement_panel_container" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <FrameLayout android:id="@id/posts_creation_main_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <include layout="@layout/engagement_panel_layout" />
+    </com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout>
+    <com.google.android.apps.youtube.app.common.ui.bottomui.BottomUiContainer android:layout_gravity="bottom|center" android:id="@id/bottom_ui_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</com.google.android.libraries.youtube.common.ui.AccessibilityLayerLayout>

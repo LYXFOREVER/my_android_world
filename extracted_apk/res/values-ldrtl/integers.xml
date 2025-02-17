@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="rtl_mirror_flip">180</integer>
+    <integer name="shorts_options_bottom_sheet_exit_icon_scale_x">1</integer>
+    <integer name="shorts_zoom_slider_rotation">90</integer>
+</resources>

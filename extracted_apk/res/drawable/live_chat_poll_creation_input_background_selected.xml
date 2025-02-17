@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<inset android:insetLeft="@dimen/live_chat_immersive_general_margin" android:insetRight="@dimen/live_chat_immersive_general_margin" android:insetTop="@dimen/live_chat_immersive_general_margin"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <shape>
+        <solid android:color="@android:color/transparent" />
+        <corners android:radius="@dimen/live_chat_immersive_input_corner_radius" />
+        <stroke android:width="1.0dip" android:color="?ytInvertedBackground" />
+    </shape>
+</inset>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:background="?backgroundPrimary" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.creation.common.ui.CreationButtonView android:id="@id/creation_modes_loading_cancel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="4.0dip" android:layout_marginStart="4.0dip" yt:buttonContentDescription="@string/shorts_a11y_back_button" yt:iconBackground="@drawable/shorts_trim_extra_controls_background" yt:iconDrawable="@null" />
+    <ProgressBar android:layout_gravity="center" android:padding="4.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminate="true" android:indeterminateTint="@color/yt_white1_opacity98" style="?android:progressBarStyle" />
+</FrameLayout>

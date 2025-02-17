@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="horizontal" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:baselineAligned="false"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <ViewSwitcher android:id="@id/view_switcher" android:background="?thumbnailViewerBackground" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0">
+        <com.google.android.libraries.youtube.common.ui.FixedAspectRatioFrameLayout android:layout_gravity="center" android:padding="@dimen/custom_thumbnail_picker_padding" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:aspectRatio="@fraction/rounded_aspect_ratio_16_9">
+            <ImageView android:id="@id/thumbnail_viewer" android:background="?thumbnailPlaceholder" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="centerCrop" android:layout_centerInParent="true" />
+        </com.google.android.libraries.youtube.common.ui.FixedAspectRatioFrameLayout>
+        <FrameLayout android:id="@id/crop_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </ViewSwitcher>
+    <FrameLayout android:id="@id/thumbnail_picker_container" android:background="?backgroundTertiary" android:paddingBottom="@dimen/custom_thumbnail_picker_padding" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" android:paddingEnd="@dimen/custom_thumbnail_picker_padding" android:elevation="@dimen/custom_thumbnail_picker_elevation">
+        <android.support.v7.widget.RecyclerView android:layout_gravity="center" android:id="@id/thumbnail_picker" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    </FrameLayout>
+</LinearLayout>

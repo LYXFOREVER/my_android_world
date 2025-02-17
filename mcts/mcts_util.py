@@ -985,8 +985,9 @@ def generate_dpo_pairs(result, task_goal:str):
             for child in current_node.children:
                 if child.action != winning_action:
                     # 先处理一下ui描述
+                    logical_size = (1080,2400)
                     ui_elements_list = m3a._generate_ui_elements_description_list(
-                        current_node.state.ui_elements, current_node.state.pixels.shape[:2]
+                        current_node.state.ui_elements, logical_size
                     )
                     dpo_pair = DPOPair(
                         state=DPOState(

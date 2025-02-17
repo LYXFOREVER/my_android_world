@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout android:padding="@dimen/photo_picker_item_padding" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.user.profile.photopicker.common.view.SquareImageView android:id="@id/photo_picker_cluster_image_view" android:layout_width="0.0dip" android:layout_height="0.0dip" android:contentDescription="@string/op3_nameless_cluster_photo_content_description" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintDimensionRatio="w,1:1" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout android:gravity="bottom" android:orientation="vertical" android:id="@id/photo_picker_cluster_gradient" android:visibility="invisible" android:layout_width="0.0dip" android:layout_height="56.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent">
+        <View android:background="@drawable/photo_picker_gradient_drawable_top" android:layout_width="fill_parent" android:layout_height="30.0dip" />
+        <View android:background="@drawable/photo_picker_gradient_drawable_bottom" android:layout_width="fill_parent" android:layout_height="26.0dip" />
+    </LinearLayout>
+    <com.google.android.material.textview.MaterialTextView android:textAppearance="?textAppearanceSubhead2" android:textColor="@color/google_white" android:ellipsize="end" android:gravity="bottom|center" android:id="@id/photo_picker_cluster_name" android:paddingBottom="8.0dip" android:layout_width="0.0dip" android:layout_height="56.0dip" android:maxLines="2" android:singleLine="false" android:paddingHorizontal="4.0dip" app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintEnd_toEndOf="parent" app:layout_constraintStart_toStartOf="parent" />
+</android.support.constraint.ConstraintLayout>

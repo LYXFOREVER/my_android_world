@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.edit.camera.MultiSegmentCameraProgressIndicator android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="@dimen/shorts_camera_progress_bar_margin" />
+    <include android:layout_gravity="bottom|center" android:clipChildren="false" android:layout_width="@dimen/shorts_record_button_size" android:layout_height="@dimen/shorts_record_button_size" android:layout_marginBottom="@dimen/shorts_record_button_bottom_margin" layout="@layout/shorts_record_button_disabled_layout" />
+    <com.google.android.libraries.youtube.creation.common.ui.CreationButtonView android:layout_gravity="start|center|top" android:id="@id/shorts_disabled_camera_close_button" android:paddingTop="38.0dip" android:layout_width="wrap_content" android:layout_height="wrap_content" app:buttonContentDescription="@string/shorts_a11y_close_camera" app:creationButtonLayout="shorts_camera" app:iconDrawable="@null" />
+</FrameLayout>

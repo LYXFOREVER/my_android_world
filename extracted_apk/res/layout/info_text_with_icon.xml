@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/info_text_with_icon" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <android.support.v7.widget.AppCompatImageView android:id="@id/icon" android:layout_width="@dimen/channel_edit_info_icon_size" android:layout_height="@dimen/channel_edit_info_icon_size" android:scaleType="fitXY" android:layout_alignParentTop="true" android:layout_marginStart="@dimen/channel_edit_info_icon_margin_left" android:layout_alignParentStart="true" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/small_font_size" android:textColor="?ytTextSecondary" android:id="@id/info_message" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_centerVertical="true" android:textAlignment="viewStart" android:layout_marginStart="@dimen/channel_edit_info_msg_margin" android:layout_toEndOf="@id/icon" yt:hyperlinksClickable="true" yt:robotoFont="regular" />
+</RelativeLayout>

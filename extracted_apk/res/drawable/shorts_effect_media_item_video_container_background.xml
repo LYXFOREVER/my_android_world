@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape android:shape="rectangle"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <size android:height="@dimen/reel_effects_control_input_media_item_video_type_icon_size" android:width="@dimen/reel_effects_control_input_media_item_video_type_view_width" />
+    <corners android:topLeftRadius="@dimen/reel_effects_control_input_media_picker_corner_radius" />
+    <solid android:color="?ytOverlayBackgroundHeavy" />
+</shape>

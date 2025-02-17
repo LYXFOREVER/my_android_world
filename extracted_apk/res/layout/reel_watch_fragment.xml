@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/reel_watch_fragment_root" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/reel_player_underlay" android:visibility="visible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.google.android.libraries.youtube.reel.internal.player.ReelPlayerView android:layout_gravity="center_horizontal" android:id="@id/reel_watch_player" android:layout_width="fill_parent" android:layout_height="fill_parent" android:importantForAccessibility="no" />
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout android:id="@id/reel_watch_refresher" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.google.android.libraries.youtube.reel.internal.pager.ReelRecyclerView android:layout_gravity="center_horizontal" android:id="@id/reel_recycler" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layoutDirection="ltr" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+    <View android:layout_gravity="top" android:id="@id/reel_scrim_shorts_while_top" android:background="@drawable/reel_scrim_shorts_while_top" android:layout_width="fill_parent" android:layout_height="@dimen/reel_scrim_shorts_while_height_top_gradient" />
+    <include layout="@layout/reel_player_static_header" />
+    <com.google.android.libraries.youtube.reel.internal.fragment.ReelTouchCaptureView android:id="@id/reel_recycler_touch_capture" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:layout_gravity="center" android:id="@id/reel_player_edu_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:layout_gravity="center" android:id="@id/reel_animation_view_stub" android:layout="@layout/reel_full_screen_animation" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:id="@id/nerd_stats_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:importantForAccessibility="yes" />
+    <Space android:layout_gravity="bottom" android:id="@id/time_bar_reference_view" android:layout_width="fill_parent" android:layout_height="1.0dip" />
+    <ViewStub android:id="@id/reel_scrubbed_preview_extended" android:layout="@layout/reel_scrubbed_preview_view" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+    <FrameLayout android:layout_gravity="center" android:id="@id/reel_pip_overlay_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:layout_gravity="center" android:id="@id/interstitial_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:importantForAccessibility="no" />
+    <FrameLayout android:layout_gravity="top" android:id="@id/elements_top_bar_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:importantForAccessibility="no" />
+</FrameLayout>

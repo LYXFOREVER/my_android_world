@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_horizontal" android:orientation="vertical" android:background="@drawable/processing_indicator_dialog_background" android:padding="@dimen/processing_indicator_dialog_internal_padding" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.progressindicator.CircularProgressIndicator android:id="@id/processing_indicator_spinner" android:layout_width="wrap_content" android:layout_height="wrap_content" android:indeterminate="true" android:indeterminateOnly="false" app:indicatorColor="?ytStaticWhite" app:indicatorSize="@dimen/processing_indicator_dialog_spinner_size" app:trackColor="?ytOverlayButtonSecondary" />
+    <TextView android:textAppearance="?ytTextAppearanceTitle1" android:textColor="?ytStaticWhite" android:id="@id/processing_indicator_label" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/processing_indicator_dialog_text_top_margin" style="@style/TextAppearance.YouTube.Spec.Title1" />
+</LinearLayout>

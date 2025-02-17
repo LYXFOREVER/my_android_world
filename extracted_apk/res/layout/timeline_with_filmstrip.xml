@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/timeline_root" android:background="@color/timeline_bg_color" android:layout_width="fill_parent" android:layout_height="@dimen/timeline_height" android:layout_marginTop="@dimen/creation_editor_bottom_sheet_margin_top"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include android:id="@id/timeline_top_bar" android:layout_width="fill_parent" android:layout_height="@dimen/timeline_top_bar_height" android:layout_alignParentTop="true" layout="@layout/timeline_top_bar" />
+    <FrameLayout android:id="@id/timeline_tracks_list_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_above="@id/timeline_filmstrip" android:layout_below="@id/timeline_top_bar">
+        <android.support.v7.widget.RecyclerView android:layout_gravity="bottom" android:id="@id/tracks_list" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingStart="12.0dip" android:paddingEnd="12.0dip" />
+        <View android:id="@id/timeline_overlay_playhead" android:background="@color/divider_color" android:layout_width="@dimen/player_cursor_width" android:layout_height="fill_parent" />
+    </FrameLayout>
+    <include android:id="@id/timeline_filmstrip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true" layout="@layout/filmstrip" />
+</RelativeLayout>

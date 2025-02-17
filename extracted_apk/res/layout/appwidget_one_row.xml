@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:theme="@style/AAG.Theme.AppWidget" android:gravity="center_vertical" android:layout_gravity="center_vertical" android:orientation="horizontal" android:background="@drawable/bg_appwidget_container" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="@dimen/widget_one_row_height" android:layout_margin="0.0dip" android:baselineAligned="false" style="@style/AAG.AppWidget.Background"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <include layout="@layout/appwidget_searchbar" />
+</LinearLayout>

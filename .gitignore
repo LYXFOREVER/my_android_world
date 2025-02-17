@@ -25,13 +25,7 @@ poetry.lock
 .idea
 
 # 不想上传的大文件
-/apks
-/check_mctstree
-/data_history
-/extracted_apk
-/mcts_data_history
-/processed_history
-/raw_history_pkl
-/temp_state
-/gpt_usage.json
-androidWorld.zip
+*.png
+*.apk
+*.apkm
+*.pkl

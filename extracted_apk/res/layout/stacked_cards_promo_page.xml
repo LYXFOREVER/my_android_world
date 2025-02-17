@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:id="@id/stacked_cards_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layoutDirection="locale"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <RelativeLayout android:layout_gravity="bottom" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <FrameLayout android:layout_gravity="bottom|center" android:id="@id/bottom_overlay_container" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <include android:layout_gravity="center" android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/reel_player_error" />
+    <include android:gravity="center" android:layout_gravity="center" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:importantForAccessibility="yes" android:layout_marginStart="@dimen/reel_control_group_margin" android:layout_marginEnd="@dimen/reel_control_group_margin" layout="@layout/reel_player_navigation_controls" />
+</FrameLayout>

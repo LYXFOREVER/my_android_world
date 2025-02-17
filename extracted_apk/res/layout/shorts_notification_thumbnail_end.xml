@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:id="@id/layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:orientation="vertical" android:id="@id/custom_notification_text_layout" android:layout_width="wrap_content" android:layout_height="fill_parent" android:paddingStart="16.0dip" android:paddingEnd="8.0dip" android:layout_toStartOf="@id/custom_notification_thumbnail" android:layout_alignParentStart="true">
+        <include android:id="@id/custom_notification_header" layout="@layout/shorts_notification_header" />
+        <TextView android:textSize="14.0sp" android:ellipsize="end" android:id="@id/custom_notification_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" style="@style/NotificationTitle" />
+        <TextView android:textSize="14.0sp" android:ellipsize="end" android:id="@id/custom_notification_body" android:layout_width="wrap_content" android:layout_height="wrap_content" android:maxLines="1" style="@style/NotificationText" />
+    </LinearLayout>
+    <include android:id="@id/custom_notification_thumbnail" layout="@layout/custom_notification_large_thumbnail" />
+</RelativeLayout>

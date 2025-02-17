@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/cloud_chip_text_size" android:ellipsize="end" android:gravity="center" android:layout_gravity="center" android:id="@id/chip_cloud_chip_tune_it_emoji" android:paddingTop="@dimen/cloud_chip_tune_it_emoji_padding_top" android:paddingBottom="@dimen/cloud_chip_tune_it_emoji_padding_bottom" android:layout_width="wrap_content" android:layout_height="fill_parent" android:maxWidth="@dimen/cloud_chip_tune_it_text_max_width" android:singleLine="true" android:textIsSelectable="false" yt:robotoFont="regular"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto" />

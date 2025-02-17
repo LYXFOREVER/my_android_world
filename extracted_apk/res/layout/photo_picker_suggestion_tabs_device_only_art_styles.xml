@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.material.appbar.AppBarLayout android:layout_width="fill_parent" android:layout_height="wrap_content" app:liftOnScroll="true">
+        <com.google.android.material.appbar.MaterialToolbar android:id="@id/photo_picker_suggestion_tabs_toolbar" android:layout_width="fill_parent" android:layout_height="?android:actionBarSize" app:layout_scrollFlags="enterAlways|scroll" app:navigationContentDescription="@string/abc_action_bar_up_description" app:navigationIcon="?homeAsUpIndicator" app:title="@string/op3_change_profile_picture" />
+    </com.google.android.material.appbar.AppBarLayout>
+    <LinearLayout android:orientation="vertical" android:id="@id/photo_picker_content_view" android:layout_width="fill_parent" android:layout_height="fill_parent" app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/photo_picker_header_top_margin" android:layout_marginBottom="@dimen/photo_picker_header_bottom_margin" android:layout_marginStart="@dimen/photo_picker_header_horizontal_margin" android:layout_marginEnd="@dimen/photo_picker_header_horizontal_margin" android:paddingHorizontal="14.0dip">
+            <ImageView android:id="@id/photo_picker_suggestion_tabs_device_photos_icon" android:layout_width="20.0dip" android:layout_height="20.0dip" android:src="@drawable/quantum_gm_ic_smartphone_vd_theme_24" android:importantForAccessibility="no" android:layout_marginEnd="@dimen/photo_picker_header_text_image_spacing" />
+            <com.google.android.material.textview.MaterialTextView android:textAppearance="?textAppearanceOverline" android:textColor="@color/photo_picker_header_title_text_color" android:id="@id/photo_picker_suggestion_tabs_device_photos_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/op3_picker_device_photos" />
+        </LinearLayout>
+        <fragment android:name="com.google.android.libraries.user.profile.photopicker.fragment.devicephotos.DevicePhotosFragment" android:id="@id/photo_picker_suggestion_tabs_device_photos_only_fragment" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    </LinearLayout>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

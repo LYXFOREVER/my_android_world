@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:background="?ytOverlayBackgroundSolid" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:importantForAccessibility="no"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <FrameLayout android:id="@id/top_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" />
+    <com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout android:id="@id/media_generation_main_flow_container" android:layout_width="fill_parent" android:layout_height="fill_parent" android:minWidth="200.0dip" android:minHeight="200.0dip" android:layout_below="@id/top_bar" />
+</RelativeLayout>

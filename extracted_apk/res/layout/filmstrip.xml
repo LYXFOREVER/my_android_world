@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:custom="http://schemas.android.com/apk/res-auto" xmlns:support="http://schemas.android.com/apk/res-auto">
+    <View android:layout_gravity="top" android:background="@color/divider_color" android:layout_width="fill_parent" android:layout_height="@dimen/divider_height" />
+    <com.google.android.libraries.youtube.creation.trim.ShortsVideoTrimView2 android:id="@id/shorts_timeline_filmstrip" android:paddingTop="@dimen/trim_view_padding_vertical" android:paddingBottom="@dimen/trim_view_padding_vertical" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/timeline_filmstrip_margin_top" android:layout_marginBottom="@dimen/timeline_filmstrip_margin_bottom" support:alignBoundsToThumbnails="true" support:enablePlayhead="true" support:snapToFrames="none" />
+</LinearLayout>

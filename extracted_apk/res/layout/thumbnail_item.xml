@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/thumbnail_item" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/thumbnail_item_margin"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <androidx.cardview.widget.CardView android:layout_width="wrap_content" android:layout_height="wrap_content" android:elevation="0.0dip" app:cardCornerRadius="@dimen/thumbnail_image_rounded_corner_radius">
+        <ImageView android:id="@id/thumbnail_image" android:layout_width="@dimen/thumbnail_item_size" android:layout_height="@dimen/thumbnail_item_size" android:scaleType="centerCrop" android:contentDescription="@string/segment_thumbnail_item_content_description" />
+        <View android:layout_gravity="bottom|center" android:id="@id/thumb_image_view_scrim" android:background="@drawable/multi_select_thumbnail_scrim" android:visibility="gone" android:layout_width="@dimen/thumbnail_item_size" android:layout_height="@dimen/thumbnail_item_size" android:contentDescription="@null" />
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="12.0sp" android:textColor="@color/yt_white1" android:layout_gravity="bottom|center" android:id="@id/duration_text_view" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="4.0dip" android:shadowColor="@color/gallery_thumb_duration_shadow_color" android:shadowDy="1.0" android:shadowRadius="4.0" android:contentDescription="@null" app:robotoFont="medium" />
+    </androidx.cardview.widget.CardView>
+    <ImageView android:layout_gravity="center_horizontal" android:id="@id/thumbnail_progress_indicator" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/thumbnail_dot_top_margin" android:src="@drawable/ic_white_dot_indicator" android:contentDescription="@string/segment_thumbnail_dot_indicator_content_description" />
+</LinearLayout>

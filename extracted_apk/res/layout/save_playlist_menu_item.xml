@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:id="@id/save_playlist_menu_item_container" android:layout_width="wrap_content" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="16.0sp" android:textColor="?ytTextPrimary" android:gravity="center" android:layout_gravity="center" android:id="@id/save_playlist_menu_item" android:layout_width="wrap_content" android:layout_height="36.0dip" android:text="@string/save_playlist_menu_item_title" android:drawablePadding="6.0dip" android:textAllCaps="false" android:drawableTint="?ytTextPrimary" android:paddingHorizontal="16.0dip" yt:robotoFont="medium" />
+    <com.google.android.libraries.youtube.rendering.ui.spec.typography.YouTubeAppCompatTextView android:textColor="?ytTextPrimary" android:gravity="center" android:layout_gravity="center" android:id="@id/save_playlist_menu_item_modern_type" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="36.0dip" android:text="@string/save_playlist_menu_item_title" android:paddingHorizontal="16.0dip" />
+</LinearLayout>

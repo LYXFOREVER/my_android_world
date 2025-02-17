@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:background="@null" android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <View android:id="@id/top_space" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="@dimen/suggestion_divider_margin" />
+    <ImageView android:id="@id/divider" android:focusable="false" android:layout_width="fill_parent" android:layout_height="@dimen/line_separator_height" android:src="?ytSeparator" android:importantForAccessibility="no" />
+    <View android:id="@id/bottom_space" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="@dimen/suggestion_divider_margin" />
+</LinearLayout>

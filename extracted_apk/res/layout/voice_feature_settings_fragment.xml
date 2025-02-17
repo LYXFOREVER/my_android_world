@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <RelativeLayout android:orientation="vertical" android:background="@drawable/rounded_corners_bottom_sheet" android:padding="12.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="8.0dip">
+        <TextView android:id="@id/talkback_option_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="16.0dip" android:text="@string/voice_responses" android:lineSpacingExtra="1.0sp" style="@style/TextAppearance.YouTube.Spec.Title2" />
+        <android.support.v7.widget.SwitchCompat android:id="@id/talkback_toggle_switch" android:layout_width="wrap_content" android:layout_height="wrap_content" android:thumb="@drawable/settings_switch_selector" android:layout_alignBaseline="@id/talkback_option_title" android:layout_toEndOf="@id/talkback_option_title" android:layout_alignParentEnd="true" app:track="@drawable/settings_switch_track" />
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginBottom="16.0dip" android:text="@string/voice_responses_description" android:layout_below="@id/talkback_option_title" android:lineSpacingExtra="2.0sp" style="@style/TextAppearance.YouTube.Spec.Body1a" />
+    </RelativeLayout>
+</RelativeLayout>

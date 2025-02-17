@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout android:id="@id/loading_layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:orientation="vertical" android:id="@id/offline_storage_controls_widget_layout" android:padding="8.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content">
+        <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody2a" android:textColor="?ytTextSecondary" android:id="@id/offline_storage_title_subtext" android:paddingBottom="12.0dip" android:layout_width="fill_parent" android:layout_height="wrap_content" android:text="@string/pref_offline_smart_download_storage_subtext" android:textAlignment="viewStart" android:layout_marginHorizontal="12.0dip" />
+        <LinearLayout android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginHorizontal="12.0dip">
+            <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceTitle2" android:textColor="?ytCallToAction" android:id="@id/smart_downloads_seekbar_label" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/pref_offline_smart_download_storage_legend_sd_allocation" />
+            <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody1a" android:textColor="?ytTextPrimary" android:id="@id/smart_downloads_seekbar_sublabel" android:layout_width="wrap_content" android:layout_height="wrap_content" android:paddingHorizontal="4.0dip" />
+        </LinearLayout>
+        <SeekBar android:id="@id/smart_downloads_storage_seekbar" android:paddingTop="8.0dip" android:paddingBottom="12.0dip" android:layout_width="fill_parent" android:layout_height="40.0dip" />
+        <FrameLayout android:id="@id/storage_device" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginBottom="24.0dip" android:layout_marginHorizontal="12.0dip">
+            <include layout="@layout/pref_offline_smart_downloads_storage" />
+        </FrameLayout>
+        <FrameLayout android:id="@id/storage_sd_card" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" android:layout_marginHorizontal="12.0dip">
+            <include layout="@layout/pref_offline_smart_downloads_storage" />
+        </FrameLayout>
+    </LinearLayout>
+</com.google.android.libraries.youtube.rendering.ui.widget.loadingframe.LoadingFrameLayout>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <padding android:left="@dimen/pdg_comment_chip_background_padding_horizontal" android:top="@dimen/pdg_comment_chip_background_padding_vertical" android:right="@dimen/pdg_comment_chip_background_padding_horizontal" android:bottom="@dimen/pdg_comment_chip_background_padding_vertical" />
+    <corners android:radius="@dimen/pdg_comment_chip_background_radius" />
+</shape>

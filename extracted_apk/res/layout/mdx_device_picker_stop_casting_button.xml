@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceBody2b" android:textColor="?ytTextPrimaryInverse" android:id="@id/stop_casting_button" android:background="@drawable/stop_casting_button" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/devicepicker_stop_casting_button_margin_top" android:textAlignment="center" android:backgroundTint="?ytTextPrimary" android:layout_marginHorizontal="@dimen/devicepicker_stop_casting_button_margin_horizontal" />
+</LinearLayout>

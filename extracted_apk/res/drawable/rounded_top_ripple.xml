@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple android:color="?android:colorControlHighlight"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@id/mask">
+        <shape android:shape="rectangle">
+            <solid android:color="?tooltipBackground" />
+            <corners android:topLeftRadius="@dimen/shorts_edit_tooltip_rounded_corner" android:topRightRadius="@dimen/shorts_edit_tooltip_rounded_corner" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/rounded_corners" />
+</ripple>

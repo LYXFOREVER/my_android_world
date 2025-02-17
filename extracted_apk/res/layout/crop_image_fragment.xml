@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/image" android:background="?ytStaticBrandBlack" android:focusable="true" android:layout_width="fill_parent" android:layout_height="fill_parent" android:scaleType="matrix" />
+    <LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <View android:id="@id/crop_top_mask" android:background="?thumbnailViewerBackground" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0" />
+        <LinearLayout android:orientation="horizontal" android:id="@id/crop_middle_mask" android:layout_width="fill_parent" android:layout_height="wrap_content">
+            <View android:background="?thumbnailViewerBackground" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+            <FrameLayout android:id="@id/crop_rectangle" android:background="@drawable/thumbnail_crop_border" android:layout_width="250.0dip" android:layout_height="250.0dip" />
+            <View android:background="?thumbnailViewerBackground" android:layout_width="0.0dip" android:layout_height="fill_parent" android:layout_weight="1.0" />
+        </LinearLayout>
+        <View android:id="@id/crop_bottom_mask" android:background="?thumbnailViewerBackground" android:layout_width="fill_parent" android:layout_height="0.0dip" android:layout_weight="1.0" />
+    </LinearLayout>
+</FrameLayout>

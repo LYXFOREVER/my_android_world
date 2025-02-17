@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.apps.youtube.app.common.ui.bottomui.AppSnackbar android:layout_gravity="start|bottom|center" android:orientation="horizontal" android:id="@id/snackbar" android:background="@drawable/snackbar_rounded_corners_background" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="@dimen/snackbar_inset" android:elevation="@dimen/snackbar_elevation" yt:actionTextColor="?ytCallToActionInverse" yt:messageTextColor="?ytTextPrimaryInverse"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto" />

@@ -1,0 +1,3 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.libraries.youtube.creation.common.ui.ShortsEditToolButtonView android:layout_width="@dimen/shorts_edit_tool_button_width" android:layout_height="fill_parent" android:layout_marginHorizontal="@dimen/sticker_button_horizontal_margin" app:buttonContentDescription="@string/shorts_editor_prompt_sticker_label" app:buttonText="@string/shorts_editor_prompt_sticker_label" app:iconDrawable="@drawable/ic_shorts_editor_prompt_sticker"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto" xmlns:app="http://schemas.android.com/apk/res-auto" />

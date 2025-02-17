@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical" android:id="@id/timeline_root" android:background="?ytOverlayBackgroundSolid" android:layout_width="fill_parent" android:layout_height="@dimen/timeline_height" android:layout_marginTop="@dimen/creation_editor_bottom_sheet_margin_top"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <android.support.v7.widget.RecyclerView android:id="@id/timeline_sequencer" android:background="?ytOverlayBackgroundSolid" android:layout_width="fill_parent" android:layout_height="@dimen/timeline_sequencer_height" />
+    <TextView android:textColor="?ytTextPrimaryInverse" android:gravity="center" android:id="@id/time_indicator" android:background="?ytOverlayBackgroundSolid" android:layout_width="wrap_content" android:layout_height="@dimen/timeline_sequencer_height" android:layout_centerInParent="true" android:top="0.0dip" android:paddingStart="@dimen/timeline_sequencer_indicator_padding" android:paddingEnd="@dimen/timeline_sequencer_indicator_padding" />
+    <View android:layout_gravity="bottom" android:background="?ytOverlayButtonPrimary" android:layout_width="fill_parent" android:layout_height="@dimen/divider_height" />
+    <android.support.v7.widget.RecyclerView android:id="@id/timeline_tracks" android:clipChildren="false" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_below="@id/timeline_sequencer" />
+    <View android:id="@id/timeline_overlay_playhead" android:background="?ytOverlayButtonPrimary" android:layout_width="@dimen/player_cursor_width" android:layout_height="fill_parent" android:layout_marginTop="@dimen/timeline_overlay_playhead_margin" android:layout_marginBottom="@dimen/timeline_overlay_playhead_margin" android:layout_centerInParent="true" />
+</RelativeLayout>

@@ -11,6 +11,8 @@ from typing import Type
 from absl import app
 from absl import flags
 from absl import logging
+# 导入标准库 logging 并起别名
+import logging as std_logging
 from android_world import registry
 from android_world.agents import infer
 from android_world.agents import t3a
@@ -135,6 +137,16 @@ def stop_emulator(console_port: int) -> None:
     print(f"[red]Stopping emulator with console port {console_port}...")
     subprocess.run(["adb", "-s", f"emulator-{console_port}", "emu", "kill"])
 
+def setup_logging(log_file='error.log'):
+    """
+    配置标准库 logging 模块的日志记录
+    :param log_file: 日志文件的名称，默认为 'error.log'
+    """
+    std_logging.basicConfig(
+        filename=log_file,
+        level=std_logging.ERROR,
+        format='%(asctime)s - %(levelname)s - %(message)s'
+    )
 
 def _main():
     # 启动模拟器
@@ -191,18 +203,26 @@ def _main():
     #agent_generate_task = m3a.M3A(env, infer.Gpt4Wrapper(model_name='gpt-4o',max_retry=6))
     #agent_high_level_actor = agent_generate_task
     #agent_grounded_actor = m3a.M3A(env, infer.AtlasWrapper())
+
     #这里是经典实验配置
     #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
     #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
     #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6)) # 新增summary职能
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
-    agent_generate_task = m3a.M3A(env, infer.GeminiGradioWrapper())
-    actor = m3a.M3A(env, infer.GeminiGradioWrapper())
-    critic = m3a.M3A(env, infer.GeminiGradioWrapper()) # 新增summary职能
-    vision = m3a.M3A(env, infer.GeminiGradioWrapper())
-    #cogagent = m3a.M3A(env, infer.CogAgentAPIWrapper())
+
+    #这里是使用自己的api的配置（gemini）
+    #agent_generate_task = m3a.M3A(env, infer.GeminiGradioWrapper())
+    #actor = m3a.M3A(env, infer.GeminiGradioWrapper())
+    #critic = m3a.M3A(env, infer.GeminiGradioWrapper()) # 新增summary职能
+    #vision = m3a.M3A(env, infer.GeminiGradioWrapper())
+
+    #这里是使用组里的api的配置（gemini）使用之前记得
+    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6)) # 新增summary职能
+    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
     # 以下都是需要循环多次执行的
-    for i in range(100):
+    for i in range(13):
         try:
             env.reset(go_home=True)
             stop_app(package_name, device_name=emulator_name) # 杀掉app后台，这样就可以回到app主页了
@@ -351,6 +371,16 @@ def _main():
             stop_emulator(_DEVICE_CONSOLE_PORT.value)
             sys.exit(1)
         except Exception as e:
+            current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            id = task_info["id"]
+            task_goal = task_info["task_description"]
+            error_message = f"报错时间: {current_time}, 任务编号: {id}, 任务内容: {task_goal}"
+            custom_info = "执行该任务时发生错误"
+            if custom_info:
+                error_message += f", {custom_info}"
+            error_message += f", 错误详情: {e}"
+            # 使用标准库的 logging 模块记录错误信息
+            std_logging.error(error_message)
             print("遇到了错误:",e,",并非手动中断。这样的话不如先跳过当下这个任务，继续下一个")
             continue
 

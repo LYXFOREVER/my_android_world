@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <item yt:state_live="false" yt:state_premiere="false" yt:state_shorts="false" yt:state_shorts_with_modernized_badge="false">
+        <shape android:shape="rectangle">
+            <solid android:color="?ytOverlayBackgroundMedium" />
+            <corners android:radius="4.0dip" />
+        </shape>
+    </item>
+    <item yt:state_live="true">
+        <shape android:shape="rectangle">
+            <solid android:color="?ytOverlayBackgroundBrand" />
+            <corners android:radius="4.0dip" />
+        </shape>
+    </item>
+    <item yt:state_premiere="true">
+        <shape android:shape="rectangle">
+            <solid android:color="?ytOverlayBackgroundBrand" />
+            <corners android:radius="4.0dip" />
+        </shape>
+    </item>
+    <item yt:state_shorts="true">
+        <shape android:shape="rectangle">
+            <solid android:color="?ytStaticBrandWhite" />
+            <corners android:radius="4.0dip" />
+        </shape>
+    </item>
+    <item yt:state_shorts_with_modernized_badge="true">
+        <shape android:shape="rectangle">
+            <solid android:color="?ytOverlayBackgroundMedium" />
+            <corners android:radius="4.0dip" />
+        </shape>
+    </item>
+</selector>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/browse_fragment_layout_coordinator_layout" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <include layout="@layout/appbar_layout" />
+    <FrameLayout android:id="@id/pane_fragment_contents" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:layout_behavior="com.google.android.apps.youtube.app.ui.actionbar.MainScrollingViewBehavior" />
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

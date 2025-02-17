@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="@dimen/multi_select_badge_size" android:layout_height="@dimen/multi_select_badge_size"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/unselected_state" android:layout_width="fill_parent" android:layout_height="fill_parent" android:src="@drawable/multi_select_badge_unselected" android:contentDescription="@null" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/gallery_text_size_secondary" android:textColor="@android:color/black" android:gravity="center" android:id="@id/selected_state" android:background="@drawable/multi_select_badge_selected" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:robotoFont="medium" />
+</FrameLayout>

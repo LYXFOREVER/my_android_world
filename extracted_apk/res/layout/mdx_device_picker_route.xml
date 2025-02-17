@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:background="?selectableItemBackground" android:paddingTop="@dimen/devicepicker_route_container_padding_top" android:paddingBottom="@dimen/devicepicker_route_container_padding_bottom" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="@dimen/devicepicker_route_container_min_height" android:paddingStart="@dimen/devicepicker_route_container_padding_start" android:paddingEnd="@dimen/devicepicker_route_container_padding_end"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <ImageView android:id="@id/device_picker_route_icon" android:layout_width="@dimen/devicepicker_route_icon_layout_width" android:layout_height="@dimen/devicepicker_route_icon_layout_height" android:contentDescription="@null" android:layout_marginStart="@dimen/devicepicker_route_icon_margin_start" android:layout_marginEnd="@dimen/devicepicker_route_icon_margin_end" />
+    <LinearLayout android:orientation="vertical" android:id="@id/textHolder" android:layout_width="fill_parent" android:layout_height="@dimen/devicepicker_route_container_min_height">
+        <TextView android:textAppearance="?ytTextAppearanceTitle2" android:ellipsize="marquee" android:gravity="start" android:id="@id/device_picker_route_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:textAlignment="viewStart" />
+        <TextView android:textAppearance="?ytTextAppearanceBody1a" android:ellipsize="marquee" android:gravity="start" android:id="@id/device_picker_route_description" android:layout_width="fill_parent" android:layout_height="wrap_content" android:singleLine="true" android:textAlignment="viewStart" />
+    </LinearLayout>
+</LinearLayout>

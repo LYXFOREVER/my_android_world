@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.apps.youtube.app.watch.nextgenwatch.ui.NextGenWatchContainerLayout android:id="@id/next_gen_watch_container_layout" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:scrimViewId="@id/scrim_view" yt:spotlightScrimStubId="@id/spotlight_scrim_stub" yt:spotlightScrimViewId="@id/spotlight_scrim_view" yt:watchLayoutStubId="@id/watch_layout_stub" yt:watchLayoutViewId="@id/next_gen_watch_layout_no_player_fragment_container"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <androidx.coordinatorlayout.widget.CoordinatorLayout android:id="@id/watch_while_layout_coordinator_layout" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <FrameLayout android:id="@id/pane_fragment_container" android:background="?ytBaseBackground" android:layout_width="fill_parent" android:layout_height="fill_parent" yt:layout_behavior="com.google.android.apps.youtube.app.ui.actionbar.MainScrollingViewBehavior">
+            <com.google.android.apps.youtube.app.common.ui.inline.InlinePlayerContainer android:id="@id/inline_player_reparent_container" android:clipChildren="false" android:layout_width="fill_parent" android:layout_height="fill_parent">
+                <FrameLayout android:id="@id/player_fragment_container" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+            </com.google.android.apps.youtube.app.common.ui.inline.InlinePlayerContainer>
+            <ViewStub android:id="@id/inline_player_overlay_container_stub" android:layout="@layout/inline_player_overlay" android:inflatedId="@id/inline_player_overlay_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        </FrameLayout>
+        <FrameLayout android:layout_gravity="bottom" android:id="@id/root_pill_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginBottom="@dimen/floating_pill_offset" />
+        <FrameLayout android:id="@id/fab_container" android:layout_width="fill_parent" android:layout_height="fill_parent">
+            <ViewStub android:id="@id/extended_fab_view_stub" android:visibility="gone" android:layout="@layout/extended_fab_view_stub" android:inflatedId="@id/extended_fab" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+            <com.google.android.libraries.quantum.fab.FloatingActionButton android:id="@id/fab" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </FrameLayout>
+        <include layout="@layout/appbar_layout" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <ViewStub android:id="@id/spotlight_scrim_stub" android:visibility="gone" android:layout="@layout/spotlight_scrim" android:inflatedId="@id/spotlight_scrim_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <View android:id="@id/scrim_view" android:background="@color/watch_layout_scrim_color" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <ViewStub android:id="@id/watch_layout_stub" android:visibility="gone" android:layout="@layout/next_gen_watch_layout_no_player_fragment_container" android:inflatedId="@id/next_gen_watch_layout_no_player_fragment_container" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</com.google.android.apps.youtube.app.watch.nextgenwatch.ui.NextGenWatchContainerLayout>

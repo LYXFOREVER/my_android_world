@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="wrap_content" android:paddingHorizontal="8.0dip" android:paddingVertical="16.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceDisplay2" android:textColor="?ytTextPrimary" android:id="@id/dialog_title" android:layout_width="fill_parent" android:layout_height="wrap_content" android:textAlignment="center" android:layout_marginHorizontal="16.0dip" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textAppearance="?ytTextAppearanceTitle2" android:textColor="?ytTextSecondary" android:id="@id/dialog_description" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_margin="16.0dip" android:textAlignment="viewStart" app:hyperlinksClickable="true" />
+    <LinearLayout android:gravity="center" android:orientation="horizontal" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="16.0dip">
+        <com.google.android.libraries.youtube.common.ui.YouTubeButton android:textAppearance="?ytTextAppearanceButton" android:textColor="?ytOverlayTextPrimary" android:ellipsize="end" android:gravity="center" android:layout_gravity="center_vertical" android:id="@id/positive_button" android:focusable="true" android:clickable="true" android:layout_width="fill_parent" android:layout_height="wrap_content" android:minHeight="36.0dip" android:maxLines="1" app:robotoFont="medium" />
+    </LinearLayout>
+</LinearLayout>

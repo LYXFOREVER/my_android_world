@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <TextView android:textSize="@dimen/dialog_text_size" android:textColor="?ytTextPrimary" android:layout_gravity="center" android:id="@id/green_screen_no_media_view" android:visibility="invisible" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="@dimen/camera_dialog_vertical_margin" android:layout_marginBottom="@dimen/camera_dialog_vertical_margin" android:text="@string/no_media_dialog_text" />
+    <ProgressBar android:layout_gravity="center" android:id="@id/green_screen_loading_media_list_spinner" android:visibility="gone" android:layout_width="@dimen/green_screen_loading_spinner_size" android:layout_height="@dimen/green_screen_loading_spinner_size" android:indeterminate="true" android:indeterminateTint="@color/green_screen_loading_media_list_spinner_color" style="?android:progressBarStyle" />
+    <com.google.android.libraries.youtube.creation.mediapicker.greenscreen.GreenScreenMediaPickerView android:id="@id/green_screen_media_picker_view" android:visibility="invisible" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+</FrameLayout>

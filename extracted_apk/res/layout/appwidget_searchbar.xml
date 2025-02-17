@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:theme="@style/AAG.Theme.AppWidget" android:gravity="center_vertical" android:orientation="vertical" android:layout_width="fill_parent" android:layout_height="fill_parent" android:weightSum="1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout android:gravity="center_vertical" android:orientation="horizontal" android:id="@id/search_bar_with_voice" android:background="@drawable/bg_appwidget_container" android:clipToPadding="false" android:layout_width="fill_parent" android:layout_height="@dimen/search_bar_height" android:layout_margin="0.0dip" android:baselineAligned="false">
+        <LinearLayout android:orientation="horizontal" android:id="@id/widget_search_button_v2" android:background="@drawable/bg_appwidget_search" android:layout_width="0.0dip" android:layout_height="@dimen/widget_one_row_button_height" android:minWidth="@dimen/widget_one_row_min_width" android:layout_weight="1.0" android:layout_marginEnd="10.0dip">
+            <TextView android:id="@id/search_only_voice" android:layout_width="wrap_content" android:layout_height="fill_parent" android:text="@string/search_hint" style="@style/WidgetSearchButtonSmall" />
+        </LinearLayout>
+        <ImageButton android:id="@id/widget_voice_search_button" android:background="@drawable/bg_appwidget_button_dark" android:layout_width="@dimen/widget_mic_button_width" android:layout_height="@dimen/widget_one_row_button_height" android:src="@null" android:tint="@color/aag_widget_on_background_color" android:contentDescription="@string/action_bar_voice_search" />
+    </LinearLayout>
+</RelativeLayout>

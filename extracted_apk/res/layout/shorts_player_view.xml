@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.creation.editor.ShortsPlayerVideoView android:id="@id/player_video_view" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <com.google.android.libraries.youtube.creation.editor.ShortsPlayerImageView android:id="@id/guidelines_image_view" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+    <FrameLayout android:id="@id/video_preview_estate" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <View android:id="@id/video_preview_scrim_overlay" android:background="?ytOverlayBackgroundLight" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+        <ImageView android:layout_gravity="center" android:id="@id/play_button" android:padding="@dimen/reel_edit_play_button_padding" android:visibility="gone" android:layout_width="@dimen/reel_edit_play_button_size" android:layout_height="@dimen/reel_edit_play_button_size" android:src="@null" android:adjustViewBounds="true" android:contentDescription="@string/reel_accessibility_play_video" />
+        <ImageView android:layout_gravity="center" android:id="@id/pause_button" android:padding="@dimen/reel_edit_play_button_padding" android:visibility="gone" android:layout_width="@dimen/reel_edit_play_button_size" android:layout_height="@dimen/reel_edit_play_button_size" android:src="@null" android:adjustViewBounds="true" android:contentDescription="@string/reel_accessibility_pause_video" />
+        <ImageView android:layout_gravity="center" android:id="@id/alert_icon" android:visibility="gone" android:layout_width="@dimen/reel_edit_play_button_size" android:layout_height="@dimen/reel_edit_play_button_size" android:src="@null" android:adjustViewBounds="true" android:contentDescription="@null" />
+        <include android:layout_gravity="center" android:id="@id/processing_indicator" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" layout="@layout/processing_indicator_dialog" />
+    </FrameLayout>
+    <RelativeLayout android:id="@id/shorts_player_error_container" android:background="#ffededed" android:visibility="gone" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <ImageView android:layout_gravity="center_horizontal" android:id="@id/shorts_player_error_image" android:layout_width="wrap_content" android:layout_height="wrap_content" android:src="@null" android:layout_centerInParent="true" android:importantForAccessibility="no" />
+        <TextView android:textAppearance="?ytTextAppearanceTitle1" android:textColor="@color/yt_black4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/shorts_error_previewing_video" android:layout_below="@id/shorts_player_error_image" android:layout_centerHorizontal="true" />
+    </RelativeLayout>
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:layout_gravity="center_horizontal" android:id="@id/debug_text" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_marginTop="100.0dip" />
+</merge>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen android:key="offline_settings"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.preferences.ProtoDataStoreListPreference android:persistent="false" android:entries="@array/background_audio_policy_entries" android:title="@string/pref_background_options_title" android:key="background_audio_policy" android:defaultValue="@string/background_audio_policy_default" android:entryValues="@array/background_audio_policy_values" app:iconSpaceReserved="false" app:useSimpleSummaryProvider="true" />
+    <com.google.android.libraries.youtube.common.ui.preferences.ProtoDataStoreSwitchPreference android:persistent="false" android:title="@string/pref_smart_downloads_opted_in_title" android:key="smart_downloads_opted_in" app:iconSpaceReserved="false" />
+    <Preference android:persistent="false" android:dependency="smart_downloads_opted_in" app:fragment="com.google.android.apps.youtube.app.settings.offline.SmartDownloadsPrefsFragment" app:iconSpaceReserved="false" app:key="adjust_smart_downloads" app:summary="@string/pref_adjust_smart_downloads_summary" app:title="@string/pref_adjust_smart_downloads_title" />
+    <Preference android:enabled="false" android:layout="@layout/smart_downloads_divider" android:key="smart_downloads_divider" app:isPreferenceVisible="false" />
+    <ListPreference android:title="@string/pref_offline_quality_title" android:key="offline_quality" app:iconSpaceReserved="false" />
+    <SwitchPreference android:title="@string/pref_offline_network_policy_title" android:key="offline_policy" app:iconSpaceReserved="false" />
+    <com.google.android.libraries.youtube.common.ui.preferences.ProtoDataStoreSwitchPreference android:persistent="false" android:title="@string/pref_offline_recs_enabled_title" android:key="offline_recs_enabled" android:defaultValue="true" app:iconSpaceReserved="false" />
+    <Preference android:title="@string/pref_offline_insert_sd_card_title" android:key="offline_insert_sd_card" android:summary="@string/pref_offline_insert_sd_card_summary" app:iconSpaceReserved="false" />
+    <SwitchPreference android:persistent="false" android:title="@string/pref_offline_use_sd_card_title" android:key="offline_use_sd_card" android:summary="@string/pref_offline_use_sd_card_summary" android:defaultValue="true" app:iconSpaceReserved="false" />
+    <Preference android:title="@string/pref_offline_help_title" android:key="offline_help" android:summary="@string/pref_offline_help_summary" app:iconSpaceReserved="false" />
+    <Preference android:title="@string/menu_clear_offline" android:key="clear_offline" app:iconSpaceReserved="false" />
+    <PreferenceCategory android:title="@string/pref_offline_storage_title_primary" android:key="offline_category_primary_storage" app:allowDividerAbove="false" app:allowDividerBelow="false" app:iconSpaceReserved="false">
+        <com.google.android.apps.youtube.app.ui.StorageBarPreference android:layout="@layout/pref_offline_storage" app:allowDividerAbove="false" app:allowDividerBelow="false" app:forSdCard="false" app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/pref_offline_storage_title_sdcard" android:key="offline_category_sdcard_storage" app:allowDividerAbove="false" app:allowDividerBelow="false" app:iconSpaceReserved="false">
+        <com.google.android.apps.youtube.app.ui.StorageBarPreference android:layout="@layout/pref_offline_storage" app:allowDividerAbove="false" app:allowDividerBelow="false" app:forSdCard="true" app:iconSpaceReserved="false" />
+    </PreferenceCategory>
+</PreferenceScreen>

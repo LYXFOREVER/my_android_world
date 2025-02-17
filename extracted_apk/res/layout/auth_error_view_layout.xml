@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:gravity="center" android:layout_gravity="center" android:orientation="vertical" android:id="@id/error_message" android:visibility="gone" android:layout_width="wrap_content" android:layout_height="wrap_content"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <ImageView android:id="@id/error_illustration" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16.0dip" android:contentDescription="@string/common_error_generic" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/huge_font_size" android:textColor="?ytTextPrimary" android:id="@id/error_title" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="8.0dip" android:text="@string/auth_error_title" yt:robotoFont="medium" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeTextView android:textSize="@dimen/large_font_size" android:textColor="?ytTextSecondary" android:id="@id/error_message_text" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="@string/update_app" yt:robotoFont="light" />
+    <com.google.android.libraries.youtube.common.ui.YouTubeButton android:textColor="?ytCallToAction" android:id="@id/learn_more_button" android:background="?android:selectableItemBackgroundBorderless" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_margin="16.0dip" android:text="@string/learn_more_update_app" android:textAlignment="center" android:paddingStart="16.0dip" android:paddingEnd="16.0dip" yt:robotoFont="medium" />
+</LinearLayout>

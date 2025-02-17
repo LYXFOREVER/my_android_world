@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout android:layout_width="48.0dip" android:layout_height="48.0dip"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:app="http://schemas.android.com/apk/res-auto">
+    <com.google.android.libraries.youtube.common.ui.TouchImageView android:id="@id/music_app_deeplink_button_view" android:padding="@dimen/controls_overlay_action_button_padding" android:layout_width="@dimen/controls_overlay_action_button_size" android:layout_height="@dimen/controls_overlay_action_button_size" android:src="@null" android:scaleType="center" android:contentDescription="@string/listen_with_youtube_music" style="@style/PlayerButton" />
+</FrameLayout>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical" android:id="@id/thumbnail_preview_root" android:layout_width="fill_parent" android:layout_height="fill_parent"
+  xmlns:android="http://schemas.android.com/apk/res/android" xmlns:yt="http://schemas.android.com/apk/res-auto">
+    <include android:id="@id/thumbnail_top_bar" android:layout_width="fill_parent" android:layout_height="wrap_content" layout="@layout/lc_choose_thumbnail_fragment_top_bar" />
+    <RelativeLayout android:id="@id/thumbnail_capture_root" android:layout_width="fill_parent" android:layout_height="fill_parent">
+        <com.google.android.libraries.youtube.common.ui.FixedAspectRatioFrameLayout android:id="@id/viewport_container" android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_marginTop="@dimen/lc_thumbnail_viewport_margin_top" android:layout_marginBottom="@dimen/lc_thumbnail_viewport_margin_bottom" yt:aspectRatio="@fraction/lc_aspect_ratio_16_9">
+            <com.google.android.libraries.youtube.livecreation.ui.view.WaitingIndicatorView android:layout_gravity="center" android:id="@id/countdown_view" android:layout_width="wrap_content" android:layout_height="wrap_content" />
+        </com.google.android.libraries.youtube.common.ui.FixedAspectRatioFrameLayout>
+        <TextView android:textSize="@dimen/lc_thumbnail_capture_text_size" android:textColor="@color/quantum_white_100" android:id="@id/thumbnail_capture_text_view" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/viewport_container" android:layout_centerHorizontal="true" android:fontFamily="sans-serif-light" />
+    </RelativeLayout>
+</LinearLayout>

@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<paths>
+    <external-path name="logs" path="logs" />
+    <external-path name="videos" path="DCIM/" />
+    <cache-path name="photos" path="photos" />
+    <cache-path name="story_share_files" path="story_share" />
+    <cache-path name="image_share_files" path="image_share" />
+    <external-files-path name="logs" path="logs" />
+    <external-files-path name="creation_projects" path="shorts_project" />
+</paths>
