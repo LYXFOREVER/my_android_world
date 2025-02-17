@@ -184,32 +184,32 @@
     {
         "id": 30,
         "task_description": "在哔哩哔哩中搜索'原神'并播放。",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 31,
         "task_description": "在哔哩哔哩App中，找到一个关注的UP主，并进入其主页查看ta发布的最新视频。",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 32,
         "task_description": "在哔哩哔哩App中，进入首页推荐的任意一个视频，点赞并发表一条评论，内容为'这个视频真不错!'",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 33,
         "task_description": "Open Bilibili and search for '拜年祭'.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 34,
         "task_description": "Open Bilibili, navigate to the 'Anime' category, and then scroll through the list and tap on any video. After the video starts, tap the like button.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 35,
