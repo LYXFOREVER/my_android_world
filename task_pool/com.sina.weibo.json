@@ -1,0 +1,117 @@
+[
+    {
+        "id": 0,
+        "task_description": "在weibo中，浏览‘热门’中的一条微博.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "在weibo中，在‘我的’中查看自己关注的博主",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "在weibo中，搜索‘二狗子’并关注叫这个名字的用户.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "在weibo中，打开一条微博并评论‘哈哈哈’.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "在weibo中，查看自己的浏览记录.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "在weibo中，查看自己的关注列表，并查看自己关注的某个博主的主页.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "在weibo中，发表一篇微博，内容为‘hello world，我是一个机器人’",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "在weibo中，查看自己的消息，看看有谁@了自己.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "在weibo中，关注一个微博推荐的博主.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "在微博中搜索与‘辐射4’有关的微博.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "Open the Weibo app.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "Search for 'NBA' in the search bar.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "Like the first post in your home feed.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "在微博中, 搜索并关注一个你感兴趣的用户.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "在微博的首页，点赞一条你感兴趣的微博.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "在微博中，点击‘发现’页面，并浏览其中的一个热门话题.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "Search for a trending topic and view the top 3 posts related to it.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 17,
+        "task_description": "Comment on the latest post of a followed user.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 18,
+        "task_description": "Repost a post from your home feed with a comment.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

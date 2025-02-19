@@ -40,6 +40,8 @@ def _find_adb_directory() -> str:
 
 grpc_port = 8554
 device_console_port = 5554
+# 启动模拟器命令emulator -avd "AndroidWorldAvd_oldversion" -no-window -no-snapshot -grpc 8554 -port 5554 -read-only
+# emulator -avd "AndroidWorldAvd_oldversion" -no-window -no-snapshot -grpc 8554 -port 5554 -read-only
 emulator_set_up = False # 是否要下载android_world的软件
 adb_path = _find_adb_directory()
 # 常用动作（方便复制）
@@ -55,6 +57,7 @@ env:interface.AsyncAndroidEnv = env_launcher.load_and_setup_env(
         console_port=device_console_port,
         emulator_setup=emulator_set_up,
         adb_path=adb_path,
+        grpc_port=grpc_port,
     )
 
 env.reset(go_home=True)

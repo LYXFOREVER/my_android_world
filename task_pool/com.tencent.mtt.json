@@ -1,0 +1,62 @@
+[
+    {
+        "id": 0,
+        "task_description": "Search for 'DNF手游' within the com.tencent.mtt app.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "Browse the recommended video content on the com.tencent.mtt app homepage.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "Navigate to the 'Novel' section of the com.tencent.mtt app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 3,
+        "task_description": "Check the 'Game' section within the com.tencent.mtt app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 4,
+        "task_description": "Navigate to the 'Movie' section within com.tencent.mtt app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 5,
+        "task_description": "Explore the content available under the 'Travel' category on the com.tencent.mtt app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 6,
+        "task_description": "Scroll down the homepage of com.tencent.mtt to view more content.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 7,
+        "task_description": "Tap on a video thumbnail to start playing the video within com.tencent.mtt app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 8,
+        "task_description": "Navigate to the 'My' section of the com.tencent.mtt app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 9,
+        "task_description": "Navigate to the 'file' section of the com.tencent.mtt app.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

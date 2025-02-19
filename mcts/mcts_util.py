@@ -69,6 +69,8 @@ class MCTSNode(Generic[Action, Example]):
         self.summary = None
         self.summary_prompt = None
 
+        self.reward_output = None
+
         self.state = state
         self.parent = parent
         self.children: "Optional[list[MCTSNode]]" = None
@@ -296,13 +298,13 @@ class SearchConfig:
         # 输入状态，返回真实奖励（1就是1,0就是-0.01）
         while True:
             # 不输出正确格式的答复就出不去的函数
-            terminal_state = self.is_terminal(node=node)
+            terminal_state, terminal_output = self.is_terminal(node=node)
             if terminal_state == 1:
                 print("本状态是成功状态")
-                return terminal_state
+                return terminal_state, terminal_output
             elif terminal_state == -0.01:
                 print("本状态是尚未成功状态")
-                return terminal_state # 回答错误那就
+                return terminal_state, terminal_output # 回答错误那就
             else:
                 print("gpt回答格式错误，再给它一次机会")
                 continue
@@ -349,9 +351,9 @@ class SearchConfig:
             node = node.parent
         if len(history_action) != 0:
             history_action.reverse()
-        terminal = self.vision.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
+        terminal, terminal_output = self.vision.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
         print("本状态的terminal值为",terminal)
-        return terminal
+        return terminal, terminal_output
     
 class WorldModelCogAsReward:
     """
@@ -1107,6 +1109,7 @@ def write_trajectry_to_file(trajectry, doc_path: str, env: interface.AsyncEnv, t
             item['action'] = None
         item['summary'] = node.summary
         item['summary_prompt'] = node.summary_prompt
+        item['reward_output'] = node.reward_output
         ui_action_summary.append(item)
     
     import json

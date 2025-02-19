@@ -1,61 +1,79 @@
 [
     {
         "id": 0,
-        "task_description": "Search for a song on Kugou Music using the search bar.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u641c\u7d22\u5f20\u6770\u7684\u6b4c.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 1,
-        "task_description": "Explore song recommendations within Kugou Music.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u64ad\u653e\u4e00\u9996\u63a8\u8350\u7684\u6b4c\u5e76\u6536\u85cf\u5b83.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 2,
-        "task_description": "Listen to live music streaming on Kugou Music.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u7684\u2018\u6211\u7684\u2019\u9875\u9762\u67e5\u770b\u2018\u6211\u559c\u6b22\u2019\u7684\u6b4c.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 3,
-        "task_description": "Sing along with karaoke tracks available in Kugou Music.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u641c\u7d22\u2018\u8f90\u5c044\u2019\u7684\u97f3\u4e50.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 4,
-        "task_description": "Tune into a radio station in Kugou Music.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u65b0\u5efa\u4e00\u4e2a\u6b4c\u5355\uff0c\u53d6\u540d\u4e3a\u2018\u9002\u5408\u5de5\u4f5c\u65f6\u542c\u7684\u6b4c\u2019.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 5,
-        "task_description": "Create a new playlist within Kugou Music and add songs to it.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u65b0\u5efa\u4e00\u4e2a\u6b4c\u5355\u5e76\u52a0\u5165\u51e0\u9996\u6b4c.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 6,
-        "task_description": "Watch a music video on Kugou Music and explore related videos.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u89c2\u770b\u4e00\u9996\u6b4c\u7684MV.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 7,
-        "task_description": "View trending songs and albums in Kugou Music.",
-        "executed": 0,
-        "succeeded": 0
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u641c\u7d22\u2018\u6296\u97f3\u70ed\u641c\u2019\u5e76Like\u4e00\u9996\u641c\u51fa\u6765\u7684\u6b4c.",
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 8,
-        "task_description": "Interact with a live stream feature in Kugou Music.",
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\uff0c\u64ad\u653e\u4e3b\u9875\u4e0a\u7684\u4e00\u9996\u6b4c\u5e76\u5728\u6b4c\u66f2\u8bc4\u8bba\u533a\u4e2d\u53d1\u8868\u8bc4\u8bba\u2018\u771f\u597d\u542c\u2019.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "\u5728\u9177\u72d7\u97f3\u4e50\u4e2d\u641c\u7d22\u2018\u8f90\u5c043\u2019\uff0c\u5e76\u6536\u85cf\u4e00\u4e2a\u4e0e\u5176\u76f8\u5173\u7684\u6b4c\u5355.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "Open Kugou Music and search for the song 'See You Again'.",
         "executed": 0,
         "succeeded": 0
     },
     {
-        "id": 9,
-        "task_description": "Discover curated playlists and add them to your collection on Kugou Music.",
+        "id": 11,
+        "task_description": "Open Kugou Music, go to the 'Recommended' section, and like the first recommended song.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 12,
+        "task_description": "Open Kugou Music, go to 'My Music', create a new playlist named 'My Favorites', and add the currently playing song to it.",
         "executed": 0,
         "succeeded": 0
     }

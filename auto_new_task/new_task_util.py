@@ -94,12 +94,18 @@ def extend_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity
     with open(file_path, 'r') as file:
         task_list = json.load(file)
     
+    failed_task = None
     for task_info in task_list:
         if task_info['executed'] == 1 and task_info['succeeded'] == 0 and "extended" not in task_info:
             # 执行过，失败了，且以前没有被作为过素材
             failed_task = task_info['task_description']
             task_info["extended"] = 1.0 # 已经扩展过了，下次不用它当素材了
             break
+    
+    if failed_task is None:
+        import random
+        selected_task = random.choice(task_list)
+        failed_task = selected_task['task_description']
 
     prompt = t3a.generate_new_task_by_failed_task(package_name,main_activity_name,permissions_str,failed_task)
 
@@ -130,4 +136,4 @@ def extend_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity
     task_list.extend(new_task_list)
 
     with open(file_path, 'w') as file:
-        json.dump(task_list, file, indent=4)
+        json.dump(task_list, file, ensure_ascii=False, indent=4)

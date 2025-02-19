@@ -1970,9 +1970,9 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
     result = lyx_task_util.output2result(terminal_output)
 
     if result == 1:
-      return 1.0
+      return 1.0, terminal_output
     elif result == 0:
-      return -0.01
+      return -0.01, terminal_output
     
   def summary_action(self, state_before:State, state_after:State, action: Optional[json_action.JSONAction], action_output: str, task_goal: str):
     action_str = str(action)

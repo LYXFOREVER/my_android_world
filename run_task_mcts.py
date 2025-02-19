@@ -195,6 +195,7 @@ def _main():
         console_port=_DEVICE_CONSOLE_PORT.value,
         emulator_setup=_EMULATOR_SETUP.value,
         adb_path=_ADB_PATH.value,
+        grpc_port=_GRPC_PORT.value,
     )
     
     print("经过端口组合，可以确定本次代码操作的模拟器名字为:",emulator_name)
@@ -212,9 +213,9 @@ def _main():
 
     #这里是使用自己的api的配置（gemini）
     agent_generate_task = m3a.M3A(env, infer.GeminiGradioWrapper())
-    actor = m3a.M3A(env, infer.GeminiGradioWrapper())
-    critic = m3a.M3A(env, infer.GeminiGradioWrapper()) # 新增summary职能
-    vision = m3a.M3A(env, infer.GeminiGradioWrapper())
+    actor = agent_generate_task
+    critic = agent_generate_task # 新增summary职能
+    vision = agent_generate_task
 
     #这里是使用组里的api的配置（gemini）使用之前记得
     #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
@@ -222,7 +223,7 @@ def _main():
     #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6)) # 新增summary职能
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
     # 以下都是需要循环多次执行的
-    for i in range(13):
+    for i in range(20):
         try:
             env.reset(go_home=True)
             stop_app(package_name, device_name=emulator_name) # 杀掉app后台，这样就可以回到app主页了
