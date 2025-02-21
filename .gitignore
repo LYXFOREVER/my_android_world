@@ -30,3 +30,6 @@ poetry.lock
 *.apkm
 *.pkl
 *.zip
+
+# 隐私信息
+start.sh

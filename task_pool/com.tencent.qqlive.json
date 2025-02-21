@@ -158,12 +158,30 @@
     {
         "id": 26,
         "task_description": "在腾讯视频中，点击“电视剧”频道，浏览最新更新的电视剧。",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 27,
         "task_description": "在腾讯视频中，进入“我的”页面，查看历史观看记录。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 28,
+        "task_description": "在腾讯视频中搜索‘爱情公寓’，查看搜索结果。",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 29,
+        "task_description": "在腾讯视频中浏览电视剧分类，并查看最新更新的电视剧。",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 30,
+        "task_description": "在腾讯视频中查看个人中心的观看历史记录。",
         "executed": 0,
         "succeeded": 0
     }

@@ -22188,5 +22188,649 @@
         "total_tokens": 11249,
         "request_time": "2025-02-20 19:21:14.444521",
         "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 88,
+        "prompt_tokens": 4082,
+        "total_tokens": 4170,
+        "request_time": "2025-02-21 15:15:22.710288",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 30,
+        "prompt_tokens": 5712,
+        "total_tokens": 5742,
+        "request_time": "2025-02-21 15:16:06.539146",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 69,
+        "prompt_tokens": 5482,
+        "total_tokens": 5551,
+        "request_time": "2025-02-21 15:16:10.072396",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 73,
+        "prompt_tokens": 4076,
+        "total_tokens": 4149,
+        "request_time": "2025-02-21 15:16:36.181191",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 26,
+        "prompt_tokens": 13838,
+        "total_tokens": 13864,
+        "request_time": "2025-02-21 15:17:08.118838",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 150,
+        "prompt_tokens": 13608,
+        "total_tokens": 13758,
+        "request_time": "2025-02-21 15:17:12.163919",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 97,
+        "prompt_tokens": 13321,
+        "total_tokens": 13418,
+        "request_time": "2025-02-21 15:17:15.735493",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 45,
+        "prompt_tokens": 29752,
+        "total_tokens": 29797,
+        "request_time": "2025-02-21 15:17:44.744415",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 84,
+        "prompt_tokens": 16990,
+        "total_tokens": 17074,
+        "request_time": "2025-02-21 15:17:48.672140",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 79,
+        "prompt_tokens": 16706,
+        "total_tokens": 16785,
+        "request_time": "2025-02-21 15:17:52.843721",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 41,
+        "prompt_tokens": 29740,
+        "total_tokens": 29781,
+        "request_time": "2025-02-21 15:18:23.032782",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 82,
+        "prompt_tokens": 17025,
+        "total_tokens": 17107,
+        "request_time": "2025-02-21 15:18:26.729873",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 79,
+        "prompt_tokens": 16749,
+        "total_tokens": 16828,
+        "request_time": "2025-02-21 15:18:30.988636",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 26,
+        "prompt_tokens": 29726,
+        "total_tokens": 29752,
+        "request_time": "2025-02-21 15:19:02.882765",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 87,
+        "prompt_tokens": 17058,
+        "total_tokens": 17145,
+        "request_time": "2025-02-21 15:19:06.631051",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 79,
+        "prompt_tokens": 16775,
+        "total_tokens": 16854,
+        "request_time": "2025-02-21 15:19:11.033409",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 38,
+        "prompt_tokens": 29726,
+        "total_tokens": 29764,
+        "request_time": "2025-02-21 15:19:42.804422",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 139,
+        "prompt_tokens": 17095,
+        "total_tokens": 17234,
+        "request_time": "2025-02-21 15:19:47.085623",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 75,
+        "prompt_tokens": 16817,
+        "total_tokens": 16892,
+        "request_time": "2025-02-21 15:19:51.349493",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 41,
+        "prompt_tokens": 29734,
+        "total_tokens": 29775,
+        "request_time": "2025-02-21 15:20:22.868304",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 74,
+        "prompt_tokens": 17130,
+        "total_tokens": 17204,
+        "request_time": "2025-02-21 15:20:26.997141",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 93,
+        "prompt_tokens": 16862,
+        "total_tokens": 16955,
+        "request_time": "2025-02-21 15:20:31.477888",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 30,
+        "prompt_tokens": 29749,
+        "total_tokens": 29779,
+        "request_time": "2025-02-21 15:21:02.705246",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 62,
+        "prompt_tokens": 17180,
+        "total_tokens": 17242,
+        "request_time": "2025-02-21 15:21:06.293176",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 88,
+        "prompt_tokens": 16902,
+        "total_tokens": 16990,
+        "request_time": "2025-02-21 15:21:10.887905",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 30,
+        "prompt_tokens": 29747,
+        "total_tokens": 29777,
+        "request_time": "2025-02-21 15:21:43.715623",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 62,
+        "prompt_tokens": 17222,
+        "total_tokens": 17284,
+        "request_time": "2025-02-21 15:21:47.663528",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 93,
+        "prompt_tokens": 16934,
+        "total_tokens": 17027,
+        "request_time": "2025-02-21 15:21:52.131842",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 30,
+        "prompt_tokens": 29733,
+        "total_tokens": 29763,
+        "request_time": "2025-02-21 15:22:23.475624",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 65,
+        "prompt_tokens": 17262,
+        "total_tokens": 17327,
+        "request_time": "2025-02-21 15:22:26.988741",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 101,
+        "prompt_tokens": 16964,
+        "total_tokens": 17065,
+        "request_time": "2025-02-21 15:22:31.412358",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 30,
+        "prompt_tokens": 29737,
+        "total_tokens": 29767,
+        "request_time": "2025-02-21 15:23:02.775070",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 75,
+        "prompt_tokens": 17311,
+        "total_tokens": 17386,
+        "request_time": "2025-02-21 15:23:06.501814",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 101,
+        "prompt_tokens": 16999,
+        "total_tokens": 17100,
+        "request_time": "2025-02-21 15:23:10.765396",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 49,
+        "prompt_tokens": 4038,
+        "total_tokens": 4087,
+        "request_time": "2025-02-21 15:23:39.856125",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 108,
+        "prompt_tokens": 3544,
+        "total_tokens": 3652,
+        "request_time": "2025-02-21 15:23:43.302916",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 25,
+        "prompt_tokens": 4050,
+        "total_tokens": 4075,
+        "request_time": "2025-02-21 15:24:08.570885",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 75,
+        "prompt_tokens": 4430,
+        "total_tokens": 4505,
+        "request_time": "2025-02-21 15:24:11.785043",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 169,
+        "prompt_tokens": 579,
+        "total_tokens": 748,
+        "request_time": "2025-02-21 15:24:20.313743",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 100,
+        "prompt_tokens": 4073,
+        "total_tokens": 4173,
+        "request_time": "2025-02-21 15:24:40.153007",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 29,
+        "prompt_tokens": 8510,
+        "total_tokens": 8539,
+        "request_time": "2025-02-21 15:25:05.742128",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 123,
+        "prompt_tokens": 8280,
+        "total_tokens": 8403,
+        "request_time": "2025-02-21 15:25:09.352362",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 83,
+        "prompt_tokens": 7987,
+        "total_tokens": 8070,
+        "request_time": "2025-02-21 15:25:12.918530",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 34,
+        "prompt_tokens": 12752,
+        "total_tokens": 12786,
+        "request_time": "2025-02-21 15:25:48.529265",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 167,
+        "prompt_tokens": 3386,
+        "total_tokens": 3553,
+        "request_time": "2025-02-21 15:25:52.635779",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 74,
+        "prompt_tokens": 3092,
+        "total_tokens": 3166,
+        "request_time": "2025-02-21 15:25:57.446089",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 21,
+        "prompt_tokens": 12174,
+        "total_tokens": 12195,
+        "request_time": "2025-02-21 15:26:38.781220",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 84,
+        "prompt_tokens": 13066,
+        "total_tokens": 13150,
+        "request_time": "2025-02-21 15:26:42.759320",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 129,
+        "prompt_tokens": 12759,
+        "total_tokens": 12888,
+        "request_time": "2025-02-21 15:26:47.357816",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 17,
+        "prompt_tokens": 21472,
+        "total_tokens": 21489,
+        "request_time": "2025-02-21 15:27:18.538943",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 128,
+        "prompt_tokens": 12946,
+        "total_tokens": 13074,
+        "request_time": "2025-02-21 15:27:22.780675",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 112,
+        "prompt_tokens": 12587,
+        "total_tokens": 12699,
+        "request_time": "2025-02-21 15:27:27.204607",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 71,
+        "prompt_tokens": 4074,
+        "total_tokens": 4145,
+        "request_time": "2025-02-21 15:31:48.358302",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 28,
+        "prompt_tokens": 3443,
+        "total_tokens": 3471,
+        "request_time": "2025-02-21 15:32:20.314681",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 128,
+        "prompt_tokens": 3213,
+        "total_tokens": 3341,
+        "request_time": "2025-02-21 15:32:24.024110",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 78,
+        "prompt_tokens": 2926,
+        "total_tokens": 3004,
+        "request_time": "2025-02-21 15:32:27.265580",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 30,
+        "prompt_tokens": 2274,
+        "total_tokens": 2304,
+        "request_time": "2025-02-21 15:32:53.252608",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 149,
+        "prompt_tokens": 3249,
+        "total_tokens": 3398,
+        "request_time": "2025-02-21 15:32:57.533830",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 72,
+        "prompt_tokens": 2960,
+        "total_tokens": 3032,
+        "request_time": "2025-02-21 15:33:01.198822",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 15,
+        "prompt_tokens": 2270,
+        "total_tokens": 2285,
+        "request_time": "2025-02-21 15:33:36.561275",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 163,
+        "prompt_tokens": 3281,
+        "total_tokens": 3444,
+        "request_time": "2025-02-21 15:33:40.722956",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 77,
+        "prompt_tokens": 2979,
+        "total_tokens": 3056,
+        "request_time": "2025-02-21 15:33:44.224470",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 38,
+        "prompt_tokens": 2274,
+        "total_tokens": 2312,
+        "request_time": "2025-02-21 15:34:19.942083",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 149,
+        "prompt_tokens": 3317,
+        "total_tokens": 3466,
+        "request_time": "2025-02-21 15:34:24.136318",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 95,
+        "prompt_tokens": 3021,
+        "total_tokens": 3116,
+        "request_time": "2025-02-21 15:34:27.816634",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 34,
+        "prompt_tokens": 2283,
+        "total_tokens": 2317,
+        "request_time": "2025-02-21 15:35:03.301431",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 113,
+        "prompt_tokens": 3362,
+        "total_tokens": 3475,
+        "request_time": "2025-02-21 15:35:07.265328",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 77,
+        "prompt_tokens": 3059,
+        "total_tokens": 3136,
+        "request_time": "2025-02-21 15:35:10.735442",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 27,
+        "prompt_tokens": 2274,
+        "total_tokens": 2301,
+        "request_time": "2025-02-21 15:35:46.306175",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 149,
+        "prompt_tokens": 3398,
+        "total_tokens": 3547,
+        "request_time": "2025-02-21 15:35:50.888176",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 93,
+        "prompt_tokens": 3090,
+        "total_tokens": 3183,
+        "request_time": "2025-02-21 15:35:54.568469",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 37,
+        "prompt_tokens": 2285,
+        "total_tokens": 2322,
+        "request_time": "2025-02-21 15:36:30.023283",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 122,
+        "prompt_tokens": 3445,
+        "total_tokens": 3567,
+        "request_time": "2025-02-21 15:36:34.144091",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 93,
+        "prompt_tokens": 3131,
+        "total_tokens": 3224,
+        "request_time": "2025-02-21 15:36:38.031944",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 37,
+        "prompt_tokens": 2285,
+        "total_tokens": 2322,
+        "request_time": "2025-02-21 15:37:13.630068",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 105,
+        "prompt_tokens": 3492,
+        "total_tokens": 3597,
+        "request_time": "2025-02-21 15:37:17.628836",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 81,
+        "prompt_tokens": 3172,
+        "total_tokens": 3253,
+        "request_time": "2025-02-21 15:37:21.092544",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 42,
+        "prompt_tokens": 2276,
+        "total_tokens": 2318,
+        "request_time": "2025-02-21 15:37:56.599138",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 86,
+        "prompt_tokens": 3530,
+        "total_tokens": 3616,
+        "request_time": "2025-02-21 15:38:00.474593",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 84,
+        "prompt_tokens": 3218,
+        "total_tokens": 3302,
+        "request_time": "2025-02-21 15:38:04.112024",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 31,
+        "prompt_tokens": 2276,
+        "total_tokens": 2307,
+        "request_time": "2025-02-21 15:38:40.088348",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 111,
+        "prompt_tokens": 3569,
+        "total_tokens": 3680,
+        "request_time": "2025-02-21 15:38:44.109522",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 93,
+        "prompt_tokens": 3254,
+        "total_tokens": 3347,
+        "request_time": "2025-02-21 15:38:47.620305",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 29,
+        "prompt_tokens": 4032,
+        "total_tokens": 4061,
+        "request_time": "2025-02-21 15:39:16.718040",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 106,
+        "prompt_tokens": 3522,
+        "total_tokens": 3628,
+        "request_time": "2025-02-21 15:39:20.207939",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 30,
+        "prompt_tokens": 3499,
+        "total_tokens": 3529,
+        "request_time": "2025-02-21 15:39:49.424754",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 124,
+        "prompt_tokens": 3864,
+        "total_tokens": 3988,
+        "request_time": "2025-02-21 15:39:53.001634",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 89,
+        "prompt_tokens": 3556,
+        "total_tokens": 3645,
+        "request_time": "2025-02-21 15:39:56.295660",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 39,
+        "prompt_tokens": 3217,
+        "total_tokens": 3256,
+        "request_time": "2025-02-21 15:40:22.355445",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 145,
+        "prompt_tokens": 3652,
+        "total_tokens": 3797,
+        "request_time": "2025-02-21 15:40:26.161426",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 80,
+        "prompt_tokens": 3338,
+        "total_tokens": 3418,
+        "request_time": "2025-02-21 15:40:29.399383",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 36,
+        "prompt_tokens": 6401,
+        "total_tokens": 6437,
+        "request_time": "2025-02-21 15:40:54.867833",
+        "model_name": "gemini-2.0-flash"
     }
 ]
