@@ -248,8 +248,12 @@ EXPAND_TASK_POOL_PROMPT_TEMPLATE = (
     'The agent has executed this task, but it failed, possibly due to improper task design. '
     'You need to use this task as material to generate a similar but executable successful task.\n'
     'The tasks should be related to launching the app, using its core features, and performing common user interactions.\n'
+    'You need to ensure that the language of the new task is the same as the one I provided. '
+    'That is to say, if the original task was written in Chinese, the new task you provide should also be written in Chinese.\n'
+    'The tasks should explicitly mention that they are performed **inside this app**. For example, if the app name is "NameOfApp", instead of saying "Search for a video," say "Search for a video on NameOfApp." '
+    'This ensures there is no ambiguity about the app being referred to.\n'
     'You should first describe the general features of the app, and then output the tasks that can be performed on this app. '
-    'Make sure that the difficulty of these tasks is neither too hard nor too easy; ideally, they should be tasks that a skilled human user could complete in around 7 steps. '
+    'Make sure that the difficulty of these tasks is neither too hard nor too easy; ideally, they should be tasks that a skilled human user could complete in around 10 steps. '
     'When generating tasks, you should avoid creating tasks that involve multiple apps or tasks that have pre-requisite requirements. \n'
     'For example, "Share the video with a friend" would involve other apps, and "Upload a video" requires having a video ready in advance. '
     'Such tasks should be avoided.\n'
@@ -257,7 +261,7 @@ EXPAND_TASK_POOL_PROMPT_TEMPLATE = (
     'For example, tasks like "read this article for 30 seconds" or "watch this entire video" should be avoided as well.\n'
     'The output format should be as follows:\n\n'
     'The app generally has the following features:\n'
-    'Generated tasks:\n{{"task_description": "a task"}}{{"task_description": "a task"}}...\n'
+    'Generated tasks:\n{{"task_description": "a task that explicitly refers to this app"}}{{"task_description": "a task that explicitly refers to this app"}}...\n'
     'You should generate around 3 tasks.'
 )
 

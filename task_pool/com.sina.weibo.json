@@ -62,55 +62,80 @@
     },
     {
         "id": 10,
-        "task_description": "Open the Weibo app.",
-        "executed": 1,
-        "succeeded": 1.0
-    },
-    {
-        "id": 11,
-        "task_description": "Search for 'NBA' in the search bar.",
-        "executed": 1,
-        "succeeded": 1.0
-    },
-    {
-        "id": 12,
-        "task_description": "Like the first post in your home feed.",
-        "executed": 1,
-        "succeeded": 1.0
-    },
-    {
-        "id": 13,
         "task_description": "在微博中, 搜索并关注一个你感兴趣的用户.",
         "executed": 1,
         "succeeded": 1.0
     },
     {
-        "id": 14,
+        "id": 11,
         "task_description": "在微博的首页，点赞一条你感兴趣的微博.",
         "executed": 1,
         "succeeded": 1.0
     },
     {
-        "id": 15,
+        "id": 12,
         "task_description": "在微博中，点击‘发现’页面，并浏览其中的一个热门话题.",
         "executed": 1,
         "succeeded": 1.0
     },
     {
-        "id": 16,
-        "task_description": "Search for a trending topic and view the top 3 posts related to it.",
+        "id": 13,
+        "task_description": "Launch the Weibo app and navigate to the 'Discover' page.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "Launch the Weibo app and navigate to the 'Discover' page. Then, tap on a trending topic from the list.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "Launch the Weibo app, navigate to your own profile page, and then tap on the 'Followers' button to view the list of your followers.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "Launch the Weibo app. Use the search bar to search for '#Weibo'. Scroll down the search results page and tap the first post you see.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 17,
-        "task_description": "Comment on the latest post of a followed user.",
+        "task_description": "Launch the Weibo app. Tap the search icon. Enter 'NBA' into the search bar. Tap the search button. Scroll down the search results page. Tap on a user profile in the search results.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "Launch the Weibo app. Tap the '+' icon to create a new post. Enter 'Hello Weibo!' into the text field. Add a hashtag '#Test'. Tap the 'Post' button.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "Launch the Weibo app. Navigate to your profile page. Tap the 'Followers' tab. Scroll down the list of followers. Tap on a follower's profile.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 20,
+        "task_description": "在Weibo中，搜索一个你感兴趣的话题，例如“美食”.",
         "executed": 0,
         "succeeded": 0
     },
     {
-        "id": 18,
-        "task_description": "Repost a post from your home feed with a comment.",
+        "id": 21,
+        "task_description": "在Weibo中，浏览推荐的视频，并点赞其中一个视频.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 22,
+        "task_description": "在Weibo中，关注一个你感兴趣的账号.",
         "executed": 0,
         "succeeded": 0
     }

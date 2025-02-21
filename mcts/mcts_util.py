@@ -245,7 +245,7 @@ class WorldModel:
             return None, None, None, -1
         state_after = self.env.get_state(wait_to_stabilize = True)
         # 看一眼
-        save_state(state=state_after)
+        save_state(state=state_after,doc=f"temp_state/{self.package}/")
         # 总结任务
         summary, summary_prompt = self.critic.summary_action(
             state_before=state_before, 
@@ -404,7 +404,7 @@ class WorldModelCogAsReward:
             # 这种情况就是动作有问题，只能放弃了
             return None, None, None, -1
         state_after = self.env.get_state(wait_to_stabilize = True)
-        save_state(state=state_after)
+        save_state(state=state_after,doc=f"temp_state/{self.package}/")
         # 总结任务
         summary, summary_prompt = self.vision.summary_action(
             state_before=state_before, 
@@ -727,7 +727,7 @@ class WorldAndSearchModelForGPT4oAtlas:
             # 这种情况就是动作有问题，只能放弃了
             return None, None, None, -1
         state_after = self.env.get_state(wait_to_stabilize = True)
-        save_state(state=state_after)
+        save_state(state=state_after,doc=f"temp_state/{self.package}/")
         # 总结任务
         summary, summary_prompt = self.gpt4o.summary_action(
             state_before=state_before, 
@@ -781,168 +781,7 @@ class WorldAndSearchModelForGPT4oAtlas:
                 print("gpt回答格式错误，再给它一次机会")
                 continue
 
-class WorldAndSearchModelForGPT4oAtlasCogagent:
-    def __init__(self, env: interface.AsyncEnv, task_goal:str, gpt4o, Altas, cogagent, package_name: str = None):
-        self.task_goal = task_goal
-        self.env = env
-        self.gpt4o = gpt4o
-        self.Altals = Altas
-        self.cogagent = cogagent
-        self.package_name = package_name
-    
-    def get_actions(self, node:MCTSNode):
-        # 先查看一下情况
-        save_node_state(node)
-        # 用gpt4o通过目标，历史信息，当前截图获取当前这一步应该干什么
-        high_level_action_str, reason_list = self.gpt4o.get_high_level_actions(node, self.task_goal)
-        print("GPT4o给出的high_level_action_str为:",high_level_action_str)
-        #print("GPT4o给出的reason_list为:",reason_list)
 
-        # 让Altas接受指令，输出真正的动作（坐标型，结构可以看actuation文件）
-        # Altas蠢到家了！把两个reason分两次发给他，然后自己组合结果，方才有效。
-        action_json_list = []
-        action_str_list = []
-        for reason_list_str in reason_list:
-            action_json, action_str = self.Altals.get_grounded_actions(node, reason_list_str)
-            #print("Atlas给出的action_json为:",action_json)
-            #print("Atlas给出的action_str为:",action_str)
-            action_json_list.append(action_json)
-            action_str_list.append(action_str)
-
-        # reason_list里面是cot，action_strs里面是真实动作的字符串版本。需要将二者结合起来
-        reason_action_list = [f"{a},{b}" for a, b in zip(reason_list, action_str_list)]
-
-        # 假装排序并返回(看一下原来的get_actions是怎么输出的)
-        # 返回ranks_actions列表，列表元素为字典，有['action'（json）]['rank'(float)]['action_output'(str)]三个元素
-        ranks_actions = []
-        i = 1.0
-        for action, reason_action in zip(action_json_list, reason_action_list):
-            rank = 1/i
-            i += 1
-            ranks_action = {}
-            ranks_action['action'] = action
-            ranks_action['rank'] = rank
-            ranks_action['action_output'] = reason_action
-            ranks_actions.append(ranks_action)
-
-        print("最终获得的ranks_actions如下:\n",ranks_actions)
-        return ranks_actions
-        
-        
-
-    def step(self, action: Optional[json_action.JSONAction]):
-        """
-        本函数的工作是执行一步。不涉及到大模型
-        input:
-            不需要输入state.我自己记录了任务目标
-            action:需要执行的动作
-        output:返回新状态
-        """
-        print(f"[DEBUG] Executing step with action: {action}")
-        # 这个地方的execute_action有可能会失败，需要考虑这种情况
-        result = self.env.execute_action_v2(action)
-        if result == -1:
-            # 这种情况就是动作有问题，只能放弃了
-            return -1
-        import time
-        time.sleep(3) # 等一下页面
-        state = self.env.get_state(wait_to_stabilize = True)
-        print("执行完本动作，返回当前状态")
-
-        return state
-
-    def step_with_summary(self, action: Optional[json_action.JSONAction], action_output: str):
-        """
-        本函数的工作是执行一步并且总结这一步的效果，适用于第一次执行本action的时候
-        input:
-            不需要输入state.我自己记录了任务目标
-            action:需要执行的动作
-        output:返回新状态和动作的summary,summary prompt
-        """
-        state_before = self.env.get_state(wait_to_stabilize = True)
-
-        # 执行任务
-        print(f"[DEBUG] Executing step with action: {action}")
-        result = self.env.execute_action_v2(action)
-        if result == -1:
-            # 这种情况就是动作有问题，只能放弃了
-            return None, None, None, -1
-        state_after = self.env.get_state(wait_to_stabilize = True)
-        save_state(state=state_after)
-        # 总结任务
-        summary, summary_prompt = self.gpt4o.summary_action(
-            state_before=state_before, 
-            state_after=state_after, 
-            action=action, 
-            action_output=action_output, 
-            task_goal=self.task_goal
-            )
-
-        return state_after, summary, summary_prompt, 1
-    
-    def init_state(self):
-        """
-        本函数就是要杀进程，回主页，返回主页这个state
-        """
-        self.env.reset(go_home=True)
-        stop_app(self.package_name) # 杀掉app后台，这样就可以回到app主页了
-        state = self.env.get_state(wait_to_stabilize = True)
-        return state
-
-    def is_terminal(self, node: MCTSNode):
-        """
-        本函数作用是输入当前node，返回奖励（真实奖励，对了就是1错了就是-0.01的那种）
-        与之前不同的地方在于把模型换成了cogAgent。希望他能有好表现
-        输入格式必须非常严格！不然就不能正常工作
-        input:
-            state:当前状态
-        """
-        # 仔细想想，还是要加上历史动作序列比较好。给action_output就行
-        state = node.state
-        history_action = []
-        history_action_output = []
-        while node.parent is not None:
-            action = node.action.json_str()
-            history_action.append(action)
-            history_action_output.append(node.action_output)
-            node = node.parent
-        if len(history_action) != 0:
-            history_action.reverse()
-
-        terminal = self.cogagent.is_terminal_bycogagent(
-            task_goal=self.task_goal, 
-            state=state, 
-            env=self.env, 
-            history_action=history_action,
-            history_action_output=history_action_output,
-        )
-        if terminal is None or terminal == 1.0:
-            # cogagent翻车了，那就只能用gpt.或者cogagent认为是对的，那就请gpt来再验证一下
-            state = node.state
-            history_action = []
-            while node.parent is not None:
-                history_action.append(node.action_output)
-                node = node.parent
-            if len(history_action) != 0:
-                history_action.reverse()
-            terminal = self.gpt4o.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
-        print("本状态的terminal值为",terminal)
-        return terminal
-
-    def reward(self, node: MCTSNode):
-        # 输入状态，返回真实奖励（1就是1,0就是-0.01）
-        while True:
-            # 不输出正确格式的答复就出不去的函数
-            terminal_state = self.is_terminal(node=node)
-            if terminal_state == 1:
-                print("本状态是成功状态")
-                return terminal_state
-            elif terminal_state == -0.01:
-                print("本状态是尚未成功状态")
-                return terminal_state # 回答错误那就
-            else:
-                print("gpt回答格式错误，再给它一次机会")
-                continue
 
 def print_result(result):
     """

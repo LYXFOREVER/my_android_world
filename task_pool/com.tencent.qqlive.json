@@ -1,0 +1,170 @@
+[
+    {
+        "id": 0,
+        "task_description": "在腾讯视频中搜索‘哪吒’，点击并查看搜索结果.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "在腾讯视频中点击‘电视剧’栏目，点击并查看一部推荐的电视剧.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "在腾讯视频中点击‘动漫’栏目，点击并查看一部推荐的动漫.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "在腾讯视频中搜索‘鬼灭之刃’，点击并查看搜索结果.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "在腾讯视频中搜索‘怪形’，查看搜索结果.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "在腾讯视频中点击‘综艺’选项，查看推荐的综艺节目.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "在腾讯视频中点击并观看首页上的一个视频，并给它点赞.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "在腾讯视频中点击‘我的’选项，点击并查看设置.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "在腾讯视频中点击‘’我的.选项，点击并查看观看历史",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "在腾讯视频中点击并观看首页上的一个视频，并收藏这个视频",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "在腾讯视频中，点击底部的‘电影’栏目，然后浏览推荐的电影列表。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "在腾讯视频中，使用搜索功能查找一部名为‘流浪地球’的电影，并点击播放。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "在腾讯视频中，点击底部的‘动漫’栏目，然后选择一个推荐的动漫剧集，并点击第一集观看。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "在腾讯视频中搜索“热门电影”，然后点击搜索结果中的第一个电影观看。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "在腾讯视频中浏览电视剧频道，找到一个感兴趣的电视剧，并将其添加到“想看”列表。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "在腾讯视频中，点击“我的”页面，查看历史观看记录。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "在腾讯视频中搜索“热门电视剧”，然后点击搜索结果中的第一个电视剧观看。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "在腾讯视频中浏览“电影”分类，然后点击一个电影的详情页。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "在腾讯视频中，点击“我的”页面，然后查看历史观看记录。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "在腾讯视频中，搜索电影《流浪地球》并播放预告片。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 20,
+        "task_description": "在腾讯视频中，浏览电视剧分类，并查看“热门”电视剧列表。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 21,
+        "task_description": "在腾讯视频中，点击“我的”页面，查看已缓存的视频。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 22,
+        "task_description": "在腾讯视频中搜索‘爱情公寓’，然后点击第一个搜索结果查看详情。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 23,
+        "task_description": "在腾讯视频的电视剧频道中，浏览并点击一个推荐的电视剧，然后播放该剧的第一集。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 24,
+        "task_description": "在腾讯视频的个人中心，查看我的收藏列表。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 25,
+        "task_description": "在腾讯视频中，搜索电影《流浪地球》并播放预告片。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 26,
+        "task_description": "在腾讯视频中，点击“电视剧”频道，浏览最新更新的电视剧。",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 27,
+        "task_description": "在腾讯视频中，进入“我的”页面，查看历史观看记录。",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

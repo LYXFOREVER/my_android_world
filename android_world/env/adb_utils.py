@@ -33,7 +33,8 @@ from android_world.env import interface
 
 T = TypeVar('T')
 
-_DEFAULT_TIMEOUT_SECS = 10
+#!!!! modify it
+_DEFAULT_TIMEOUT_SECS = 1000
 
 # Maps app names to the activity that should be launched to open the app.
 _PATTERN_TO_ACTIVITY = immutabledict.immutabledict({

@@ -212,16 +212,16 @@ def _main():
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
 
     #这里是使用自己的api的配置（gemini）
-    agent_generate_task = m3a.M3A(env, infer.GeminiGradioWrapper())
-    actor = agent_generate_task
-    critic = agent_generate_task # 新增summary职能
-    vision = agent_generate_task
+    #agent_generate_task = m3a.M3A(env, infer.GeminiGradioWrapper())
+    #actor = agent_generate_task
+    #critic = agent_generate_task # 新增summary职能
+    #vision = agent_generate_task
 
     #这里是使用组里的api的配置（gemini）使用之前记得
-    #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
-    #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
-    #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6)) # 新增summary职能
-    #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6)) # 新增summary职能
+    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
     # 以下都是需要循环多次执行的
     for i in range(20):
         try:

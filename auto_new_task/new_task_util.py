@@ -79,6 +79,32 @@ def create_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity
     else:
         print(f"File '{file_name}' already exists.")
 
+from android_world.env import interface
+def create_file_in_task_pool_v2(agent: m3a.M3A,app_name: str, env:interface.AsyncAndroidEnv):
+    """
+    暂时只支持android world原版app
+    依旧是初始化app任务池的函数，不过思路全然不同。具体方法基本上是在app里面乱点，需要文本输入的话就用ai来输入文本
+    然后将动作，状态1，状态2交给ai，让它幻想与之对应的任务
+    """
+    task_pool_dir = "task_pool"
+    file_name = app_name + ".json"
+    
+    # 构造文件路径
+    file_path = os.path.join(task_pool_dir, file_name)
+    # 判断文件是否存在
+    if not os.path.exists(file_path):
+        # 文件确实不存在，开始创建任务池
+        pass
+        # TODO:打开本次的app
+
+        # TODO:开始循环，深度优先搜索，假如没有能点击了的东西那就返回.保存截图，ui list，动作str
+        # TODO:每一对都保存在独立的文件夹里面。检测到已经存在10对（也就是10个动作，少量测试）了，就结束前期探索
+
+        # TODO:读取探索对，交给agent，获取任务描述
+    else:
+        print(f"File '{file_name}' already exists.")
+
+
 def extend_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity_name,permission):
     """
     扩展该app的任务池
