@@ -1339,6 +1339,46 @@ GENERATE_TEXT_TO_INPUT_TAMPLATE = (
   'Please provide a response. You only need to reply with the content to be entered into the UI element, without any additional output.'
 )
 
+GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TAMPLATE = (
+  'You are an expert at envisioning specific tasks corresponding to changes in mobile screenshots.'
+  'I will provide you with the following:\n'
+  '1. The type of action currently being executed.The type of action currently being executed, which'
+  'can be one of the types: click, input_text. If the action is input_text,'
+  'an additional value representing the input will be provided. \n'
+  '2. Screenshots of the interface before and after the current action is performed. '
+  'the pre-action screenshot will include a red bbox highlighting the element being interacted'
+  'with (if applicable), Pay particular attention to the content of the element corresponding to the red bbox.\n'
+  '3. The name of the app where the current screenshot is located.\n'
+  'Your task is to envision a specific task based on the current action and the corresponding'
+  'changes in screenshots. The output should include three parts:\n'
+  '1. Sub-Instruction: Based on the interface change caused by the current action, generate a corresponding'
+  'natural language instruction for the current action.'
+  ' The instruction should be concise, clear, and executable.' 
+  'It must include specific details critical to the operation, such as file names, times, or'
+  'other content as they appear in the screenshots.'
+  'For example: “Scroll left to open the app drawer,'
+  'displaying all installed applications on the devic”, “Click the chat interface, allowing the user to'
+  'view and participate in conversation”, '
+  ' “Type the username ‘Agent’, preparing for the next step in logging into the account”.\n'
+  '2. Analysis: Based on the interface changes and the current action instructions, analyze the possible subsequent operations.'
+  ' This analysis should involve step-by-step reasoning, considering the potential'
+  'changes on the screen and the actions that can be taken after these changes.'
+  ' For example: “After clicking the plus button, a dropdown menu appears with an option to create a document.'
+  ' I can select this option to create a new document. First, I need to name the document, then enter any content into'
+  'the document, and finally save the document and exit”.\n'
+  '3. High-Level-Instruction: Based on the analysis results, envision a high-level task that can be'
+  'completed within the current interface.. There are two types of High-Level-Instruction:\n'
+  'Task-Oriented: Completing a series of operations to achieve a specific goal.\n'
+  'Question-Oriented: Performing a series of operations and deriving an answer to a specific question.\n'
+  'Ensure that the High-Level-Instruction is executable by including all critical specifics, such as file'
+  'names, relevant timings, or required details.\n'
+  'You ONLY need to return a dictionary formatted as follows:\n'
+  '{\n"Sub-Instruction": "xxx",\n"Analysis": "xxx",\n"High-Level-Instruction": "xxx"\n}'
+  'Current Action: {action_dic}\n'
+  'App Name: {app_name}\n'
+  'RETURN ME THE DICTIONARY I ASKED FOR.\n'
+)
+
 def _generate_high_level_description_prompt(
     sub_instruction_list:list[str]
 ):
@@ -1354,6 +1394,12 @@ def _generate_high_level_description_prompt(
 def generate_text_to_input(app_name:str):
   return GENERATE_TEXT_TO_INPUT_TAMPLATE.format(
     app_name=app_name
+  )
+
+def generate_task_description_with_action_state_pair(app_name:str, action_dic:str):
+  return GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TAMPLATE.format(
+    app_name=app_name,
+    action_dic=action_dic
   )
   
 import numpy as np
@@ -1407,6 +1453,7 @@ class MultimodelTaskGen():
     )
     return high_level_description
     
+
 
 class M3A(base_agent.EnvironmentInteractingAgent):
   """M3A which stands for Multimodal Autonomous Agent for Android."""

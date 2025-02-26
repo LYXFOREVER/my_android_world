@@ -168,7 +168,7 @@ def generate_input_text_action_for_navigation(state:State, index:int, app_name:s
     )
     # 处理回复，得到结果
     if not raw_response:
-        raise RuntimeError('使用app信息生成新任务时出现错误！')
+        print('生成合适的输入文本时出错！')
 
     print('agent给出的输入文本为\n',input_text)
     return {'action_type': 'input_text','index': index, 'text': input_text}
@@ -176,6 +176,23 @@ def generate_input_text_action_for_navigation(state:State, index:int, app_name:s
 import pickle
 def save_action_state_pairs(state_before_action:State, state_after_action:State, action_dic:dict, target_path:str):
     # 保存两个state的pkl，以及画了动作的before_image，原版的after_image，然后是文本形式的action_dic
+    """
+        target_path:str  是存放该app所有动作状态对的文件夹。因此每个状态对要在这个基础上创建属于自己的子文件夹
+    """
+    from datetime import datetime
+    # 获取当前时间
+    current_time = datetime.now()
+    # 格式化为指定的字符串格式（年月日时分秒）
+    formatted_time = current_time.strftime("%Y%m%d%H%M%S")
+    target_path = os.path.join(target_path, formatted_time)
+    try:
+        os.makedirs(target_path)
+        print(f"文件夹 '{target_path}' 创建成功！")
+    except FileExistsError:
+        print(f"文件夹 '{target_path}' 已存在，无需再次创建。")
+    except Exception as e:
+        print(f"创建文件夹时发生错误：{e}")
+
     state_before_action_path = os.path.join(target_path, 'state_before_action.pkl')
     with open(state_before_action_path, "wb") as file:  
         pickle.dump(state_before_action, file)
@@ -216,28 +233,29 @@ def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, ap
     else:
         print(f"文件夹 {target_path} 已存在。")
 
-    # TODO:检查当前获取的动作状态对数量是否达到要求
+    # 检查当前获取的动作状态对数量是否达到要求
     current_pair_num = count_subfolders(target_path)
     if current_pair_num >= max_pair_num:
         print("已经有了足够的动作状态对，可以结束前期探索了。数量为:",current_pair_num)
         return current_pair_num
 
-    # TODO:获取当前ui list
+    # 获取当前ui list
     ui_list:list[UIElement] = state.ui_elements
 
-    # 获取可取的动作列表
+    # 生成可取的动作列表
     action_dic_list = []
     # action_dic一般长：{'action_type': 'click','index': index}{'action_type': 'input_text','index': index, 'text': str}
     # {'action_type': 'navigate_back'}{'action_type': 'navigate_home'}
     for index, ui in enumerate(ui_list):
-        # TODO:判断是不是可以输入文本的
+        # 判断是不是可以输入文本的
         if ui.is_clickable is False:
             # 不能点击就免谈了
             continue
         if ui.is_editable is True:
             # 这招只对a11y tree有好好做的app有效。一般的app是没法用这种方法识别的
-            action_dic = generate_input_text_action_for_navigation(state=state, index=index, app_name=app_name, agent=agent)
-        # TODO:生成对应的合适动作
+            #action_dic = generate_input_text_action_for_navigation(state=state, index=index, app_name=app_name, agent=agent)
+            action_dic = {'action_type': 'input_text','index': index, 'text': None} # 等到真的要这个动作的时候再获取文本
+        # 生成对应的合适动作
         else:
             action_dic = {'action_type': 'click','index': index}
         action_dic_list.append(action_dic)
@@ -247,15 +265,20 @@ def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, ap
     # 最后加上返回
     action_dic_list.append({'action_type': 'navigate_back'})
     
-    # TODO:进入一个小循环。随机选择一个可点击元素并与之交互
+    # 进入一个小循环。随机选择一个可点击元素并与之交互
     for action_dic in action_dic_list:
+        # 假如是输入文本的动作，现在可以生成文本了
+        if action_dic["action_type"] == 'input_text':
+            index = action_dic["index"]
+            action_dic = generate_input_text_action_for_navigation(state=state, index=index, app_name=app_name, agent=agent)
+
         state_before_action = state
         doc = 'temp_state/'+app_name+'/'
         save_state(state=state_before_action, doc=doc)
         converted_action = json_action.JSONAction(
             **action_dic,
         )
-        # TODO:执行完成本次动作
+        # 执行完成本次动作
         result = env.execute_action_v2(converted_action)
         if result == -1:
             print("执行动作",action_dic,"失败了！")
@@ -264,7 +287,7 @@ def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, ap
         state_after_action = env.get_state(wait_to_stabilize = True)
         save_state(state=state_after_action, doc=doc)
 
-        # TODO:检查前后两个页面有没有变化，假如变化了就保存这个动作状态对，没变化就不需要浪费时间了
+        # 检查前后两个页面有没有变化，假如变化了就保存这个动作状态对，没变化就不需要浪费时间了
         # 对象不能直接比较。先把ui对象转化成一个个ui描述字符串，应该就可以了
         logical_screen_size = (1080, 2400)
         ui_elements_before = state_before_action.ui_elements
@@ -277,12 +300,109 @@ def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, ap
         )
         if are_lists_equal(ui_elements_list_before, ui_elements_list_after) is False:
             print("执行动作",action_dic,"之后，页面发生了变化，可以记录")
-            # TODO:保存ui list文本，原始截图和som截图，action截图，文本记录的action
+            # 保存ui list文本，原始截图和som截图，action截图，文本记录的action
             target_path = os.path.join('task_pool', app_name)
             save_action_state_pairs(state_before_action, state_after_action, action_dic, target_path)
 
-    # TODO:以新状态为基础再次调用该函数
-    dfs_app_navigate(target_path=target_path, state=state_after_action, env=env, app_name=app_name, max_pair_num=max_pair_num, agent=agent)
+    # 以新状态为基础再次调用该函数
+    return dfs_app_navigate(target_path=target_path, state=state_after_action, env=env, app_name=app_name, max_pair_num=max_pair_num, agent=agent)
+
+def get_first_level_subfolders(folder_path):
+    """
+    获取指定文件夹路径下一层级的所有子文件夹路径。
+    
+    参数:
+        folder_path (str): 指定的文件夹路径。
+    
+    返回:
+        list: 包含一层级子文件夹路径的列表。
+    """
+    # 初始化一个空列表来存储子文件夹路径
+    subfolders = []
+
+    # 遍历指定文件夹下的内容
+    for item in os.listdir(folder_path):
+        # 拼接完整的路径
+        item_path = os.path.join(folder_path, item)
+        # 判断是否为文件夹
+        if os.path.isdir(item_path):
+            subfolders.append(item_path)
+
+    return subfolders
+
+def get_task_dic(ai_response):
+    """
+    处理AI返回的结果，将其转换为字典，并可选地保存到JSON文件。
+
+    参数:
+        ai_response (str or dict): AI返回的结果，可以是JSON格式的字符串或直接是字典。
+
+    返回:
+        dict: 转换后的字典。
+    """
+    # 如果AI返回的是字典，直接使用
+    if isinstance(ai_response, dict):
+        result_dict = ai_response
+        return result_dict
+    # 如果AI返回的是字符串，尝试解析为字典
+    elif isinstance(ai_response, str):
+        try:
+            result_dict = json.loads(ai_response)
+            return result_dict
+        except json.JSONDecodeError as e:
+            print(f"AI返回的字符串不是有效的JSON格式：{e}")
+            return None
+    else:
+        return None
+
+def generate_task_description_list(action_state_pairs_path:str, agent:m3a.M3A, app_name:str):
+    """
+        输入:
+            action_state_pairs_path:动作状态对的路径列表
+            agent:用来生成任务描述的ai
+        输出:
+            task_description_list:任务描述列表
+    """
+    task_description_list = []
+    for action_state_pair_path in action_state_pairs_path:
+        # 获取需要的截图
+        image_with_action_path = os.path.join(action_state_pair_path, 'image_with_action.png')
+        image_with_action = Image.open(image_with_action_path)
+        image_after_action_path = os.path.join(action_state_pair_path, 'image_after_action.png')
+        image_after_action = Image.open(image_after_action_path)
+
+        image_with_action = np.array(image_with_action)
+        image_after_action = np.array(image_after_action)
+
+        # 获取需要的文本
+        action_dic_path = os.path.join(action_state_pair_path, 'action.json')
+        with open(action_dic_path, "r", encoding="utf-8") as file:
+            action_dic = json.load(file)
+        action_dic = str(action_dic)
+        text_prompt = m3a.generate_task_description_with_action_state_pair(app_name,action_dic)
+
+        # 与agent交互
+        task_dic_str, _, raw_response = agent.llm.predict_mm(
+            text_prompt,
+            [
+                image_with_action,
+                image_after_action
+            ]
+        )
+        # 处理回复，得到结果
+        if not raw_response:
+            print('利用状态动作对生成任务描述时出错！')
+        
+        task_dic = get_task_dic(task_dic_str)
+        task_description = task_dic.get("High-Level-Instruction")
+        if task_description is None:
+            print("提取任务描述时出现问题，试试下一个")
+            continue
+        else:
+            task_description_list.append(task_description)
+    
+    return task_description_list
+
 
 from android_world.env import json_action
 from mcts.mcts_util import *
@@ -325,10 +445,28 @@ def create_file_in_task_pool_v2(
         # TODO:开始循环，深度优先搜索，假如没有能点击了的东西那就返回.保存截图，ui list，动作str
         # TODO:每一对都保存在独立的文件夹里面。检测到已经存在10对（也就是10个动作，少量测试）了，就结束前期探索
         target_path = os.path.join('task_pool',app_name)
-        dfs_app_navigate()
-
+        dfs_app_navigate(target_path=target_path, state=state, env=env, app_name=app_name, agent=agent, max_pair_num=max_action_times)
 
         # TODO:读取探索对，交给agent，获取任务描述
+        action_state_pairs_path = get_first_level_subfolders(target_path)
+
+        task_description_list = generate_task_description_list(action_state_pairs_path, agent, app_name)
+        # task_list是一个保存了一系列用字典保存的任务
+        # 字典记录了任务id，任务描述，是否被执行过以及执行结果信息
+        # 执行的时候，遍历task_list,找到第一个没有被做过的任务并执行它。
+        # 假如没找到，那就找到第一个执行过但没成功的任务，以此为种子生成新的并执行；原来的任务会删去（因为可能是不可能的任务）
+        task_list = []
+        for i, task_description in enumerate(task_description_list):
+            task = {}
+            task['id'] = i
+            task['task_description'] = task_description
+            task['executed'] = 0 # 0代表没有执行过
+            task['succeeded'] = 0 # 0代表没成功过
+            task_list.append(task)
+
+        #将任务写入json文件中
+        with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
+            json.dump(task_list, file, indent=4)
     else:
         print(f"File '{file_name}' already exists.")
 
