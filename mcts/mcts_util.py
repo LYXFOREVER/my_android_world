@@ -727,7 +727,7 @@ class WorldAndSearchModelForGPT4oAtlas:
             # 这种情况就是动作有问题，只能放弃了
             return None, None, None, -1
         state_after = self.env.get_state(wait_to_stabilize = True)
-        save_state(state=state_after,doc=f"temp_state/{self.package}/")
+        save_state(state=state_after,doc=f"temp_state/{self.package_name}/")
         # 总结任务
         summary, summary_prompt = self.gpt4o.summary_action(
             state_before=state_before, 
@@ -762,21 +762,21 @@ class WorldAndSearchModelForGPT4oAtlas:
             node = node.parent
         if len(history_action) != 0:
             history_action.reverse()
-        terminal = self.gpt4o.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
+        terminal, terminal_output = self.gpt4o.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
         print("本状态的terminal值为",terminal)
-        return terminal
+        return terminal, terminal_output
 
     def reward(self, node: MCTSNode):
         # 输入状态，返回真实奖励（1就是1,0就是-0.01）
         while True:
             # 不输出正确格式的答复就出不去的函数
-            terminal_state = self.is_terminal(node=node)
+            terminal_state, terminal_output = self.is_terminal(node=node)
             if terminal_state == 1:
                 print("本状态是成功状态")
-                return terminal_state
+                return terminal_state, terminal_output
             elif terminal_state == -0.01:
                 print("本状态是尚未成功状态")
-                return terminal_state # 回答错误那就
+                return terminal_state, terminal_output # 回答错误那就
             else:
                 print("gpt回答格式错误，再给它一次机会")
                 continue
@@ -998,6 +998,47 @@ def draw_ui_border(image_path, output_path, ui_bbox, border_color=(255, 0, 0), b
         print(f"带有红色边框的图像已保存到 {output_path}")
     except Exception as e:
         print(f"发生错误：{e}")
+
+def draw_click_on_image(image_path, click_info, output_path, color="red", radius=5):
+    """
+    在图像上绘制点击坐标（支持百分比坐标）。
+
+    参数:
+        image_path (str): 输入图像的路径。
+        click_info (dict): 包含点击信息的字典，格式为 {'action_type': 'click', 'x': float, 'y': float}，
+                           其中 x 和 y 是百分比（例如 0.5 表示 50%）。
+        output_path (str): 输出图像的路径。
+        color (str, optional): 绘制的圆点颜色，默认为红色。
+        radius (int, optional): 圆点的半径，默认为5像素。
+    """
+    try:
+        # 打开图像文件
+        image = Image.open(image_path)
+        width, height = image.size  # 获取图像的宽度和高度
+    except FileNotFoundError:
+        print(f"错误：文件 {image_path} 未找到！")
+        return
+    except Exception as e:
+        print(f"打开图像时出错：{e}")
+        return
+
+    # 创建绘图对象
+    draw = ImageDraw.Draw(image)
+
+    # 获取百分比形式的点击坐标
+    x_percent = click_info.get('x', 0)
+    y_percent = click_info.get('y', 0)
+
+    # 将百分比转换为像素坐标
+    x = int(x_percent * width)
+    y = int(y_percent * height)
+
+    # 在图像上绘制一个圆点
+    draw.ellipse([x - radius, y - radius, x + radius, y + radius], fill=color)
+
+    # 保存绘制后的图像
+    image.save(output_path)
+    print(f"图像已保存到 {output_path}")
 import shutil
 def copy_file(source_path, destination_path):
     try:
@@ -1036,5 +1077,7 @@ def draw_action(doc_path, trajectry_lenth):
             ui_index = action_dic["index"]
             ui_bbox = ui_element_list[ui_index]["ui_bbox"]
             draw_ui_border(image_path, output_with_action_path, ui_bbox)
+        elif "x" in action_dic and "y" in action_dic:
+            draw_click_on_image(image_path=image_path, click_info=action_dic, output_path=output_with_action_path)
         else:
             copy_file(image_path, output_with_action_path)

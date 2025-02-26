@@ -636,7 +636,7 @@ class MCTSForAndroidWorld(Generic[State, Action, Example]):
             # information can be cached and passed from the world model
             # to the reward function with **aux without repetitive computation
             # 骗鬼呢，step的二号返回值是空的，reward的最后两个参数不会使用，只有state会用到，所以以上三行都是假的
-            node.reward = self.search_config.reward(
+            node.reward, node.reward_output = self.search_config.reward(
                 #node.parent.state,
                 node=node,# 怀疑之前的写法有问题
             )

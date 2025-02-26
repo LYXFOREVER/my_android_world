@@ -1331,6 +1331,14 @@ GENERATE_HIGH_LEVEL_DESCRIPTION_TAMPLATE = (
   'Now return your answer'
 )
 
+GENERATE_TEXT_TO_INPUT_TAMPLATE = (
+  'You are a GUI agent, very familiar with the operations of various Android apps.\n'
+  'I will send you a screenshot of an app, where a UI element for text input is highlighted with a box.'
+  'You need to consider the context and think of a specific content that would be suitable to enter into this UI element.\n'
+  'The name of the app is: {app_name}.\n\n'
+  'Please provide a response. You only need to reply with the content to be entered into the UI element, without any additional output.'
+)
+
 def _generate_high_level_description_prompt(
     sub_instruction_list:list[str]
 ):
@@ -1341,6 +1349,11 @@ def _generate_high_level_description_prompt(
 
   return GENERATE_HIGH_LEVEL_DESCRIPTION_TAMPLATE.format(
     sub_instruction_list=sub_instruction_list_str
+  )
+
+def generate_text_to_input(app_name:str):
+  return GENERATE_TEXT_TO_INPUT_TAMPLATE.format(
+    app_name=app_name
   )
   
 import numpy as np

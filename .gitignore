@@ -33,3 +33,4 @@ poetry.lock
 
 # 隐私信息
 start.sh
+gpt_usage.json

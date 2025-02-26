@@ -285,7 +285,7 @@ class GeminiGradioWrapper(LlmWrapper, MultimodalLlmWrapper):
       self,
       max_retry: int = 3,
   ):
-    self.llm = Client("https://5e90859dcf47e51601.gradio.live")
+    self.llm = Client("https://c58bb9cb01f9487d36.gradio.live")
     if max_retry <= 0:
       max_retry = 3
       print('Max_retry must be positive. Reset it to 3')

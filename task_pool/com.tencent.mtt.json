@@ -2,98 +2,136 @@
     {
         "id": 0,
         "task_description": "在QQ浏览器中搜索'DNF手游'并查看搜索结果.",
-        "executed": 0,
-        "succeeded": 0.0,
+        "executed": 1,
+        "succeeded": 1.0,
         "extended": 1.0
     },
     {
         "id": 1,
         "task_description": "在QQ浏览器中点击并观看首页上的一个视频.",
-        "executed": 0,
-        "succeeded": 0.0,
+        "executed": 1,
+        "succeeded": 1.0,
         "extended": 1.0
     },
     {
         "id": 2,
         "task_description": "在QQ浏览器中点击‘小说’分区，点击并阅读一篇推荐的小说.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 3,
         "task_description": "在QQ浏览器中搜索‘斗破苍穹’并点击查看搜索结果.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 4,
         "task_description": "在QQ浏览器中搜索‘电影’并点击查看对这个词的解释.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 5,
         "task_description": "在QQ浏览器中搜索‘适合旅游的地方’并点击查看有哪些地方适合旅游.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 6,
         "task_description": "在QQ浏览器中搜索‘上古卷轴’并点击查看搜索相关结果（小心广告）.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 7,
         "task_description": "在QQ浏览器中搜索‘冬天穿衣推荐’并点击查看搜索相关结果.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 8,
         "task_description": "在QQ浏览器中点击‘我的’选项并点击查看自己的历史记录.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 9,
         "task_description": "在QQ浏览器中点击‘我的’选项并点击查看设置.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 10,
         "task_description": "在QQ浏览器中打开百度首页。",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 11,
         "task_description": "在QQ浏览器中搜索'今日新闻'并滚动浏览搜索结果。",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 12,
         "task_description": "在QQ浏览器中打开一个视频网站，例如优酷，并播放一个推荐视频。",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 13,
         "task_description": "在QQ浏览器中搜索'今日新闻'。",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 14,
         "task_description": "在QQ浏览器中浏览首页推荐的三个不同网页。",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 15,
         "task_description": "在QQ浏览器中点击并播放首页上的短视频，然后暂停。",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 16,
+        "task_description": "在QQ浏览器中搜索 '今日新闻'。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "在QQ浏览器中打开并浏览一个推荐的视频。 ",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "在QQ浏览器中下载一张图片。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "在QQ浏览器中搜索“最新电影预告片”。",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 20,
+        "task_description": "在QQ浏览器中打开默认起始页上的一个新闻推送。",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 21,
+        "task_description": "在QQ浏览器中，打开任意一个网页，然后使用分享功能，将链接复制到剪贴板。",
         "executed": 0,
         "succeeded": 0
     }
