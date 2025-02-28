@@ -202,15 +202,22 @@ def save_action_state_pairs(state_before_action:State, state_after_action:State,
         pickle.dump(state_after_action, file)
 
     # 绘制并保存绘制了动作的截图1
-    image_with_action_path = os.path.join(target_path, 'image_with_action.png')
-    index = action_dic["index"]
-    editable_ui:UIElement = state_before_action.ui_elements[index]
-    bbox = editable_ui.bbox_pixels
-    bbox_list = [bbox.x_min,bbox.x_max,bbox.y_min,bbox.y_max]
+    if "index" in action_dic:
+        # 有index，就画上是哪个动作
+        image_with_action_path = os.path.join(target_path, 'image_with_action.png')
+        index = action_dic["index"]
+        editable_ui:UIElement = state_before_action.ui_elements[index]
+        bbox = editable_ui.bbox_pixels
+        bbox_list = [bbox.x_min,bbox.x_max,bbox.y_min,bbox.y_max]
 
-    image_before = Image.fromarray(state_before_action.pixels)
+        image_before = Image.fromarray(state_before_action.pixels)
 
-    draw_ui_border_with_return(image=image_before, output_path=image_with_action_path, ui_bbox=bbox_list,)
+        draw_ui_border_with_return(image=image_before, output_path=image_with_action_path, ui_bbox=bbox_list,)
+    else:
+        # TODO:加上对滑动等动作的支持
+        image_before_action_path = os.path.join(target_path, 'image_before_action.png')
+        image_before = Image.fromarray(state_before_action.pixels)
+        image_before.save(image_before_action_path)
 
     # 直接保存原始截图2
     image_after_action_path = os.path.join(target_path, 'image_after_action.png')
@@ -264,48 +271,52 @@ def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, ap
     random.shuffle(action_dic_list)
     # 最后加上返回
     action_dic_list.append({'action_type': 'navigate_back'})
+
+
+    # 选择本次要执行的动作
+    action_dic = action_dic_list[0]
     
-    # 进入一个小循环。随机选择一个可点击元素并与之交互
-    for action_dic in action_dic_list:
-        # 假如是输入文本的动作，现在可以生成文本了
-        if action_dic["action_type"] == 'input_text':
-            index = action_dic["index"]
-            action_dic = generate_input_text_action_for_navigation(state=state, index=index, app_name=app_name, agent=agent)
+    # 假如是输入文本的动作，现在可以生成文本了
+    if action_dic["action_type"] == 'input_text':
+        index = action_dic["index"]
+        action_dic = generate_input_text_action_for_navigation(state=state, index=index, app_name=app_name, agent=agent)
 
-        state_before_action = state
-        doc = 'temp_state/'+app_name+'/'
-        save_state(state=state_before_action, doc=doc)
-        converted_action = json_action.JSONAction(
-            **action_dic,
-        )
-        # 执行完成本次动作
-        result = env.execute_action_v2(converted_action)
-        if result == -1:
-            print("执行动作",action_dic,"失败了！")
-        import time
-        time.sleep(3) # 等一下页面
-        state_after_action = env.get_state(wait_to_stabilize = True)
-        save_state(state=state_after_action, doc=doc)
+    state_before_action = state
+    doc = 'temp_state/'+app_name+'/'
+    save_state(state=state_before_action, doc=doc)
+    converted_action = json_action.JSONAction(
+        **action_dic,
+    )
+    # 执行完成本次动作
+    print("本次要执行的动作为:",action_dic)
+    result = env.execute_action_v2(converted_action)
+    if result == -1:
+        print("执行动作",action_dic,"失败了！")
+    import time
+    time.sleep(3) # 等一下页面
+    state_after_action = env.get_state(wait_to_stabilize = True)
+    save_state(state=state_after_action, doc=doc)
 
-        # 检查前后两个页面有没有变化，假如变化了就保存这个动作状态对，没变化就不需要浪费时间了
-        # 对象不能直接比较。先把ui对象转化成一个个ui描述字符串，应该就可以了
-        logical_screen_size = (1080, 2400)
-        ui_elements_before = state_before_action.ui_elements
-        ui_elements_list_before = m3a._generate_ui_elements_list(
-            ui_elements_before, logical_screen_size
-        )
-        ui_elements_after = state_after_action.ui_elements
-        ui_elements_list_after = m3a._generate_ui_elements_list(
-            ui_elements_after, logical_screen_size
-        )
-        if are_lists_equal(ui_elements_list_before, ui_elements_list_after) is False:
-            print("执行动作",action_dic,"之后，页面发生了变化，可以记录")
-            # 保存ui list文本，原始截图和som截图，action截图，文本记录的action
-            target_path = os.path.join('task_pool', app_name)
-            save_action_state_pairs(state_before_action, state_after_action, action_dic, target_path)
+    # 检查前后两个页面有没有变化，假如变化了就保存这个动作状态对，没变化就不需要浪费时间了
+    # 对象不能直接比较。先把ui对象转化成一个个ui描述字符串，应该就可以了
+    logical_screen_size = (1080, 2400)
+    ui_elements_before = state_before_action.ui_elements
+    ui_elements_list_before = m3a._generate_ui_elements_list(
+        ui_elements_before, logical_screen_size
+    )
+    ui_elements_after = state_after_action.ui_elements
+    ui_elements_list_after = m3a._generate_ui_elements_list(
+        ui_elements_after, logical_screen_size
+    )
+    if are_lists_equal(ui_elements_list_before, ui_elements_list_after) is False:
+        print("执行动作",action_dic,"之后，页面发生了变化，可以记录")
+        # 保存ui list文本，原始截图和som截图，action截图，文本记录的action
+        target_path = os.path.join('task_pool', app_name)
+        save_action_state_pairs(state_before_action, state_after_action, action_dic, target_path)
 
-    # 以新状态为基础再次调用该函数
+    # 以新状态为基础再次执行该函数
     return dfs_app_navigate(target_path=target_path, state=state_after_action, env=env, app_name=app_name, max_pair_num=max_pair_num, agent=agent)
+
 
 def get_first_level_subfolders(folder_path):
     """
@@ -332,27 +343,28 @@ def get_first_level_subfolders(folder_path):
 
 def get_task_dic(ai_response):
     """
-    处理AI返回的结果，将其转换为字典，并可选地保存到JSON文件。
-
+    从ai_response中提取 JSON 数据。
+    
     参数:
-        ai_response (str or dict): AI返回的结果，可以是JSON格式的字符串或直接是字典。
-
+        ai_response (str): 包含 JSON 数据的字符串。
+    
     返回:
-        dict: 转换后的字典。
+        dict: 解析后的 JSON 数据，如果未找到有效的 JSON 数据则返回 None。
     """
-    # 如果AI返回的是字典，直接使用
-    if isinstance(ai_response, dict):
-        result_dict = ai_response
-        return result_dict
-    # 如果AI返回的是字符串，尝试解析为字典
-    elif isinstance(ai_response, str):
+    # 使用正则表达式查找 JSON 数据
+    json_match = re.search(r'\{.*\}', ai_response, re.DOTALL)
+    
+    if json_match:
+        json_string = json_match.group(0)
         try:
-            result_dict = json.loads(ai_response)
-            return result_dict
+            # 尝试解析 JSON 数据
+            json_data = json.loads(json_string)
+            return json_data
         except json.JSONDecodeError as e:
-            print(f"AI返回的字符串不是有效的JSON格式：{e}")
+            print(f"解析 JSON 时出错：{e}")
             return None
     else:
+        print("未找到有效的 JSON 数据")
         return None
 
 def generate_task_description_list(action_state_pairs_path:str, agent:m3a.M3A, app_name:str):
@@ -392,13 +404,14 @@ def generate_task_description_list(action_state_pairs_path:str, agent:m3a.M3A, a
         # 处理回复，得到结果
         if not raw_response:
             print('利用状态动作对生成任务描述时出错！')
-        
+        print("ai 给出的原始描述为:",task_dic_str)
         task_dic = get_task_dic(task_dic_str)
-        task_description = task_dic.get("High-Level-Instruction")
-        if task_description is None:
+        if "High-Level-Instruction" not in task_dic:
             print("提取任务描述时出现问题，试试下一个")
             continue
         else:
+            task_description = task_dic["High-Level-Instruction"]
+            task_description = "In app "+app_name+", "+task_description
             task_description_list.append(task_description)
     
     return task_description_list
@@ -426,6 +439,7 @@ def create_file_in_task_pool_v2(
     # 判断文件是否存在
     if not os.path.exists(file_path):
         # 文件确实不存在，开始创建任务池
+        print("任务池不存在，开始创建任务池")
         open_app_action_dic = {"action_type":"open_app", "app_name":app_name}
         converted_action = json_action.JSONAction(
             **open_app_action_dic,
@@ -436,6 +450,9 @@ def create_file_in_task_pool_v2(
             if result == -1:
                 print("打开app失败，还有",retry_times,"次机会")
                 retry_times -= 1
+            else:
+                print("app打开成功，开始探索app")
+                break
         import time
         time.sleep(3) # 等一下页面
         state = env.get_state(wait_to_stabilize = True)
@@ -457,6 +474,7 @@ def create_file_in_task_pool_v2(
         # 假如没找到，那就找到第一个执行过但没成功的任务，以此为种子生成新的并执行；原来的任务会删去（因为可能是不可能的任务）
         task_list = []
         for i, task_description in enumerate(task_description_list):
+            print("本次加入任务池的任务为:",task_description)
             task = {}
             task['id'] = i
             task['task_description'] = task_description

@@ -46,8 +46,8 @@ class AndroidToolController:
     """
     self._env = env
 
-  def click_element(self, element_text: str):
-    actuation.find_and_click_element(element_text, self._env)
+  def click_element(self, element_text: str, console_port: int):
+    actuation.find_and_click_element(element_text, self._env, console_port)
 
   def open_web_page(self, url: str):
     """Open a web page in the default browser on an Android device.

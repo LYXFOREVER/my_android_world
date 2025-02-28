@@ -120,6 +120,7 @@ class BillbiliOpenVideo(task_eval.TaskEval):
         if seed is not None:
             random.seed(seed)
 
+from android_world.env.adb_utils import get_main_activity
 class UniversalTaskFramework(task_eval.TaskEval):
     """Task for adding a new contact."""
 
@@ -146,6 +147,8 @@ class UniversalTaskFramework(task_eval.TaskEval):
         for index, app_name in enumerate(self.app_names):
             if app_name:
                 try:
+                    main_activity_name = get_main_activity(app_name)
+                    self.main_activity_names.append(main_activity_name)
                     app_snapshot.restore_snapshot_lyx(app_name, self.main_activity_names[index], env.controller)
                 except RuntimeError as error:
                     logging.warning("Skipping app snapshot loading : %s", error)

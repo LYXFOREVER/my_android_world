@@ -133,7 +133,7 @@ class CameraApp(AppSetup):
     try:
       controller = tools.AndroidToolController(env=env.controller)
       time.sleep(2.0)
-      controller.click_element("NEXT")
+      controller.click_element("NEXT", env.console_port)
       time.sleep(2.0)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
@@ -154,13 +154,13 @@ class ChromeApp(AppSetup):
       controller = tools.AndroidToolController(env=env.controller)
       time.sleep(2.0)
       # Welcome screen.
-      controller.click_element("Accept & continue")
+      controller.click_element("Accept & continue", env.console_port)
       time.sleep(2.0)
       # Turn on sync?
-      controller.click_element("No thanks")
+      controller.click_element("No thanks", env.console_port)
       time.sleep(2.0)
       # Enable notifications?
-      controller.click_element("No thanks")
+      controller.click_element("No thanks", env.console_port)
       time.sleep(2.0)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
@@ -196,10 +196,10 @@ class ContactsApp(AppSetup):
       controller = tools.AndroidToolController(env=env.controller)
       time.sleep(2.0)
       # Back up & organize your contacts with Google.
-      controller.click_element("Skip")
+      controller.click_element("Skip", env.console_port)
       time.sleep(2.0)
       # Allow Contacts to send you notifications?
-      controller.click_element("Don't allow")
+      controller.click_element("Don't allow", env.console_port)
       time.sleep(2.0)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
@@ -237,20 +237,20 @@ class MarkorApp(AppSetup):
     try:
       controller = tools.AndroidToolController(env=env.controller)
       time.sleep(2.0)
-      controller.click_element("NEXT")
+      controller.click_element("NEXT", env.console_port)
       time.sleep(2.0)
-      controller.click_element("NEXT")
+      controller.click_element("NEXT", env.console_port)
       time.sleep(2.0)
-      controller.click_element("NEXT")
+      controller.click_element("NEXT", env.console_port)
       time.sleep(2.0)
-      controller.click_element("NEXT")
+      controller.click_element("NEXT", env.console_port)
       time.sleep(2.0)
-      controller.click_element("DONE")
+      controller.click_element("DONE", env.console_port)
       time.sleep(2.0)
 
-      controller.click_element("OK")
+      controller.click_element("OK", env.console_port)
       time.sleep(2.0)
-      controller.click_element("Allow access to manage all files")
+      controller.click_element("Allow access to manage all files", env.console_port)
       time.sleep(2.0)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
@@ -298,9 +298,9 @@ class ClipperApp(AppSetup):
     adb_utils.launch_app(cls.app_name, env.controller)
     try:
       time.sleep(2.0)
-      controller.click_element("Continue")
+      controller.click_element("Continue", env.console_port)
       time.sleep(2.0)
-      controller.click_element("OK")
+      controller.click_element("OK", env.console_port)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
 
@@ -387,9 +387,9 @@ class SimpleGalleryProApp(AppSetup):
     try:
       controller = tools.AndroidToolController(env=env.controller)
       time.sleep(2.0)
-      controller.click_element("All files")
+      controller.click_element("All files", env.console_port)
       time.sleep(2.0)
-      controller.click_element("Allow access to manage all files")
+      controller.click_element("Allow access to manage all files", env.console_port)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
 
@@ -417,9 +417,9 @@ class SimpleSMSMessengerApp(AppSetup):
     try:
       controller = tools.AndroidToolController(env=env.controller)
       time.sleep(2.0)
-      controller.click_element("SMS Messenger")
+      controller.click_element("SMS Messenger", env.console_port)
       time.sleep(2.0)
-      controller.click_element("Set as default")
+      controller.click_element("Set as default", env.console_port)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
 
@@ -480,9 +480,9 @@ class ExpenseApp(AppSetup):
     try:
       time.sleep(2.0)
       controller = tools.AndroidToolController(env=env.controller)
-      controller.click_element("NEXT")
+      controller.click_element("NEXT", env.console_port)
       time.sleep(2.0)
-      controller.click_element("CONTINUE")
+      controller.click_element("CONTINUE", env.console_port)
       time.sleep(3.0)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
@@ -553,7 +553,7 @@ class OsmAndApp(AppSetup):
 
     try:
       controller = tools.AndroidToolController(env=env.controller)
-      controller.click_element("SKIP DOWNLOAD")
+      controller.click_element("SKIP DOWNLOAD", env.console_port)
       time.sleep(2.0)
     except ValueError:
       logging.warn(
@@ -622,7 +622,7 @@ class OpenTracksApp(AppSetup):
     time.sleep(2.0)
     controller = tools.AndroidToolController(env=env.controller)
     # Give permission for bluetooth, can't be done through adb.
-    controller.click_element("Allow")
+    controller.click_element("Allow", env.console_port)
     adb_utils.launch_app("activity tracker", env.controller)
     adb_utils.close_app("activity tracker", env.controller)
 
@@ -667,13 +667,13 @@ class VlcApp(AppSetup):
     time.sleep(2.0)
     try:
       controller = tools.AndroidToolController(env=env.controller)
-      controller.click_element("Skip")
+      controller.click_element("Skip", env.console_port)
       time.sleep(2.0)
-      controller.click_element("GRANT PERMISSION")
+      controller.click_element("GRANT PERMISSION", env.console_port)
       time.sleep(2.0)
-      controller.click_element("OK")
+      controller.click_element("OK", env.console_port)
       time.sleep(2.0)
-      controller.click_element("Allow access to manage all files")
+      controller.click_element("Allow access to manage all files", env.console_port)
     finally:
       adb_utils.close_app(cls.app_name, env.controller)
 

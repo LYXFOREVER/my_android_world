@@ -579,13 +579,13 @@ class SearchConfigForAndroidWorldTask:
         # 输入状态，返回真实奖励（1就是1,0就是-0.01）
         while True:
             # 不输出正确格式的答复就出不去的函数
-            terminal_state = self.is_terminal(node=node)
+            terminal_state, terminal_output = self.is_terminal(node=node)
             if terminal_state == 1:
                 print("本状态是成功状态")
-                return terminal_state
+                return terminal_state, terminal_output
             elif terminal_state == -0.01:
                 print("本状态是尚未成功状态")
-                return terminal_state # 回答错误那就
+                return terminal_state, terminal_output # 回答错误那就
             else:
                 print("gpt回答格式错误，再给它一次机会")
                 continue
@@ -632,9 +632,9 @@ class SearchConfigForAndroidWorldTask:
             node = node.parent
         if len(history_action) != 0:
             history_action.reverse()
-        terminal = self.vision.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
+        terminal, terminal_output = self.vision.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
         print("本状态的terminal值为",terminal)
-        return terminal
+        return terminal, terminal_output
     
 class WorldAndSearchModelForCogAgent:
     def __init__(self, env: interface.AsyncEnv, task_goal:str,):

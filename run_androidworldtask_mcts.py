@@ -87,14 +87,48 @@ _TASK = flags.DEFINE_string(
     'A specific task to run.',
 )
 
+# 想要新参数可以在后面加
+_GRPC_PORT = flags.DEFINE_integer(
+    "grpc_port",
+    8554,
+    "The port for gRPC communication with the emulator.",
+)
+
+# 启动模拟器用的函数
+def setup_emulator(
+    grpc_port: int, console_port: int, is_multiple_env: bool = True, snapshot_name: str | None = None
+) -> None:
+    emulator_name = "pixel_6_api33_AndroidWorldAvd_emulator"
+
+    assert console_port % 2 == 0, "Console port must be even."
+    assert console_port >= 5554 and console_port <= 5682, "Invalid console port, console port must in [5554, 5682]."
+    cmd = (
+        f"emulator -avd {emulator_name} -no-window -no-snapshot -grpc {grpc_port} -port {console_port}"
+    )
+    if is_multiple_env:
+        cmd += " -read-only"
+    if snapshot_name:
+        cmd += f" -snapshot {snapshot_name}"
+    cmd += " &"
+    os.system(cmd)
+
+
+def stop_emulator(console_port: int) -> None:
+    print(f"[red]Stopping emulator with console port {console_port}...")
+    subprocess.run(["adb", "-s", f"emulator-{console_port}", "emu", "kill"])
 
 def _main():
-    emulator_name = 'emulator-5554'
+    # 以后模拟器自己启动，启动命令写在sh里面。代码这边的端口号只用来链接
+    #setup_emulator(_GRPC_PORT.value, _DEVICE_CONSOLE_PORT.value,)
+    #time.sleep(40) # 等待模拟器启动，自行修改时间
+    emulator_name = 'emulator-' + str(_DEVICE_CONSOLE_PORT.value)
+    
     print("开始设置环境")
     env = env_launcher.load_and_setup_env(
         console_port=_DEVICE_CONSOLE_PORT.value,
         emulator_setup=_EMULATOR_SETUP.value,
         adb_path=_ADB_PATH.value,
+        grpc_port=_GRPC_PORT.value,
     )
     # 读取本次要用的模型
     #这里是Gpt4o+Atlas实验配置（当然后面的config也要改）
@@ -102,54 +136,97 @@ def _main():
     #agent_high_level_actor = agent_generate_task
     #agent_grounded_actor = m3a.M3A(env, infer.AtlasWrapper())
     #这里是经典实验配置
-    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
-    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
-    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
+    #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
+    #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
+    #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
+    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6)) # 新增summary职能
+    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    
+
     # 以下都是需要循环多次执行的
     # 获取任务
     task_registry = registry.TaskRegistry()
     print("task_registry:",task_registry)
-    #获取任务对应的类型
+    # 获取任务对应的类型,从而得到这个任务对应的app
     aw_registry = task_registry.get_registry(task_registry.ANDROID_WORLD_FAMILY)
     task_type_list: list[Type[task_eval.TaskEval]] = list(aw_registry.values())
+
+    for task_type in task_type_list:
+        app_name = task_type.app_names[0]
+        if app_name is not None:
+            break
+    print("本次选择到的app名字为:",app_name)
     
-    # android world 的任务太难了！读取task_metadata.json，专门挑选任务难度低，只需要5，6步以内就能完成的!
-    # 读取出来列表的顺序和json文件里面的顺序是一样的。去除太难的任务
-    task_metadata_path = 'android_world/task_metadata.json'
-    with open(task_metadata_path, 'r', encoding='utf-8') as file:
-        task_metadata =  json.load(file)
-    filtered_task_type_list = [
-        task_type for i, task_type in enumerate(task_type_list)
-            if int(task_metadata[i]["optimal_steps"]) < 6
-    ]
-    filtered_task_metadata = [
-        task_metadata_dic for i, task_metadata_dic in enumerate(task_metadata)
-            if int(task_metadata[i]["optimal_steps"]) < 6
-    ]
-    task_done_num = 0
-    for i, task_type in enumerate(filtered_task_type_list):
-        if task_done_num >= 20:
-           # 姑且做20个任务:
-           break
-        #if i >= 30:
-        #   # 如果到达了30个任务，也停止
-        #   break
+    for i in range(20):
         try:
             env.reset(go_home=True)
             print('环境reset完毕')
-            print("本次执行的是第",i,"个任务，任务名是",filtered_task_metadata[i]["task_name"],"总共有",len(filtered_task_type_list),"个任务")
-            print("本任务理想步数是:",filtered_task_metadata[i]["optimal_steps"])
+            env.reset(go_home=True)
+            force_stop_all_third_party_apps(
+                device_name=emulator_name,
+                excluded_packages=["com.google.androidenv.accessibilityforwarder",]#免死金牌列表
+            )
+            print('环境reset完毕')
+            # 获取任务
+            task_registry = registry.TaskRegistry()
+            lyx_aw_registry = task_registry.get_registry(task_registry.LYX_ANDROID_WORLD_FAMILY)
+
+            task_type: Type[task_eval.TaskEval] = lyx_aw_registry['UniversalTaskFramework']
             
             params = task_type.generate_random_params()
             task = task_type(params)
+            task.app_names.append(app_name) # 情况特殊，想要初始化app至少要知道包名
             task.initialize_task(env) 
 
+            # 给万用任务加上本次的任务描述的agent
+            
+            task_file_name = app_name + '.json'
+            task_file_path = "task_pool" + '/' + task_file_name
+
+            # 创建任务池。如果任务池已经存在则不会做任何事
+            print("开始获取任务")
+            # 使用新方法创建任务池
+            new_task_util.create_file_in_task_pool_v2(agent_generate_task,app_name,env,retry_times=3, max_action_times=10)
+            #file_name = app_name+'.json'
+            #new_task_util.create_file_in_task_pool(agent_generate_task, file_name, app_name, "unkown", [], 'apks/audio.png')
+            
+            # 读取任务池中的第一个没有执行过的任务。没有这样的任务的话，那就要产生新的任务了
+            with open(task_file_path, 'r') as file:
+                task_list = json.load(file)
+            
+            flag = False # 用来记录有没有找到目标任务
+            for task_info in task_list:
+                if task_info['executed'] == 0:
+                    # 0代表没有被执行过
+                    task_description = task_info['task_description']
+                    flag = True
+                    break
+
+            if flag is False:
+            # 之前没找到，这下要扯皮了。可能是还有任务，执行过但是失败了。也有可能是所有任务都完美成功了
+                # 扩展原有的任务池,存入相同的文件里面
+                new_task_util.extend_file_in_task_pool(agent_generate_task,task_file_name,app_name,main_activity_name="unkown",permission=["unkown"])
+                #扩展完毕之后就可以用同样方法获取本次任务
+                with open(task_file_path, 'r') as file:
+                    task_list = json.load(file)
+            
+                for task_info in task_list:
+                    if task_info['executed'] == 0:
+                        # 0代表没有被执行过
+                        task_description = task_info['task_description']
+                        break
+                
+
+            # 无论怎样，这下都可以找到任务描述了
+            task.set_goal(task_description)
             # 输出一下本次任务
             print(f"{CYAN}本次任务为: {str(task.goal)}{RESET}")
 
             # 调用mcts的方法，完成对任务的探索
             print(f"{YELLOW}正在执行 MCTS wrapper{RESET}")
-            world_model = WorldModel(env=env, task_goal=str(task.goal), vision=vision)
+            world_model = WorldModel(env=env, task_goal=str(task.goal), critic=critic, vision=vision)
             search_config = SearchConfigForAndroidWorldTask(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
             #world_and_search = WorldAndSearchModelForGPT4oAtlas(
             #    env=env, 
@@ -176,44 +253,67 @@ def _main():
             print(f"{CYAN}[DEBUG] Printing MCTS result{RESET}")
             print_result(result)
 
-            from datetime import datetime
+            # 记录本条任务执行结果到任务池里面
+            if result.terminal_state is not None:
+                # 只要不是None，那就肯定成功了
+                task_info['executed'] = 1
+                task_info['succeeded'] = 1.0
+            else:
+                task_info['executed'] = 1
+                task_info['succeeded'] = 0.0
+
+            with open(task_file_path, 'w') as file:
+                json.dump(task_list, file, ensure_ascii=False, indent=4)
             
+            from datetime import datetime
             # 获取当前时间
             current_time = datetime.now()
 
             # 格式化时间为 年_月_日_时_分_秒
             formatted_time = current_time.strftime("%Y_%m_%d_%H_%M_%S")
-            #main_doc_path = 'mcts_data_history/' + package_name + '/'
-            main_doc_path = 'mcts_data_history/' + 'android_world_task/' + filtered_task_metadata[i]["task_name"] +'/'
-            doc_path = main_doc_path+formatted_time+'/' 
+            main_doc_path = 'mcts_data_history/' + app_name + '/'
+            doc_path = main_doc_path+formatted_time+'_id_'+str(task_info['id'])+'/' 
             dpo_pairs_file = doc_path + "dpo_pairs.jsonl"
             folder_path = os.path.dirname(dpo_pairs_file)
             # 如果文件夹不存在，则创建文件夹
             os.makedirs(folder_path, exist_ok=True)  # exist_ok=True 防止文件夹已存在时报错
             if result.terminal_state is not None:
                 # 生成DPO对，作为数据,并保存DPO对
-                dpo_pairs = generate_dpo_pairs(result=result, task_goal=task.goal)
+                dpo_pairs = generate_dpo_pairs(result=result, task_goal=task_description)
                 print_dpo_pairs(dpo_pairs=dpo_pairs)
                 write_dpo_pairs_to_file(
                     dpo_pairs=dpo_pairs, filename=dpo_pairs_file
                 )
                 # 保存单条轨迹，格式和之前类似
-                write_trajectry_to_file(result.trace_of_nodes, doc_path=doc_path, env=env, task_goal=task.goal)
+                write_trajectry_to_file(result.trace_of_nodes, doc_path=doc_path, env=env, task_goal=task_description)
+                draw_action(doc_path=doc_path, trajectry_lenth=len(result.trace_of_nodes),)
             
             else:
                 print("本次搜索完全失败，无成功轨迹，只能保存一个pkl了")
             save_mcts_tree(root=result.tree_state, doc_path=doc_path)
-
-            # 不过怎么样，到了这里那肯定完成了一个流程没有报错
-            task_done_num += 1
+            save_task_goal(task_goal=task_description, doc_path=doc_path)
         
+        except KeyboardInterrupt:
+            # 当用户按下 Ctrl + C 时，打印提示信息并终止程序
+            print("你手动终止了程序。模拟器不管也行")
+            #stop_emulator(_DEVICE_CONSOLE_PORT.value)
+            sys.exit(1)
         except Exception as e:
-            import traceback
-            print(f"发生某种错误，跳过这一个任务: {task_type}")
-            print(f"错误类型: {type(e).__name__}")  # 打印错误的类型
-            print(f"错误信息: {e}")  # 打印错误的描述信息
-            traceback.print_exc()  # 打印完整的错误堆栈信息
+            current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+            id = task_info["id"]
+            task_goal = task_info["task_description"]
+            error_message = f"报错时间: {current_time}, 任务编号: {id}, 任务内容: {task_goal}"
+            custom_info = "执行该任务时发生错误"
+            if custom_info:
+                error_message += f", {custom_info}"
+            error_message += f", 错误详情: {e}"
+            # 使用标准库的 logging 模块记录错误信息
+            print("遇到了错误:",e,",并非手动中断。这样的话不如先跳过当下这个任务，继续下一个")
             continue
+
+    # 代码跑完了记得把模拟器关掉
+    print("顺利完成任务，结束的时候不一定要关模拟器，可以开在这里记一下端口号就行")
+    #stop_emulator(_DEVICE_CONSOLE_PORT.value)
         
 
 def main(argv: Sequence[str]) -> None:

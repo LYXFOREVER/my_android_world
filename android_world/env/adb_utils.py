@@ -143,6 +143,38 @@ _DEFAULT_URIS: dict[str, str] = {
     'gallery': 'content://media/external/images/media/',
 }
 
+def get_unique_app_names(pattern_to_activity=_PATTERN_TO_ACTIVITY):
+    """
+    从不可变字典中提取每个应用程序的一个名字。
+    
+    参数:
+        pattern_to_activity (immutabledict): 包含应用程序名称和启动 Activity 的映射。
+    
+    返回:
+        list: 包含每个应用程序一个名字的列表。
+    """
+    app_names = []
+    for key in pattern_to_activity.keys():
+        # 分割键中的多个别名，只取第一个别名
+        primary_name = key.split('|')[0].strip()
+        app_names.append(primary_name)
+    return app_names
+
+def get_main_activity(app_name):
+    """
+    根据应用程序名称获取对应的主活动名。
+    
+    参数:
+        app_name (str): 应用程序的名称。
+    
+    返回:
+        str: 对应的主活动名，如果未找到则返回 None。
+    """
+    for key, value in _PATTERN_TO_ACTIVITY.items():
+        if any(alias.lower() == app_name.lower() for alias in key.split('|')):
+            return value
+    return None
+
 def run_adb_command(adb_path='adb', command=None):
     """
     :param adb_path: adb 工具路径，如果在系统环境中配置了adb路径，则不需要传递，否则需要

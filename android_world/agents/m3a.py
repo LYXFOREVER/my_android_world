@@ -1373,7 +1373,7 @@ GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TAMPLATE = (
   'Ensure that the High-Level-Instruction is executable by including all critical specifics, such as file'
   'names, relevant timings, or required details.\n'
   'You ONLY need to return a dictionary formatted as follows:\n'
-  '{\n"Sub-Instruction": "xxx",\n"Analysis": "xxx",\n"High-Level-Instruction": "xxx"\n}'
+  '{{\n"Sub-Instruction": "xxx",\n"Analysis": "xxx",\n"High-Level-Instruction": "xxx"\n}}'
   'Current Action: {action_dic}\n'
   'App Name: {app_name}\n'
   'RETURN ME THE DICTIONARY I ASKED FOR.\n'
