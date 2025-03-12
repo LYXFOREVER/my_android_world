@@ -14,48 +14,122 @@
     {
         "id": 2,
         "task_description": "In app audio recorder, Configure the audio recorder to use the following settings: Theme Blue Gray, Naming Record-1.m4a, Recording format M4a, Sample rate 44.1kHz, Bitrate 128 kbps, and Channel count Stereo. Then apply these settings.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 3,
         "task_description": "In app audio recorder, Configure the audio recorder settings to use M4A format, 22kHz sample rate, 128 kbps bitrate, and Stereo channel count, then apply these settings to start recording audio.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 4,
         "task_description": "In app audio recorder, Task-Oriented: Configure the audio recorder settings to use a sample rate of 44.1kHz, a bitrate of 128 kbps, and stereo channel count, then apply these settings.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 5,
         "task_description": "In app audio recorder, Task-Oriented: Configure the audio recorder settings by first viewing the information about sample rates, then closing the information window and applying the current settings to start recording with the default 'Record-1.m4a' naming.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 6,
         "task_description": "In app audio recorder, Configure the audio recorder settings to use M4A format, a sample rate of 44.1kHz, a bitrate of 128 kbps, and stereo channel count, then apply these settings.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 7,
         "task_description": "In app audio recorder, Configure the audio recorder to use the following settings: M4A format, 22kHz sample rate, 48 kbps bitrate, and Stereo channel count, then apply these settings to be ready for recording.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 8,
         "task_description": "In app audio recorder, Configure the audio recorder to use the following settings: M4A format, 48kHz sample rate, 128 kbps bitrate, and Stereo channel count, then apply these settings.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 9,
         "task_description": "In app audio recorder, Set the audio recording sample rate to 8kHz and apply the changes to the audio recorder settings.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app audio recorder, start a new recording, record for a few seconds, then stop the recording.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app audio recorder, rename the last recorded audio file to 'Meeting Notes'.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app audio recorder, play back the last recorded audio file and adjust the volume.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app audio recorder, start a new audio recording and record for a few seconds, then stop the recording.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app audio recorder, play the last recorded audio file.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app audio recorder, delete the second to last recorded audio file.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app audio recorder, start a new audio recording and record for a few seconds, then stop the recording.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "In app audio recorder, open the list of recorded audio files and rename the most recently recorded file.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "In app audio recorder, adjust the recording quality setting to the highest available option.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "In app audio recorder, start a new recording, record audio for a few seconds, then stop the recording and save it with the name 'My First Recording'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 20,
+        "task_description": "In app audio recorder, navigate to the list of saved recordings, select a recording, and play it back.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 21,
+        "task_description": "In app audio recorder, navigate to the settings menu, change the recording format to WAV, and then return to the main recording screen.",
         "executed": 0,
         "succeeded": 0
     }

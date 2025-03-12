@@ -53,7 +53,8 @@ _GRPC_PORT = flags.DEFINE_integer(
 def setup_emulator(
     grpc_port: int, console_port: int, is_multiple_env: bool = True, snapshot_name: str | None = None
 ) -> None:
-    emulator_name = "pixel_6_api33_AndroidWorldAvd_emulator"
+    #emulator_name = "pixel_6_api33_AndroidWorldAvd_emulator"
+    emulator_name = "AndroidWorldAvd_oldversion"
 
     assert console_port % 2 == 0, "Console port must be even."
     assert console_port >= 5554 and console_port <= 5682, "Invalid console port, console port must in [5554, 5682]."
@@ -73,6 +74,8 @@ def stop_emulator(console_port: int) -> None:
     subprocess.run(["adb", "-s", f"emulator-{console_port}", "emu", "kill"])
 def main(argv):
     del argv  # Unused
+
+    # 记录一下，5554是我开启的模拟器并且是使用新版模拟器，也就是android world原版app的模拟器
     setup_emulator(_GRPC_PORT.value, _DEVICE_CONSOLE_PORT.value,)
 
 if __name__ == '__main__':

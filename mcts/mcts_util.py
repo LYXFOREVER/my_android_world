@@ -1073,11 +1073,14 @@ def draw_action(doc_path, trajectry_lenth):
         output_with_action_path = os.path.join(doc_path, image_with_action_name)
 
         # 判断是否需要绘制动作
-        if "index" in action_dic:
-            ui_index = action_dic["index"]
-            ui_bbox = ui_element_list[ui_index]["ui_bbox"]
-            draw_ui_border(image_path, output_with_action_path, ui_bbox)
-        elif "x" in action_dic and "y" in action_dic:
-            draw_click_on_image(image_path=image_path, click_info=action_dic, output_path=output_with_action_path)
-        else:
+        try:
+            if "index" in action_dic:
+                ui_index = action_dic["index"]
+                ui_bbox = ui_element_list[ui_index]["ui_bbox"]
+                draw_ui_border(image_path, output_with_action_path, ui_bbox)
+            elif "x" in action_dic and "y" in action_dic:
+                draw_click_on_image(image_path=image_path, click_info=action_dic, output_path=output_with_action_path)
+            else:
+                copy_file(image_path, output_with_action_path)
+        except Exception as e:
             copy_file(image_path, output_with_action_path)

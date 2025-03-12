@@ -98,7 +98,7 @@ def clear_folder_contents(folder_path: str):
     else:
         raise FileNotFoundError(f"The folder {folder_path} does not exist or is not a directory.")
 
-path = "/data7/Users/lyx/code/androidWorld/android_env/android_world/mcts_data_history/tv.danmaku.bili/2025_01_12_20_41_39_id_13/mcts_tree.pkl"
+path = "/data7/Users/lyx/code/androidWorld/android_env/android_world/mcts_data_history/哔哩哔哩/2025_03_03_11_37_02_id_1/mcts_tree.pkl"
 doc = "check_mctstree/"
 i = 0
 with open(path, 'rb') as file:

@@ -1,4 +1,5 @@
 import json
+import os
 
 def modify_json_data(file_path, start_id, end_id):
     try:
@@ -37,6 +38,13 @@ def modify_json_data(file_path, start_id, end_id):
     except Exception as e:
         print(f"发生未知错误: {e}")
 
+
+
+if __name__ == "__main__":
+    pass
+    # 需要把unicode转成中文的话，下载unicodeToChinese，选中需要转化的字符然后ctrl+shift+p，输入这个名字，使用命令即可
+
+"""
 file_path = 'task_pool/tv.danmaku.bili.json'  
 start_id = 30
 end_id = 62
@@ -44,3 +52,4 @@ modified_data = modify_json_data(file_path, start_id, end_id)
 if modified_data:
     print("修改后的数据:")
     print(json.dumps(modified_data, ensure_ascii=False, indent=4))
+"""

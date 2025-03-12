@@ -162,8 +162,6 @@ def _main():
     for i in range(20):
         try:
             env.reset(go_home=True)
-            print('环境reset完毕')
-            env.reset(go_home=True)
             force_stop_all_third_party_apps(
                 device_name=emulator_name,
                 excluded_packages=["com.google.androidenv.accessibilityforwarder",]#免死金牌列表

@@ -1,4 +1,5 @@
 """开始处理mcts tree 的pkl文件，准备task goal generation"""
+"""早期代码，只包含处理失败轨迹的task goal gen，且没有ai筛选环节"""
 
 import pickle
 import json

@@ -346,7 +346,7 @@ class MCTS(Generic[State, Action, Example]):
             # start with home page for each iteration
             # 每一轮迭代，都相当于重新开始。因此app应该被杀掉
             self.env.reset(go_home=True)
-            stop_app(self.package_name, device_name=self.device_name) # 杀掉app后台，这样就可以回到app主页了
+            #stop_app(self.package_name, device_name=self.device_name) # 杀掉app后台，这样就可以回到app主页了
             force_stop_all_third_party_apps(
                 device_name=self.device_name,excluded_packages=["com.google.androidenv.accessibilityforwarder",]#免死金牌列表
             ) # 有时候点进了广告，就需要启动核武器了

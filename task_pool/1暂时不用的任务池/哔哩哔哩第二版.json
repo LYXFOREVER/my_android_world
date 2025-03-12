@@ -1,0 +1,62 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app 哔哩哔哩, Find the upload date of the video \"【教辅云指南】一致的「必刷一百讲」，使用时...\" after expanding its description.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app 哔哩哔哩, Watch the video titled \"【教辅云指南】一数的「必刷一百讲」，使用时你需要知道的一切都在这...\".",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app 哔哩哔哩, View the profile of user '沉思恬恬' and check their latest video '高考640+千字测评！《必刷100讲》VS《化学重构》两大...'",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app 哔哩哔哩, Explore content related to '衡山路穷平路' by clicking the '发现《衡山路穷平路》等...' button and browsing the displayed videos.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 4,
+        "task_description": "In app 哔哩哔哩, Read the comments under the video and find out what the most popular comment is.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 5,
+        "task_description": "In app 哔哩哔哩, Report the video posted on February 12th by the user '沉思恬恬' for inappropriate content.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 6,
+        "task_description": "In app 哔哩哔哩, Provide feedback on the video '【新年合辑】猫和老鼠【001-050】' by clicking the three dots and selecting the '标题党/封面党' option.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 7,
+        "task_description": "In app 哔哩哔哩, Remove the video from 'UP主: ⑨搬运君' from the feed.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 8,
+        "task_description": "In app 哔哩哔哩, Close the current pop-up window and then search for '美食教程' in the search bar.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 9,
+        "task_description": "In app 哔哩哔哩, Navigate to the dynamic page to view the latest updates from followed users.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

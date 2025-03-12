@@ -253,7 +253,19 @@ def parse_reason_action_output(
   action = action_result.group(1).strip() if action_result else None
   return reason, action
 
-
+def extract_reason_and_score(response: str):
+    # 定义正则表达式匹配模式
+    pattern = r"Reason:\s*(.*?)\nScore:\s*(\d+)"
+    
+    # 使用正则表达式搜索匹配内容
+    match = re.search(pattern, response, re.DOTALL)
+    
+    if match:
+        reason = match.group(1).strip()  # 提取 Reason 部分并去除多余空格
+        score = int(match.group(2))     # 提取 Score 部分并转换为整数
+        return reason, score
+    else:
+        raise ValueError("The response format is incorrect or does not match the expected pattern.")
 
 def parse_multiple_reason_action_output(
     raw_reason_action_output: str,

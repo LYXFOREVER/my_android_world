@@ -1,0 +1,119 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app 哔哩哔哩, Explore the video \"【教辅云指南】一数的'必刷一百讲'，使用时...\" by first expanding its description and then clicking on the tag \"高考数学\" to find related videos about college entrance exam mathematics.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app 哔哩哔哩, Watch the video titled \"【教辅指南】一数的「必刷一百讲」，使用时你需要知道的一切都在这...\", uploaded by 云凌Sapphire on 2024-11-23, and then like the video.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app 哔哩哔哩, Task-Oriented: View the profile of user '沉思恬恬' and check their latest video posted on February 12th, titled '#高考倒计时'.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app 哔哩哔哩, Task-Oriented: Find and watch a video related to '衡山路穷平路' after clicking the '发现《衡山路穷平路》等...' button.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app 哔哩哔哩, Task-Oriented: Watch the video titled \"【高中网红物理教辅真实测评】\" with a duration of 14:48 and then leave a comment on the video.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app 哔哩哔哩, Report the video posted on February 12th by the user '沉思恬恬' for inappropriate content.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app 哔哩哔哩, Provide feedback on the video '【新年合辑】猫和老鼠【001-050】' by reporting it for 'Pornography'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app 哔哩哔哩, Task-Oriented: Hide content from the uploader '⑨搬运君' and then scroll down to find a video about '物理' (physics) and watch it.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app 哔哩哔哩, Return to the previous interface and search for '舞蹈区' in the search bar.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app 哔哩哔哩, Watch the video \"童年 DNA 拿捏~猫和老鼠入驻b站啦!\", then like the video and leave a comment saying \"Childhood memories!\".",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 10,
+        "task_description": "在哔哩哔哩app中，搜索关键词“原神”，然后点击搜索结果中的第一个视频播放。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "在哔哩哔哩app中，进入“动画”分区，浏览推荐视频，并点赞一个你喜欢的视频。",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 12,
+        "task_description": "在哔哩哔哩app中，点击底部的“我的”选项卡，然后点击“历史记录”，查看最近观看过的视频列表。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "在哔哩哔哩上搜索关键词“原神”，然后点击搜索结果中的第一个视频观看。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "在哔哩哔哩上，进入“我的”页面，查看我的关注列表，并点击进入其中一个关注的UP主的个人主页。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "在哔哩哔哩上，浏览首页推荐的视频，找到一个感兴趣的视频，点击进入详情页，然后发表一条弹幕评论。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "在哔哩哔哩app中，搜索关键词“原神”，然后浏览搜索结果中的前三个视频。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "在哔哩哔哩app中，进入“我的”页面，查看我的关注列表，并点击进入其中一个关注用户的个人主页。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "在哔哩哔哩app中，浏览首页推荐的视频，并给其中一个你喜欢的视频点赞。",
+        "executed": 1,
+        "succeeded": 1.0
+    }
+]

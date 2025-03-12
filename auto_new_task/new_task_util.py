@@ -73,7 +73,7 @@ def create_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity
 
         #将任务写入json文件中
         with open(file_path, 'w') as file:
-            json.dump(task_list, file, indent=4)
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
         
         print(f"File '{file_name}' has been created.")
     else:
@@ -416,6 +416,56 @@ def generate_task_description_list(action_state_pairs_path:str, agent:m3a.M3A, a
     
     return task_description_list
 
+def generate_task_description_list_v2(action_state_pairs_path:str, agent:m3a.M3A, app_name:str):
+    """
+        与v1相比，修改了prompt，主要是要求多专注于页面的元素而不是动作本身，不要求生成的任务要有动作这一步
+        输入:
+            action_state_pairs_path:动作状态对的路径列表
+            agent:用来生成任务描述的ai
+        输出:
+            task_description_list:任务描述列表
+    """
+    task_description_list = []
+    for action_state_pair_path in action_state_pairs_path:
+        # 获取需要的截图
+        image_with_action_path = os.path.join(action_state_pair_path, 'image_with_action.png')
+        image_with_action = Image.open(image_with_action_path)
+        image_after_action_path = os.path.join(action_state_pair_path, 'image_after_action.png')
+        image_after_action = Image.open(image_after_action_path)
+
+        image_with_action = np.array(image_with_action)
+        image_after_action = np.array(image_after_action)
+
+        # 获取需要的文本
+        action_dic_path = os.path.join(action_state_pair_path, 'action.json')
+        with open(action_dic_path, "r", encoding="utf-8") as file:
+            action_dic = json.load(file)
+        action_dic = str(action_dic)
+        text_prompt = m3a.generate_task_description_with_action_state_pair_v2(app_name,action_dic)
+
+        # 与agent交互
+        task_dic_str, _, raw_response = agent.llm.predict_mm(
+            text_prompt,
+            [
+                image_with_action,
+                image_after_action
+            ]
+        )
+        # 处理回复，得到结果
+        if not raw_response:
+            print('利用状态动作对生成任务描述时出错！')
+        print("ai 给出的原始描述为:",task_dic_str)
+        task_dic = get_task_dic(task_dic_str)
+        if "High-Level-Instruction" not in task_dic:
+            print("提取任务描述时出现问题，试试下一个")
+            continue
+        else:
+            task_description = task_dic["High-Level-Instruction"]
+            task_description = "In app "+app_name+", "+task_description
+            task_description_list.append(task_description)
+    
+    return task_description_list
+
 
 from android_world.env import json_action
 from mcts.mcts_util import *
@@ -484,7 +534,270 @@ def create_file_in_task_pool_v2(
 
         #将任务写入json文件中
         with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
-            json.dump(task_list, file, indent=4)
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
+    else:
+        print(f"File '{file_name}' already exists.")
+
+def create_file_in_task_pool_v3(
+        agent: m3a.M3A,
+        app_name: str, 
+        env:interface.AsyncAndroidEnv, 
+        retry_times:int = 3,
+        max_action_times:int = 10,
+    ):
+    """
+    使用v2的方法，但是适配非官方app。要求app在桌面上
+    """
+    task_pool_dir = "task_pool"
+    file_name = app_name + ".json"
+    
+    # 构造文件路径
+    file_path = os.path.join(task_pool_dir, file_name)
+    # 判断文件是否存在
+    if not os.path.exists(file_path):
+        # 文件确实不存在，开始创建任务池
+        print("任务池不存在，开始创建任务池")
+        original_state = env.get_state(wait_to_stabilize = True)
+        ui_elements_list = original_state.ui_elements
+        # 找到目标app在桌面的哪个地方
+        for index, ui_element in enumerate(ui_elements_list):
+            if ui_element.text == app_name or ui_element.content_description == app_name:
+                break
+
+        open_app_action_dic = {'action_type': 'click','index': index}
+        converted_action = json_action.JSONAction(
+            **open_app_action_dic,
+        )
+        # TODO:打开本次的app
+        while retry_times > 0:
+            result = env.execute_action_v2(converted_action)
+            if result == -1:
+                print("打开app失败，还有",retry_times,"次机会")
+                retry_times -= 1
+            else:
+                print("app打开成功，开始探索app")
+                break
+        import time
+        time.sleep(3) # 等一下页面
+        state = env.get_state(wait_to_stabilize = True)
+        doc = 'temp_state/'+app_name+'/'
+        save_state(state=state,doc=doc)
+
+        # TODO:开始循环，深度优先搜索，假如没有能点击了的东西那就返回.保存截图，ui list，动作str
+        # TODO:每一对都保存在独立的文件夹里面。检测到已经存在10对（也就是10个动作，少量测试）了，就结束前期探索
+        target_path = os.path.join('task_pool',app_name)
+        dfs_app_navigate(target_path=target_path, state=state, env=env, app_name=app_name, agent=agent, max_pair_num=max_action_times)
+
+        # TODO:读取探索对，交给agent，获取任务描述
+        action_state_pairs_path = get_first_level_subfolders(target_path)
+
+        task_description_list = generate_task_description_list(action_state_pairs_path, agent, app_name)
+        # task_list是一个保存了一系列用字典保存的任务
+        # 字典记录了任务id，任务描述，是否被执行过以及执行结果信息
+        # 执行的时候，遍历task_list,找到第一个没有被做过的任务并执行它。
+        # 假如没找到，那就找到第一个执行过但没成功的任务，以此为种子生成新的并执行；原来的任务会删去（因为可能是不可能的任务）
+        task_list = []
+        for i, task_description in enumerate(task_description_list):
+            print("本次加入任务池的任务为:",task_description)
+            task = {}
+            task['id'] = i
+            task['task_description'] = task_description
+            task['executed'] = 0 # 0代表没有执行过
+            task['succeeded'] = 0 # 0代表没成功过
+            task_list.append(task)
+
+        #将任务写入json文件中
+        with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
+    else:
+        print(f"File '{file_name}' already exists.")
+
+def create_file_in_task_pool_v4(
+        agent: m3a.M3A,
+        app_name: str, 
+        env:interface.AsyncAndroidEnv, 
+        retry_times:int = 3,
+        max_action_times:int = 10,
+    ):
+    """
+    使用v2的方法，但是适配非官方app。要求app在桌面上
+    v3版本发现生成的任务过于详细？这一版本修改一下prompt，看看
+    """
+    task_pool_dir = "task_pool"
+    file_name = app_name + ".json"
+    
+    # 构造文件路径
+    file_path = os.path.join(task_pool_dir, file_name)
+    # 判断文件是否存在
+    if not os.path.exists(file_path):
+        # 文件确实不存在，开始创建任务池
+        print("任务池不存在，开始创建任务池")
+        original_state = env.get_state(wait_to_stabilize = True)
+        ui_elements_list = original_state.ui_elements
+        # 找到目标app在桌面的哪个地方
+        for index, ui_element in enumerate(ui_elements_list):
+            if ui_element.text == app_name or ui_element.content_description == app_name:
+                break
+
+        open_app_action_dic = {'action_type': 'click','index': index}
+        converted_action = json_action.JSONAction(
+            **open_app_action_dic,
+        )
+        # TODO:打开本次的app
+        while retry_times > 0:
+            result = env.execute_action_v2(converted_action)
+            if result == -1:
+                print("打开app失败，还有",retry_times,"次机会")
+                retry_times -= 1
+            else:
+                print("app打开成功，开始探索app")
+                break
+        import time
+        time.sleep(3) # 等一下页面
+        state = env.get_state(wait_to_stabilize = True)
+        doc = 'temp_state/'+app_name+'/'
+        save_state(state=state,doc=doc)
+
+        # TODO:开始循环，深度优先搜索，假如没有能点击了的东西那就返回.保存截图，ui list，动作str
+        # TODO:每一对都保存在独立的文件夹里面。检测到已经存在10对（也就是10个动作，少量测试）了，就结束前期探索
+        target_path = os.path.join('task_pool',app_name)
+        dfs_app_navigate(target_path=target_path, state=state, env=env, app_name=app_name, agent=agent, max_pair_num=max_action_times)
+
+        # TODO:读取探索对，交给agent，获取任务描述
+        action_state_pairs_path = get_first_level_subfolders(target_path)
+
+        task_description_list = generate_task_description_list_v2(action_state_pairs_path, agent, app_name)
+        # task_list是一个保存了一系列用字典保存的任务
+        # 字典记录了任务id，任务描述，是否被执行过以及执行结果信息
+        # 执行的时候，遍历task_list,找到第一个没有被做过的任务并执行它。
+        # 假如没找到，那就找到第一个执行过但没成功的任务，以此为种子生成新的并执行；原来的任务会删去（因为可能是不可能的任务）
+        task_list = []
+        for i, task_description in enumerate(task_description_list):
+            print("本次加入任务池的任务为:",task_description)
+            task = {}
+            task['id'] = i
+            task['task_description'] = task_description
+            task['executed'] = 0 # 0代表没有执行过
+            task['succeeded'] = 0 # 0代表没成功过
+            task_list.append(task)
+
+        #将任务写入json文件中
+        with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
+    else:
+        print(f"File '{file_name}' already exists.")
+
+def filter_task_description_list(task_description_list:list[str], agent:m3a.M3A, app_name:str, screen_shot_path:str):
+    """
+        筛选获得的任务描述。只要好的。
+    """
+    #homepage_img = Image.open(screen_shot_path)
+    #homepage_img = np.array(homepage_img)
+    filtered_task_description_list = []
+    for task_description in task_description_list:
+        text_prompt = m3a.filter_task_description_list(app_name,task_description)
+        # 与agent交互
+        filtered_task_str, _, raw_response = agent.llm.predict_mm(
+            text_prompt,
+            []
+        )
+        # 处理回复，得到结果
+        if not raw_response:
+            print('筛选任务时出错！')
+        print("ai 对该任务的判断为:",filtered_task_str)
+        filtered_task_result = get_task_dic(filtered_task_str)
+        print("获得的结果提取为:",filtered_task_result)
+        if filtered_task_result["result"] == 1:
+            print("任务描述", task_description, "合格，可以加入任务池")
+            filtered_task_description_list.append(task_description)
+        else:
+            print("任务描述", task_description, "不合格，不可以加入任务池")
+    
+    if filtered_task_description_list is []:
+        print("一个合格的都没有？肯定出问题了，请检查一下！")
+        os._exit()
+    return filtered_task_description_list
+
+
+def create_file_in_task_pool_v5(
+        agent: m3a.M3A,
+        app_name: str, 
+        env:interface.AsyncAndroidEnv, 
+        retry_times:int = 3,
+        max_action_times:int = 10,
+    ):
+    """
+    使用v2的方法，但是适配非官方app。要求app在桌面上
+    v3版本发现生成的任务过于详细？这一版本修改一下prompt，看看
+    v4版本也不行！现在看看用上ai筛选大法，看看有没有效果
+    """
+    task_pool_dir = "task_pool"
+    file_name = app_name + ".json"
+    
+    # 构造文件路径
+    file_path = os.path.join(task_pool_dir, file_name)
+    # 判断文件是否存在
+    if not os.path.exists(file_path):
+        # 文件确实不存在，开始创建任务池
+        print("任务池不存在，开始创建任务池")
+        original_state = env.get_state(wait_to_stabilize = True)
+        ui_elements_list = original_state.ui_elements
+        # 找到目标app在桌面的哪个地方
+        for index, ui_element in enumerate(ui_elements_list):
+            if ui_element.text == app_name or ui_element.content_description == app_name:
+                break
+
+        open_app_action_dic = {'action_type': 'click','index': index}
+        converted_action = json_action.JSONAction(
+            **open_app_action_dic,
+        )
+        # TODO:打开本次的app
+        while retry_times > 0:
+            result = env.execute_action_v2(converted_action)
+            if result == -1:
+                print("打开app失败，还有",retry_times,"次机会")
+                retry_times -= 1
+            else:
+                print("app打开成功，开始探索app")
+                break
+        import time
+        time.sleep(3) # 等一下页面
+        state = env.get_state(wait_to_stabilize = True)
+        doc = 'temp_state/'+app_name+'/'
+        save_state(state=state,doc=doc)
+
+        # TODO:开始循环，深度优先搜索，假如没有能点击了的东西那就返回.保存截图，ui list，动作str
+        # TODO:每一对都保存在独立的文件夹里面。检测到已经存在10对（也就是10个动作，少量测试）了，就结束前期探索
+        target_path = os.path.join('task_pool',app_name)
+        dfs_app_navigate(target_path=target_path, state=state, env=env, app_name=app_name, agent=agent, max_pair_num=max_action_times)
+
+        # TODO:读取探索对，交给agent，获取任务描述
+        action_state_pairs_path = get_first_level_subfolders(target_path)
+
+        task_description_list = generate_task_description_list_v2(action_state_pairs_path, agent, app_name)
+
+        # TODO:筛选已有的task_description_list，只要好的
+        screen_shot_path = os.path.join(action_state_pairs_path[0], "image_with_action.png")
+        task_description_list = filter_task_description_list(task_description_list, agent, app_name, screen_shot_path)
+
+        print("本次合格的任务描述有:",len(task_description_list),"个")
+        # task_list是一个保存了一系列用字典保存的任务
+        # 字典记录了任务id，任务描述，是否被执行过以及执行结果信息
+        # 执行的时候，遍历task_list,找到第一个没有被做过的任务并执行它。
+        # 假如没找到，那就找到第一个执行过但没成功的任务，以此为种子生成新的并执行；原来的任务会删去（因为可能是不可能的任务）
+        task_list = []
+        for i, task_description in enumerate(task_description_list):
+            print("本次加入任务池的任务为:",task_description)
+            task = {}
+            task['id'] = i
+            task['task_description'] = task_description
+            task['executed'] = 0 # 0代表没有执行过
+            task['succeeded'] = 0 # 0代表没成功过
+            task_list.append(task)
+
+        #将任务写入json文件中
+        with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
     else:
         print(f"File '{file_name}' already exists.")
 

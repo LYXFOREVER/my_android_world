@@ -1379,6 +1379,52 @@ GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TAMPLATE = (
   'RETURN ME THE DICTIONARY I ASKED FOR.\n'
 )
 
+GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_V2_TAMPLATE = (
+  'You are an expert at envisioning specific tasks corresponding to changes in mobile screenshots.'
+  'I will provide you with the following:\n'
+  '1. The type of action currently being executed.The type of action currently being executed, which'
+  'can be one of the types: click, input_text. If the action is input_text,'
+  'an additional value representing the input will be provided. \n'
+  '2. Screenshots of the interface before and after the current action is performed. '
+  'the pre-action screenshot will include a red bbox highlighting the element being interacted'
+  'with (if applicable), Pay particular attention to the content of the element corresponding to the red bbox.\n'
+  '3. The name of the app where the current screenshot is located.\n'
+  'Your task is to envision a specific task based on the current action and the corresponding'
+  'changes in screenshots. The output should include three parts:\n'
+  '1. Sub-Instruction: Based on the interface change caused by the current action, generate a corresponding'
+  'natural language instruction for the current action.'
+  ' The instruction should be concise, clear, and executable.' 
+  'It must include specific details critical to the operation, such as file names, times, or'
+  'other content as they appear in the screenshots.'
+  'For example: “Scroll left to open the app drawer,'
+  'displaying all installed applications on the devic”, “Click the chat interface, allowing the user to'
+  'view and participate in conversation”, '
+  ' “Type the username ‘Agent’, preparing for the next step in logging into the account”.\n'
+  '2. Analysis: Based on the interface changes and the current action instructions, analyze the possible subsequent operations.'
+  ' This analysis should involve step-by-step reasoning, considering the potential'
+  'changes on the screen and the actions that can be taken after these changes.'
+  ' For example: “After clicking the plus button, a dropdown menu appears with an option to create a document.'
+  ' I can select this option to create a new document. First, I need to name the document, then enter any content into'
+  'the document, and finally save the document and exit”.\n'
+  '3. High-Level-Instruction: Based on the analysis results, envision a high-level task that can be'
+  'related with the current interface or the Sub-Instruction.. There are two types of High-Level-Instruction:\n'
+  'Task-Oriented: Completing a series of operations to achieve a specific goal.\n'
+  'Question-Oriented: Performing a series of operations and deriving an answer to a specific question.\n'
+  'Ensure that the High-Level-Instruction is executable by including all critical specifics, such as file'
+  'names, relevant timings, or required details. The task description should be concise and clear, '
+  'avoiding the use of guiding words such as "through," "first," "by," etc.\n\n'
+  'Here are some negative examples that you should avoid when generating task descriptions:\n'
+  'Explore content related to cat by clicking the "find cat" button and browsing the displayed videos.\n'
+  'Read the comments under the video and find out what the most popular comment is.\n'
+  'These examples either describe the method of task execution using words like "by"; or they are not specific enough. \n'
+  'The tasks you generate should ensure that users can start from the home screen of their phone and complete them.\n'
+  'You ONLY need to return a dictionary formatted as follows:\n'
+  '{{\n"Sub-Instruction": "xxx",\n"Analysis": "xxx",\n"High-Level-Instruction": "xxx"\n}}'
+  'Current Action: {action_dic}\n'
+  'App Name: {app_name}\n'
+  'RETURN ME THE DICTIONARY I ASKED FOR.\n'
+)
+
 def _generate_high_level_description_prompt(
     sub_instruction_list:list[str]
 ):
@@ -1401,6 +1447,113 @@ def generate_task_description_with_action_state_pair(app_name:str, action_dic:st
     app_name=app_name,
     action_dic=action_dic
   )
+
+def generate_task_description_with_action_state_pair_v2(app_name:str, action_dic:str):
+  return GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_V2_TAMPLATE.format(
+    app_name=app_name,
+    action_dic=action_dic
+  )
+
+FILTER_TASK_DESCRIPTION_LIST_TAMPLATE = (
+  'You are provided with a task description, an app name. '
+  'Your goal is to determine whether the task is suitable for a GUI Agent to perform.\n\n'
+  'Instructions:\n'
+  'Task Description: Provide a brief description of the task GUI Agent is to perform.\n'
+  'App Name: Specify the name of the app.\n\n'
+  'Evaluation Criteria:\n'
+  'Clarity: Is the task description clear and concise?\n'
+  'Feasibility: Can the task be performed using the provided app?\n'
+  'Specificity: Does the task description provide enough detail for the GUI Agent to understand and execute the task?\n\n'
+  'Your Response:\n'
+  'Suitability: Indicate whether the task is suitable for the GUI Agent.\n'
+  'Reasoning: Provide a brief explanation for your decision.\n'
+  'Example Response\n\n'
+  'Task Description:\n'
+  '"In app System Settings, Navigate to the settings menu and change the language to English."\n'
+  'App Name:\n'
+  '"System Settings"\n'
+  'Evaluation:\n'
+  'Suitability:\n'
+  '{{"result":1}}\n(Attention, your response must be in this dictionary format, and 1 means yes, 0 means no. Otherwise, I cant extract it.)\n'
+  'Reasoning:\n'
+  'System Settings is a app where you can adjust system setting. The task description is clear and concise.'
+  'It specifies the action to be performed (changing the language) and the location (settings menu). The app name "System Settings" is appropriate for this task, and the home screen screenshot provides visual context. The task is feasible and specific enough for the GUI Agent to understand and execute.'
+  'Notes\n'
+  'Ensure the task description is specific and avoids guiding words like "by," "first," "through," etc.\n'
+  'When the GUI agent executes tasks, it always starts from a Home Screen with all apps closed. '
+  'The tasks involved usually consist of opening an app and then performing a certain action.'
+  'Therefore, task descriptions like "In app Bilibili, Close the current window and then search for dance section in the search bar" are incorrect.'
+  'This is because "Close the current window" is an odd requirement for the GUI agent—it may not have encountered any "current window" after open the app.\n'
+  'Now I will give you the task description you need to determine:\n\n'
+  'App Name: {app_name}\n'
+  'Task description: {task_description}\n'
+  'Return me the response. Note the format issue!.\n'
+)
+
+FILTER_TRAJECTRY_PROMPT_TAMPLATE = (
+  'You are an expert in evaluating GUI agent task trajectories. Your task is to assess the quality and'
+  'effectiveness of task trajectories for GUI manipulation tasks.\n'
+  'A trajectory consists of the following components:\n'
+  '1. High-level Instruction: Describes the user\'s intended task (e.g., "View the profile of user lyxforever in bilibili").\n'
+  '2. Action History: Includes two key parts:\n'
+  '- Reasoning and Action for Each Step: A sequence of actions performed by the agent, including the reasoning thought and final executed action.\n'
+  '- GUI Screenshots: Screenshots of the last state: (if there are at least three states; otherwise, include all states).\n'
+  'When evaluating a trajectory, consider these key aspects:\n'
+  'Evaluation Criteria:\n'
+  '1. Trajectory Coherence:\n'
+  '- Do the low-level steps and corresponding actions follow a logical sequence toward the goal?\n'
+  '- Are the actions clearly described and specific?\n'
+  '- Are there redundant or unnecessary actions?\n'
+  '2. Task Completion:\n'
+  '- Does the trajectory successfully achieve the instructed task?\n'
+  '- Are all necessary interactions completed?\n'
+  '- Are error cases handled appropriately?\n'
+  'Scoring Guidelines:\n'
+  'Rate the trajectory on a scale of 1 to 5 based on the evaluation criteria:\n'
+  '- 5: The task is perfectly completed, successfully executing multiple actions to achieve the goal. The sequence is logically clear with no noticeable redundancies.\n'
+  '- 4: The task is mostly completed, successfully executing multiple actions. However, due to challenges or ambiguities in the instructions, the completion is not perfect, or there are inefficiencies in the process.\n'
+  '- 3: The task is partially completed, with some successful actions executed. However, due to task or environmental constraints, the goal is not fully achieved, or the sequence ends in a loop or error.\n'
+  '- 2: Only a few actions are executed. Although there is an attempt to complete the task, the trajectory deviates from the goal early on or demonstrates significant inefficiencies in execution and logic.\n'
+  '- 1: The task fails completely, with no meaningful actions executed at the start. The sequence either falls into an immediate deadlock, a repetitive loop, or demonstrates no value in completing the task. Or the tasks are completely inaccessible.\n'
+  'Note: If the task is relatively complex, but the trajectory demonstrates valuable attempts, even if the task is not fully completed, consider adjusting the score upward.'
+  'However, if the task is complex but the trajectory fails to perform actions that contribute meaningfully to task completion, no extra points should be awarded.\n'
+  'You need to judge the score based on the agent\'s actions and screenshots combined.\n'
+  'Here is the infomation of the trajectry you need to judge:\n'
+  'Task goal: {task_goal}\n'
+  'action history: {action_list_str}\n\n'
+  'Response Format: \nFormat your response into two lines as shown below:\n'
+  'Reason: <your thoughts and reasoning process for the score>\n'
+  'Score: <your score from 1-5>\n'
+)
+
+def filter_task_description_list(app_name,task_description):
+  return FILTER_TASK_DESCRIPTION_LIST_TAMPLATE.format(
+    app_name=app_name,
+    task_description=task_description
+  )
+
+def filter_trajectry_prompt(task_goal:str, action_list:list[str]):
+  action_list_str = "\n".join([f"Step {index + 1}: {action}" for index, action in enumerate(action_list)])
+  return FILTER_TRAJECTRY_PROMPT_TAMPLATE.format(
+    task_goal=task_goal,
+    action_list_str=action_list_str
+  )
+import re
+def convert_unicode_escapes(input_string):
+    """
+    将字符串中的 Unicode 转义序列转换为正常字符。
+    支持混合了正常字符和 Unicode 转义序列的字符串。
+    """
+    # 使用正则表达式匹配 Unicode 转义序列（如 \u6211）
+    pattern = re.compile(r"\\u([0-9a-fA-F]{4})")
+
+    # 替换函数：将匹配到的 Unicode 转义序列转换为字符
+    def replace_unicode(match):
+        return chr(int(match.group(1), 16))
+
+    # 使用正则替换所有 Unicode 转义序列
+    result = pattern.sub(replace_unicode, input_string)
+    return result
   
 import numpy as np
 class MultimodelTaskGen():
@@ -1440,6 +1593,8 @@ class MultimodelTaskGen():
       images_to_send,
     )
 
+    # 结果可能包含unicode，要转化为正常的文字
+    sub_instruction = convert_unicode_escapes(sub_instruction)
     return sub_instruction
 
   def generate_high_level_description(
@@ -1451,6 +1606,8 @@ class MultimodelTaskGen():
       text_prompt,
       [],
     )
+    # 结果可能包含unicode，要转化为正常的文字
+    high_level_description = convert_unicode_escapes(high_level_description)
     return high_level_description
     
 

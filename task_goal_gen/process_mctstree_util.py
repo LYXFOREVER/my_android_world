@@ -18,6 +18,17 @@ def get_subfile(path:str) -> list:
     sorted_subfiles = sorted(subfiles, key=lambda x: x)
     return sorted_subfiles
 
+def exist_png(list_of_path:list[str]):
+    """
+    判断这一系列路径中是否包含.png文件
+    """
+    for path in list_of_path:
+        if path.endswith('.png'):
+            return True
+    
+    # 到这里了，说明没有.png文件
+    return False
+
 def save_array_as_image(array, folder, filename):
     # 确保文件夹存在，如果不存在则创建
     if not os.path.exists(folder):
@@ -146,7 +157,7 @@ def contains_content_description_field(ui_description):
     
 def filter_list(ui_list):
     # 使用列表推导式，保留包含 "content_description" 的元素
-    return [ui_element for ui_element in ui_list if contains_content_description_field(ui_element["ui_description"])]
+    return [ui_element for ui_element in ui_list if contains_content_description_field(ui_element)]
 
 def dict_to_tuple(d):
     # 将字典转换为排序后的元组，确保字典的值也是可哈希的
@@ -179,6 +190,31 @@ def find_index_of_third_duplicate(list_of_lists):
     # 如果没有找到重复3次的子列表，返回 -1
     return -1
 
+def find_index_of_third_duplicate_v2(list_of_lists):
+    """
+    找到列表中重复出现第3次的元素，返回其索引。
+    如果没有找到重复3次的子列表，返回 -1。
+    """
+    seen = {}  # 用于记录每个子列表的出现次数
+    for index, current_list in enumerate(list_of_lists):
+        # 将当前子列表转换为不可变的元组（因为列表不能作为字典的键）
+        # 如果子列表中包含字典，需要将字典转换为元组
+        current_tuple = tuple(
+            tuple(sorted(item.items())) if isinstance(item, dict) else item
+            for item in current_list
+        )
+        
+        # 检查当前子列表是否与之前的子列表重复
+        if current_tuple in seen:
+            seen[current_tuple] += 1
+            # 如果某个子列表重复了2次，返回当前索引
+            if seen[current_tuple] == 3:
+                return index
+        else:
+            seen[current_tuple] = 1
+    # 如果没有找到重复3次的子列表，返回 -1
+    return -1
+
 def copy_file(source_path, destination_path):
     try:
         # 复制文件从 source_path 到 destination_path
@@ -190,6 +226,24 @@ def copy_file(source_path, destination_path):
         print(f"错误：没有权限访问 {source_path} 或写入 {destination_path}。")
     except Exception as e:
         print(f"发生错误：{e}")
+
+def copy_folder(src, dst):
+    """
+    复制文件夹及其内容
+    :param src: 源文件夹路径
+    :param dst: 目标文件夹路径
+    """
+    try:
+        # 如果目标路径已存在，先删除（可选）
+        if os.path.exists(dst):
+            print(f"目标路径 {dst} 已存在，将被删除并重新复制。")
+            shutil.rmtree(dst)  # 删除目标文件夹及其内容
+        
+        # 复制文件夹及其内容
+        shutil.copytree(src, dst)
+        print(f"文件夹 {src} 已成功复制到 {dst}")
+    except Exception as e:
+        print(f"复制过程中发生错误: {e}")
 
 from PIL import Image, ImageDraw
 def draw_ui_border(image_path, output_path, ui_bbox, border_color=(255, 0, 0), border_width=5):
@@ -322,6 +376,77 @@ def original_screenshot(path, end_index, agent_low_level:m3a.MultimodelTaskGen, 
     high_level_description_path = os.path.join(step_4_folder, high_level_description_name)
     with open(high_level_description_path, 'w') as f:
         json.dump(high_level_description, f, ensure_ascii=False, indent=4)  # indent=4 用于美化输出（可选）
+    
+    return high_level_description # 直接返回方便获取
+
+def original_screenshot_v2(path, end_index, agent_low_level:m3a.MultimodelTaskGen, agent_high_level:m3a.MultimodelTaskGen):
+    """
+        为成功轨迹准备的task goal gen函数，主要的区别只是路径不同
+    """
+    # 只是用原分辨率的图像
+    # TODO:步骤1，获取将要传递给agent的图像
+    step_3_folder = path + '/step_3_low_level_description'
+    step_4_folder = path + '/step_4_high_level_description'
+
+    # TODO:步骤2，将图像传递给agent并获取单步动作描述
+    # 以一对为单位，定义agent并调用，生成并保存单步动作描述.
+    # 传递绘制了动作的图片.第一张图是绘制过的，第二张要原版的
+    if not os.path.exists(step_3_folder):
+        os.makedirs(step_3_folder)
+    sub_instruction_list = []
+    ui_action_summary_path = os.path.join(path, "ui_action_summary.json")
+    with open(ui_action_summary_path, "r", encoding="utf-8") as json_file:
+        ui_action_summary_list = json.load(json_file)
+    for i in range(end_index-1):
+        # 读取动作前后的截图
+        screenshot_before_action_name = str(i) + '_with_action.png'
+        screenshot_before_action_path = os.path.join(path, screenshot_before_action_name)
+        if os.path.exists(screenshot_before_action_path) is False:
+            screenshot_before_action_name = str(i) + '.png'
+            screenshot_before_action_path = os.path.join(path, screenshot_before_action_name)
+        screenshot_before_action = Image.open(screenshot_before_action_path)
+        if screenshot_before_action.mode == 'RGBA':
+            screenshot_before_action = screenshot_before_action.convert('RGB')
+        screenshot_before_action = np.array(screenshot_before_action)
+
+        screenshot_after_action_name = str(i+1) + '.png'
+        screenshot_after_action_path = os.path.join(path, screenshot_after_action_name)
+        screenshot_after_action = Image.open(screenshot_after_action_path)
+        if screenshot_after_action.mode == 'RGBA':
+            screenshot_after_action = screenshot_after_action.convert('RGB')
+        screenshot_after_action = np.array(screenshot_after_action)
+
+        # 读取动作
+        action_dic = ui_action_summary_list[i]["action"]
+        sub_instruction = agent_low_level.generate_one_step_description(
+            screenshot_before_action=screenshot_before_action,
+            screenshot_after_action=screenshot_after_action,
+            action=action_dic,
+        )
+        print("对于第",i,"个动作，agent给出的描述是:")
+        print(sub_instruction)
+        sub_instruction_list.append(sub_instruction)
+    sub_instruction_list_name = "sub_instruction_list.json"
+    sub_instruction_list_path = os.path.join(step_3_folder, sub_instruction_list_name)
+    with open(sub_instruction_list_path, 'w') as f:
+        json.dump(sub_instruction_list, f, ensure_ascii=False, indent=4)  # indent=4 用于美化输出（可选）
+
+    # TODO:步骤三，将cot列表交给agent(两个agent可以不同)获取最终任务描述
+    if not os.path.exists(step_4_folder):
+        os.makedirs(step_4_folder)
+    with open(sub_instruction_list_path, 'r', encoding='utf-8') as file:
+        sub_instruction_list = json.load(file)
+    high_level_description = agent_high_level.generate_high_level_description(
+        sub_instruction_list
+    )
+
+    print("agent最终给出的总结是:")
+    print(high_level_description)
+    high_level_description_name = 'high_level_description.json'
+    high_level_description_path = os.path.join(step_4_folder, high_level_description_name)
+    with open(high_level_description_path, 'w') as f:
+        json.dump(high_level_description, f, ensure_ascii=False, indent=4)  # indent=4 用于美化输出（可选）
+    return high_level_description
 
 
     
