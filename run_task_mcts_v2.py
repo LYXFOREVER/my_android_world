@@ -154,7 +154,7 @@ def setup_logging(log_file='error.log'):
     )
 
 def _main():
-    # 启动模拟器
+    # 获取模拟器的名字
     emulator_name = 'emulator-' + str(_DEVICE_CONSOLE_PORT.value)
     
     print("开始设置环境")

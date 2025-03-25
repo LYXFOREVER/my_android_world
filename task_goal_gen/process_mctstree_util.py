@@ -316,7 +316,7 @@ def original_screenshot(path, end_index, agent_low_level:m3a.MultimodelTaskGen, 
         action_dic = action_list['action_list'][i]
 
         # 判断是否需要绘制动作
-        if "index" in action_dic:
+        if "index" in action_dic and len(ui_element_list) >= action_dic["index"]:
             ui_index = action_dic["index"]
             ui_bbox = ui_element_list[ui_index]["ui_bbox"]
             draw_ui_border(image_path, output_with_action_path, ui_bbox)

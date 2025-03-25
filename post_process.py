@@ -23,7 +23,7 @@ from android_world.agents import m3a
 from android_world.agents import infer
 # app的名字
 app_names = ['com.kugou.android', 'com.sina.weibo', 'com.tencent.mtt', 'com.tencent.qqlive', 'tv.danmaku.bili']
-
+#app_names = ['tv.danmaku.bili']
 # 合格的轨迹至少要有多少分
 min_score = 5 
 
@@ -33,14 +33,17 @@ agent_high_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='
 agent_filter = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
 
 # 文件夹路径
-parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check'
+parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/fail_data_for_check'
 # 存放合格轨迹的路径
-parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/filtered_data_for_check'
+parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/filtered_fail_data_for_check'
 
 # 依次处理各个app的轨迹
 for app_name in app_names:
     folder_path = os.path.join(parent_folder_path, app_name)
     target_folder_path = os.path.join(parent_target_folder_path, app_name)
+    if os.path.exists(folder_path) is False:
+        print("路径", folder_path,"不存在，跳过这个")
+        continue
     subfolders = get_subfolder(folder_path)
 
     for folder in subfolders:
@@ -49,8 +52,8 @@ for app_name in app_names:
         subfile = get_subfile(path) # 本子文件夹中的所有子文件的名字列表
         # 获取本次的任务目标
         task_goal_path = os.path.join(path, "task_goal.json")
-        if os.path.exists(task_goal_path) is False:
-            ui_action_summary_path = os.path.join(path, "ui_action_summary.json")
+        ui_action_summary_path = os.path.join(path, "ui_action_summary.json")
+        if os.path.exists(ui_action_summary_path) is True:
             with open(ui_action_summary_path, "r", encoding="utf-8") as json_file:
                 ui_action_summary_list = json.load(json_file)
             task_goal = ui_action_summary_list[0]["task_goal"]
@@ -134,22 +137,28 @@ for app_name in app_names:
                 # 现在开始二次筛选.首先要截断img list和action list
                 new_img_list = img_list[:end_index]
                 new_action_list = action_list[:end_index]
-                reason, score = filter_trajectry(new_task_description, new_img_list, new_action_list, agent_filter)
+                new_reason, new_score = filter_trajectry(new_task_description, new_img_list, new_action_list, agent_filter)
                 print("本原本成功的轨迹复活赛的结果如下:")
-                print(reason)
-                print(score)
-                if score >= min_score:
+                print(new_reason)
+                print(new_score)
+                if new_score >= min_score:
                     # 复活赛打赢了，保存轨迹和新任务描述
                     print("复活赛打赢了，保存文件")
                 else:
-                    print("本原本成功的轨迹复活赛效果不理想，勉强保存一下。注意score文件！")
+                    print("本原本成功的轨迹复活赛效果不理想，勉强保存一下。注意score文件！而且新描述不一定比老的好")
+                    print("使用时，记得比较old,new的分数，如果老的更高，那就用老版任务描述")
                 filtered_trajectary_path = os.path.join(target_folder_path, folder)
-                filtered_trajectary_score_path = os.path.join(filtered_trajectary_path, "score.json")
+                filtered_trajectary_old_score_path = os.path.join(filtered_trajectary_path, "old_score.json")
+                filtered_trajectary_new_score_path = os.path.join(filtered_trajectary_path, "new_score.json")
                 filtered_trajectary_new_task_path = os.path.join(filtered_trajectary_path, "new_task_goal.json")
                 filtered_trajectary_end_index_path = os.path.join(filtered_trajectary_path, "end_index.json")
                 copy_folder(src=path, dst=filtered_trajectary_path)
-                with open(filtered_trajectary_score_path, "w", encoding="utf-8") as json_file:
+                with open(filtered_trajectary_old_score_path, "w", encoding="utf-8") as json_file:
                     dictionary = {"score":score,"reason":reason} # 记录的是新的分数
+                    json.dump(dictionary, json_file, ensure_ascii=False, indent=4)
+
+                with open(filtered_trajectary_new_score_path, "w", encoding="utf-8") as json_file:
+                    dictionary = {"score":new_score,"reason":new_reason} # 记录的是新的分数
                     json.dump(dictionary, json_file, ensure_ascii=False, indent=4)
                 
                 with open(filtered_trajectary_new_task_path, "w", encoding="utf-8") as json_file:
@@ -217,6 +226,7 @@ for app_name in app_names:
             step_1_folder = path + '/step_1_redundancy_removal'
             if not os.path.exists(step_1_folder):
                 os.makedirs(step_1_folder)
+                print("文件夹",step_1_folder,"完成创建")
 
             # i的数值决定了总共有多少页面
             state_num = i
@@ -283,9 +293,7 @@ for app_name in app_names:
                 img = Image.open(img_path)
                 img = np.array(img)
                 img_list.append(img)
-            action_list = []
-            for step in ui_action_summary_list:
-                action_list.append(step["action_output"])
+            action_list = new_action_output_list
 
             reason, score = filter_trajectry(task_goal, img_list, action_list, agent_filter)
 
@@ -304,7 +312,7 @@ for app_name in app_names:
                     json.dump(dictionary, json_file, ensure_ascii=False, indent=4)
                 
                 with open(filtered_trajectary_new_task_path, "w", encoding="utf-8") as json_file:
-                    dictionary = {"task_goal":new_task_description} # 记录的是新任务描述
+                    dictionary = {"task_goal":task_goal} # 记录的是新任务描述
                     json.dump(dictionary, json_file, ensure_ascii=False, indent=4)
 
                 with open(filtered_trajectary_end_index_path, "w", encoding="utf-8") as json_file:
@@ -323,7 +331,7 @@ for app_name in app_names:
                     json.dump(dictionary, json_file, ensure_ascii=False, indent=4)
                 
                 with open(filtered_trajectary_new_task_path, "w", encoding="utf-8") as json_file:
-                    dictionary = {"task_goal":new_task_description} # 记录的是新任务描述
+                    dictionary = {"task_goal":task_goal} # 记录的是新任务描述
                     json.dump(dictionary, json_file, ensure_ascii=False, indent=4)
 
                 with open(filtered_trajectary_end_index_path, "w", encoding="utf-8") as json_file:

@@ -1,0 +1,143 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app settings, Task-Oriented: Open the Calendar app info, navigate to 'Storage & cache', and clear the app's cache to free up space.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app settings, Set the app 'com.google.androidenv.accessibilityforwarder' to 'Unrestricted' battery usage, allowing the app to use battery in background without restrictions.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app settings, Task-Oriented: Force stop the application 'com.google.androidenv.accessibilityforworder' by clicking the 'Force stop' button and then confirming the action by clicking 'OK' in the subsequent dialog.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app settings, Check the storage and cache usage of the app 'com.google.androidenv.accessibilityforwarder' and clear the cache if it exceeds 20 MB.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app settings, Task-Oriented: Abort the 'Force stop' operation and then navigate to 'Storage & cache' to clear the cache of the app 'com.google.androidenv.accessibilityforworder'.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app settings, Recover the email address associated with the Google account by clicking 'Forgot email?', entering the recovery phone number, verifying the account through a code, and then viewing the associated email address.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app settings, Attempt to log in to a Google account without providing any credentials to observe the error message.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app settings, Set the Calendar app's battery usage to 'Restricted' to conserve battery, understanding that notifications may be delayed.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app settings, Task-Oriented: Search for 'Storage' settings to check the current storage usage and free space.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app settings, Bypass the initial Schedule View information screen by clicking 'Got it' and then wait for the app to finish 'Checking info...' to access the settings menu and disable location access for the Schedule View to protect privacy.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app settings, Task-Oriented: Find the 'Camera' app from the list of all apps in settings and then check its storage usage.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app settings, Find out how many applications are installed on the device by navigating to the 'Apps' section in settings, then click on 'See all 41 apps'. Count the number of installed apps that are displayed",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app settings, Navigate through the initial setup screens of Google Calendar, learning about the key features of the application.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app settings, Check the app's 'Storage & cache' usage and clear the cache to free up device storage.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app settings, navigate to 'Apps', then select 'com.google.androidenv.accessibilityforwarder', and check the storage usage of the app.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app settings, change the system font size to the smallest available size.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app settings, navigate to 'Network & Internet', then go to 'Wi-Fi' and view the saved Wi-Fi networks.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 17,
+        "task_description": "In Settings, navigate to 'Apps' and find the app 'Calculator'. Check the permissions granted to the 'Calculator' app and disable the camera permission if it is enabled.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 18,
+        "task_description": "In Settings, navigate to 'Display' and change the screen timeout duration to 30 seconds.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "In Settings, navigate to 'Sound & vibration' and change the default notification sound to 'Chirp'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 20,
+        "task_description": "在设置中，导航到“应用”部分，然后找到并选择“相机”应用。在相机应用的详细信息页面中，查看已授予的权限。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 21,
+        "task_description": "在设置中，导航到“显示”部分，然后调整屏幕亮度到最大值。之后，将亮度调回默认值。",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 22,
+        "task_description": "在设置中，导航到“声音”部分，然后更改通知铃声。之后，将通知铃声改回默认铃声。",
+        "executed": 1,
+        "succeeded": 1.0
+    }
+]

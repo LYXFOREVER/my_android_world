@@ -94,6 +94,18 @@ _GRPC_PORT = flags.DEFINE_integer(
     "The port for gRPC communication with the emulator.",
 )
 
+_APP_NAME = flags.DEFINE_string(
+    'app_name',
+    None,
+    '本次任务使用的app.',
+)
+
+_APP_NUM = flags.DEFINE_integer(
+    'app_num',
+    None,
+    '有些app的名字带空格，这时候可以输入编号。编号就是其在available_app_list中的顺序.',
+)
+
 # 启动模拟器用的函数
 def setup_emulator(
     grpc_port: int, console_port: int, is_multiple_env: bool = True, snapshot_name: str | None = None
@@ -139,27 +151,23 @@ def _main():
     #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
     #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
-    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
-    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
-    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6)) # 新增summary职能
-    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100)) # 新增summary职能
+    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
     
 
     # 以下都是需要循环多次执行的
     # 获取任务
-    task_registry = registry.TaskRegistry()
-    print("task_registry:",task_registry)
-    # 获取任务对应的类型,从而得到这个任务对应的app
-    aw_registry = task_registry.get_registry(task_registry.ANDROID_WORLD_FAMILY)
-    task_type_list: list[Type[task_eval.TaskEval]] = list(aw_registry.values())
-
-    for task_type in task_type_list:
-        app_name = task_type.app_names[0]
-        if app_name is not None:
-            break
+    app_name = _APP_NAME.value
+    if app_name is None:
+        app_num = _APP_NUM.value
+        with open('task_goal_gen/available_app_list.json', 'r', encoding='utf-8') as file:
+            available_app_list = json.load(file)
+        app_name = available_app_list[app_num]
     print("本次选择到的app名字为:",app_name)
     
-    for i in range(20):
+    for i in range(3):
         try:
             env.reset(go_home=True)
             force_stop_all_third_party_apps(
@@ -186,7 +194,7 @@ def _main():
             # 创建任务池。如果任务池已经存在则不会做任何事
             print("开始获取任务")
             # 使用新方法创建任务池
-            new_task_util.create_file_in_task_pool_v2(agent_generate_task,app_name,env,retry_times=3, max_action_times=10)
+            new_task_util.create_file_in_task_pool_v6(agent_generate_task,app_name,env,retry_times=3, max_action_times=40)
             #file_name = app_name+'.json'
             #new_task_util.create_file_in_task_pool(agent_generate_task, file_name, app_name, "unkown", [], 'apks/audio.png')
             

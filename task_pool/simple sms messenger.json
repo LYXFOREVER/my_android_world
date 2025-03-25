@@ -1,0 +1,198 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app simple sms messenger, Block messages from not stored contacts and add the number 5551234567 to the blocked list.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app simple sms messenger, Unblock messages from hidden numbers, then add the number 555-123-4567 to the blocked list.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app simple sms messenger, Task-Oriented: Return to the 'Manage blocked numbers' screen without adding a new blocked number.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app simple sms messenger, Export the current blocked numbers to a file with the default filename 'Blocked numbers_2025_03_21_09_14_40'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app simple sms messenger, Block messages from both hidden numbers and numbers not stored in contacts using the 'Manage blocked numbers' interface.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app simple sms messenger, Task-Oriented: Block messages from hidden numbers and block messages from not stored contacts.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app simple sms messenger, Block the number '12345*' to block all calls and messages from numbers matching the pattern in the simple sms messenger application.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app simple sms messenger, Task-Oriented: Return to the main messaging screen and then send a new SMS message to a contact.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app simple sms messenger, Allow messages from unsaved contacts by unchecking the box next to 'Block messages from not stored contacts', then add the number 555-123-4567 to the blocked list.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app simple sms messenger, Export the blocked numbers to a text file named 'Blocked numbers_2025_03_21_09_14_40.txt' and save it to the downloads folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app simple sms messenger, Block the number 5551234567 in the Manage blocked numbers settings.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app simple sms messenger, Block the number '12345' and then verify that 'Block messages from not stored contacts' is disabled.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app simple sms messenger, Change the font size to Large within the settings menu and then return to the main messaging screen.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app simple sms messenger, Disable blocking of messages from not stored contacts and then add a specific number to the blocked list.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app simple sms messenger, Task-Oriented: Enable blocking of messages from hidden numbers, then add the number '1234567890' to the block list.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app simple sms messenger, Task-Oriented: Add the number '12345' to the blocked number list in the SMS messenger app, then return to the main settings screen.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app simple sms messenger, Block the number '1234567890' from sending messages or calling.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "In app simple sms messenger, Export the current blocked numbers to a file named 'blocked_numbers.txt' for backup purposes.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "In app simple sms messenger, Block messages from both not stored contacts and hidden numbers within the Simple SMS Messenger app.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "In app simple sms messenger, Search for the contact 'Mariam Pereira' using the search bar and then open the conversation with them.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 20,
+        "task_description": "In app simple sms messenger, send a message containing the text 'Hello' to the number 555-555-1212.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 21,
+        "task_description": "In app simple sms messenger, open the settings menu and check if there is an option to change the notification sound. If there is, change the notification sound to 'Beep'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 22,
+        "task_description": "In app simple sms messenger, start a new message, type 'Meeting at 3 PM', add the contact 'John Doe' (if it exists, otherwise just type the number 555-555-3434), and send the message.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 23,
+        "task_description": "In app simple sms messenger, send a new SMS message to a contact in your address book.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 24,
+        "task_description": "In app simple sms messenger, view the details of a received SMS message, including the sender's number and timestamp.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 25,
+        "task_description": "In app simple sms messenger, delete a specific SMS message from a conversation thread.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 26,
+        "task_description": "In app simple sms messenger, Task-Oriented: Send a new SMS message to a specific phone number.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 27,
+        "task_description": "In app simple sms messenger, Task-Oriented: Open a specific message thread and read the latest message.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 28,
+        "task_description": "In app simple sms messenger, Task-Oriented: Delete a specific message thread.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 29,
+        "task_description": "In app simple sms messenger, compose a new message to the number '555-123-4567' with the text 'Hello there!' and send it.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 30,
+        "task_description": "In app simple sms messenger, open the settings menu, navigate to the 'Notifications' section, and disable the 'Show message preview' option.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 31,
+        "task_description": "In app simple sms messenger, search for the contact 'John Doe' in the contact list and then view the details of that contact.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

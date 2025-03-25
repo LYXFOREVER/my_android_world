@@ -1,0 +1,129 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app contacts, Task-Oriented: Allow Contacts to send notifications, then add a new contact named 'John Doe' with the phone number '123-456-7890'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app contacts, Task-Oriented: Create a new contact with the first name 'John', last name 'Doe', company 'Example Inc.', phone number '123-456-7890', and email address 'john.doe@example.com'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app contacts, Return to the main contacts list from the new contact creation screen and verify that the list is displayed correctly.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app contacts, Diagnose the connection issue by clicking the info icon next to 'myaccount.google.com' and examining the connection details to determine the cause of the error.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app contacts, Remove the 'Phone contacts' filter and then add a new contact.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app contacts, Remove the 'Phone contacts' filter and then create a new contact.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app contacts, Task-Oriented: Access the help and feedback section in the Contacts app to learn more about creating and managing contacts.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app contacts, View the contacts stored only on the device by clicking on the device icon and then selecting 'Device'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app contacts, Change the phone number label from 'Mobile' to 'Work' and then add the first name, last name, phone number, and email to create a new contact.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app contacts, Task-Oriented: Add a photo to the new contact by choosing an existing photo from the gallery.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app contacts, Display only the contacts saved on your phone and then create a new contact called 'Test Contact'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app contacts, Change the phone number type from 'Mobile' to 'Work', input the new phone number, and save the contact details.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app contacts, Create a new contact named 'John Doe' with phone number '123-456-7890' and email address 'john.doe@example.com' without adding a profile picture.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app contacts, Return to the main contact list screen and verify that the newly added contact 'Arthur Wang' is present in the list.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app contacts, Select all contacts on the phone and then share them via email.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app contacts, Select all contacts and verify the subsequent actions available, such as deleting or sharing them.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app contacts, Navigate to the main contacts screen and then create a new contact named 'John Doe' with phone number '123-456-7890'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "In app contacts, Task-Oriented: Search for the contact \"Arthur Wang\" and check the number of saved contacts in their profile.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "In app contacts, search for 'John Smith' in the contact list and then tap on the contact to view their details.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 19,
+        "task_description": "In app contacts, create a new contact with the name 'Jane Doe', phone number '555-123-4567', and email address 'jane.doe@example.com'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 20,
+        "task_description": "In app contacts, edit the existing contact 'John Smith' and add a note saying 'Met at conference'.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

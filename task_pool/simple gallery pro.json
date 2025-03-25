@@ -1,0 +1,276 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app simple gallery pro, Task-Oriented: Play the video, then pause it after 5 seconds, and then share the video.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app simple gallery pro, Return to the image viewing screen and then delete the current image.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app simple gallery pro, Watch the video 'yVwbHK250R' in full screen and then exit full screen by swiping down from the top.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app simple gallery pro, Share the displayed image with another application.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app simple gallery pro, Switch to grid view and then select the first image in the grid.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app simple gallery pro, Return to the gallery view after editing the image and then share the edited image.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app simple gallery pro, Task-Oriented: Return to the album view and select a different album to view its contents.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app simple gallery pro, Take a photo of the house after switching the view mode.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app simple gallery pro, Task-Oriented: Resume the video playback and watch it until the end.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app simple gallery pro, Task-Oriented: Open the video file named 'yVwbHk25OR' with the Gallery app, choosing to open it just once.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app simple gallery pro, Check the details of the image currently being displayed.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app simple gallery pro, Task-Oriented: Open the 'Pictures' folder and then share the first image with another application.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app simple gallery pro, View the image 'yVWbHK25OR' in full screen, dismiss the instructions, and then zoom in to examine the details of the image.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app simple gallery pro, Edit the video by trimming it from 0:29 to 0:58.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app simple gallery pro, Task-Oriented: Open the 'VLCVideos' folder and play the video named 'CZOrFolMmC'.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app simple gallery pro, Rotate the current image by clicking the three dots icon and then selecting the rotate option.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app simple gallery pro, Share the selected video using Gmail.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "In app simple gallery pro, Task-Oriented: Cancel the current selection and return to the main gallery view to browse and view other photos.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "In app simple gallery pro, Task-Oriented: Search for a folder named 'Pictures' within the Simple Gallery Pro app.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "In app simple gallery pro, Watch the video 'yVwbHk25OR' from beginning to end, then share it.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 20,
+        "task_description": "In app simple gallery pro, Task-Oriented: Search for the video named 'DG4arcxdcs' within the 'VLCVideos' directory and then play the video.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 21,
+        "task_description": "In app simple gallery pro, Task-Oriented: Play the video, then pause it after 4 seconds, and then share the video.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 22,
+        "task_description": "In app simple gallery pro, Task-Oriented: Open the video 'yVwbHk25OR' using the 'Gallery' app by selecting 'Just once' after choosing 'Gallery' from the 'Open with' options.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 23,
+        "task_description": "In app simple gallery pro, Task-Oriented: Open the 'Pictures' folder to view the images it contains.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 24,
+        "task_description": "In app simple gallery pro, Task-Oriented: Open the settings menu and change the save path to the SD card.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 25,
+        "task_description": "In app simple gallery pro, Task-Oriented: Take a picture of the displayed image and then discard it by clicking the cross icon.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 26,
+        "task_description": "In app simple gallery pro, Task-Oriented: Edit the current image by clicking the edit icon and selecting the 'Draw' option to add a circle around the house in the image.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 27,
+        "task_description": "In app simple gallery pro, Create a new folder named 'NewFolder' in the current directory.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 28,
+        "task_description": "In app simple gallery pro, Watch the video 'yVWbhPI25OR' from the beginning to the end.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 29,
+        "task_description": "In app simple gallery pro, Task-Oriented: Find out how to restore recently deleted photos & videos by clicking on the 'Restore recently deleted photos & videos' option in the help menu.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 30,
+        "task_description": "In app simple gallery pro, Task-Oriented: Return to the video gallery and then filter the videos by size.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 31,
+        "task_description": "In app simple gallery pro, Read the information on how to restore recently deleted photos and videos, paying attention to the sections on 'Check your archive' and 'Check your trash' to understand the process.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 32,
+        "task_description": "In app simple gallery pro, Edit the current video 'yVwbHK25OR' by trimming it to 30 seconds and then save the edited video.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 33,
+        "task_description": "In app simple gallery pro, create a new album named 'Vacation Photos'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 34,
+        "task_description": "In app simple gallery pro, select three photos from the 'Downloads' album and move them to the 'Vacation Photos' album.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 35,
+        "task_description": "In app simple gallery pro, rotate the currently displayed image 90 degrees clockwise and save the changes.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 36,
+        "task_description": "In app simple gallery pro, navigate to the 'Pictures' album, select the image named 'VacationPhoto.jpg', view the image in full screen, and then zoom in twice to examine the details.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 37,
+        "task_description": "In app simple gallery pro, create a new album named 'Favorites', then select three images from the 'Camera' album and move them to the newly created 'Favorites' album.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 38,
+        "task_description": "In app simple gallery pro, select the video named 'BirthdayParty.mp4', play the video, pause the video after 5 seconds, and then adjust the volume to 75%.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 39,
+        "task_description": "In app simple gallery pro, create a new album named 'Vacation 2024'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 40,
+        "task_description": "In app simple gallery pro, rotate a specific photo 90 degrees clockwise.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 41,
+        "task_description": "In app simple gallery pro, delete a specific video from the gallery.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 42,
+        "task_description": "In app simple gallery pro, Task-Oriented: Create a new album named 'Vacation2024'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 43,
+        "task_description": "In app simple gallery pro, Task-Oriented: Rotate the first image in the 'Screenshots' folder 90 degrees clockwise.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 44,
+        "task_description": "In app simple gallery pro, Task-Oriented: Delete the last video in the 'Downloads' folder.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

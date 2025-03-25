@@ -1,0 +1,190 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app files, Search for all audio files in the Downloads folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app files, Change the file view from the default grid to a list view in the Downloads directory, and then search for any image files.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app files, Filter the 'Downloads' folder in the Files app to only show document files.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app files, Task-Oriented: Check if there are any images in the 'Downloads' folder. If not, search for images in another folder, such as 'DCIM', and confirm that image files exist in the selected folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app files, In the 'Downloads' folder, sort all image files by filename alphabetically from A to Z to easily locate a specific file based on its name.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app files, Task-Oriented: Remove the 'Images' filter from the 'Downloads' directory and then apply the 'Audio' filter to view only audio files within that directory.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app files, Show hidden files in the 'Downloads' directory.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app files, Check if there are any video files within the 'Downloads' folder in the 'files' app.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app files, Task-Oriented: Check if there are any video files in the 'Downloads' folder by clicking the 'Videos' tab.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app files, Locate all files related to 'ProjectX' stored in the Downloads folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app files, Change the file view to list view in the Downloads folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app files, Check if there are any image files in the Downloads folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app files, Filter the 'Downloads' folder to only show 'Audio' files and then navigate back to the main 'Files' directory.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app files, Change the view of files in the Downloads folder to grid view, and then change it back to list view. Verify that the display changes as expected.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app files, Task-Oriented: Locate all audio files stored within the 'files' application, regardless of their folder location and identify the path of one of the audio files.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app files, Sort files in 'Downloads' folder by 'File name (Z to A)'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app files, Check if there are any audio files in the Downloads folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "In app files, Task-Oriented: Change the view of files in the Downloads folder from grid view to list view.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "In app files, Find and select an image file in the downloads folder after deselecting the audio filter.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 19,
+        "task_description": "In app files, navigate to the 'Downloads' folder and then sort the files by 'Date Modified' in descending order.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 20,
+        "task_description": "In app files, use the search function to find all files with the extension '.pdf' and then select the first file from the search results.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 21,
+        "task_description": "In app files, create a new folder named 'Important Documents' in the 'Documents' folder, and then move a document file into the newly created folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 22,
+        "task_description": "In app files, browse to the 'Downloads' folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 23,
+        "task_description": "In app files, use the search function to find all files with the name 'report'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 24,
+        "task_description": "In app files, create a new folder named 'Documents'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 25,
+        "task_description": "In app files, navigate to the 'Downloads' folder. Then, select a file and rename it to 'MyDocument.txt'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 26,
+        "task_description": "In app files, create a new folder named 'Important Documents' on the internal storage.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 27,
+        "task_description": "In app files, navigate to the 'Pictures' folder. Select three images and move them to the 'Important Documents' folder you just created.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 28,
+        "task_description": "In app files, navigate to the 'Images' folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 29,
+        "task_description": "In app files, search for files with the extension '.pdf'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 30,
+        "task_description": "In app files, create a new folder named 'Important Documents' in the 'Documents' folder.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

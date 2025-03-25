@@ -1,9 +1,0 @@
-[
-    {
-        "completion_tokens": 54,
-        "prompt_tokens": 2070,
-        "total_tokens": 2124,
-        "request_time": "2025-03-12 15:36:14.705198",
-        "model_name": "gemini-2.0-flash"
-    }
-]

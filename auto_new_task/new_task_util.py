@@ -204,7 +204,7 @@ def save_action_state_pairs(state_before_action:State, state_after_action:State,
     # 绘制并保存绘制了动作的截图1
     if "index" in action_dic:
         # 有index，就画上是哪个动作
-        image_with_action_path = os.path.join(target_path, 'image_with_action.png')
+        image_with_action_path = os.path.join(target_path, 'image_before_action.png')
         index = action_dic["index"]
         editable_ui:UIElement = state_before_action.ui_elements[index]
         bbox = editable_ui.bbox_pixels
@@ -379,6 +379,9 @@ def generate_task_description_list(action_state_pairs_path:str, agent:m3a.M3A, a
     for action_state_pair_path in action_state_pairs_path:
         # 获取需要的截图
         image_with_action_path = os.path.join(action_state_pair_path, 'image_with_action.png')
+        if os.path.exists(image_with_action_path) is False:
+            # 由于代码有问题，有的时候图像不叫这个名字。我是傻逼
+            image_with_action_path = os.path.join(action_state_pair_path, 'image_before_action.png')
         image_with_action = Image.open(image_with_action_path)
         image_after_action_path = os.path.join(action_state_pair_path, 'image_after_action.png')
         image_after_action = Image.open(image_after_action_path)
@@ -416,7 +419,7 @@ def generate_task_description_list(action_state_pairs_path:str, agent:m3a.M3A, a
     
     return task_description_list
 
-def generate_task_description_list_v2(action_state_pairs_path:str, agent:m3a.M3A, app_name:str):
+def generate_task_description_list_v2(action_state_pairs_path:list[str], agent:m3a.M3A, app_name:str):
     """
         与v1相比，修改了prompt，主要是要求多专注于页面的元素而不是动作本身，不要求生成的任务要有动作这一步
         输入:
@@ -462,6 +465,87 @@ def generate_task_description_list_v2(action_state_pairs_path:str, agent:m3a.M3A
         else:
             task_description = task_dic["High-Level-Instruction"]
             task_description = "In app "+app_name+", "+task_description
+            task_description_list.append(task_description)
+    
+    return task_description_list
+import random
+def generate_mutil_task_description_list(
+        app_1_action_state_pairs_path_list: list[str], 
+        app_2_action_state_pairs_path_list: list[str],
+        agent: m3a.M3A, 
+        app_1_name: str,
+        app_2_name: str,
+    ):
+    task_description_list = []
+    random.shuffle(app_1_action_state_pairs_path_list)
+    random.shuffle(app_2_action_state_pairs_path_list)
+
+    # 生成的任务数量取决于动作状态对中较少的一方
+    for app_1_action_state_pairs_path, app_2_action_state_pairs_path in zip(app_1_action_state_pairs_path_list, app_2_action_state_pairs_path_list):
+        # 获取需要的截图
+        # 首先是第一个app的截图
+        image_with_action_path_1 = os.path.join(app_1_action_state_pairs_path, 'image_with_action.png')
+        if os.path.exists(image_with_action_path_1) is False:
+            # 由于代码有问题，有的时候图像不叫这个名字。我是傻逼
+            image_with_action_path_1 = os.path.join(app_1_action_state_pairs_path, 'image_before_action.png')
+        image_with_action_1 = Image.open(image_with_action_path_1)
+        image_after_action_path_1 = os.path.join(app_1_action_state_pairs_path, 'image_after_action.png')
+        image_after_action_1 = Image.open(image_after_action_path_1)
+
+        image_with_action_1 = np.array(image_with_action_1)
+        image_after_action_1 = np.array(image_after_action_1)
+
+        # 然后是第二个app的截图
+        image_with_action_path_2 = os.path.join(app_2_action_state_pairs_path, 'image_with_action.png')
+        if os.path.exists(image_with_action_path_2) is False:
+            # 由于代码有问题，有的时候图像不叫这个名字。我是傻逼
+            image_with_action_path_2 = os.path.join(app_2_action_state_pairs_path, 'image_before_action.png')
+        image_with_action_2 = Image.open(image_with_action_path_2)
+        image_after_action_path_2 = os.path.join(app_2_action_state_pairs_path, 'image_after_action.png')
+        image_after_action_2 = Image.open(image_after_action_path_2)
+
+        image_with_action_2 = np.array(image_with_action_2)
+        image_after_action_2 = np.array(image_after_action_2)
+
+        # 获取第一个app的动作
+        action_dic_path_1 = os.path.join(app_1_action_state_pairs_path, 'action.json')
+        with open(action_dic_path_1, "r", encoding="utf-8") as file:
+            action_dic_1 = json.load(file)
+        action_dic_1 = str(action_dic_1)
+
+        # 获取第二个app的动作
+        action_dic_path_2 = os.path.join(app_2_action_state_pairs_path, 'action.json')
+        with open(action_dic_path_2, "r", encoding="utf-8") as file:
+            action_dic_2 = json.load(file)
+        action_dic_2 = str(action_dic_2)
+
+        text_prompt = m3a.generate_mutil_app_task_description_with_action_state_pair(
+            app_1_name, 
+            app_2_name, 
+            action_dic_1, 
+            action_dic_2
+        )
+        # 与agent交互
+        task_dic_str, _, raw_response = agent.llm.predict_mm(
+            text_prompt,
+            [
+                image_with_action_1,
+                image_after_action_1,
+                image_with_action_2,
+                image_after_action_2,
+            ]
+        )
+        # 处理回复，得到结果
+        if not raw_response:
+            print('利用状态动作对生成任务描述时出错！')
+        print("ai 给出的原始描述为:",task_dic_str)
+        task_dic = get_task_dic(task_dic_str)
+        if "High-Level-Instruction" not in task_dic:
+            print("提取任务描述时出现问题，试试下一个")
+            continue
+        else:
+            task_description = task_dic["High-Level-Instruction"]
+            task_description = "This task involves app: "+app_1_name+", "+app_2_name+". "+task_description
             task_description_list.append(task_description)
     
     return task_description_list
@@ -860,3 +944,117 @@ def extend_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity
 
     with open(file_path, 'w') as file:
         json.dump(task_list, file, ensure_ascii=False, indent=4)
+
+
+def create_file_in_task_pool_v6(
+        agent: m3a.M3A,
+        app_name: str, 
+        env:interface.AsyncAndroidEnv, 
+        retry_times:int = 3,
+        max_action_times:int = 10,
+    ):
+    """
+    适用于android world原版app，专门应对app可能不在桌面上的情况
+    和v5版本一样加入了ai筛选任务描述的环节。重点在于要去除危险任务（如删除东西）
+    """
+    task_pool_dir = "task_pool"
+    file_name = app_name + ".json"
+    
+    # 构造文件路径
+    file_path = os.path.join(task_pool_dir, file_name)
+    # 判断文件是否存在
+    if not os.path.exists(file_path):
+        # 文件确实不存在，开始创建任务池
+        print("任务池不存在，开始创建任务池")
+        open_app_action_dic = {"action_type":"open_app", "app_name":app_name}
+        converted_action = json_action.JSONAction(
+            **open_app_action_dic,
+        )
+        # TODO:打开本次的app
+        while retry_times > 0:
+            result = env.execute_action_v2(converted_action)
+            if result == -1:
+                print("打开app失败，还有",retry_times,"次机会")
+                retry_times -= 1
+            else:
+                print("app打开成功，开始探索app")
+                break
+        import time
+        time.sleep(3) # 等一下页面
+        state = env.get_state(wait_to_stabilize = True)
+        doc = 'temp_state/'+app_name+'/'
+        save_state(state=state,doc=doc)
+
+        # TODO:开始循环，深度优先搜索，假如没有能点击了的东西那就返回.保存截图，ui list，动作str
+        # TODO:每一对都保存在独立的文件夹里面。检测到已经存在10对（也就是10个动作，少量测试）了，就结束前期探索
+        target_path = os.path.join('task_pool',app_name)
+        dfs_app_navigate(target_path=target_path, state=state, env=env, app_name=app_name, agent=agent, max_pair_num=max_action_times)
+
+        # TODO:读取探索对，交给agent，获取任务描述
+        action_state_pairs_path = get_first_level_subfolders(target_path)
+
+        task_description_list = generate_task_description_list(action_state_pairs_path, agent, app_name)
+        screen_shot_path = os.path.join(action_state_pairs_path[0], "image_with_action.png")
+        task_description_list = filter_task_description_list(task_description_list, agent, app_name, screen_shot_path)
+        # task_list是一个保存了一系列用字典保存的任务
+        # 字典记录了任务id，任务描述，是否被执行过以及执行结果信息
+        # 执行的时候，遍历task_list,找到第一个没有被做过的任务并执行它。
+        # 假如没找到，那就找到第一个执行过但没成功的任务，以此为种子生成新的并执行；原来的任务会删去（因为可能是不可能的任务）
+        task_list = []
+        for i, task_description in enumerate(task_description_list):
+            print("本次加入任务池的任务为:",task_description)
+            task = {}
+            task['id'] = i
+            task['task_description'] = task_description
+            task['executed'] = 0 # 0代表没有执行过
+            task['succeeded'] = 0 # 0代表没成功过
+            task_list.append(task)
+
+        #将任务写入json文件中
+        with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
+    else:
+        print(f"File '{file_name}' already exists.")
+
+def create_multi_app_task_pool(
+        agent: m3a.M3A,
+        app_1_name: str, 
+        app_2_name: str, 
+    ):
+    """
+    通过已有的动作状态对池创建多app任务池
+    """
+    json_name = app_1_name+"_"+app_2_name+".json"
+    file_path = os.path.join("task_pool", json_name)
+
+    if not os.path.exists(file_path):
+        app_1_action_state_pairs_folder = os.path.join("task_pool", app_1_name)
+        app_2_action_state_pairs_folder = os.path.join("task_pool", app_2_name)
+
+        app_1_action_state_pairs_path_list = get_first_level_subfolders(app_1_action_state_pairs_folder)
+        app_2_action_state_pairs_path_list = get_first_level_subfolders(app_2_action_state_pairs_folder)
+
+        task_description_list = generate_mutil_task_description_list(
+            app_1_action_state_pairs_path_list, 
+            app_2_action_state_pairs_path_list,
+            agent, 
+            app_1_name,
+            app_2_name,
+        )
+
+        task_list = []
+        for i, task_description in enumerate(task_description_list):
+            print("本次加入任务池的任务为:",task_description)
+            task = {}
+            task['id'] = i
+            task['task_description'] = task_description
+            task['executed'] = 0 # 0代表没有执行过
+            task['succeeded'] = 0 # 0代表没成功过
+            task_list.append(task)
+
+        #将任务写入json文件中
+        
+        with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
+    else:
+        print(f"File '{file_path}' already exists.")

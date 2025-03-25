@@ -47,9 +47,40 @@ from swift.utils import get_model_parameter_info, get_logger, seed_everything
 import openai
 from openai import OpenAI
 from requests.exceptions import RequestException
+import fcntl
+import json
+import tempfile
+import os
 
 
 ERROR_CALLING_LLM = 'Error calling LLM'
+
+def append_to_json_list(file_path, item):
+    # 检查文件是否存在，如果不存在则创建一个空列表
+    if not os.path.exists(file_path):
+        json_list = []
+    else:
+        # 文件存在，读取现有内容
+        with open(file_path, 'r') as f:
+            content = f.read()
+            if content:
+                json_list = json.loads(content)
+            else:
+                json_list = []
+
+    # 添加新元素
+    json_list.append(item)
+
+    # 写回文件
+    with tempfile.NamedTemporaryFile(delete=False, mode='w') as tmp_file:
+        fcntl.flock(tmp_file, fcntl.LOCK_EX)  # 加锁
+        try:
+            json.dump(json_list, tmp_file, indent=4)
+            tmp_file.flush()
+            os.fsync(tmp_file.fileno())
+            os.replace(tmp_file.name, file_path)  # 重命名临时文件为目标文件
+        finally:
+            fcntl.flock(tmp_file, fcntl.LOCK_UN)  # 解锁
 
 
 def array_to_jpeg_bytes(image: np.ndarray) -> bytes:
@@ -397,7 +428,7 @@ class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
     if max_retry <= 0:
       max_retry = 3
       print('Max_retry must be positive. Reset it to 3')
-    self.max_retry = min(max_retry, 5)
+    self.max_retry = max_retry
     self.temperature = temperature
     self.model = model_name
 
@@ -429,8 +460,9 @@ class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
             print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
             time.sleep(2 ** retries)  # 指数级等待时间
         except Exception as e:
-            print(f"Unexpected error: {e}")
-            break
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
     print("Failed to get response after maximum retries.")
     return None
 
@@ -486,11 +518,10 @@ class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
         'request_time': current_time_str,
         'model_name': self.model,
     }
-    # 保存本次成本统计
-    import json
-    # 保存文件的路径
-    file_path = "gpt_usage.json"
-
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
     # 读取已有文件或创建新文件
     if os.path.exists(file_path):
         with open(file_path, "r") as file:
@@ -504,6 +535,16 @@ class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
     # 保存回文件
     with open(file_path, "w") as file:
         json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
     return (
         response_text,
         None,

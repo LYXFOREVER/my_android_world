@@ -1379,6 +1379,50 @@ GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TAMPLATE = (
   'RETURN ME THE DICTIONARY I ASKED FOR.\n'
 )
 
+GENERATE_MULTI_APP_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TEMPLATE = (
+    'You are an expert at envisioning specific tasks corresponding to changes in mobile screenshots. '
+    'I will provide you with the following:\n'
+    '1. The type of action currently being executed in each app. The type of action can be one of the types: click, input_text. '
+    'If the action is input_text, an additional value representing the input will be provided.\n'
+    '2. Screenshots of the interface before and after the current action is performed in each app. '
+    'The pre-action screenshot will include a red bbox highlighting the element being interacted with (if applicable). '
+    'Pay particular attention to the content of the element corresponding to the red bbox.\n'
+    '3. The name of each app where the current screenshot is located.\n'
+    'Your task is to envision a specific task based on the current actions and the corresponding changes in screenshots across both apps. '
+    'The output should include three parts:\n'
+    '1. Sub-Instruction: Based on the interface changes caused by the current actions in both apps, generate corresponding natural language instructions for each action. '
+    'The instructions should be concise, clear, and executable. '
+    'They must include specific details critical to the operation, such as file names, times, or other content as they appear in the screenshots.\n'
+    'For example:\n'
+    'App 1: “Click the chat interface, allowing the user to view and participate in conversation.”\n'
+    'App 2: “Type the username ‘Agent’, preparing for the next step in logging into the account.”\n'
+    '2. Analysis: Based on the interface changes and the current action instructions in both apps, analyze the possible subsequent operations. '
+    'This analysis should involve step-by-step reasoning, considering the potential changes on the screens and the actions that can be taken after these changes. '
+    'For example:\n'
+    'App 1: “After clicking the plus button, a dropdown menu appears with an option to create a document. '
+    'I can select this option to create a new document. First, I need to name the document, then enter any content into the document, and finally save the document and exit.”\n'
+    'App 2: “After typing the username, the password field becomes active. I need to enter the password and then click the login button to access the account.”\n'
+    '3. High-Level-Instruction: Based on the analysis results, envision a high-level task that can be completed by using both apps together. '
+    'There are two types of High-Level-Instruction:\n'
+    'Task-Oriented: Completing a series of operations to achieve a specific goal.\n'
+    'Question-Oriented: Performing a series of operations and deriving an answer to a specific question.\n'
+    'Ensure that the High-Level-Instruction is executable by including all critical specifics, such as file names, relevant timings, or required details.\n'
+    'For example:\n'
+    'Task-Oriented: “Use App 1 to create a new document and save it. Then use App 2 to log into the account and upload the document.”\n'
+    'Question-Oriented: “Use App 1 to check the weather forecast for tomorrow and note the temperature. Then use App 2 to set a reminder for the noted temperature.”\n'
+    'Sometimes, the differences between the two action-state pairs might be too large, and the two actions seem hardly related.'
+    'If this is the case, you are allowed to think of a task involving both apps on your own, and it doesn\'t necessarily have to be directly related to both actions.\n'
+    'You ONLY need to return a dictionary formatted as follows:\n'
+    '{{\n"Sub-Instruction": {{\n    "App 1": "xxx",\n    "App 2": "xxx"\n}},\n'
+    '"Analysis": {{\n    "App 1": "xxx",\n    "App 2": "xxx"\n}},\n'
+    '"High-Level-Instruction": "xxx"\n}}\n\n'
+    'Current Action 1: \n{action_dic_1}\n'
+    'Current Action 2: \n{action_dic_2}\n'
+    'App Name 1: {app_1_name}\n'
+    'App Name 2: {app_2_name}\n'
+    'RETURN ME THE DICTIONARY I ASKED FOR.\n'
+)
+
 GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_V2_TAMPLATE = (
   'You are an expert at envisioning specific tasks corresponding to changes in mobile screenshots.'
   'I will provide you with the following:\n'
@@ -1448,6 +1492,14 @@ def generate_task_description_with_action_state_pair(app_name:str, action_dic:st
     action_dic=action_dic
   )
 
+def generate_mutil_app_task_description_with_action_state_pair(app_1_name:str, app_2_name:str, action_dic_1:str, action_dic_2:str):
+  return GENERATE_MULTI_APP_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TEMPLATE.format(
+    action_dic_1=action_dic_1,
+    action_dic_2=action_dic_2,
+    app_1_name=app_1_name,
+    app_2_name=app_2_name
+  )
+
 def generate_task_description_with_action_state_pair_v2(app_name:str, action_dic:str):
   return GENERATE_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_V2_TAMPLATE.format(
     app_name=app_name,
@@ -1463,6 +1515,7 @@ FILTER_TASK_DESCRIPTION_LIST_TAMPLATE = (
   'Evaluation Criteria:\n'
   'Clarity: Is the task description clear and concise?\n'
   'Feasibility: Can the task be performed using the provided app?\n'
+  'Safety: Does the task description avoid potentially harmful operations such as deleting files, making purchases, or disabling, uninstalling applications?\n'
   'Specificity: Does the task description provide enough detail for the GUI Agent to understand and execute the task?\n\n'
   'Your Response:\n'
   'Suitability: Indicate whether the task is suitable for the GUI Agent.\n'

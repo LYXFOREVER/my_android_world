@@ -1307,7 +1307,7 @@ def launch_app(
   """
 
   if app_name.lower() in _DEFAULT_URIS:
-    _launch_default_app(app_name, env)
+    _launch_default_app(app_name.lower(), env)
     return app_name
 
   activity = get_adb_activity(app_name)
