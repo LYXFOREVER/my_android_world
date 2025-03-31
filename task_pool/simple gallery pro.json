@@ -151,7 +151,8 @@
         "id": 24,
         "task_description": "In app simple gallery pro, Task-Oriented: Open the settings menu and change the save path to the SD card.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 25,
@@ -258,18 +259,36 @@
     {
         "id": 42,
         "task_description": "In app simple gallery pro, Task-Oriented: Create a new album named 'Vacation2024'.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 43,
         "task_description": "In app simple gallery pro, Task-Oriented: Rotate the first image in the 'Screenshots' folder 90 degrees clockwise.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 44,
         "task_description": "In app simple gallery pro, Task-Oriented: Delete the last video in the 'Downloads' folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 45,
+        "task_description": "In app Simple Gallery Pro, Task-Oriented: Create a new album named 'Vacation Photos'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 46,
+        "task_description": "In app Simple Gallery Pro, Task-Oriented: Rotate a specific image 90 degrees clockwise.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 47,
+        "task_description": "In app Simple Gallery Pro, Task-Oriented: Search for all images taken in the month of July.",
         "executed": 0,
         "succeeded": 0
     }

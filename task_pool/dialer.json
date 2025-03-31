@@ -1,0 +1,129 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app dialer, Return to the main screen and check the recent calls.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app dialer, Search for nearby restaurants after allowing location access.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app dialer, Task-Oriented: Check the recent calls list to see if there are any missed calls from yesterday.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app dialer, Task-Oriented: Return to the main screen of the dialer app and then search for a contact named 'John Smith' using the search bar.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app dialer, Task-Oriented: Search for the contact 'John Smith' and initiate a call to that contact.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app dialer, Task-Oriented: Search for the contact named 'John' and then view their contact details.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app dialer, Disable visual voicemail and then navigate to the 'Recents' tab to view recent calls.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app dialer, Disable visual voicemail by clicking 'No thanks' and then confirming by clicking 'Turn off' in the subsequent dialog box.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app dialer, Create a new contact and then search for the contact 'Arthur Wang' to view their details.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app dialer, Acknowledge the introduction to visual voicemail by clicking 'OK, got it' and then check for any new voicemails in the voicemail inbox.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app dialer, Return to the main dialer screen and then navigate to the 'Contacts' tab to view the list of saved contacts.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app dialer, Create a new contact and then search for 'Arthur Wang' in the contact list.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app dialer, Task-Oriented: Open the dialer app settings by clicking the three dots icon and then selecting 'Settings' from the dropdown menu.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app dialer, Call voicemail to check for new messages.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app dialer, Task-Oriented: Search for the contact 'Arthur Wang' and then initiate a call to that contact.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app dialer, Task-Oriented: Return to the contacts list and create a new contact.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app dialer, Task-Oriented: Check the recent calls list and initiate a call if there are any recent calls.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "In app dialer, Add a contact to your favorites list and then call them.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "In app dialer, search for 'John Smith' in contacts.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 19,
+        "task_description": "In app dialer, view the call history.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 20,
+        "task_description": "In app dialer, dial 123-456-7890.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

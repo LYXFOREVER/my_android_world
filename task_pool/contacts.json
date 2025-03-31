@@ -76,7 +76,8 @@
         "id": 12,
         "task_description": "In app contacts, Create a new contact named 'John Doe' with phone number '123-456-7890' and email address 'john.doe@example.com' without adding a profile picture.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 13,
@@ -111,19 +112,37 @@
     {
         "id": 18,
         "task_description": "In app contacts, search for 'John Smith' in the contact list and then tap on the contact to view their details.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 19,
         "task_description": "In app contacts, create a new contact with the name 'Jane Doe', phone number '555-123-4567', and email address 'jane.doe@example.com'.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 20,
         "task_description": "In app contacts, edit the existing contact 'John Smith' and add a note saying 'Met at conference'.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 21,
+        "task_description": "In app contacts, search for a contact named 'John Doe'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 22,
+        "task_description": "In app contacts, edit the phone number of the contact 'John Doe' to '098-765-4321'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 23,
+        "task_description": "In app contacts, delete the contact named 'John Doe'.",
+        "executed": 1,
+        "succeeded": 1.0
     }
 ]

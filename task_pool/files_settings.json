@@ -1,121 +1,79 @@
 [
     {
         "id": 0,
-        "task_description": "This task involves app: files, settings. Use the Files app to check if a specific image is present in the Downloads folder. If not, use the Settings app to recover the Google account associated with the phone, and then check the Google Photos app to see if the image is backed up there.",
+        "task_description": "This task involves app: files, settings. Use the Files app to check if there are any images in the Downloads folder. Then, use the Settings app to navigate to the Calendar app's info and check its battery usage settings.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 1,
-        "task_description": "This task involves app: files, settings. Check if there are any videos in the 'Downloads' folder using the Files app. If there are no videos, navigate to the 'Storage' settings in the Settings app to check the available storage space and identify potential space issues.",
+        "task_description": "This task involves app: files, settings. Use the Files app to filter the Downloads folder to only show images. Then, navigate to the Settings app and check the storage used by the Files app.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 2,
-        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view in the Downloads folder, then use the Settings app to configure the Google Calendar app.",
+        "task_description": "This task involves app: files, settings. Use the Files app to show hidden files in the Downloads folder. Then, navigate to the Settings app and set the Calendar app's battery usage to 'Unrestricted'.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 3,
-        "task_description": "This task involves app: files, settings. Use the Files app to filter out videos and check if any documents are present in the Downloads folder. If there are no documents, use the Settings app to uninstall an app named 'com.google.androidenv.accessibilityforwarder'.",
+        "task_description": "This task involves app: files, settings. Use the Files app to filter for only image files in the Downloads folder. Then, navigate to the Settings app and check the storage usage of the Files app.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 4,
-        "task_description": "This task involves app: files, settings. Check the battery usage of the Files app in Settings and then show hidden files in the Files app.",
+        "task_description": "This task involves app: files, settings. Use the Files app to sort the Downloads folder by file name (A to Z), then navigate to the Settings app and check the app version number.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 5,
-        "task_description": "This task involves app: files, settings. Sort the files in the Files app by 'Modified (newest first)'. Then, in the Settings app, navigate to the app info page for the Files app and check the storage usage.",
+        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view, then navigate to the Settings app and check the permissions for the Files app.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 6,
-        "task_description": "This task involves app: files, settings. Check for audio files in the Files app and then proceed past the initial information screen in the Settings app to check for updates.",
+        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view, then navigate to the Settings app and find the app info page for 'Calendar'.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 7,
-        "task_description": "This task involves app: files, settings. Use the Files app to check if a specific audio file exists in the downloads folder. If it does not exist, use the Settings app to clear the cache of the app that downloads the audio files, then retry downloading the audio file and check the Files app again.",
+        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view, then navigate to the Settings app and view the app info for 'com.google.androidenv.accessibilityforwarder' to check its storage usage.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 8,
-        "task_description": "This task involves app: files, settings. Use the Files app to check if there are any images in the Downloads folder. If there are no images, use the Settings app to open the Calendar app info and clear the cache to free up storage space.",
+        "task_description": "This task involves app: files, settings. In the Files app, switch to list view. Then, in the Settings app, navigate to 'Apps' and check the storage usage of the Files app.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 9,
-        "task_description": "This task involves app: files, settings. Use the Files app to filter for image files in the Downloads folder. Then, use the Settings app to sign in to a Google account.",
+        "task_description": "This task involves app: files, settings. Use the Files app to check if there are any images in the Downloads folder. Then, use the Settings app to search for 'Storage' and check the available storage space.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 10,
-        "task_description": "This task involves app: files, settings. Use the Settings app to find the Files app in the list of all apps and check its storage usage. Then, use the Files app to sort the files in the Downloads folder by name.",
+        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view in the Downloads folder. Then, use the Settings app to navigate to the Calendar app's info page and check its storage usage.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 11,
-        "task_description": "This task involves app: files, settings. Use the Files app to check if a specific video file exists in the Downloads folder. If it does, use the Google Sign-in screen in Settings to log in to a Google account and upload the video file to Google Drive.",
+        "task_description": "This task involves app: files, settings. Use the Files app to view all files in the Downloads folder, then navigate to the Settings app and check the storage usage of the Files app.",
         "executed": 0,
         "succeeded": 0
     },
     {
         "id": 12,
-        "task_description": "This task involves app: files, settings. Use the Files app to check for audio files in the Downloads folder. If there are any, force stop the Settings app and then attempt to play the audio file to see if the force stop affected audio playback.",
-        "executed": 0,
-        "succeeded": 0
-    },
-    {
-        "id": 13,
-        "task_description": "This task involves app: files, settings. Uninstall 'com.google.androidenv.accessibilityforwarder' using the Settings app. Then, using the Files app, find and open a document in the Downloads folder that is not an image.",
-        "executed": 0,
-        "succeeded": 0
-    },
-    {
-        "id": 14,
-        "task_description": "This task involves app: files, settings. Use the Files app to locate a specific audio file in the Downloads folder. Then, use the Settings app to find the app info for the Files app and check its storage usage.",
-        "executed": 0,
-        "succeeded": 0
-    },
-    {
-        "id": 15,
-        "task_description": "This task involves app: files, settings. Use the Files app to change the view of the 'Downloads' folder to list view. Then, use the Settings app to uninstall the 'com.google.android.idenv.accessibilityforwarder' app.",
-        "executed": 0,
-        "succeeded": 0
-    },
-    {
-        "id": 16,
-        "task_description": "This task involves app: files, settings. Use the Files app to search for a specific file (e.g., 'Meeting Notes.txt'). Then, open the Calendar app via the settings to schedule a reminder to review the file later in the day.",
-        "executed": 0,
-        "succeeded": 0
-    },
-    {
-        "id": 17,
-        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view in the Downloads folder. Then, use the Settings app to search for 'Battery Saver' settings.",
-        "executed": 0,
-        "succeeded": 0
-    },
-    {
-        "id": 18,
-        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view in the Downloads folder. Then, use the Settings app to navigate to the Apps section and check the battery usage of the Files app.",
-        "executed": 0,
-        "succeeded": 0
-    },
-    {
-        "id": 19,
-        "task_description": "This task involves app: files, settings. Use the Files app to switch to list view. Then, use the Settings app to check the battery usage of the Calendar app and address the 'com.google.android.env.accessibilityforwarder.env keeps stopping' error by viewing app info.",
+        "task_description": "This task involves app: files, settings. Use the Files app to check if there are any audio files in the Downloads folder. Then, use the Settings app to set the battery usage for 'com.google.androidenv.accessibilityforwarder' to 'Restricted'.",
         "executed": 0,
         "succeeded": 0
     }

@@ -1,0 +1,194 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app simple draw pro, Task-Oriented: Change the drawing color to red and draw a circle on the canvas.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app simple draw pro, Share the current drawing via Google Drive.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 2,
+        "task_description": "In app simple draw pro, Discard the current drawing by canceling the save operation.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 3,
+        "task_description": "In app simple draw pro, Task-Oriented: Change the drawing color to '#D32F2F' and then draw a simple heart shape on the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 4,
+        "task_description": "In app simple draw pro, Clear the canvas and then draw a simple house using the brush tool.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 5,
+        "task_description": "In app simple draw pro, Use the eyedropper tool to select a specific color from an existing image and then use that color to draw a shape.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 6,
+        "task_description": "In app simple draw pro, Task-Oriented: Draw a green square on the canvas using the available tools.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 7,
+        "task_description": "In app simple draw pro, Complete a drawing of a vertical line from the bottom to the top of the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 8,
+        "task_description": "In app simple draw pro, Change the drawing color to blue by selecting the blue color from the color palette and confirming the selection.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 9,
+        "task_description": "In app simple draw pro, Return to the drawing interface and change the brush color to blue, then draw a circle in the center of the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 10,
+        "task_description": "In app simple draw pro, Save the current drawing as 'my_drawing.png'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 11,
+        "task_description": "In app simple draw pro, Task-Oriented: Open the image file named 'image_2025_03_31_08_23_42.png' located in the Downloads folder.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 12,
+        "task_description": "In app simple draw pro, Task-Oriented: Cancel the color selection and return to the main drawing interface to continue drawing with the previous settings.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 13,
+        "task_description": "In app simple draw pro, Change the background color of the drawing canvas to blue by clicking the three dots icon, selecting 'Change background color', and then choosing the color blue from the color palette.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 14,
+        "task_description": "In app simple draw pro, Task-Oriented: Change the drawing color to orange using the color picker and then draw a vertical line on the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 15,
+        "task_description": "In app simple draw pro, Use the eyedropper tool to select a specific color from an image and then use that color to draw a circle on the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 16,
+        "task_description": "In app simple draw pro, Open the settings menu to view and modify application preferences.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 17,
+        "task_description": "In app simple draw pro, Save the current drawing as a PNG file with the default filename 'image_2025_03_31_08_23_42'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 18,
+        "task_description": "In app simple draw pro, Task-Oriented: Save the current drawing as a '.jpg' file with the filename 'image_2025_03_31_08_16_05'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 19,
+        "task_description": "In app simple draw pro, Save the current drawing and then share it via the share button.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 20,
+        "task_description": "In app simple draw pro, Task-Oriented: Save the image 'image_2025_03_31_08_23_4' to the 'sdk_gphone64_x86_64' folder.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 21,
+        "task_description": "In app simple draw pro, Use the eyedropper tool to select a color from the canvas and then draw a circle with the selected color.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 22,
+        "task_description": "In app simple draw pro, Save the current drawing as a PNG image with the default filename 'image_2025_03_31_08_23_42' and verify that it appears in the Downloads folder.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 23,
+        "task_description": "In app simple draw pro, Save the current drawing as 'my_drawing.png'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 24,
+        "task_description": "In app simple draw pro, Use the eyedropper tool to select the orange color and then draw a circle on the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 25,
+        "task_description": "In app simple draw pro, Change the drawing color to blue by selecting the blue color from the color palette and confirming the selection.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 26,
+        "task_description": "In app simple draw pro, Create a new folder named 'Drawings' and save the current image 'image_2025_03_31_08_23_4' into it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 27,
+        "task_description": "In app simple draw pro, Task-Oriented: Using the 'simple draw pro' app, change the background color to blue, then draw a red circle in the center of the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 28,
+        "task_description": "In app simple draw pro, Change the drawing color from orange to blue and draw a circle on the canvas.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 29,
+        "task_description": "In app simple draw pro, Task-Oriented: Cancel the save operation and return to the drawing board to continue editing the image.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 30,
+        "task_description": "In app simple draw pro, Task-Oriented: Save the current drawing as a PNG image named 'image_2025_03_31_08_23_42' and verify that it is saved in the Downloads folder.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 31,
+        "task_description": "In app simple draw pro, Use the fill tool to fill the entire canvas with blue color.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

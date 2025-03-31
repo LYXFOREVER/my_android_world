@@ -22,7 +22,9 @@ from mcts.mcts_util import *
 from android_world.agents import m3a
 from android_world.agents import infer
 # app的名字
-app_names = ['com.kugou.android', 'com.sina.weibo', 'com.tencent.mtt', 'com.tencent.qqlive', 'tv.danmaku.bili']
+#app_names = ['com.kugou.android', 'com.sina.weibo', 'com.tencent.mtt', 'com.tencent.qqlive', 'tv.danmaku.bili']
+#app_names = ['contacts', 'files', 'settings', 'simple gallery pro', 'simple sms messenger']
+app_names = ['broccoli app', 'chrome', 'clock', 'dialer', 'pro expense']
 #app_names = ['tv.danmaku.bili']
 # 合格的轨迹至少要有多少分
 min_score = 5 
@@ -33,9 +35,9 @@ agent_high_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='
 agent_filter = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
 
 # 文件夹路径
-parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/fail_data_for_check'
+parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_3_31/0_original_data'
 # 存放合格轨迹的路径
-parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/filtered_fail_data_for_check'
+parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_3_31/1_processed_data'
 
 # 依次处理各个app的轨迹
 for app_name in app_names:

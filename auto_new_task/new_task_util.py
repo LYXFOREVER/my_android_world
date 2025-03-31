@@ -230,7 +230,7 @@ def save_action_state_pairs(state_before_action:State, state_after_action:State,
         json.dump(action_dic, file, ensure_ascii=False, indent=4)  
 
 
-def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, app_name:str, agent:m3a.M3A, max_pair_num:int = 10,):
+def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, app_name:str, agent:m3a.M3A, max_pair_num:int = 10, stuck_times:int = 0):
     """
     对state进行深度优先探索。每次开始之前先检查一下用于存放action,state1,state2的文件夹，数量达标了就直接返回
     """
@@ -266,15 +266,24 @@ def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, ap
         else:
             action_dic = {'action_type': 'click','index': index}
         action_dic_list.append(action_dic)
+    
+    # 再加入滑动动作
+    action_dic_scroll_down = {'action_type': 'scroll','direction': 'down'}
+    action_dic_scroll_up = {'action_type': 'scroll','direction': 'up'}
+    action_dic_list.append(action_dic_scroll_down)
+    action_dic_list.append(action_dic_scroll_up)
     # 打乱动作顺序
     import random
     random.shuffle(action_dic_list)
-    # 最后加上返回
-    action_dic_list.append({'action_type': 'navigate_back'})
-
-
-    # 选择本次要执行的动作
-    action_dic = action_dic_list[0]
+    
+    # 返回动作在页面卡住很久了的时候触发
+    if stuck_times >= 5:
+        print("由于页面卡住过久，本次使用返回动作。stuct计数清零")
+        action_dic = {'action_type': 'navigate_back'}
+        stuck_times = 0
+    # 没有卡住就正常做
+    else:
+        action_dic = action_dic_list[0]
     
     # 假如是输入文本的动作，现在可以生成文本了
     if action_dic["action_type"] == 'input_text':
@@ -309,13 +318,17 @@ def dfs_app_navigate(target_path, state:State, env:interface.AsyncAndroidEnv, ap
         ui_elements_after, logical_screen_size
     )
     if are_lists_equal(ui_elements_list_before, ui_elements_list_after) is False:
-        print("执行动作",action_dic,"之后，页面发生了变化，可以记录")
+        print("执行动作",action_dic,"之后，页面发生了变化，可以记录。stuct计数清零")
         # 保存ui list文本，原始截图和som截图，action截图，文本记录的action
         target_path = os.path.join('task_pool', app_name)
         save_action_state_pairs(state_before_action, state_after_action, action_dic, target_path)
+        stuck_times = 0
+    else:
+        print("执行动作",action_dic,"之后，页面没有发生变化，没什么可记录的。stuct计数加一")
+        stuck_times += 1
 
     # 以新状态为基础再次执行该函数
-    return dfs_app_navigate(target_path=target_path, state=state_after_action, env=env, app_name=app_name, max_pair_num=max_pair_num, agent=agent)
+    return dfs_app_navigate(target_path=target_path, state=state_after_action, env=env, app_name=app_name, max_pair_num=max_pair_num, agent=agent, stuck_times=stuck_times)
 
 
 def get_first_level_subfolders(folder_path):
@@ -771,7 +784,7 @@ def create_file_in_task_pool_v4(
     else:
         print(f"File '{file_name}' already exists.")
 
-def filter_task_description_list(task_description_list:list[str], agent:m3a.M3A, app_name:str, screen_shot_path:str):
+def filter_task_description_list(task_description_list:list[str], agent:m3a.M3A, app_name:str):
     """
         筛选获得的任务描述。只要好的。
     """
@@ -780,6 +793,32 @@ def filter_task_description_list(task_description_list:list[str], agent:m3a.M3A,
     filtered_task_description_list = []
     for task_description in task_description_list:
         text_prompt = m3a.filter_task_description_list(app_name,task_description)
+        # 与agent交互
+        filtered_task_str, _, raw_response = agent.llm.predict_mm(
+            text_prompt,
+            []
+        )
+        # 处理回复，得到结果
+        if not raw_response:
+            print('筛选任务时出错！')
+        print("ai 对该任务的判断为:",filtered_task_str)
+        filtered_task_result = get_task_dic(filtered_task_str)
+        print("获得的结果提取为:",filtered_task_result)
+        if filtered_task_result["result"] == 1:
+            print("任务描述", task_description, "合格，可以加入任务池")
+            filtered_task_description_list.append(task_description)
+        else:
+            print("任务描述", task_description, "不合格，不可以加入任务池")
+    
+    if filtered_task_description_list is []:
+        print("一个合格的都没有？肯定出问题了，请检查一下！")
+        os._exit()
+    return filtered_task_description_list
+
+def filter_mutil_app_task_description_list(task_description_list:list[str], agent:m3a.M3A, app_1_name:str, app_2_name:str):
+    filtered_task_description_list = []
+    for task_description in task_description_list:
+        text_prompt = m3a.filter_mutil_app_task_description_list(app_1_name, app_2_name, task_description)
         # 与agent交互
         filtered_task_str, _, raw_response = agent.llm.predict_mm(
             text_prompt,
@@ -994,8 +1033,7 @@ def create_file_in_task_pool_v6(
         action_state_pairs_path = get_first_level_subfolders(target_path)
 
         task_description_list = generate_task_description_list(action_state_pairs_path, agent, app_name)
-        screen_shot_path = os.path.join(action_state_pairs_path[0], "image_with_action.png")
-        task_description_list = filter_task_description_list(task_description_list, agent, app_name, screen_shot_path)
+        task_description_list = filter_task_description_list(task_description_list, agent, app_name)
         # task_list是一个保存了一系列用字典保存的任务
         # 字典记录了任务id，任务描述，是否被执行过以及执行结果信息
         # 执行的时候，遍历task_list,找到第一个没有被做过的任务并执行它。
@@ -1041,6 +1079,8 @@ def create_multi_app_task_pool(
             app_1_name,
             app_2_name,
         )
+
+        task_description_list = filter_mutil_app_task_description_list(task_description_list, agent, app_1_name, app_2_name)
 
         task_list = []
         for i, task_description in enumerate(task_description_list):

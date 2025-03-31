@@ -124,8 +124,8 @@
     {
         "id": 20,
         "task_description": "In app audio recorder, navigate to the list of saved recordings, select a recording, and play it back.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 21,

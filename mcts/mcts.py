@@ -179,7 +179,8 @@ class MCTS(Generic[State, Action, Example]):
                     print("遇到错误的动作（应该是页面变化导致）！只能放弃这一条路了")
                     return path,-1
                 else:
-                    node.state = node_state
+                    if node.state is None:
+                        node.state = node_state
                     node.summary = summary
                     node.summary_prompt = summary_prompt
 
@@ -189,7 +190,8 @@ class MCTS(Generic[State, Action, Example]):
                 if result == -1:
                     print("遇到错误的动作（应该是页面变化导致）！只能放弃这一条路了")
                     return path,-1
-                node.state = result  # 到达这个节点
+                if node.state is None:
+                    node.state = result  # 到达这个节点
 
     # def _uct(self, node: MCTSNode) -> float:
     #     return node.Q + self.w_exp * np.sqrt(
@@ -588,7 +590,8 @@ class MCTSForAndroidWorld(Generic[State, Action, Example]):
                     print("遇到错误的动作（应该是页面变化导致）！只能放弃这一条路了")
                     return path,-1
                 else:
-                    node.state = node_state
+                    if node.state is None:
+                        node.state = node_state
                     node.summary = summary
                     node.summary_prompt = summary_prompt
 
@@ -598,7 +601,8 @@ class MCTSForAndroidWorld(Generic[State, Action, Example]):
                 if result == -1:
                     print("遇到错误的动作（应该是页面变化导致）！只能放弃这一条路了")
                     return path,-1
-                node.state = result  # 到达这个节点
+                if node.state is None:
+                    node.state = result  # 到达这个节点
 
     # def _uct(self, node: MCTSNode) -> float:
     #     return node.Q + self.w_exp * np.sqrt(

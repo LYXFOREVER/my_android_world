@@ -1,0 +1,194 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app osmand, Grant OsmAnd precise location access only while using the app, then zoom in to see the details of your current location.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app osmand, Task-Oriented: Return to the main map view and search for the city of 'Oran' to view its location and details.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 2,
+        "task_description": "In app osmand, Check the history tab to see if the location 'Vaduz' has been previously searched.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 3,
+        "task_description": "In app osmand, Search for a file named 'window_dump.xml' using the search bar.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 4,
+        "task_description": "In app osmand, Return to the main map view and then zoom in to the location of 'São Tomé and Príncipe'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 5,
+        "task_description": "In app osmand, Zoom out the map until the entire African continent is visible.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 6,
+        "task_description": "In app osmand, Task-Oriented: Dismiss the location access request and then zoom in on the map to view the details of a specific city.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 7,
+        "task_description": "In app osmand, Task-Oriented: Scroll up to view the city of Madrid, Spain, then zoom in to see the surrounding area and identify major roads and landmarks.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 8,
+        "task_description": "In app osmand, Task-Oriented: Enable the display of public transport routes on the map by toggling the 'Transport' option.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 9,
+        "task_description": "In app osmand, Task-Oriented: Zoom out the map until the entire African continent is visible.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 10,
+        "task_description": "In app osmand, Open the 'window_dump.xml' file created on 'Mar 19, 10.10 kB, XML document' after filtering for documents.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 11,
+        "task_description": "In app osmand, Task-Oriented: Configure the map to show transport information and POI overlays.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 12,
+        "task_description": "In app osmand, Task-Oriented: Search for 'Paris' and then zoom in to street level to view the Eiffel Tower.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 13,
+        "task_description": "In app osmand, Find the nearest 'Cafe and restaurant' using the categories search and then view its details.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 14,
+        "task_description": "In app osmand, Task-Oriented: Scroll down the map to locate the country of Namibia and then zoom in to view the capital city of Windhoek.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 15,
+        "task_description": "In app osmand, Task-Oriented: Center the map on the current location, which is Algeria, and then zoom in to view nearby points of interest.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 16,
+        "task_description": "In app osmand, Task-Oriented: Zoom in on the map until the scale is 10 miles, then drag the map to center the city of Algiers.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 17,
+        "task_description": "In app osmand, Grant OsmAnd precise location access only while using the app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 18,
+        "task_description": "In app osmand, Browse online photos of Algeria to find a picture of the Sahara Desert.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 19,
+        "task_description": "In app osmand, Return to the main OsmAnd interface and then search for a nearby restaurant.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 20,
+        "task_description": "In app osmand, Task-Oriented: Search for a specific address using the search bar.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 21,
+        "task_description": "In app osmand, Task-Oriented: Check if there are any track files available and import them if needed.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 22,
+        "task_description": "In app osmand, Task-Oriented: Return to the map view and zoom in to the current location to view nearby points of interest.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 23,
+        "task_description": "In app osmand, Search for a track named 'test' and determine if it exists.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 24,
+        "task_description": "In app osmand, Task-Oriented: Search for an address by first specifying the city/town/locality, then entering the street address and number.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 25,
+        "task_description": "In app osmand, Find the population of Algeria by clicking the 'DETAILS' button and navigating to the population information.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 26,
+        "task_description": "In app osmand, Import the 'window_dump.xml' file from the recent files into the OsmAnd app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 27,
+        "task_description": "In app osmand, Enable the POI overlay, Transport, Tracks, and Wikipedia features on the map.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 28,
+        "task_description": "In app osmand, Find the location of 'Vaduz' by typing it into the address bar and selecting it from the search results.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 29,
+        "task_description": "In app osmand, Task-Oriented: Zoom in on the map of Antarctica until you can clearly see the coastline and major geographical features.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 30,
+        "task_description": "In app osmand, Zoom out until the entire African continent is visible on the map.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 31,
+        "task_description": "In app osmand, Task-Oriented: Search for 'London' and then zoom in to street level to view specific buildings.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

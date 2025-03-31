@@ -167,9 +167,10 @@ def _main():
         app_name = available_app_list[app_num]
     print("本次选择到的app名字为:",app_name)
     
-    for i in range(3):
+    for i in range(1):
         try:
             env.reset(go_home=True)
+            env.hide_automation_ui()
             force_stop_all_third_party_apps(
                 device_name=emulator_name,
                 excluded_packages=["com.google.androidenv.accessibilityforwarder",]#免死金牌列表

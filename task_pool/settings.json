@@ -48,7 +48,8 @@
         "id": 7,
         "task_description": "In app settings, Set the Calendar app's battery usage to 'Restricted' to conserve battery, understanding that notifications may be delayed.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 8,
@@ -139,5 +140,23 @@
         "task_description": "在设置中，导航到“声音”部分，然后更改通知铃声。之后，将通知铃声改回默认铃声。",
         "executed": 1,
         "succeeded": 1.0
+    },
+    {
+        "id": 23,
+        "task_description": "In app settings, navigate to 'Apps', then find and select the 'Calendar' app. Once selected, tap on 'Notifications' and disable all Calendar notifications.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 24,
+        "task_description": "In app settings, navigate to 'Display', then adjust the brightness level to 50%.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 25,
+        "task_description": "In app settings, navigate to 'Network & internet', then tap on 'Wi-Fi' and forget the currently connected Wi-Fi network.",
+        "executed": 0,
+        "succeeded": 0
     }
 ]

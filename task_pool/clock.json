@@ -1,0 +1,242 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app clock, Set an alarm for 10:00 AM.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 08:35 AM and save it.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app clock, Set a new alarm for 09:00.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 3,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 10:00 AM and confirm the setting.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 4,
+        "task_description": "In app clock, Set a new alarm for 9:00 AM.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 5,
+        "task_description": "In app clock, Task-Oriented: Set the alarm time to 12:00 AM using the number pad.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 6,
+        "task_description": "In app clock, Set a new alarm for 9:00 AM.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 7,
+        "task_description": "In app clock, Set an alarm for 16:30 and confirm the alarm setting.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 8,
+        "task_description": "In app clock, Set an alarm for 13:30 and confirm the setting.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 9,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 15:30 and confirm the setting.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 10,
+        "task_description": "In app clock, Set up a consistent bedtime schedule by navigating to the 'Bedtime' tab and configuring the desired bedtime and wake-up times.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 11,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 13:35 and confirm the setting.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 12,
+        "task_description": "In app clock, Task-Oriented: Add the time for 'London' to the clock application.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 13,
+        "task_description": "In app clock, Task-Oriented: Discard the current alarm time selection and return to the main alarm settings to review and adjust existing alarms.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 14,
+        "task_description": "In app clock, Task-Oriented: Change the alarm time from 08:30 to 08:45 and save the changes.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 15,
+        "task_description": "In app clock, Set an alarm for 15:25 that repeats every Tuesday, using the default sound 'Cesium' and vibration.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 16,
+        "task_description": "In app clock, Cancel the current alarm time selection and then delete the alarm set for 08:30.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 17,
+        "task_description": "In app clock, Task-Oriented: Start the stopwatch, let it run for 10 seconds, pause it, and then reset it.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 18,
+        "task_description": "In app clock, Task-Oriented: Set the 15:25 alarm to ring only on Tuesdays and Fridays, and then change the alarm sound to 'Echo'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 19,
+        "task_description": "In app clock, Set an alarm for 10:25 AM and then add a label 'Morning Meeting' to it.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 20,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 16:00 that repeats every Sunday, Monday, and Tuesday.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 21,
+        "task_description": "In app clock, Task-Oriented: Return to the main clock screen and then set an alarm for 08:30.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 22,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 10:10 AM and confirm the alarm setting.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 23,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 15:00 and save it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 24,
+        "task_description": "In app clock, Set a new alarm for 9:00 AM.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 25,
+        "task_description": "In app clock, Set an alarm for 15:25 on Tuesday with the default ringtone, vibration enabled, and Google Assistant Routine disabled.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 26,
+        "task_description": "In app clock, Delete the alarm set for 15:25.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 27,
+        "task_description": "In app clock, Turn off the 08:30 alarm that is set for Monday, Tuesday, Wednesday, Thursday, and Friday.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 28,
+        "task_description": "In app clock, Set an alarm for 13:00 and save it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 29,
+        "task_description": "In app clock, Set an alarm for 13:05 and then save it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 30,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 10:35 AM and then add a label 'Morning Wake-up' to it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 31,
+        "task_description": "In app clock, Set an alarm for 08:25.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 32,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 15:25, schedule it to repeat on Sundays and Saturdays, and then add a label 'Weekend Alarm'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 33,
+        "task_description": "In app clock, Start the stopwatch, let it run for 5 seconds, pause it, and then reset it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 34,
+        "task_description": "In app clock, Set an alarm for 15:00 and confirm the alarm time by clicking 'OK'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 35,
+        "task_description": "In app clock, Set an alarm for 11:30 AM.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 36,
+        "task_description": "In app clock, Set a bedtime schedule by clicking 'Get started' and configuring the desired bedtime and wake-up times.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 37,
+        "task_description": "In app clock, Set an alarm for 08:15:50 and then add a label 'Wake up'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 38,
+        "task_description": "In app clock, Set an alarm for 08:15:25 and save it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 39,
+        "task_description": "In app clock, Task-Oriented: Set an alarm for 16:00, schedule it for Monday, Tuesday, and Wednesday, and set the label as 'Work'.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

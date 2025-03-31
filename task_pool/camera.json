@@ -1,0 +1,98 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app camera, Take a photo of the current scene using the 3-second timer.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app camera, Skip the sign-in process and use the map without signing in.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 2,
+        "task_description": "In app camera, Task-Oriented: Share the selected image by scrolling to find and selecting the 'Gmail' app from the list of available options.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 3,
+        "task_description": "In app camera, Adjust the flash setting to 'Auto' by clicking the 'More options' button and then clicking the flash icon.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 4,
+        "task_description": "In app camera, Share the current image to Google Drive.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 5,
+        "task_description": "In app camera, Task-Oriented: View the recently captured image, edit it to enhance its quality, and then share it with a friend.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 6,
+        "task_description": "In app camera, Task-Oriented: Scroll down to access the camera settings and change the resolution to the highest available option.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 7,
+        "task_description": "In app camera, Cancel the 'Make it your map' operation and return to the 'Select a place' screen.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 8,
+        "task_description": "In app camera, Task-Oriented: Share a photo taken just now from the camera to Google Maps by allowing the app to take pictures and record video while using the app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 9,
+        "task_description": "In app camera, Task-Oriented: Post the image shared from the camera by first selecting the image and then posting it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 10,
+        "task_description": "In app camera, Skip the sign-in process and explore the map features without logging in.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 11,
+        "task_description": "In app camera, Share the two selected images by clicking the 'Post' button in the upper right corner.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 12,
+        "task_description": "In app camera, Skip the sign-in process and then allow the app to access photos and videos on this device, then post a picture.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 13,
+        "task_description": "In app camera, Share the photo 'Shared from Camera' to a specific location by selecting a place and posting it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 14,
+        "task_description": "In app camera, Skip the sign-in process and proceed to use the map without signing in.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 15,
+        "task_description": "In app camera, Take a picture of the house and then share it.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]

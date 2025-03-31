@@ -79,7 +79,8 @@
         "id": 12,
         "task_description": "In app simple sms messenger, Change the font size to Large within the settings menu and then return to the main messaging screen.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 13,
@@ -186,12 +187,30 @@
     {
         "id": 30,
         "task_description": "In app simple sms messenger, open the settings menu, navigate to the 'Notifications' section, and disable the 'Show message preview' option.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 31,
         "task_description": "In app simple sms messenger, search for the contact 'John Doe' in the contact list and then view the details of that contact.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 32,
+        "task_description": "In app simple sms messenger, send a new SMS message to a contact in your contact list.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 33,
+        "task_description": "In app simple sms messenger, search for the word 'hello' within the current message thread with John.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 34,
+        "task_description": "In app simple sms messenger, delete a specific SMS message from the conversation with Jane.",
         "executed": 0,
         "succeeded": 0
     }

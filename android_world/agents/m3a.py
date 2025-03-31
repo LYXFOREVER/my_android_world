@@ -1412,6 +1412,18 @@ GENERATE_MULTI_APP_TASK_DESCRIPTION_WITH_ACTION_STATE_PAIR_TEMPLATE = (
     'Question-Oriented: “Use App 1 to check the weather forecast for tomorrow and note the temperature. Then use App 2 to set a reminder for the noted temperature.”\n'
     'Sometimes, the differences between the two action-state pairs might be too large, and the two actions seem hardly related.'
     'If this is the case, you are allowed to think of a task involving both apps on your own, and it doesn\'t necessarily have to be directly related to both actions.\n'
+    'You need to ensure that the task requires the use of these two apps and only these two apps. Some unstable tasks, such as: \n'
+    'Utilize the Files app to verify if a particular image exists within the Downloads folder. If it does not, employ the Settings app to restore the Google account linked to the phone\n'
+    'these kinds of tasks containing words like "if" and "if not" should also be avoided, as they may lead to the situation where one of the apps is ultimately not utilized.\n'
+    'Here are some positive examples: \n'
+    'Task apps: Ele.me (a food delivery app), Settings; Task description: Open Ele.me, search for "hamburgers", then go into the Settings app, find Ele.me within the apps list, and disable background running permissions.\n'
+    'Although there may not be a particularly clear logical connection between the task steps, it does involve and only involves these two apps, so this is a qualified task.\n'
+    'Besides, you should also avoid dangerous High-Level-Instruction.'
+    'Here are some negative examples: \n'
+    'This task involves apps: Files, Settings. Use the Files app to switch to list view, then navigate to the Settings app and force stop the Files app.\n'
+    'This task involves apps: Files, Settings. In the Files app, sort the files in the Downloads folder by \'Modified (newest first)\'. Then, in the Settings app, navigate to the app info page for \'com.google.androidenv.accessibilityforwarder\' and cancel the uninstall process.\n'
+    'The above High-Level-Instruction include requirements to force close or even uninstall an app, which is dangerous, and therefore are unqualified.'
+    'If the action-state pair I provide does indeed contain dangerous actions, then you can consider a related but non-dangerous action as a substitute.\n\n'
     'You ONLY need to return a dictionary formatted as follows:\n'
     '{{\n"Sub-Instruction": {{\n    "App 1": "xxx",\n    "App 2": "xxx"\n}},\n'
     '"Analysis": {{\n    "App 1": "xxx",\n    "App 2": "xxx"\n}},\n'
@@ -1543,6 +1555,56 @@ FILTER_TASK_DESCRIPTION_LIST_TAMPLATE = (
   'Return me the response. Note the format issue!.\n'
 )
 
+FILTER_MUTIL_APP_TASK_DESCRIPTION_LIST_TAMPLATE = (
+  'You are provided with a task description, and two app names. This task is to perform and the process involves the two apps'
+  'Your goal is to determine whether the task is suitable for a GUI Agent to perform.\n\n'
+  'Instructions:\n'
+  'Task Description: Provide a brief description of the task GUI Agent is to perform.\n'
+  'App 1 Name: Specify the name of the app 1.\n'
+  'App 2 Name: Specify the name of the app 2.\n\n'
+  'Evaluation Criteria:\n'
+  'Clarity: Is the task description clear and concise?\n'
+  'Feasibility: Can the task be performed using the provided apps?\n'
+  'Safety: Does the task description avoid potentially harmful operations such as deleting files, making purchases, or disabling, uninstalling applications, or using internet?(the agent may not be able to get accesse to internet)\n'
+  'Specificity: Does the task description provide enough detail for the GUI Agent to understand and execute the task?\n\n'
+  'Another type of inadequate task is one that involves uncertainty. For example:\n'
+  'Utilize the Files app to verify if a particular image exists within the Downloads folder. '
+  'If it does not, employ the Settings app to restore the Google account linked to the phone, and subsequently inspect the Google Photos app to determine if the image has been backed up there.'
+  'This kind of task contains phrases like "if" and "if not." Such tasks are unstable and may ultimately not even require the use of both apps.'
+  'Here are some negative examples: \n'
+  'This task involves apps: Files, Settings. Use the Files app to switch to list view, then navigate to the Settings app and force stop the Files app.\n'
+  'This task involves apps: Files, Settings. In the Files app, sort the files in the Downloads folder by \'Modified (newest first)\'. Then, in the Settings app, navigate to the app info page for \'com.google.androidenv.accessibilityforwarder\' and cancel the uninstall process.\n'
+  'The above task descriptions include requirements to force close or even uninstall an app, and therefore are unqualified.\n\n'
+  'Here are some positive examples: \n'
+  'Task apps: Ele.me (a food delivery app), Settings; Task description: Open Ele.me, search for "hamburgers", then go into the Settings app, find Ele.me within the apps list, and disable background running permissions.\n'
+  'Although there may not be a particularly clear logical connection between the task steps, it does involve and only involves these two apps, so this is a qualified task.\n\n'
+  'Your Response:\n'
+  'Suitability: Indicate whether the task is suitable for the GUI Agent.\n'
+  'Reasoning: Provide a brief explanation for your decision.\n'
+  'Example Response\n\n'
+  'Task Description:\n'
+  '"In app System Settings, Navigate to the settings menu and change the language to English."\n'
+  'App Name:\n'
+  '"System Settings"\n'
+  'Evaluation:\n'
+  'Suitability:\n'
+  '{{"result":1}}\n(Attention, your response must be in this dictionary format, and 1 means yes, 0 means no. Otherwise, I cant extract it.)\n'
+  'Reasoning:\n'
+  'System Settings is a app where you can adjust system setting. The task description is clear and concise.'
+  'It specifies the action to be performed (changing the language) and the location (settings menu). The app name "System Settings" is appropriate for this task, and the home screen screenshot provides visual context. The task is feasible and specific enough for the GUI Agent to understand and execute.'
+  'Notes\n'
+  'Ensure the task description is specific and avoids guiding words like "by," "first," "through," etc.\n'
+  'When the GUI agent executes tasks, it always starts from a Home Screen with all apps closed. '
+  'The tasks involved usually consist of opening an app and then performing a certain action.'
+  'Therefore, task descriptions like "In app Bilibili, Close the current window and then search for dance section in the search bar" are incorrect.'
+  'This is because "Close the current window" is an odd requirement for the GUI agent—it may not have encountered any "current window" after open the app.\n'
+  'Now I will give you the task description you need to determine:\n\n'
+  'App 1 Name: {app_1_name}\n'
+  'App 2 Name: {app_2_name}\n'
+  'Task description: {task_description}\n'
+  'Return me the response. Note the format issue!.\n'
+)
+
 FILTER_TRAJECTRY_PROMPT_TAMPLATE = (
   'You are an expert in evaluating GUI agent task trajectories. Your task is to assess the quality and'
   'effectiveness of task trajectories for GUI manipulation tasks.\n'
@@ -1582,6 +1644,13 @@ FILTER_TRAJECTRY_PROMPT_TAMPLATE = (
 def filter_task_description_list(app_name,task_description):
   return FILTER_TASK_DESCRIPTION_LIST_TAMPLATE.format(
     app_name=app_name,
+    task_description=task_description
+  )
+
+def filter_mutil_app_task_description_list(app_1_name, app_2_name, task_description):
+  return FILTER_MUTIL_APP_TASK_DESCRIPTION_LIST_TAMPLATE.format(
+    app_1_name=app_1_name,
+    app_2_name=app_2_name,
     task_description=task_description
   )
 

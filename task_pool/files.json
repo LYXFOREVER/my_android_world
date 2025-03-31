@@ -184,6 +184,42 @@
     {
         "id": 30,
         "task_description": "In app files, create a new folder named 'Important Documents' in the 'Documents' folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 31,
+        "task_description": "In app files, Task-Oriented: Open the 'Downloads' folder and check if there are any PDF files. If not, navigate back to the main file directory and open the 'Documents' folder to confirm the existence of PDF files.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 32,
+        "task_description": "In app files, Task-Oriented: Create a new folder named 'Important Documents' in the 'Documents' folder.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 33,
+        "task_description": "In app files, Task-Oriented: Search for files with the extension '.txt' in the entire device storage and then sort the search results by file size in descending order.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 34,
+        "task_description": "In app files, navigate to the 'Documents' folder and check if there is a PDF file named 'report.pdf'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 35,
+        "task_description": "In app files, create a new folder named 'MyBackups' in the internal storage.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 36,
+        "task_description": "In app files, search for all files with the extension '.txt' in the entire device storage.",
         "executed": 0,
         "succeeded": 0
     }

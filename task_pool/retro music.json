@@ -1,0 +1,236 @@
+[
+    {
+        "id": 0,
+        "task_description": "In app retro music, Change the app's language to Vietnamese.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 1,
+        "task_description": "In app retro music, Task-Oriented: Scroll through the image settings and enable 'Auto-download artist images' to automatically download artist images for the music in the Retro Music app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 2,
+        "task_description": "In app retro music, Create a new playlist in Retro Music, name it 'My Favorites', and add at least three songs to it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 3,
+        "task_description": "In app retro music, Create a new playlist named 'Workout' and add at least three songs to it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 4,
+        "task_description": "In app retro music, Configure the audio focus control settings to prevent other apps from interrupting music playback.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 5,
+        "task_description": "In app retro music, Task-Oriented: Change the language of the Retro Music app to Filipino.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 6,
+        "task_description": "In app retro music, View your listening history by clicking on the 'History' button on the 'For you' page.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 7,
+        "task_description": "In app retro music, Task-Oriented: Dismiss the 'Permission error' dialog and then enable the 'Keep the screen on' feature to prevent the screen from turning off while using the app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 8,
+        "task_description": "In app retro music, Change the app language from 'System default' to 'English'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 9,
+        "task_description": "In app retro music, In the Retro Music app, navigate to the 'Images' settings and scroll up to check if there are any additional image-related settings available.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 10,
+        "task_description": "In app retro music, Task-Oriented: Create a new playlist in the Retro Music app. Since there are no existing playlists, the user needs to find the option to create a new playlist, name it, and then add songs to it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 11,
+        "task_description": "In app retro music, Task-Oriented: Navigate to the 'Other' settings and enable the 'Pause on zero' feature.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 12,
+        "task_description": "In app retro music, Change the app language to Japanese.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 13,
+        "task_description": "In app retro music, Change the app's language to Korean by scrolling down the list of languages and selecting 'Korean'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 14,
+        "task_description": "In app retro music, Create a new playlist and name it 'My Favorites'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 15,
+        "task_description": "In app retro music, Disable the 'Whitelist music' option and verify that music from folders other than '/Music Folder' is now displayed in the music library.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 16,
+        "task_description": "In app retro music, Task-Oriented: Change the application language to 'Spanish'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 17,
+        "task_description": "In app retro music, Configure the image settings by scrolling through the options and enabling 'Auto-download artist images' to 'Always'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 18,
+        "task_description": "In app retro music, Change the app's language to Japanese by scrolling up in the 'Select language' menu and selecting 'Japanese'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 19,
+        "task_description": "In app retro music, Task-Oriented: Enable the 'Whitelist music' feature to only show music from the '/Music Folder' and then navigate back to the main music player screen to verify that only music from that folder is displayed.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 20,
+        "task_description": "In app retro music, Task-Oriented: Change the app language from 'System default' to 'Japanese'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 21,
+        "task_description": "In app retro music, Task-Oriented: Navigate to the 'Artists' section of the Retro Music app and confirm that no artists are currently listed in the library.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 22,
+        "task_description": "In app retro music, View your listening history by clicking the 'History' button on the 'For you' page.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 23,
+        "task_description": "In app retro music, Task-Oriented: Change the app language to Portuguese(Brazil) by scrolling down and selecting 'Portuguese(Brazil)' from the list of available languages.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 24,
+        "task_description": "In app retro music, Task-Oriented: Scroll down and enable the 'Auto-download artist images' setting to automatically download artist images for the music library.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 25,
+        "task_description": "In app retro music, Change the theme and colors of the app by navigating to the settings menu and selecting 'Look and feel'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 26,
+        "task_description": "In app retro music, Navigate to the 'For you' section and then check the 'History' to see the list of recently played songs.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 27,
+        "task_description": "In app retro music, View your listening history by clicking the 'History' button on the 'For you' page.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 28,
+        "task_description": "In app retro music, Change the app language to Italian.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 29,
+        "task_description": "In app retro music, Task-Oriented: Enable the 'Keep the screen on' feature in the Retro Music app to prevent the screen from turning off while listening to music, and then disable the 'Pause on zero' feature.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 30,
+        "task_description": "In app retro music, Create a new playlist named 'Workout Mix' and add three songs to it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 31,
+        "task_description": "In app retro music, Task-Oriented: Change the application language to 'Turkish' by scrolling through the language list and selecting the 'Turkish' option.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 32,
+        "task_description": "In app retro music, Check if there are any songs available in the 'Songs' section of the Retro Music app. If there are no songs, explore options to add songs to the app.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 33,
+        "task_description": "In app retro music, Create a new playlist in Retro Music and add at least three songs to it.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 34,
+        "task_description": "In app retro music, Navigate back to the settings menu from the Images settings.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 35,
+        "task_description": "In app retro music, Disable 'Ignore Media Store covers' and set 'Auto-download artist images' to 'Only on Wi-Fi'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 36,
+        "task_description": "In app retro music, Disable 'Ignore Media Store covers' to potentially improve image loading times and then enable 'Auto-download artist images' to automatically download artist images.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 37,
+        "task_description": "In app retro music, Remove the '/storage/emulated/0/Ringtones' folder from the blacklist and then add the '/storage/emulated/0/Podcasts' folder to the blacklist.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 38,
+        "task_description": "In app retro music, Check if the app can find any songs by manually searching for them using the search icon at the top left of the screen.",
+        "executed": 0,
+        "succeeded": 0
+    }
+]
