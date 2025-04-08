@@ -39,7 +39,7 @@ def execute_adb_action(
       screen_size: The (width, height) of the screen.
       env: The environment to execute the action in.
   """
-  adb_utils.enable_adb_keyboard(console_port=console_port) # 设定默认输入法
+  #adb_utils.enable_adb_keyboard(console_port=console_port) # 设定默认输入法
   if action.action_type in ['click', 'double_tap', 'long_press']:
     idx = action.index
     screen_width, screen_height = screen_size
@@ -84,7 +84,7 @@ def execute_adb_action(
       click_action.action_type = 'click'
       execute_adb_action(click_action, screen_elements, screen_size, env)
       time.sleep(3.0) # 延长一点等待时间，防止avd太卡
-      adb_utils.type_text(text, env, timeout_sec=10,console_port=console_port)
+      adb_utils.type_text_oldversion(text, env, timeout_sec=10,console_port=console_port)
       adb_utils.press_enter_button(env)
     else:
       logging.warning(
@@ -209,7 +209,7 @@ def execute_adb_action_v2(
       screen_size: The (width, height) of the screen.
       env: The environment to execute the action in.
   """
-  adb_utils.enable_adb_keyboard(console_port=console_port) # 设定默认输入法
+  #adb_utils.enable_adb_keyboard(console_port=console_port) # 设定默认输入法
   if action.action_type in ['click', 'double_tap', 'long_press']:
     idx = action.index
     # 不是哥么，这里原版的x,y不乘以屏幕边界是什么意思？还要我自己来操作？
@@ -253,7 +253,7 @@ def execute_adb_action_v2(
       click_action.action_type = 'click'
       execute_adb_action(click_action, screen_elements, screen_size, env, console_port=console_port)
       time.sleep(3.0) # 延长一点等待时间，防止avd太卡
-      adb_utils.type_text(text, env, timeout_sec=10,console_port=console_port)
+      adb_utils.type_text_oldversion(text, env, timeout_sec=10,console_port=console_port)
       adb_utils.press_enter_button(env)
     else:
       logging.warning(

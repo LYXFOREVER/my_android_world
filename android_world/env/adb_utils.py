@@ -983,6 +983,7 @@ def type_text_oldversion(
     text: str,
     env: env_interface.AndroidEnvInterface,
     timeout_sec: Optional[float] = _DEFAULT_TIMEOUT_SECS,
+    console_port: int = 8854,
 ) -> None:
   """Issues an AdbRequest to type the specified text string word-by-word.
 
@@ -996,7 +997,9 @@ def type_text_oldversion(
     env: The environment.
     timeout_sec: A timeout to use for this operation. Note: For longer texts,
       this should be longer as it takes longer to type.
+    console_port: avd 端口号。其实不需要，env本身已经有这个信息了
   """
+  print("使用原版输入法输入文本")
   words = _split_words_and_newlines(text)
   for word in words:
     if word == '\n':
@@ -1087,8 +1090,8 @@ def type_text(
         timeout_sec: 超时时间。对于较长文本应适当增加。
     """
     # 使用 ADBKeyBoard 发送文本广播
-    print("输入之前先确定一下目前是什么个输入法:")
-    get_default_input_method(console_port=console_port)
+    #print("输入之前先确定一下目前是什么个输入法:")
+    #get_default_input_method(console_port=console_port)
     emulator_name = 'emulator-' + str(console_port)
     #command = f"adb shell am broadcast -a ADB_INPUT_TEXT --es msg '{text}'"
     command = f"adb -s {emulator_name} shell am broadcast -a ADB_INPUT_TEXT --es msg '{text}'"

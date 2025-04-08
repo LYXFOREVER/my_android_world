@@ -8,8 +8,8 @@
     {
         "id": 1,
         "task_description": "In app vlc, Add the 'Internal memory' directory to favorites and then remove it from favorites.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 2,

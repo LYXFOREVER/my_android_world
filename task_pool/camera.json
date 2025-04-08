@@ -14,8 +14,8 @@
     {
         "id": 2,
         "task_description": "In app camera, Task-Oriented: Share the selected image by scrolling to find and selecting the 'Gmail' app from the list of available options.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 3,

@@ -8,8 +8,8 @@
     {
         "id": 1,
         "task_description": "In app osmand, Task-Oriented: Return to the main map view and search for the city of 'Oran' to view its location and details.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 2,

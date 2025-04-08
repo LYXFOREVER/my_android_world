@@ -47,6 +47,8 @@ adb_path = _find_adb_directory()
 # 常用动作（方便复制）
 # {"action_type": "click", "index": 15}
 # {"action_type": "input_text", "text": "李小猩", "index": 10}
+# {'action_type': 'open_app', 'app_name': 'Broccoli'}
+# {'action_type': 'input_text', 'index': 32, 'text': 'liyixing'}
 
 #setup_emulator(grpc_port, device_console_port)
 #time.sleep(40) # 等待模拟器启动，自行修改时间

@@ -876,12 +876,12 @@ def _generate_ui_element_description(
     element_description += f'"hint_text": "{ui_element.hint_text}", '
   if ui_element.tooltip:
     element_description += f'"tooltip": "{ui_element.tooltip}", '
-  #element_description += (
-  #    f'"is_clickable": {"True" if ui_element.is_clickable else "False"}, '
-  #)
   element_description += (
-      f'"is_clickable": {"True"}, ' # 全改成ture看看.
+      f'"is_clickable": {"True" if ui_element.is_clickable else "False"}, '
   )
+  #element_description += (
+  #    f'"is_clickable": {"True"}, ' # 全改成ture看看.
+  #)
   element_description += (
       '"is_long_clickable":'
       f' {"True" if ui_element.is_long_clickable else "False"}, '

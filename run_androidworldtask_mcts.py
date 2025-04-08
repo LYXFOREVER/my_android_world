@@ -167,7 +167,7 @@ def _main():
         app_name = available_app_list[app_num]
     print("本次选择到的app名字为:",app_name)
     
-    for i in range(1):
+    for i in range(20):
         try:
             env.reset(go_home=True)
             env.hide_automation_ui()

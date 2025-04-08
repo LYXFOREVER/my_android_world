@@ -313,10 +313,13 @@ def original_screenshot(path, end_index, agent_low_level:m3a.MultimodelTaskGen, 
         action_list_path = os.path.join(step_1_folder, action_list_name)
         with open(action_list_path, 'r', encoding='utf-8') as file:
             action_list = json.load(file)
-        action_dic = action_list['action_list'][i]
+        if len(action_list['action_list']) > i:
+            action_dic = action_list['action_list'][i]
+        else:
+            action_dic = None
 
         # 判断是否需要绘制动作
-        if "index" in action_dic and len(ui_element_list) >= action_dic["index"]:
+        if action_dic is not None and "index" in action_dic and len(ui_element_list) >= action_dic["index"]:
             ui_index = action_dic["index"]
             ui_bbox = ui_element_list[ui_index]["ui_bbox"]
             draw_ui_border(image_path, output_with_action_path, ui_bbox)

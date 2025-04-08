@@ -1,0 +1,23 @@
+[
+    {
+        "completion_tokens": 139,
+        "prompt_tokens": 3733,
+        "total_tokens": 3872,
+        "request_time": "2025-04-08 22:05:18.420456",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 22,
+        "prompt_tokens": 4052,
+        "total_tokens": 4074,
+        "request_time": "2025-04-08 22:05:47.176754",
+        "model_name": "gemini-2.0-flash"
+    },
+    {
+        "completion_tokens": 127,
+        "prompt_tokens": 3680,
+        "total_tokens": 3807,
+        "request_time": "2025-04-08 22:05:54.529429",
+        "model_name": "gemini-2.0-flash"
+    }
+]

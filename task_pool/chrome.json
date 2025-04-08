@@ -2,223 +2,223 @@
     {
         "id": 0,
         "task_description": "In app chrome, Change the default search engine in Chrome to Yahoo! and then return to the main settings menu.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 1,
         "task_description": "In app chrome, Read the help information about search engines in Chrome.",
-        "executed": 1,
+        "executed": 0,
         "succeeded": 0.0
     },
     {
         "id": 2,
         "task_description": "In app chrome, Task-Oriented: Navigate to the Chrome home page and then search for 'weather forecast'.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 3,
         "task_description": "In app chrome, Change the default search engine in Chrome to 'Yahoo!' and then perform a search to verify the change.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 4,
         "task_description": "In app chrome, Enable Chrome sync to synchronize passwords, bookmarks, and other data across devices.",
-        "executed": 1,
+        "executed": 0,
         "succeeded": 0.0
     },
     {
         "id": 5,
         "task_description": "In app chrome, Navigate to the 'Search engine' settings and change the default search engine from 'Google' to 'DuckDuckGo'.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 6,
         "task_description": "In app chrome, Open a new incognito tab in Chrome to browse privately.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 7,
         "task_description": "In app chrome, Change the default search engine in Chrome to Yahoo! and then navigate back to the main settings menu.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 8,
         "task_description": "In app chrome, Task-Oriented: Add a new Google account to the Chrome browser on the device.",
-        "executed": 1,
+        "executed": 0,
         "succeeded": 0.0
     },
     {
         "id": 9,
         "task_description": "In app chrome, Change the default search engine in Chrome from Google to DuckDuckGo.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 10,
         "task_description": "In app chrome, Set Google as the default search engine in Chrome and then verify that the change has been applied by navigating back to the main settings menu.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 11,
         "task_description": "In app chrome, Change the default search engine in Chrome to Yahoo! and then verify the change by navigating back to the settings menu.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 12,
         "task_description": "In app chrome, Turn on sync for the Chrome browser by adding a Google account.",
-        "executed": 1,
+        "executed": 0,
         "succeeded": 0.0
     },
     {
         "id": 13,
         "task_description": "In app chrome, Change the default search engine in Chrome to Ecosia and then navigate back to the main settings menu to confirm the change.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 14,
         "task_description": "In app chrome, Question-Oriented: Find out how to change the default search engine in Chrome by clicking the question mark icon and reading the help information.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 15,
         "task_description": "In app chrome, Disable Chrome sync and then change the default search engine to DuckDuckGo.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 16,
         "task_description": "In app chrome, Task-Oriented: Add a new credit card to the Chrome payment methods by navigating to the payment methods settings and clicking on 'Add card'.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 17,
         "task_description": "In app chrome, Configure the default search engine in Chrome to DuckDuckGo.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 18,
         "task_description": "In app chrome, Close the current tab 'm.facebook.com/login/identify,' and open a new tab to browse a different website.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 19,
         "task_description": "In app chrome, Change the default search engine in Chrome to Bing and then verify the change.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 20,
         "task_description": "In app chrome, Read the information about search engines by clicking the question mark icon and then return to the search engine selection screen.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 21,
         "task_description": "In app chrome, Navigate to the 'Privacy and security' settings to review and adjust privacy options.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 22,
         "task_description": "In app chrome, Change the default search engine in Chrome to DuckDuckGo and then perform a search to confirm the change.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 23,
         "task_description": "In app chrome, Change the default search engine from the current setting to DuckDuckGo.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 24,
         "task_description": "In app chrome, Task-Oriented: Attempt to add an account and turn on sync by clicking the 'Add account' button, then following the prompts to sign in and enable sync.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 25,
         "task_description": "In app chrome, Change the default search engine in Chrome to Bing and then perform a search to verify the change.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 26,
         "task_description": "In app chrome, Change the default search engine from 'Yahoo!' to 'Google' in Chrome settings.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 27,
         "task_description": "In app chrome, Read the help information about search engine settings in Chrome.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 28,
         "task_description": "In app chrome, Change the default search engine in Chrome to Bing and then return to the main settings menu.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 29,
         "task_description": "In app chrome, Decline the 'Turn on sync?' prompt by clicking 'Cancel' and return to the previous screen.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 30,
         "task_description": "In app chrome, Change the default search engine in Chrome to DuckDuckGo and then navigate back to the main settings menu.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 31,
         "task_description": "In app chrome, Change the default search engine to Google.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 32,
         "task_description": "In app chrome, Read the help information about search engine settings in Chrome.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 33,
         "task_description": "In app chrome, Task-Oriented: Troubleshoot the sign-in issue by checking network connectivity and retrying the sign-in process after ensuring a stable internet connection.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 34,
         "task_description": "In app chrome, Navigate back to the settings menu and then open the 'Password Manager' to view saved passwords.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 35,
         "task_description": "In app chrome, Task-Oriented: Close the 'Forgotten Password' popup and then navigate to 'www.google.com' in the Chrome browser.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     },
     {
         "id": 36,
         "task_description": "In app chrome, Check the version information of the Chrome app by clicking the three dots menu and selecting 'Version info'.",
         "executed": 0,
-        "succeeded": 0
+        "succeeded": 0.0
     }
 ]

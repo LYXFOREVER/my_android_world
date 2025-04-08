@@ -343,7 +343,7 @@ class AsyncAndroidEnv(AsyncEnv):
         action,
         state.ui_elements,
         self.logical_screen_size,
-        self.controller, # 这个地方输入的是controller，到了对面函数就变成了env，能写出这种代码的也是神人了,害我找半天
+        self.controller, 
         self.console_port,
     )
 

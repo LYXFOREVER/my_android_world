@@ -947,6 +947,10 @@ def extend_file_in_task_pool(agent: m3a.M3A,file_name,package_name,main_activity
             failed_task = task_info['task_description']
             task_info["extended"] = 1.0 # 已经扩展过了，下次不用它当素材了
             break
+        elif "extended" in task_info and task_info["extended"] == 0:
+            failed_task = task_info['task_description']
+            task_info["extended"] = 1.0 # 已经扩展过了，下次不用它当素材了
+            break
     
     if failed_task is None:
         import random

@@ -24,7 +24,8 @@ from android_world.agents import infer
 # app的名字
 #app_names = ['com.kugou.android', 'com.sina.weibo', 'com.tencent.mtt', 'com.tencent.qqlive', 'tv.danmaku.bili']
 #app_names = ['contacts', 'files', 'settings', 'simple gallery pro', 'simple sms messenger']
-app_names = ['broccoli app', 'chrome', 'clock', 'dialer', 'pro expense']
+#app_names = ['broccoli app', 'chrome', 'clock', 'dialer', 'pro expense']
+app_names = ['broccoli app', ]
 #app_names = ['tv.danmaku.bili']
 # 合格的轨迹至少要有多少分
 min_score = 5 
@@ -35,9 +36,9 @@ agent_high_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='
 agent_filter = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
 
 # 文件夹路径
-parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_3_31/0_original_data'
+parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_test/0_original_data'
 # 存放合格轨迹的路径
-parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_3_31/1_processed_data'
+parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_test/1_processed_data'
 
 # 依次处理各个app的轨迹
 for app_name in app_names:
@@ -47,6 +48,7 @@ for app_name in app_names:
         print("路径", folder_path,"不存在，跳过这个")
         continue
     subfolders = get_subfolder(folder_path)
+    
 
     for folder in subfolders:
         print("本次处理的轨迹为:",folder,",来自app:",app_name)
@@ -138,7 +140,7 @@ for app_name in app_names:
                 # 完成了task goal gen，这个时候新任务描述应该在 path/step_4_high_level_description/high_level_description.json
                 # 现在开始二次筛选.首先要截断img list和action list
                 new_img_list = img_list[:end_index]
-                new_action_list = action_list[:end_index]
+                new_action_list = action_list[:end_index-1]
                 new_reason, new_score = filter_trajectry(new_task_description, new_img_list, new_action_list, agent_filter)
                 print("本原本成功的轨迹复活赛的结果如下:")
                 print(new_reason)
@@ -271,13 +273,13 @@ for app_name in app_names:
             file_path = os.path.join(step_0_folder, "action.json")
             with open(file_path, 'r', encoding='utf-8') as file:
                 action_dic = json.load(file)
-            new_action_list = action_dic["action_list"][end_index:]
-            new_action_output_list = action_dic["action_output_list"][end_index:]
+            new_action_list = action_dic["action_list"][:end_index-1]
+            new_action_output_list = action_dic["action_output_list"][:end_index-1]
             new_action_dic = {"action_list":new_action_list, "action_output_list":new_action_output_list}
 
             file_path = os.path.join(step_1_folder, "action.json")
             with open(file_path, 'w') as f:
-                json.dump(action_dic, f, ensure_ascii=False, indent=4)  # indent=4 用于美化输出（可选）
+                json.dump(new_action_dic, f, ensure_ascii=False, indent=4)  # indent=4 用于美化输出（可选）
 
             # TODO:对图像进行处理并完成描述生成：1.原分辨率 2.降低一半 3.不给图像，只给a11y tree。分别记录成本
             high_level_description = original_screenshot(path, end_index, agent_low_level, agent_high_level)
@@ -285,17 +287,23 @@ for app_name in app_names:
             # 完成task goal gen了，现在可以筛选了
             task_goal = high_level_description
 
-            img_list = [] # 所有需要发送的with action截图的np.array形式
+            img_list = [] # 所有需要发送的with action截图的np.array形式。但最后一张应该是无action的
             img_folder = os.path.join(path, "step_2_downscale_resolution")
             for i in range(end_index):
-                img_path = os.path.join(img_folder, str(i)+'_with_action.png')
-                if os.path.exists(img_path) is False:
-                    img_name = str(i) + '.png'
-                    img_path = os.path.join(path, img_name)
-                img = Image.open(img_path)
-                img = np.array(img)
-                img_list.append(img)
-            action_list = new_action_output_list
+                if i != end_index:
+                    img_path = os.path.join(img_folder, str(i)+'_with_action.png')
+                    if os.path.exists(img_path) is False:
+                        img_name = str(i) + '.png'
+                        img_path = os.path.join(path, img_name)
+                    img = Image.open(img_path)
+                    img = np.array(img)
+                    img_list.append(img)
+                else:
+                    img_path = os.path.join(img_folder, str(i)+'.png')
+                    img = Image.open(img_path)
+                    img = np.array(img)
+                    img_list.append(img)
+            action_list = new_action_list
 
             reason, score = filter_trajectry(task_goal, img_list, action_list, agent_filter)
 

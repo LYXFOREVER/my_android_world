@@ -15,6 +15,8 @@ def modify_json_data(file_path, start_id, end_id):
                 start_index = i
             if item["id"] == end_id:
                 end_index = i
+        if end_index is None:
+            end_index = len(data)-1
 
         # 检查起始和结束索引是否找到
         if start_index is not None and end_index is not None:
@@ -25,6 +27,9 @@ def modify_json_data(file_path, start_id, end_id):
             for i in range(start_index, end_index + 1):
                 data[i]["executed"] = 0
                 data[i]["succeeded"] = 0.0
+                if "extended" in data[i].keys():
+                    data[i]["extended"] = 0
+
 
         # 将修改后的数据写回 JSON 文件
         with open(file_path, 'w', encoding='utf-8') as file:
@@ -41,15 +46,13 @@ def modify_json_data(file_path, start_id, end_id):
 
 
 if __name__ == "__main__":
-    pass
     # 需要把unicode转成中文的话，下载unicodeToChinese，选中需要转化的字符然后ctrl+shift+p，输入这个名字，使用命令即可
 
-"""
-file_path = 'task_pool/tv.danmaku.bili.json'  
-start_id = 30
-end_id = 62
-modified_data = modify_json_data(file_path, start_id, end_id)
-if modified_data:
-    print("修改后的数据:")
-    print(json.dumps(modified_data, ensure_ascii=False, indent=4))
-"""
+
+    file_path = 'task_pool/clock.json'  
+    start_id = 0
+    end_id = 200
+    modified_data = modify_json_data(file_path, start_id, end_id)
+    if modified_data:
+        print("修改后的数据:")
+        print(json.dumps(modified_data, ensure_ascii=False, indent=4))

@@ -130,7 +130,7 @@
     {
         "id": 21,
         "task_description": "In app audio recorder, navigate to the settings menu, change the recording format to WAV, and then return to the main recording screen.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     }
 ]
