@@ -55,13 +55,15 @@
         "id": 8,
         "task_description": "In app settings, Task-Oriented: Search for 'Storage' settings to check the current storage usage and free space.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 9,
         "task_description": "In app settings, Bypass the initial Schedule View information screen by clicking 'Got it' and then wait for the app to finish 'Checking info...' to access the settings menu and disable location access for the Schedule View to protect privacy.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 10,
@@ -156,6 +158,42 @@
     {
         "id": 25,
         "task_description": "In app settings, navigate to 'Network & internet', then tap on 'Wi-Fi' and forget the currently connected Wi-Fi network.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 26,
+        "task_description": "In app settings, Task-Oriented: Navigate to 'Wi-Fi' settings to view available Wi-Fi networks.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 27,
+        "task_description": "In app settings, Task-Oriented: Go to 'Display' settings and adjust the screen brightness level.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 28,
+        "task_description": "In app settings, Task-Oriented: Open 'Battery' settings to check the current battery percentage and usage details.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 29,
+        "task_description": "In app settings, navigate to the 'Apps' section, then find and select the 'Calendar' app. After selecting the 'Calendar' app, disable its camera permission to protect privacy.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 30,
+        "task_description": "In app settings, navigate to 'Network & internet', then select 'Wi-Fi'. Find and connect to a different available Wi-Fi network.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 31,
+        "task_description": "In app settings, navigate to 'Display', then adjust the brightness level to the lowest setting.",
         "executed": 0,
         "succeeded": 0
     }

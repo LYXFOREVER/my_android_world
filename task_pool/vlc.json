@@ -14,128 +14,128 @@
     {
         "id": 2,
         "task_description": "In app vlc, Add the 'DCIM' folder to favorites and then navigate to the favorites section to confirm that the folder has been successfully added.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 3,
         "task_description": "In app vlc, Task-Oriented: Return to the main screen and navigate to the 'Browse' section to locate and play a video file stored on the device.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 4,
         "task_description": "In app vlc, Add the 'Internal memory' folder to favorites and then navigate to the favorites section to confirm that the folder has been successfully added.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 5,
         "task_description": "In app vlc, Task-Oriented: Play the video file named 'ioBB_scene_16_ra' located in the video list.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 6,
         "task_description": "In app vlc, Add the 'Recordings' folder and the 'Music' folder to the playlist, then navigate to the playlist and start playing the added files.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 7,
         "task_description": "In app vlc, Play the 'data' folder located in Internal memory > Android using the VLC media player.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 8,
         "task_description": "In app vlc, Task-Oriented: Remove the 'DCIM' folder from the favorites list in the VLC app.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 9,
         "task_description": "In app vlc, Navigate to the 'Music' folder within the internal memory and play the music file located there.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 10,
         "task_description": "In app vlc, Task-Oriented: Check if there are any media files in the 'Documents' folder within the internal memory. If the folder is empty, return to the previous screen.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 11,
         "task_description": "In app vlc, Scan the 'Recordings' folder for new media files using the 'Scan this folder' option from the menu.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 12,
         "task_description": "In app vlc, Dismiss all the video player tips by clicking 'Got it' and then 'NEXT' until all tips are dismissed, then close the tips by clicking the 'X' button.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 13,
         "task_description": "In app vlc, Task-Oriented: Include the internal memory in the media library preferences to allow VLC to scan for media files within the internal storage.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 14,
         "task_description": "In app vlc, Watch the video 'ioBB_scene_16_raw' and dismiss the tutorial by clicking 'Got it' after the video starts playing.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 15,
         "task_description": "In app vlc, Task-Oriented: Navigate through all the video player tips by repeatedly clicking the 'NEXT' button until the tips are exhausted, then exit the tips screen.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 16,
         "task_description": "In app vlc, Task-Oriented: Navigate to the 'Download' folder within the internal memory and play all media files located there.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 17,
         "task_description": "In app vlc, Add a custom path to the VLC media player by clicking the three dots icon, selecting \"Add a custom path\", and then entering the desired path in the dialog box.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 18,
         "task_description": "In app vlc, Task-Oriented: Navigate to the 'Browse' tab to locate and play a media file stored on the device.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 19,
         "task_description": "In app vlc, Task-Oriented: Add the 'Android' folder located in 'Internal memory' to favorites for quick access.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 20,
         "task_description": "In app vlc, Task-Oriented: Browse the 'Internal memory' to locate and play a specific video file.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 21,
         "task_description": "In app vlc, Remove the 'Internal memory' folder from favorites.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 22,
         "task_description": "In app vlc, Add the 'media' folder located in 'Browser > Internal memory > Android' to a new playlist.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 23,

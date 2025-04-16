@@ -220,6 +220,44 @@
     {
         "id": 36,
         "task_description": "In app files, search for all files with the extension '.txt' in the entire device storage.",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 37,
+        "task_description": "在 files 应用中，浏览并打开 'Downloads' 文件夹。",
+        "executed": 1,
+        "succeeded": 0.0,
+        "extended": 1.0
+    },
+    {
+        "id": 38,
+        "task_description": "在 files 应用中，将 'Documents' 文件夹中的 'report.pdf' 文件复制到 'Pictures' 文件夹。",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 39,
+        "task_description": "在 files 应用中，重命名 'Music' 文件夹中的 'song.mp3' 文件为 'favorite_song.mp3'。",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 40,
+        "task_description": "在 files 应用中，创建一个名为 'NewFolder' 的新文件夹。",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 41,
+        "task_description": "在 files 应用中，将 'Downloads' 文件夹中的一个文件复制到 'NewFolder' 文件夹。",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 42,
+        "task_description": "在 files 应用中，重命名 'NewFolder' 文件夹为 'MyFiles'。",
         "executed": 0,
         "succeeded": 0
     }

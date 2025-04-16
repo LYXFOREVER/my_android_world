@@ -1,0 +1,20 @@
+'Please generate the next move according to the instruction, previous actions, previous ui screenshot and current ui screenshot. 
+Instruction: Add logitech g910 to the cart on newegg, then select checkout..\n
+Image_0:<|vision_start|><|image_pad|><|vision_end|>\n
+Step_0:{"action_type": 4, "click_point": (697,570)} .\n<|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|>\n
+Image_1:<|vision_start|><|image_pad|><|vision_end|>\n
+Step_1:{"action_type": 4, "click_point": (510,907)} .\n<|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|>\n
+Image_2:<|vision_start|><|image_pad|><|vision_end|>\n
+Step_2:{"action_type": 4, "click_point": (82,901)} .\n<|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|>\n
+Image_3:<|vision_start|><|image_pad|><|vision_end|>\n
+Step_3:{"action_type": 4, "click_point": (358,892)} .\n<|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|><|object_ref_start|>\n
+Image_4:<|vision_start|><|image_pad|><|vision_end|>\n'
+
+
+
+'<|im_start|>user\nPlease generate the next move according to the instruction, previous actions, previous ui screenshot and current ui screenshot.
+Instruction: Show me the alarms in the clock app.\n
+Image(1906)_0:<|vision_start|><|image_pad|><|vision_end|>\n
+Step_0:{"action_type": 6} .\n
+Image(1906)_1:<|vision_start|><|image_pad|><|vision_end|>(151653)\n
+<|im_end|>\n<|im_start|>assistant\n'

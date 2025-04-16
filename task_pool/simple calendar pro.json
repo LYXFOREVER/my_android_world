@@ -8,122 +8,122 @@
     {
         "id": 1,
         "task_description": "In app simple calendar pro, Create a new event with a title, location, and description, and then set the date, time, repetition, and color of the event.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 2,
         "task_description": "In app simple calendar pro, Return to the main calendar view and create a new event for March 31 (Mon).",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 3,
         "task_description": "In app simple calendar pro, Create a new event named 'Meeting' at 'Conference Room' with the description 'Discuss project progress' for March 31 (Mon) at 09:00, and set a reminder for 10 minutes before.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 4,
         "task_description": "In app simple calendar pro, Create a task for March 29th and then verify that the task has been successfully added to the calendar.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 5,
         "task_description": "In app simple calendar pro, Create a new event with the title 'Meeting', location 'Conference Room', description 'Discuss project progress', date 'March 31 (Mon)' at 09:00, and set the event color to blue.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 6,
         "task_description": "In app simple calendar pro, Change the calendar view to 'Simple event list' to see a list of all events.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 7,
         "task_description": "In app simple calendar pro, Create a new event on February 13, 2025, at 10:00 AM with the title 'Meeting with John' at 'Conference Room A' and a description 'Discuss project progress'.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 8,
         "task_description": "In app simple calendar pro, Task-Oriented: Navigate to the month of April, then select the 15th to view the events scheduled for that day.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 9,
         "task_description": "In app simple calendar pro, Change the calendar view to 'Daily view' to see the events scheduled for the current day.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 10,
         "task_description": "In app simple calendar pro, Create a new event named 'Meeting with John' on February 23 (Sun) at 10:00 AM and set the end time to 11:00 AM.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 11,
         "task_description": "In app simple calendar pro, Check the calendar for the month of March and create a new event on March 31st.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 12,
         "task_description": "In app simple calendar pro, Create a new event with the title 'Meeting', location 'Conference Room', description 'Discuss project progress', time '10:00 AM', reminder '30 minutes before', and set the event color to red.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 13,
         "task_description": "In app simple calendar pro, Task-Oriented: Search for the event 'Meeting' in the calendar and check if it exists.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 14,
         "task_description": "In app simple calendar pro, Create an event for February 23rd.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 15,
         "task_description": "In app simple calendar pro, Task-Oriented: Change the event color to '#FF0000' by inputting the color code and saving the new event.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 16,
         "task_description": "In app simple calendar pro, Task-Oriented: Create a new event on March 25, 2025, at 12:00 PM with the title 'Meeting', location 'Conference Room', and description 'Discuss project progress'.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 17,
         "task_description": "In app simple calendar pro, Create a new event on February 8, 2025, at 12:00 AM with the title 'Meeting', location 'Conference Room', and description 'Discuss project progress'.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 18,
         "task_description": "In app simple calendar pro, Create a new task named 'Grocery Shopping' for February 23 (Sun).",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 19,
         "task_description": "In app simple calendar pro, Create a new event with the title 'Meeting', location 'Conference Room', description 'Discuss project progress', set the date to March 31 (Mon) at 09:00, and acknowledge the reminder disclaimer.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 20,
         "task_description": "In app simple calendar pro, Create a new event for 'Meeting with John' on March 31 (Mon) at 10:00 AM.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 21,

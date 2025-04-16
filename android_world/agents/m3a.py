@@ -2312,6 +2312,42 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
       return 1.0, terminal_output
     elif result == 0:
       return -0.01, terminal_output
+  
+  def is_terminal_sft(self, task_goal:str, state_list:list[State], env: interface.AsyncEnv, history_action: list):
+    # TODO:sft reward接受的prompt不一样，接受的照片要三张,动作要两个对应的
+
+    # 完成文本部分处理
+    text_prompt = "You are given a mobile scene trajectory, including goal instruction screenshots and corresponding actions.\n"
+    text_prompt += text_prompt + "Instruction:" + task_goal +"\n"
+
+    # 获取图像与动作描述。正常的话是3图2动作
+    if len(state_list) == 1:
+      # 只有一个图，没有动作
+      text_prompt += "Image_0:<image>\n\n"
+    else:
+      history_action_len = len(state_list) - 1
+      history_action = history_action[-history_action_len:]
+      for i in range(len(state_list)):
+        text_prompt += "Image_"+str(i)+":<image>\n\n"
+        if i < history_action_len:
+          text_prompt += "Step_"+str(i)+"\n"
+    
+    text_prompt += "Please determine whether the above execution trace has reached a completed state, meaning that it has successfully fulfilled the task described in the Instruction. If it is in a completed state, output 'Yes'; otherwise, output 'No'."
+    
+    # 完成图像部分处理
+    state_picture_list = []
+    for state in state_list:
+      state_picture_list.append(state.pixels.copy())
+    
+    terminal_output, _, _ = self.llm.predict_mm(
+      text_prompt,
+      state_picture_list,
+    )
+
+    if terminal_output == "Yes":
+      return 1.0, terminal_output
+    elif terminal_output == "No":
+      return -0.01, terminal_output
     
   def summary_action(self, state_before:State, state_after:State, action: Optional[json_action.JSONAction], action_output: str, task_goal: str):
     action_str = str(action)
@@ -2631,11 +2667,10 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
     )
     action_output, is_safe, raw_response = self.llm.predict_mm(
         action_prompt,
-        [],
-        #[
-        #    raw_screenshot,
-        #    before_screenshot,
-        #],# 就是给原始图像和som图像的意思，是同一张截图
+        [
+            raw_screenshot,
+            before_screenshot,
+        ],# 就是给原始图像和som图像的意思，是同一张截图
     )
     #print("get_actions阶段，llm给出的原始输出是:")
     #print(action_output)

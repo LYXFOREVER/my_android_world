@@ -113,19 +113,22 @@
         "id": 18,
         "task_description": "In app contacts, search for 'John Smith' in the contact list and then tap on the contact to view their details.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 19,
         "task_description": "In app contacts, create a new contact with the name 'Jane Doe', phone number '555-123-4567', and email address 'jane.doe@example.com'.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 20,
         "task_description": "In app contacts, edit the existing contact 'John Smith' and add a note saying 'Met at conference'.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 21,
@@ -144,5 +147,59 @@
         "task_description": "In app contacts, delete the contact named 'John Doe'.",
         "executed": 1,
         "succeeded": 1.0
+    },
+    {
+        "id": 24,
+        "task_description": "In app contacts, add a new contact with the first name 'Jane' and last name 'Doe' and phone number '555-123-4567'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 25,
+        "task_description": "In app contacts, search for the contact 'Jane Doe' and then edit the contact to add an email address 'jane.doe@example.com'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 26,
+        "task_description": "In app contacts, create a new group named 'Family' and add the contact 'Jane Doe' to this group.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 27,
+        "task_description": "In app contacts, search for a contact named 'John Smith'.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 28,
+        "task_description": "In app contacts, edit the phone number of the contact 'Jane Doe' to '555-987-6543'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 29,
+        "task_description": "In app contacts, delete the contact named 'Peter Jones'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 30,
+        "task_description": "In app contacts, search for the contact 'John Smith' and update his phone number to '123-456-7890'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 31,
+        "task_description": "In app contacts, create a new contact with the name 'Jane Doe' and add her email address as 'jane.doe@example.com'.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 32,
+        "task_description": "In app contacts, organize the contact 'Emily Davis' into a new group named 'Work'.",
+        "executed": 0,
+        "succeeded": 0
     }
 ]

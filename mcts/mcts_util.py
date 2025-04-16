@@ -284,6 +284,93 @@ class WorldModel:
         stop_app(self.package) # 杀掉app后台，这样就可以回到app主页了
         state = self.env.get_state(wait_to_stabilize = True)
         return state
+    
+class WorldModelSFTReward:
+    def __init__(self, env: interface.AsyncEnv, task_goal: str, critic, vision, package_name: str = None):
+        self.task_goal = task_goal
+        self.critic = critic
+        self.vision = vision
+        self.env = env
+        self.package = package_name
+
+    def step(self, action: Optional[json_action.JSONAction]):
+        """
+        本函数的工作是执行一步。不涉及到大模型
+        input:
+            不需要输入state.我自己记录了任务目标
+            action:需要执行的动作
+        output:返回新状态
+        """
+        print(f"[DEBUG] Executing step with action: {action}")
+        # 这个地方的execute_action有可能会失败，需要考虑这种情况
+        result = self.env.execute_action_v2(action)
+        if result == -1:
+            # 这种情况就是动作有问题，只能放弃了
+            return -1
+        import time
+        time.sleep(3) # 等一下页面
+        state = self.env.get_state(wait_to_stabilize = True)
+        print("执行完本动作，返回当前状态")
+
+        return state
+
+    def step_with_summary(self, action: Optional[json_action.JSONAction], action_output: str):
+        """
+        本函数的工作是执行一步并且总结这一步的效果，适用于第一次执行本action的时候
+        input:
+            不需要输入state.我自己记录了任务目标
+            action:需要执行的动作
+        output:返回新状态和动作的summary,summary prompt
+        """
+        state_before = self.env.get_state(wait_to_stabilize = True)
+
+        # 执行任务
+        print(f"[DEBUG] Executing step with action: {action}")
+        result = self.env.execute_action_v2(action)
+        if result == -1:
+            # 这种情况就是动作有问题，只能放弃了
+            return None, None, None, -1
+        state_after = self.env.get_state(wait_to_stabilize = True)
+        # 看一眼
+        save_state(state=state_after,doc=f"temp_state/{self.package}/")
+        # 总结任务
+        summary, summary_prompt = self.critic.summary_action(
+            state_before=state_before, 
+            state_after=state_after, 
+            action=action, 
+            action_output=action_output, 
+            task_goal=self.task_goal
+            )
+
+        return state_after, summary, summary_prompt, 1
+
+    
+#    def is_terminal(self, node: MCTSNode):
+#        """
+#        本函数作用是输入当前node，返回奖励（真实奖励，对了就是1错了就是-0.01的那种）
+#        input:
+#            state:当前状态
+#        """
+#        # 仔细想想，还是要加上历史动作序列比较好。给action_output就行
+#        state = node.state
+#        print("即将开始判断当前state:",state,"是否是完成状态")
+#        history_action = []
+#        while node.parent is not None:
+#            history_action.append(node.action_output)
+#        if len(history_action) != 0:
+#            history_action.reverse()
+#        terminal = self.vision.is_terminal_sft(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
+#        print("本状态的terminal值为",terminal)
+#        return terminal
+
+    def init_state(self):
+        """
+        本函数就是要杀进程，回主页，返回主页这个state
+        """
+        self.env.reset(go_home=True)
+        stop_app(self.package) # 杀掉app后台，这样就可以回到app主页了
+        state = self.env.get_state(wait_to_stabilize = True)
+        return state
 
 
 class SearchConfig:
@@ -633,6 +720,91 @@ class SearchConfigForAndroidWorldTask:
         if len(history_action) != 0:
             history_action.reverse()
         terminal, terminal_output = self.vision.is_terminal(task_goal=self.task_goal, state=state, env=self.env, history_action=history_action)
+        print("本状态的terminal值为",terminal)
+        return terminal, terminal_output
+    
+class SearchConfigForAndroidWorldTaskSFTReward:
+    """
+    主要是增加了对open app动作的支持，只是改一下get actions而已
+    """
+    def __init__(self, env: interface.AsyncEnv, actor, critic, vision, task_goal:str):
+        self.actor = actor
+        self.critic = critic
+        self.vision = vision
+        self.task_goal = task_goal
+        self.env = env
+
+    def reward(self, node: MCTSNode):
+        # 输入状态，返回真实奖励（1就是1,0就是-0.01）
+        while True:
+            # 不输出正确格式的答复就出不去的函数
+            terminal_state, terminal_output = self.is_terminal(node=node)
+            if terminal_state == 1:
+                print("本状态是成功状态")
+                return terminal_state, terminal_output
+            elif terminal_state == -0.01:
+                print("本状态是尚未成功状态")
+                return terminal_state, terminal_output # 回答错误那就
+            else:
+                print("gpt回答格式错误，再给它一次机会")
+                continue
+
+
+    def get_actions(self, node:MCTSNode):
+        # 既要输出action,也要输出action_output(带cot的action).
+        # 注意要输出三个所以都是列表,而且action还要有打分,所以action会是一个字典，一栏写Optional[json_action.JSONAction],一栏写打分
+        while True:
+            print("为当前状态获取可选的动作")
+            # 马上要获取动作，先看一下当前节点的state长什么样：
+            save_node_state(node)
+            # 给 actor task，当前状态，输出可能的动作.口头让LLM输出三个可能的动作就行了
+            action_list = self.actor.get_actions_androidworld(node=node, task_goal=self.task_goal)
+            print("获得action_list的长度为:",len(action_list))
+            print("获得的action_list如下")
+            print(action_list)
+            if len(action_list) == 0:
+                print("一个动作都没有提取出来，肯定是gpt出问题了。再给他一次机会")
+                continue
+            else:
+                # 成功获得了动作，可以退出了
+                break
+
+        # 判断的依据应该是action_outputs，主要这个既包含动作又包含动作的解释。但是action本身是不是也要进去？要排序呢
+        # 需要输入actions,当前node(这样既有状态又有历史信息),总目标
+        ranked_actions = self.critic.rank_actions(node=node, action_list=action_list, task_goal=self.task_goal)
+        print("获得的ranked_actions如下")
+        print(ranked_actions)
+
+        return ranked_actions
+
+    def is_terminal(self, node: MCTSNode):
+        """
+        本函数作用是输入当前node，返回奖励（真实奖励，对了就是1错了就是-0.01的那种）
+        使用sft reward的话，相较于一般的情况需要多输入几个截图
+        input:
+            state:当前状态
+        """
+        # 仔细想想，还是要加上历史动作序列比较好。给action_output就行
+        state_list = []
+        history_action = []
+
+        # 获取历史动作序列
+        temp_node = node
+        while temp_node.parent is not None:
+            history_action.append(temp_node.action_output)
+            temp_node = temp_node.parent
+        if len(history_action) != 0:
+            history_action.reverse()
+        
+        # 获取历史截图序列
+        temp_node = node
+        while True:
+            state_list.append(temp_node.state)
+            if temp_node.parent is None or len(state_list) >= 3:
+                break
+            temp_node = temp_node.parent
+        
+        terminal, terminal_output = self.vision.is_terminal_sft(task_goal=self.task_goal, state_list=state_list, env=self.env, history_action=history_action)
         print("本状态的terminal值为",terminal)
         return terminal, terminal_output
     

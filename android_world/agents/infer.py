@@ -1117,3 +1117,143 @@ class CogAgentAPIWrapper(LlmWrapper, MultimodalLlmWrapper):
     print(response_dic)
 
     return response, response_dic
+
+import sys
+sys.path.append('src/')
+from src.training.data_resize import  process_vision_info_with_resize
+from src.training.params import DataArguments
+from transformers import AutoModelForCausalLM, AutoTokenizer, AutoProcessor
+
+class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
+  """
+  使用训练过的qwen2vl模型作为reward模型，不能用来生成动作，只能作为判断轨迹正误的模型
+  """
+  
+  def __init__(
+      self,max_new_tokens = 512,temperature = 0,stream = True,device = 'cuda:0'
+  ):
+    self.max_new_tokens = max_new_tokens
+    self.processor = AutoProcessor.from_pretrained("/data1/Models/Qwen2-VL-2B-Instruct")
+
+    from transformers import Qwen2VLForConditionalGeneration
+    self.device = device
+    self.model = Qwen2VLForConditionalGeneration.from_pretrained(
+        # "OS-Copilot/OS-Atlas-Base-7B", torch_dtype="auto", device_map="auto"
+        "/data6/GUIModels/model/androidcontrol_language_lora", torch_dtype=torch.bfloat16, device_map=self.device
+        #"/home/wentao/project/gui_ads/OS-Atlas-Base-7B", torch_dtype="auto", device_map="auto"
+    )
+    self.processor = AutoProcessor.from_pretrained("/data1/Models/Qwen2-VL-2B-Instruct")
+  
+  def get_image_info(self, image_path, min_pixel=256 * 28 * 28, max_pixel=1280 * 28 * 28):
+    # Using this because of process_vision_info function
+    # Need to fix this in the future    
+    
+    messages = [
+        {"role": "user", 
+        "content": [
+            {
+                "type": "image", 
+                "image": image_path,
+                "min_pixels": min_pixel,
+                "max_pixels": max_pixel,
+            }
+            ]
+        }
+    ]
+
+    image_input, _ = process_vision_info_with_resize(messages)
+
+    return image_input[0]
+
+
+  def generate_grounding(self, image_path, query):
+    IGNORE_INDEX = -100
+    DEFAULT_IM_START_TOKEN = "<|im_start|>"
+    DEFAULT_IM_END_TOKEN = "<|im_end|>"
+    DEFAULT_IMAGE_TOKEN = "<|image_pad|>"
+    DEFAULT_VIDEO_TOKEN = "<|video_pad|>"
+    LLAVA_IMAGE_TOKEN = "<image>"
+    LLAVA_VIDEO_TOKEN = "<video>"
+    VISION_START_TOKEN = "<|vision_start|>"
+    VISION_END_TOKEN = "<|vision_end|>"
+    SYSTEM_MESSAGE = "You are a helpful assistant."
+    # TODO
+    messages = [
+        {
+            "role": "user",
+            "content": [
+                {"type": "text",
+                "text": query},
+                #  "text": f"{query}\n请告诉我怎么操作同时输出坐标。"},
+            ],
+        }
+    ]
+
+    images = []
+    for image_file in image_path:
+        images.append(self.get_image_info(image_file))
+
+    # Preparation for inference
+    text = self.processor.apply_chat_template(
+        messages, tokenize=False, add_generation_prompt=True
+    )
+    text = text.replace(LLAVA_IMAGE_TOKEN, VISION_START_TOKEN+DEFAULT_IMAGE_TOKEN+VISION_END_TOKEN)
+    # print(text)
+    # print(images)
+
+    # print(messages)
+    # print(image_inputs)
+#    resized_w, resized_h = image_inputs[0].size
+    inputs = self.processor(
+        text=[text],
+        images=images,
+        padding=True,
+        return_tensors="pt",
+    )
+    inputs = inputs.to(self.device)
+    
+#    import pdb
+#    pdb.set_trace()
+
+    # tmp = processor.decode(inputs['input_ids'][0])
+    #print(tmp)
+
+    # print(inputs)
+
+    # Inference: Generation of the output
+    generated_ids = self.model.generate(**inputs, max_new_tokens=self.max_new_tokens)
+
+    generated_ids_trimmed = [
+        out_ids[len(in_ids):] for in_ids, out_ids in zip(inputs.input_ids, generated_ids)
+    ]
+
+    output_text = self.processor.batch_decode(
+        generated_ids_trimmed, skip_special_tokens=False, clean_up_tokenization_spaces=False
+    )[0][0:-10]
+
+    return output_text
+    
+  @classmethod
+  def encode_image(cls, image: np.ndarray) -> str:
+    return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
+
+  def predict(
+      self,
+      text_prompt: str,
+  ) -> tuple[str, Optional[bool], Any]:
+    return self.predict_mm(text_prompt, [])
+  
+  def predict_mm(
+      self, text_prompt: str, images: list[np.ndarray]
+  ) -> tuple[str, Optional[bool], Any]:
+    
+    pil_images = [Image.fromarray(image) for image in images]
+    
+    # 调用生成函数，传入转换后的 PIL.Image 列表
+    result = self.generate_grounding(pil_images, text_prompt)
+
+    return(
+      result,
+      None,
+      result,
+    )

@@ -164,13 +164,15 @@
         "id": 26,
         "task_description": "In app simple gallery pro, Task-Oriented: Edit the current image by clicking the edit icon and selecting the 'Draw' option to add a circle around the house in the image.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 27,
         "task_description": "In app simple gallery pro, Create a new folder named 'NewFolder' in the current directory.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 28,
@@ -289,6 +291,42 @@
     {
         "id": 47,
         "task_description": "In app Simple Gallery Pro, Task-Oriented: Search for all images taken in the month of July.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 48,
+        "task_description": "In app simple gallery pro, Task-Oriented: Create a new album named 'Vacation Pics' to organize your vacation photos.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 49,
+        "task_description": "In app simple gallery pro, Task-Oriented: Rotate the current image 90 degrees clockwise and save the changes.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 50,
+        "task_description": "In app simple gallery pro, Task-Oriented: Select a photo and view its detailed information, such as resolution and file size.",
+        "executed": 1,
+        "succeeded": 1.0
+    },
+    {
+        "id": 51,
+        "task_description": "In app simple gallery pro, select the first three images in the current folder.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 52,
+        "task_description": "In app simple gallery pro, create a new album named 'Vacation Pics'.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 53,
+        "task_description": "In app simple gallery pro, rotate the currently displayed image 90 degrees clockwise.",
         "executed": 0,
         "succeeded": 0
     }

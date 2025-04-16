@@ -86,13 +86,15 @@
         "id": 13,
         "task_description": "In app simple sms messenger, Disable blocking of messages from not stored contacts and then add a specific number to the blocked list.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 14,
         "task_description": "In app simple sms messenger, Task-Oriented: Enable blocking of messages from hidden numbers, then add the number '1234567890' to the block list.",
         "executed": 1,
-        "succeeded": 0.0
+        "succeeded": 0.0,
+        "extended": 1.0
     },
     {
         "id": 15,
@@ -205,12 +207,48 @@
     {
         "id": 33,
         "task_description": "In app simple sms messenger, search for the word 'hello' within the current message thread with John.",
-        "executed": 0,
-        "succeeded": 0
+        "executed": 1,
+        "succeeded": 0.0
     },
     {
         "id": 34,
         "task_description": "In app simple sms messenger, delete a specific SMS message from the conversation with Jane.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 35,
+        "task_description": "In app simple sms messenger, compose a new SMS message to a contact in your address book and send it.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 36,
+        "task_description": "In app simple sms messenger, open an existing SMS conversation, scroll to the bottom of the conversation, and reply to the last message.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 37,
+        "task_description": "In app simple sms messenger, delete a specific SMS message from a conversation thread.",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 38,
+        "task_description": "In the Simple SMS Messenger app, compose a new message and send it to the number '9876543210' with the text 'Hello, this is a test message.'",
+        "executed": 1,
+        "succeeded": 0.0
+    },
+    {
+        "id": 39,
+        "task_description": "Inside the Simple SMS Messenger app, customize the notification settings to change the notification sound to 'Chime' for incoming messages.",
+        "executed": 0,
+        "succeeded": 0
+    },
+    {
+        "id": 40,
+        "task_description": "In the Simple SMS Messenger app, create a new contact with the name 'John Doe' and the phone number '0987654321' and save it to your contacts list.",
         "executed": 0,
         "succeeded": 0
     }

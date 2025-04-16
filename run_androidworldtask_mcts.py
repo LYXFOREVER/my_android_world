@@ -151,10 +151,16 @@ def _main():
     #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
     #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
-    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
-    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
-    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100)) # 新增summary职能
-    vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    # gemini配置
+    #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100)) # 新增summary职能
+    # gpt4o配置
+    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100))
+    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100))
+    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100)) # 新增summary职能
+    #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    vision = m3a.M3A(env, infer.SftRewardModelWrapper(device='cuda:7'))
     
 
     # 以下都是需要循环多次执行的
@@ -167,7 +173,7 @@ def _main():
         app_name = available_app_list[app_num]
     print("本次选择到的app名字为:",app_name)
     
-    for i in range(20):
+    for i in range(10):
         try:
             env.reset(go_home=True)
             env.hide_automation_ui()
@@ -233,8 +239,10 @@ def _main():
 
             # 调用mcts的方法，完成对任务的探索
             print(f"{YELLOW}正在执行 MCTS wrapper{RESET}")
-            world_model = WorldModel(env=env, task_goal=str(task.goal), critic=critic, vision=vision)
-            search_config = SearchConfigForAndroidWorldTask(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
+            #world_model = WorldModel(env=env, task_goal=str(task.goal), critic=critic, vision=vision)
+            #search_config = SearchConfigForAndroidWorldTask(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
+            world_model = WorldModelSFTReward(env=env, task_goal=str(task.goal), critic=critic, vision=vision)
+            search_config = SearchConfigForAndroidWorldTaskSFTReward(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
             #world_and_search = WorldAndSearchModelForGPT4oAtlas(
             #    env=env, 
             #    task_goal=str(task.goal),
