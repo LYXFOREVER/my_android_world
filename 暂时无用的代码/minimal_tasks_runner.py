@@ -94,6 +94,15 @@ _TASK = flags.DEFINE_string(
     None,
     'A specific task to run.',
 )
+# ANSI color codes
+BLUE = "\033[94m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RED = "\033[91m"
+MAGENTA = "\033[95m"
+CYAN = "\033[96m"
+RESET = "\033[0m"
+
 from android_world.env import interface
 import json
 from PIL import Image
@@ -159,12 +168,13 @@ def _main() -> None:
       task_metadata =  json.load(file)
   filtered_task_type_list = [
       task_type for i, task_type in enumerate(task_type_list)
-          if int(task_metadata[i]["optimal_steps"]) < 6
+          if int(task_metadata[i]["optimal_steps"]) < 100
   ]
   filtered_task_metadata = [
       task_metadata_dic for i, task_metadata_dic in enumerate(task_metadata)
-          if int(task_metadata[i]["optimal_steps"]) < 6
+          if int(task_metadata[i]["optimal_steps"]) < 100
   ]
+  task_success_num = 0
   task_done_num = 0
   for i, task_type in enumerate(filtered_task_type_list):
     try:
@@ -175,12 +185,13 @@ def _main() -> None:
       params = task_type.generate_random_params()
       task = task_type(params)
       task.initialize_task(env)
-      agent = m3a.M3A(env, infer.Gpt4Wrapper('gpt-4o-mini'))
+      #agent = m3a.M3A(env, infer.Gpt4Wrapper('gpt-4o-mini'))
+      agent = m3a.M3A(env, infer.UITarsWrapperOpenaiWay())
 
-      print('Goal: ' + str(task.goal))
+      print(f"{BLUE}'Goal: '{str(task.goal)}{RESET}")
       is_done = False
       for _ in range(int(task.complexity * 10)):
-        response = agent.step_without_screenshot(task.goal)
+        response = agent.step_for_uitars(task.goal, task.app_names)
         if response.done:
           is_done = True
           break
@@ -190,6 +201,8 @@ def _main() -> None:
           f' {task.goal}'
       )
       #env.close()
+      if agent_successful:
+        task_success_num += 1
 
       # 自作主张的部分，保存一下本次的路径
       from datetime import datetime
@@ -201,6 +214,7 @@ def _main() -> None:
       doc_path = folder_path + formatted_time + '/'
       save_history(agent.history, task_goal=task.goal, env=env, path=doc_path, result=agent_successful)
       print('任务',task.goal,'流程完成，结果已保存')
+      task_done_num += 1
     except Exception as e:
       import traceback
       print(f"发生某种错误，跳过这一个任务: {task_type}")
@@ -208,6 +222,9 @@ def _main() -> None:
       print(f"错误信息: {e}")  # 打印错误的描述信息
       traceback.print_exc()  # 打印完整的错误堆栈信息
       continue
+
+  print("最后成功的任务有:",task_success_num)
+  print("做完了的任务有:",task_done_num)
 
 
 

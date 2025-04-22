@@ -289,6 +289,27 @@ def parse_multiple_reason_action_output(
 
     return result
 
+def parse_thought_action_output(
+    raw_thought_action_output: str,
+) -> List[Tuple[str, str]]:
+    """Parses thought-action pairs from the raw LLM output.
+
+    Args:
+        raw_thought_action_output: A string that may contain multiple segments of:
+            'Thought: ...\nAction: ...'
+
+    Returns:
+        A list of (thought, action) tuples for all matches found.
+    """
+    pattern = r'Thought:(.*?)Action:(.*?)(?=\n|$)'
+    matches = re.findall(pattern, raw_thought_action_output, flags=re.DOTALL)
+
+    # matches将是一个列表，元素类似于("thought内容", "action内容")
+    # 去掉首尾空白
+    result = [(m[0].strip(), m[1].strip()) for m in matches]
+
+    return result
+
 def extract_first_digit(raw_string: str) -> Optional[str]:
     """
     从给定的字符串中提取第一个数字（仅一位数）。

@@ -1102,3 +1102,114 @@ def create_multi_app_task_pool(
             json.dump(task_list, file, ensure_ascii=False, indent=4)
     else:
         print(f"File '{file_path}' already exists.")
+
+
+#######################################################
+#接下来开始尝试有ai指导的bfs
+
+class dfsNode:
+    def __init__(
+        self,
+        state: Optional[State], # 这里的state是android world的state
+        action: Optional[json_action.JSONAction], # 就是execute_action用的那种action
+        action_output: str = "no action output yet", # 包含有cot的action
+        parent: "Optional[dfsNode]" = None, # 父节点
+        current_target: str = None, # 当前的阶段目标
+    ):
+        self.action = action
+        self.action_output = action_output
+        self.state = state
+        self.parent = parent
+        self.children: "Optional[list[MCTSNode]]" = None
+        if parent is None:
+            self.depth = 0
+        else:
+            self.depth = parent.depth + 1
+        
+        self.current_target = current_target
+
+    def __str__(self):
+        return f"BfsNode(depth={self.depth}, state={self.state}, action={self.action}, current_target={self.current_target}"
+
+def guided_dfs_app_navigate(
+        target_path:str, 
+        state: Optional[State],
+        env: interface.AsyncAndroidEnv, 
+        app_name: str, 
+        task_generater_agent: m3a.M3A, 
+        mcts_actor_agent: m3a.M3A, 
+    ):
+    """
+    使用有actor agent指导的方法探索app，将探索轨迹保存为pkl
+    """
+
+
+
+def create_file_in_task_pool_guided_dfs(
+        task_generater_agent: m3a.M3A,
+        mcts_actor_agent: m3a.M3A,
+        app_name: str, 
+        env:interface.AsyncAndroidEnv, 
+        retry_times:int = 3,
+    ):
+    """
+    使用有actor agent指导的方法探索app，使用最终的轨迹作为给agent生成任务描述的素材
+    """
+    task_pool_dir = "task_pool"
+    file_name = app_name + ".json"
+    
+    # 构造文件路径
+    file_path = os.path.join(task_pool_dir, file_name)
+    # 判断文件是否存在
+    if not os.path.exists(file_path):
+        # 文件确实不存在，开始创建任务池
+        print("任务池不存在，开始创建任务池")
+        open_app_action_dic = {"action_type":"open_app", "app_name":app_name}
+        converted_action = json_action.JSONAction(
+            **open_app_action_dic,
+        )
+        # TODO:打开本次的app
+        while retry_times > 0:
+            result = env.execute_action_v2(converted_action)
+            if result == -1:
+                print("打开app失败，还有",retry_times,"次机会")
+                retry_times -= 1
+            else:
+                print("app打开成功，开始探索app")
+                break
+        import time
+        time.sleep(3) # 等一下页面
+        state = env.get_state(wait_to_stabilize = True)
+        doc = 'temp_state/'+app_name+'/'
+        save_state(state=state,doc=doc)
+
+        # TODO:开始循环，深度优先搜索，假如没有能点击了的东西那就返回.保存截图，ui list，动作str
+        # TODO:每一对都保存在独立的文件夹里面。检测到已经存在10对（也就是10个动作，少量测试）了，就结束前期探索
+        target_path = os.path.join('task_pool',app_name)
+        guided_dfs_app_navigate(target_path=target_path, state=state, env=env, app_name=app_name, task_generater_agent=task_generater_agent, mcts_actor_agent=mcts_actor_agent)
+
+        # TODO:读取bfs.pkl文件，
+        #action_state_pairs_path = get_first_level_subfolders(target_path)
+
+        # TODO:提取出各个轨迹并生成任务描述，筛选
+        #task_description_list = generate_task_description_list(action_state_pairs_path, agent, app_name)
+        #task_description_list = filter_task_description_list(task_description_list, agent, app_name)
+        # task_list是一个保存了一系列用字典保存的任务
+        # 字典记录了任务id，任务描述，是否被执行过以及执行结果信息
+        # 执行的时候，遍历task_list,找到第一个没有被做过的任务并执行它。
+        # 假如没找到，那就找到第一个执行过但没成功的任务，以此为种子生成新的并执行；原来的任务会删去（因为可能是不可能的任务）
+        task_list = []
+        for i, task_description in enumerate(task_description_list):
+            print("本次加入任务池的任务为:",task_description)
+            task = {}
+            task['id'] = i
+            task['task_description'] = task_description
+            task['executed'] = 0 # 0代表没有执行过
+            task['succeeded'] = 0 # 0代表没成功过
+            task_list.append(task)
+
+        #将任务写入json文件中
+        with open(file_path, 'w') as file: # file_path之前设定好了，就是json的路径
+            json.dump(task_list, file, ensure_ascii=False, indent=4)
+    else:
+        print(f"File '{file_name}' already exists.")

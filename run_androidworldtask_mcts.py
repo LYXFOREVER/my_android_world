@@ -152,14 +152,18 @@ def _main():
     #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
     # gemini配置
-    #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
-    #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
-    #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100)) # 新增summary职能
-    # gpt4o配置
-    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100))
-    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100))
-    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100)) # 新增summary职能
+    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100)) # 新增summary职能
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    # gpt4o配置
+    #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100))
+    #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100))
+    #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100)) # 新增summary职能
+    
+    #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    #actor = m3a.M3A(env, infer.UITarsWrapperOpenaiWay())
+    #critic = m3a.M3A(env, infer.UITarsWrapperOpenaiWay())
     vision = m3a.M3A(env, infer.SftRewardModelWrapper(device='cuda:7'))
     
 
@@ -173,7 +177,7 @@ def _main():
         app_name = available_app_list[app_num]
     print("本次选择到的app名字为:",app_name)
     
-    for i in range(10):
+    for i in range(20):
         try:
             env.reset(go_home=True)
             env.hide_automation_ui()
@@ -243,6 +247,7 @@ def _main():
             #search_config = SearchConfigForAndroidWorldTask(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
             world_model = WorldModelSFTReward(env=env, task_goal=str(task.goal), critic=critic, vision=vision)
             search_config = SearchConfigForAndroidWorldTaskSFTReward(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
+            #search_config = SearchConfigForAndroidWorldTaskSFTRewardUITarsActor(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
             #world_and_search = WorldAndSearchModelForGPT4oAtlas(
             #    env=env, 
             #    task_goal=str(task.goal),

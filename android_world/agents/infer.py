@@ -1130,7 +1130,7 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
   """
   
   def __init__(
-      self,max_new_tokens = 512,temperature = 0,stream = True,device = 'cuda:0'
+      self,max_new_tokens = 512,temperature = 0,stream = True,device = 'auto'
   ):
     self.max_new_tokens = max_new_tokens
     self.processor = AutoProcessor.from_pretrained("/data1/Models/Qwen2-VL-2B-Instruct")
@@ -1256,4 +1256,136 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
       result,
       None,
       result,
+    )
+  
+
+class UITarsWrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
+  """UI Tars wrapper.使用部署在同一个机器上面的服务器，用openai的库
+
+  Attributes:
+    openai_api_key: The class gets the OpenAI api key either explicitly, or
+      through env variable in which case just leave this empty.
+    max_retry: Max number of retries when some error happens.
+    temperature: The temperature parameter in LLM to control result stability.
+    model: GPT model to use based on if it is multimodal.
+  """
+  RETRY_WAITING_SECONDS = 20
+
+  def __init__(
+      self,
+      max_retry = 3,
+  ):
+    self.client = OpenAI(
+      base_url="http://127.0.0.1:8000/v1",
+      api_key="empty",
+    )
+
+    self.max_retry = max_retry
+
+  @classmethod
+  def encode_image(cls, image: np.ndarray) -> str:
+    return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
+
+  def predict(
+      self,
+      text_prompt: str,
+  ) -> tuple[str, Optional[bool], Any]:
+    return self.predict_mm(text_prompt, [])
+  
+  def get_response_with_retry(self, client, messages):
+    retries = 0
+    while retries < self.max_retry:
+        try:
+            response = client.chat.completions.create(
+                model="ui-tars",
+                temperature=0,
+                messages=messages,
+            )
+            if response is None:
+               retries += 1
+               continue
+            return response
+        except (RequestException) as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+        except Exception as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+    print("Failed to get response after maximum retries.")
+    return None
+
+  def predict_mm(
+      self, text_prompt: str, images: list[np.ndarray]
+  ) -> tuple[str, Optional[bool], Any]:
+    image_dic_list = []
+    for image in images:
+      image_dic = {
+                      "type": "image_url",
+                      "image_url": {"url": f"data:image/jpeg;base64,{self.encode_image(image)}"},
+                  }
+      image_dic_list.append(image_dic)
+
+    messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": text_prompt,
+                    },
+                ],
+            }
+    ]
+    messages[0]['content'] = messages[0]['content'] + image_dic_list
+    
+    response = self.get_response_with_retry(
+      client=self.client, 
+      messages=messages
+    )
+    if response is None:
+      return(
+        None,
+        None,
+        None,
+      )
+    response_text = response.choices[0].message.content
+    # 记录调用时间
+    #usage_info = response.usage
+    current_time_str = str(datetime.now())
+    usage = {
+        'request_time': current_time_str,
+    }
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
+    # 读取已有文件或创建新文件
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    else:
+        data = []
+
+    # 添加新的 usage 数据
+    data.append(usage)
+
+    # 保存回文件
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
+    return (
+        response_text,
+        None,
+        response,
     )

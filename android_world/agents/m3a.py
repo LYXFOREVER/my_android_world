@@ -1036,6 +1036,37 @@ def _action_selection_prompt(
       additional_guidelines=extra_guidelines,
   )
 
+def _action_selection_prompt_for_uitars(
+    prompt: str,
+    goal: str,
+    history: list[str],
+    language: str,
+    app_name: str,
+) -> str:
+  """Generate the prompt for the action selection.
+
+  Args:
+    goal: The current goal.
+    history: Summaries for previous steps.
+    ui_elements: A list of descriptions for the UI elements.
+    additional_guidelines: Task specific guidelines.
+
+  Returns:
+    The text prompt for action selection that will be sent to gpt4v.
+  """
+  if history:
+    history = '\n'.join(history)
+  else:
+    history = 'You just started, no action has been performed yet.'
+
+
+  return prompt.format(
+      instruction=goal,
+      action_history=history,
+      language=language,
+      app_name=app_name
+  )
+
 def _action_selection_textonly_prompt(
     goal: str,
     history: list[str],
@@ -1677,6 +1708,46 @@ def convert_unicode_escapes(input_string):
     result = pattern.sub(replace_unicode, input_string)
     return result
   
+
+def convert_action_format_for_uitars(model_output: str) -> str:
+    """
+    Converts the model's action output format to the desired format.
+
+    Args:
+        model_output (str): The raw action output from the model.
+
+    Returns:
+        str: The converted action output in the desired format.
+    """
+    # 定义一个转换规则的字典
+    action_mapping = {
+        r"click\(start_box='\((\d+),(\d+)\)'\)": 
+            lambda match: f'{{"action_type": "click", "x": {match.group(1)}, "y": {match.group(2)}}}',
+        r"long_press\(start_box='\((\d+),(\d+)\)'\)": 
+            lambda match: f'{{"action_type": "long_press", "x": {match.group(1)}, "y": {match.group(2)}}}',
+        r"type\(content='([^']*)'(\s*\\n)?\)": 
+            lambda match: f'{{"action_type": "input_text", "text": "{match.group(1)}"}}',
+        r"scroll\(start_box='\((\d+),(\d+)\)', direction='(\w+)'\)": 
+            lambda match: f'{{"action_type": "scroll", "direction": "{match.group(3)}", "x": {match.group(1)}, "y": {match.group(2)}}}',
+        r"open_app\(app_name='([^']*)'\)": 
+            lambda match: f'{{"action_type": "open_app", "app_name": "{match.group(1)}"}}',
+        r"drag\(start_box='\((\d+),(\d+)\)', end_box='\((\d+),(\d+)\)'\)": 
+            lambda match: f'{{"action_type": "drag", "start_x": {match.group(1)}, "start_y": {match.group(2)}, "end_x": {match.group(3)}, "end_y": {match.group(4)}}}',
+        r"press_home\(\)": 
+            lambda match: f'{{"action_type": "navigate_home"}}',
+        r"press_back\(\)": 
+            lambda match: f'{{"action_type": "navigate_back"}}',
+        r"finished\(content='([^']*)'\)": 
+            lambda match: f'{{"action_type": "finish", "content": "{match.group(1)}"}}'
+    }
+
+    # 遍历每个转换规则
+    for pattern, converter in action_mapping.items():
+        model_output = re.sub(pattern, lambda match: converter(match), model_output)
+
+    return model_output
+
+
 import numpy as np
 class MultimodelTaskGen():
   """用来根据已有的轨迹生成任务描述的类"""
@@ -1859,6 +1930,283 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
     step_data['action_reason'] = reason
 
     try:
+      converted_action = json_action.JSONAction(
+          **agent_utils.extract_json(action),
+      )
+      step_data['action_output_json'] = converted_action
+    except Exception as e:  # pylint: disable=broad-exception-caught
+      print('Failed to convert the output to a valid action.')
+      print(str(e))
+      step_data['summary'] = (
+          'Can not parse the output to a valid action. Please make sure to pick'
+          ' the action from the list with required parameters (if any) in the'
+          ' correct JSON format!'
+      )
+      self.history.append(step_data)
+
+      return base_agent.AgentInteractionResult(
+          False,
+          step_data,
+      )
+
+    action_index = converted_action.index
+    num_ui_elements = len(before_ui_elements)
+    if (
+        converted_action.action_type
+        in ['click', 'long_press', 'input_text', 'scroll']
+        and action_index is not None
+    ):
+      if action_index >= num_ui_elements:
+        print(
+            f'Index out of range, prediction index is {action_index}, but the'
+            f' UI element list only has {num_ui_elements} elements.'
+        )
+        step_data['summary'] = (
+            'The parameter index is out of range. Remember the index must be in'
+            ' the UI element list!'
+        )
+        self.history.append(step_data)
+        return base_agent.AgentInteractionResult(False, step_data)
+
+      # Add mark to the target element.
+      m3a_utils.add_ui_element_mark(
+          step_data['raw_screenshot'],
+          before_ui_elements[action_index],
+          action_index,
+          logical_screen_size,
+          physical_frame_boundary,
+          orientation,
+      )
+
+    if converted_action.action_type == 'status':
+      if converted_action.goal_status == 'infeasible':
+        print('Agent stopped since it thinks mission impossible.')
+      step_data['summary'] = 'Agent thinks the request has been completed.'
+      self.history.append(step_data)
+      return base_agent.AgentInteractionResult(
+          True,
+          step_data,
+      )
+
+    if converted_action.action_type == 'answer':
+      print('Agent answered with: ' + converted_action.text)
+
+    try:
+      self.env.execute_action(converted_action)
+    except Exception as e:  # pylint: disable=broad-exception-caught
+      print('Failed to execute action.')
+      print(str(e))
+      step_data['summary'] = (
+          'Can not execute the action, make sure to select the action with'
+          ' the required parameters (if any) in the correct JSON format!'
+      )
+      return base_agent.AgentInteractionResult(
+          False,
+          step_data,
+      )
+
+    time.sleep(self.wait_after_action_seconds)
+
+    state = self.env.get_state(wait_to_stabilize=False)
+    logical_screen_size = self.env.logical_screen_size
+    orientation = self.env.orientation
+    physical_frame_boundary = self.env.physical_frame_boundary
+    after_ui_elements = state.ui_elements
+    after_ui_elements_list = _generate_ui_elements_description_list(
+        after_ui_elements, logical_screen_size
+    )
+    after_screenshot = state.pixels.copy()
+    for index, ui_element in enumerate(after_ui_elements):
+      if m3a_utils.validate_ui_element(ui_element, logical_screen_size):
+        m3a_utils.add_ui_element_mark(
+            after_screenshot,
+            ui_element,
+            index,
+            logical_screen_size,
+            physical_frame_boundary,
+            orientation,
+        )
+
+    m3a_utils.add_screenshot_label(
+        step_data['before_screenshot_with_som'], 'before'
+    )
+    m3a_utils.add_screenshot_label(after_screenshot, 'after')
+    step_data['after_screenshot_with_som'] = after_screenshot.copy()
+
+    summary_prompt = _summarize_prompt(
+        action,
+        reason,
+        goal,
+        before_ui_elements_list,
+        after_ui_elements_list,
+    )
+    summary, is_safe, raw_response = self.llm.predict_mm(
+        summary_prompt,
+        [
+            before_screenshot,
+            after_screenshot,
+        ],
+    )
+
+    if is_safe is False:  # pylint: disable=singleton-comparison
+      #  is_safe could be None
+      summary = """Summary triggered LLM safety classifier."""
+
+    if not raw_response:
+      print(
+          'Error calling LLM in summarization phase. This should not happen: '
+          f'{summary}'
+      )
+      step_data['summary'] = (
+          'Some error occurred calling LLM during summarization phase: %s'
+          % summary
+      )
+      self.history.append(step_data)
+      return base_agent.AgentInteractionResult(
+          False,
+          step_data,
+      )
+
+    step_data['summary_prompt'] = summary_prompt
+    step_data['summary'] = f'Action selected: {action}. {summary}'
+    print('Summary: ' + summary)
+    step_data['summary_raw_response'] = raw_response
+
+    self.history.append(step_data)
+    return base_agent.AgentInteractionResult(
+        False,
+        step_data,
+    )
+  
+  def step_for_uitars(self, goal: str, task_app) -> base_agent.AgentInteractionResult:
+    step_data = {
+        'raw_screenshot': None,
+        'before_screenshot_with_som': None,
+        'before_ui_elements': [],
+        'after_screenshot_with_som': None,
+        'action_prompt': None,
+        'action_output': None,
+        'action_output_json': None,
+        'action_reason': None,
+        'action_raw_response': None,
+        'summary_prompt': None,
+        'summary': None,
+        'summary_raw_response': None,
+    }
+    print('----------step ' + str(len(self.history) + 1))
+
+    state = self.get_post_transition_state()
+    logical_screen_size = self.env.logical_screen_size
+    orientation = self.env.orientation
+    physical_frame_boundary = self.env.physical_frame_boundary
+
+    before_ui_elements = state.ui_elements
+    step_data['before_ui_elements'] = before_ui_elements
+    before_ui_elements_list = _generate_ui_elements_description_list(
+        before_ui_elements, logical_screen_size
+    )
+    step_data['raw_screenshot'] = state.pixels.copy()
+    before_screenshot = state.pixels.copy()
+    for index, ui_element in enumerate(before_ui_elements):
+      if m3a_utils.validate_ui_element(ui_element, logical_screen_size):
+        m3a_utils.add_ui_element_mark(
+            before_screenshot,
+            ui_element,
+            index,
+            logical_screen_size,
+            physical_frame_boundary,
+            orientation,
+        )
+    step_data['before_screenshot_with_som'] = before_screenshot.copy()
+
+    ui_tars_action_prompt = """You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
+    ## Output Format
+    ```
+    Thought: ...
+    Action: ...
+    ```
+    ## Action Space
+
+    click(start_box='<|box_start|>(x1,y1)<|box_end|>')
+    long_press(start_box='<|box_start|>(x1,y1)<|box_end|>')
+    type(content='') #If you want to submit your input, use "\\n" at the end of `content`.
+    scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
+    open_app(app_name=\'\')
+    drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
+    press_home()
+    press_back()
+    finished(content='xxx') # Use escape characters \\', \\", and \\n in content part to ensure we can parse the content in normal python string format.
+
+
+    ## Note
+    - Use {language} in `Thought` part.
+    - Write a small plan and finally summarize your next action (with its target element) in one sentence in `Thought` part.
+    - User instructions usually start with "In app <name>," where <name> is the name of the app you need to operate on this time.
+
+    ## User Instruction
+    {instruction}
+
+    ## History Action
+    {action_history}
+
+    ## Task App
+    {app_name}
+    """ 
+    language = "English"
+    task_app = str(task_app)
+    action_prompt = _action_selection_prompt_for_uitars(
+        ui_tars_action_prompt,
+        goal,
+        [
+            'Step ' + str(i + 1) + '- ' + step_info['summary']
+            for i, step_info in enumerate(self.history)
+        ],
+        language,
+        task_app
+    )
+    step_data['action_prompt'] = action_prompt
+    action_output, is_safe, raw_response = self.llm.predict_mm(
+        action_prompt,
+        [
+            step_data['raw_screenshot'],
+            #before_screenshot,
+        ],# 就是给原始图像和som图像的意思，是同一张截图
+    )
+    print("agent 原始输出为:",action_output)
+    if is_safe is False:  # pylint: disable=singleton-comparison
+      #  is_safe could be None
+      action_output = """Reason: Triggered LLM safety classifier.
+Action: {"action_type": "status", "goal_status": "infeasible"}"""
+
+    if not raw_response:
+      raise RuntimeError('Error calling LLM in action selection phase.')
+    step_data['action_output'] = action_output
+    step_data['action_raw_response'] = raw_response
+
+    reason, action = m3a_utils.parse_thought_action_output(action_output)[0]
+
+    # If the output is not in the right format, add it to step summary which
+    # will be passed to next step and return.
+    if (not reason) or (not action):
+      print('Action prompt output is not in the correct format.')
+      step_data['summary'] = (
+          'Output for action selection is not in the correct format, so no'
+          ' action is performed.'
+      )
+      self.history.append(step_data)
+
+      return base_agent.AgentInteractionResult(
+          False,
+          step_data,
+      )
+
+    print('Action: ' + action)
+    print('Reason: ' + reason)
+    step_data['action_reason'] = reason
+
+    try:
+      action = convert_action_format_for_uitars(action)
+      print("转化过后的动作为:",action)
       converted_action = json_action.JSONAction(
           **agent_utils.extract_json(action),
       )
@@ -2708,6 +3056,146 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
         print(str(e))
         continue # 出错了，本条动作就不要了
       converted_action_and_actionoutput.append(converted_action_and_actionoutput_dic)
+    
+    # 成功返回动作+cot动作的字典
+    return converted_action_and_actionoutput
+  
+  def get_actions_androidworld_uitars(self, node:MCTSNode, task_goal:str):
+    """
+    允许输出 open app 动作,并使用ui tars的风格获取动作
+    """
+    state = node.state
+    #logical_screen_size = self.env.logical_screen_size
+    #orientation = self.env.orientation
+    #physical_frame_boundary = self.env.physical_frame_boundary
+
+    #before_ui_elements = state.ui_elements
+    #before_ui_elements_list = _generate_ui_elements_description_list(
+    #    before_ui_elements, logical_screen_size
+    #)
+    raw_screenshot = state.pixels.copy()
+    #before_screenshot = state.pixels.copy()
+    #for index, ui_element in enumerate(before_ui_elements):
+    #  if m3a_utils.validate_ui_element(ui_element, logical_screen_size):
+    #    m3a_utils.add_ui_element_mark(
+    #        before_screenshot,
+    #        ui_element,
+    #        index,
+    #        logical_screen_size,
+    #        physical_frame_boundary,
+    #        orientation,
+    #    )
+
+    # 获取历史的summary ??事后看起来有点奇怪，不应该是action_output吗？
+    # 25-4-19修改了
+    history_action = []
+    while node.parent is not None and node.action is not None:
+      history_action.append(node.action_output)
+      node = node.parent
+    history_action.reverse()
+
+    # 把history列表转化为字符串
+    action_history_str = ""
+    if history_action is None:
+      action_history_str = "No history action"
+    else:
+      for i, action in enumerate(history_action):
+        action_history_str += "Step "+str(i)+", "+str(action)+"\n"
+    #action_prompt = _mutil_action_selection_textonly_allow_openapp_prompt(
+    #    task_goal,
+    #    [
+    #        'Step ' + str(i + 1) + '- ' + summary
+    #        for i, summary in enumerate(history_summary)
+    #    ],
+    #    before_ui_elements_list,
+    #    self.additional_guidelines,
+    #)
+    ui_tars_action_prompt = """You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task. 
+    ## Output Format
+    ```
+    Thought: ...
+    Action: ...
+    ```
+    ## Action Space
+
+    click(start_box='<|box_start|>(x1,y1)<|box_end|>')
+    long_press(start_box='<|box_start|>(x1,y1)<|box_end|>')
+    type(content='') #If you want to submit your input, use "\\n" at the end of `content`.
+    scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
+    open_app(app_name=\'\')
+    drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
+    press_home()
+    press_back()
+    finished(content='xxx') # Use escape characters \\', \\", and \\n in content part to ensure we can parse the content in normal python string format.
+
+
+    ## Note
+    - Use {language} in `Thought` part.
+    - Write a small plan and finally summarize your next action (with its target element) in one sentence in `Thought` part.
+    - User instructions usually start with "In app <name>," where <name> is the name of the app you need to operate on this time.
+
+    ## User Instruction
+    {instruction}
+
+    ## History Action
+    {action_history}
+    """ 
+    language = "English"
+    action_prompt = ui_tars_action_prompt.format(language=language, instruction=task_goal, action_history=action_history_str)
+    
+    # ui tars一次只能输出一个动作，因此让他输出两次
+    converted_action_and_actionoutput = []
+    for i in range(4):
+      try:
+        action_output, is_safe, raw_response = self.llm.predict_mm(
+            action_prompt,
+            [
+                raw_screenshot,
+            ],
+        )
+        print("ui tars输出结果:")
+        print(action_output)
+
+        # 检查结果安全性
+        if is_safe is False:  # pylint: disable=singleton-comparison
+          #  is_safe could be None
+          action_output = """Reason: Triggered LLM safety classifier.
+          Action: {"action_type": "status", "goal_status": "infeasible"}"""
+
+        if not raw_response:
+          raise RuntimeError('Error calling LLM in action selection phase.')
+        
+        action_output = convert_action_format_for_uitars(action_output)
+        print("转换动作格式之后的输出结果:")
+        print(action_output)
+
+        thought_action_list = m3a_utils.parse_thought_action_output(action_output)
+        #print("通过处理action_output获得的reason_action_list是这样的:")
+        #print(reason_action_list)
+
+        for reason, action in thought_action_list:
+          converted_action_and_actionoutput_dic = {}
+          converted_action_and_actionoutput_dic['action_output'] = reason
+          if (not reason) or (not action):
+            print('Action prompt output is not in the correct format.')
+
+          print('经过处理的理由与动作如下:')
+          print('Action: ' + action)
+          print('Reason: ' + reason)
+          try:
+            converted_action = json_action.JSONAction(
+                **agent_utils.extract_json(action),
+            )
+            converted_action_and_actionoutput_dic['action'] = converted_action
+          except Exception as e:  # pylint: disable=broad-exception-caught
+            print('Failed to convert the output to a valid action.')
+            print(str(e))
+            continue # 出错了，本条动作就不要了
+          converted_action_and_actionoutput.append(converted_action_and_actionoutput_dic)
+      except Exception as e:
+        print("通过ui tars获取动作的时候出现错误了，问题如下:",e)
+        print("自动再尝试一遍")
+
     
     # 成功返回动作+cot动作的字典
     return converted_action_and_actionoutput

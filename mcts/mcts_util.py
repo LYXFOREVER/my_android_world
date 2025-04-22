@@ -808,6 +808,92 @@ class SearchConfigForAndroidWorldTaskSFTReward:
         print("本状态的terminal值为",terminal)
         return terminal, terminal_output
     
+
+class SearchConfigForAndroidWorldTaskSFTRewardUITarsActor:
+    """
+    使用开源模型来作为actor和reward
+    """
+    def __init__(self, env: interface.AsyncEnv, actor, critic, vision, task_goal:str):
+        self.actor = actor
+        self.critic = critic
+        self.vision = vision
+        self.task_goal = task_goal
+        self.env = env
+
+    def reward(self, node: MCTSNode):
+        # 输入状态，返回真实奖励（1就是1,0就是-0.01）
+        while True:
+            # 不输出正确格式的答复就出不去的函数
+            terminal_state, terminal_output = self.is_terminal(node=node)
+            if terminal_state == 1:
+                print("本状态是成功状态")
+                return terminal_state, terminal_output
+            elif terminal_state == -0.01:
+                print("本状态是尚未成功状态")
+                return terminal_state, terminal_output # 回答错误那就
+            else:
+                print("gpt回答格式错误，再给它一次机会")
+                continue
+
+
+    def get_actions(self, node:MCTSNode):
+        # 既要输出action,也要输出action_output(带cot的action).
+        # 注意要输出三个所以都是列表,而且action还要有打分,所以action会是一个字典，一栏写Optional[json_action.JSONAction],一栏写打分
+        while True:
+            print("为当前状态获取可选的动作")
+            # 马上要获取动作，先看一下当前节点的state长什么样：
+            save_node_state(node)
+            # 使用ui tars获得动作
+            action_list = self.actor.get_actions_androidworld_uitars(node=node, task_goal=self.task_goal)
+            print("获得action_list的长度为:",len(action_list))
+            print("获得的action_list如下")
+            print(action_list)
+            if len(action_list) == 0:
+                print("一个动作都没有提取出来，肯定是gpt出问题了。再给他一次机会")
+                continue
+            else:
+                # 成功获得了动作，可以退出了
+                break
+
+        # 判断的依据应该是action_outputs，主要这个既包含动作又包含动作的解释。但是action本身是不是也要进去？要排序呢
+        # 需要输入actions,当前node(这样既有状态又有历史信息),总目标
+        ranked_actions = self.critic.rank_actions(node=node, action_list=action_list, task_goal=self.task_goal)
+        print("获得的ranked_actions如下")
+        print(ranked_actions)
+
+        return ranked_actions
+
+    def is_terminal(self, node: MCTSNode):
+        """
+        本函数作用是输入当前node，返回奖励（真实奖励，对了就是1错了就是-0.01的那种）
+        使用sft reward的话，相较于一般的情况需要多输入几个截图
+        input:
+            state:当前状态
+        """
+        # 仔细想想，还是要加上历史动作序列比较好。给action_output就行
+        state_list = []
+        history_action = []
+
+        # 获取历史动作序列
+        temp_node = node
+        while temp_node.parent is not None:
+            history_action.append(temp_node.action_output)
+            temp_node = temp_node.parent
+        if len(history_action) != 0:
+            history_action.reverse()
+        
+        # 获取历史截图序列
+        temp_node = node
+        while True:
+            state_list.append(temp_node.state)
+            if temp_node.parent is None or len(state_list) >= 3:
+                break
+            temp_node = temp_node.parent
+        
+        terminal, terminal_output = self.vision.is_terminal_sft(task_goal=self.task_goal, state_list=state_list, env=self.env, history_action=history_action)
+        print("本状态的terminal值为",terminal)
+        return terminal, terminal_output
+    
 class WorldAndSearchModelForCogAgent:
     def __init__(self, env: interface.AsyncEnv, task_goal:str,):
         self.task_goal = task_goal

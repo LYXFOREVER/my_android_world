@@ -38,9 +38,9 @@ agent_high_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='
 agent_filter = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
 
 # 文件夹路径
-parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_15/0_original_data'
+parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_21/0_original_data'
 # 存放合格轨迹的路径
-parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_15/1_processed_data'
+parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_21/1_processed_data'
 
 # 依次处理各个app的轨迹
 for app_name in app_names:

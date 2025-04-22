@@ -213,10 +213,11 @@ def execute_adb_action_v2(
   if action.action_type in ['click', 'double_tap', 'long_press']:
     idx = action.index
     # 不是哥么，这里原版的x,y不乘以屏幕边界是什么意思？还要我自己来操作？
+    # 25-4-19更新，这里假定action里面的x,y都是0-1000的标准规格，然后再将其转化为像素点
     screen_width, screen_height = screen_size
     if action.x is not None and action.y is not None:
-      x = int(action.x * screen_width)
-      y = int(action.y * screen_height)
+      x = int((action.x/1000) * screen_width)
+      y = int((action.y/1000) * screen_height)
     else:
       x = action.x
       y = action.y
@@ -250,9 +251,11 @@ def execute_adb_action_v2(
     if text:
       # First focus on enter text UI element.
       click_action = copy.deepcopy(action)
-      click_action.action_type = 'click'
-      execute_adb_action(click_action, screen_elements, screen_size, env, console_port=console_port)
-      time.sleep(3.0) # 延长一点等待时间，防止avd太卡
+      if action.x is not None or action.index is not None:
+        # 给了坐标就点击，没给就不点
+        click_action.action_type = 'click'
+        execute_adb_action_v2(click_action, screen_elements, screen_size, env, console_port=console_port)
+        time.sleep(3.0) # 延长一点等待时间，防止avd太卡
       adb_utils.type_text_oldversion(text, env, timeout_sec=10,console_port=console_port)
       adb_utils.press_enter_button(env)
     else:
