@@ -9,7 +9,7 @@
         "id": 1,
         "task_description": "In app simple gallery pro, Return to the image viewing screen and then delete the current image.",
         "executed": 1,
-        "succeeded": 1.0
+        "succeeded": 0.0
     },
     {
         "id": 2,
@@ -33,7 +33,7 @@
         "id": 5,
         "task_description": "In app simple gallery pro, Return to the gallery view after editing the image and then share the edited image.",
         "executed": 1,
-        "succeeded": 1.0
+        "succeeded": 0.0
     },
     {
         "id": 6,
@@ -45,7 +45,7 @@
         "id": 7,
         "task_description": "In app simple gallery pro, Take a photo of the house after switching the view mode.",
         "executed": 1,
-        "succeeded": 1.0
+        "succeeded": 0.0
     },
     {
         "id": 8,
@@ -63,8 +63,8 @@
         "id": 10,
         "task_description": "In app simple gallery pro, Check the details of the image currently being displayed.",
         "executed": 1,
-        "succeeded": 0.0,
-        "extended": 1.0
+        "succeeded": 1.0,
+        "extended": 0
     },
     {
         "id": 11,
@@ -77,21 +77,21 @@
         "task_description": "In app simple gallery pro, View the image 'yVWbHK25OR' in full screen, dismiss the instructions, and then zoom in to examine the details of the image.",
         "executed": 1,
         "succeeded": 0.0,
-        "extended": 1.0
+        "extended": 0
     },
     {
         "id": 13,
         "task_description": "In app simple gallery pro, Edit the video by trimming it from 0:29 to 0:58.",
         "executed": 1,
         "succeeded": 0.0,
-        "extended": 1.0
+        "extended": 0
     },
     {
         "id": 14,
         "task_description": "In app simple gallery pro, Task-Oriented: Open the 'VLCVideos' folder and play the video named 'CZOrFolMmC'.",
         "executed": 1,
-        "succeeded": 0.0,
-        "extended": 1.0
+        "succeeded": 1.0,
+        "extended": 0
     },
     {
         "id": 15,
@@ -102,32 +102,32 @@
     {
         "id": 16,
         "task_description": "In app simple gallery pro, Share the selected video using Gmail.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 17,
         "task_description": "In app simple gallery pro, Task-Oriented: Cancel the current selection and return to the main gallery view to browse and view other photos.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 18,
         "task_description": "In app simple gallery pro, Task-Oriented: Search for a folder named 'Pictures' within the Simple Gallery Pro app.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 19,
         "task_description": "In app simple gallery pro, Watch the video 'yVwbHk25OR' from beginning to end, then share it.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 20,
         "task_description": "In app simple gallery pro, Task-Oriented: Search for the video named 'DG4arcxdcs' within the 'VLCVideos' directory and then play the video.",
-        "executed": 1,
-        "succeeded": 1.0
+        "executed": 0,
+        "succeeded": 0.0
     },
     {
         "id": 21,

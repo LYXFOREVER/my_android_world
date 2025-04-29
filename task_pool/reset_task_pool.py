@@ -49,10 +49,18 @@ if __name__ == "__main__":
     # 需要把unicode转成中文的话，下载unicodeToChinese，选中需要转化的字符然后ctrl+shift+p，输入这个名字，使用命令即可
 
 
-    file_path = 'task_pool/clock.json'  
-    start_id = 0
-    end_id = 200
-    modified_data = modify_json_data(file_path, start_id, end_id)
-    if modified_data:
-        print("修改后的数据:")
-        print(json.dumps(modified_data, ensure_ascii=False, indent=4))
+    #file_path = 'task_pool/clock.json'  
+    file_path_id_list = [0,1,2,3,4,5,6,7,8]
+
+    for app_id in file_path_id_list:
+        with open('task_goal_gen/available_app_list.json', 'r', encoding='utf-8') as file:
+            available_app_list = json.load(file)
+        app_name = available_app_list[app_id]
+        file_path = os.path.join("task_pool", app_name+".json")
+
+        start_id = 0
+        end_id = 20
+        modified_data = modify_json_data(file_path, start_id, end_id)
+        if modified_data:
+            print("修改后的数据:")
+            print(json.dumps(modified_data, ensure_ascii=False, indent=4))

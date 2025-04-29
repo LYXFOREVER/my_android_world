@@ -1105,7 +1105,7 @@ def create_multi_app_task_pool(
 
 
 #######################################################
-#接下来开始尝试有ai指导的bfs
+#接下来开始尝试有ai指导的dfs
 
 class dfsNode:
     def __init__(
@@ -1120,7 +1120,7 @@ class dfsNode:
         self.action_output = action_output
         self.state = state
         self.parent = parent
-        self.children: "Optional[list[MCTSNode]]" = None
+        self.children: "Optional[list[dfsNode]]" = None
         if parent is None:
             self.depth = 0
         else:
@@ -1142,6 +1142,7 @@ def guided_dfs_app_navigate(
     """
     使用有actor agent指导的方法探索app，将探索轨迹保存为pkl
     """
+    # 结合当前截图生成单步目标与动作
 
 
 

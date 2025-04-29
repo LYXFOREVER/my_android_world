@@ -23,7 +23,17 @@ from android_world.agents import m3a
 from android_world.agents import infer
 # app的名字
 #app_names = ['com.kugou.android', 'com.sina.weibo', 'com.tencent.mtt', 'com.tencent.qqlive', 'tv.danmaku.bili']
-app_names = ['contacts', 'files', 'settings', 'simple gallery pro', 'simple sms messenger']
+#app_names = ['contacts', 'files', 'settings', 'simple gallery pro', 'simple sms messenger']
+app_names = [
+    "files",
+    "settings",
+    "simple sms messenger",
+    "simple gallery pro",
+    "contacts",
+    "broccoli app",
+    "pro expense",
+    "dialer",
+    "chrome",]
 #app_names = ['broccoli app', 'chrome', 'clock', 'dialer', 'pro expense']
 #app_names = ['broccoli app', ]
 #app_names = ['tv.danmaku.bili']
@@ -33,14 +43,17 @@ app_names = ['contacts', 'files', 'settings', 'simple gallery pro', 'simple sms 
 min_score = 5 
 
 # 使用的agent
-agent_low_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
-agent_high_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
-agent_filter = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+#agent_low_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+#agent_high_level = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+agent_low_level = m3a.MultimodelTaskGen(infer.Qwen2_5vlWrapperV2(max_retry=100))
+agent_high_level = m3a.MultimodelTaskGen(infer.Qwen2_5vlWrapperV2(max_retry=100))
+#agent_filter = m3a.MultimodelTaskGen(infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=6))
+agent_filter = m3a.MultimodelTaskGen(infer.SftRewardModelWrapperV2())
 
 # 文件夹路径
-parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_21/0_original_data'
+parent_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_27-extend-sft/0_original_data'
 # 存放合格轨迹的路径
-parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_21/1_processed_data'
+parent_target_folder_path = '/data7/Users/lyx/code/mcts_dataset/data_for_check_25_4_27-extend-sft/1_processed_data'
 
 # 依次处理各个app的轨迹
 for app_name in app_names:

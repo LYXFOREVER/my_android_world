@@ -134,6 +134,7 @@ class MultimodalLlmWrapper(abc.ABC):
     """
 
 
+
 SAFETY_SETTINGS_BLOCK_NONE = {
     types.HarmCategory.HARM_CATEGORY_HARASSMENT: (
         types.HarmBlockThreshold.BLOCK_NONE
@@ -306,7 +307,7 @@ class GeminiGcpWrapper(LlmWrapper, MultimodalLlmWrapper):
       elif isinstance(item, Image.Image):
         converted.append(item)
     return converted
-  
+
 class GeminiGradioWrapper(LlmWrapper, MultimodalLlmWrapper):
   """Gemini 2.0 flash interface，但是使用自己的服务器。每次使用的时候都需要手动修改一下本次服务器的地址
       目前只接受文本
@@ -353,7 +354,7 @@ class GeminiGradioWrapper(LlmWrapper, MultimodalLlmWrapper):
     image_str_list = []
     for image in images:
       image_str_list.append(encode_image(image))
-    images_str = str(image_str_list)  
+    images_str = str(image_str_list)
 
     while counter > 0:
       try:
@@ -441,7 +442,7 @@ class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
       text_prompt: str,
   ) -> tuple[str, Optional[bool], Any]:
     return self.predict_mm(text_prompt, [])
-  
+
   def get_response_with_retry(self, client, model, temperature, messages):
     retries = 0
     while retries < self.max_retry:
@@ -494,10 +495,10 @@ class Gpt4WrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
             }
     ]
     messages[0]['content'] = messages[0]['content'] + image_dic_list
-    
+
     response = self.get_response_with_retry(
-      client=client, 
-      model=self.model, 
+      client=client,
+      model=self.model,
       temperature=self.temperature,
       messages=messages
     )
@@ -685,7 +686,7 @@ class AtlasWrapper(LlmWrapper, MultimodalLlmWrapper):
   """OS-Atlas wrapper.终于是用上开源模型啦！
 
   Attributes:
-    
+
   """
 
   def __init__(
@@ -767,14 +768,14 @@ class AtlasWrapper(LlmWrapper, MultimodalLlmWrapper):
       None,
       output_text,
     )
-  
+
 class Qwen2VL72bWrapper(LlmWrapper, MultimodalLlmWrapper):
   """Qwen2VL wrapper.希望表现好一点，对我好一点
 
   Attributes:
-    
+
   """
-  
+
   def __init__(
       self,max_new_tokens = 512,temperature = 0,stream = True,
   ):
@@ -789,33 +790,33 @@ class Qwen2VL72bWrapper(LlmWrapper, MultimodalLlmWrapper):
     # template.set_mode('pt')
 
     self.model_parameter_info = get_model_parameter_info(self.engine.model)
-  
+
   def infer_stream(self, engine: InferEngine, infer_request: InferRequest):
     request_config = RequestConfig(max_tokens=self.max_new_tokens, temperature=self.temperature, stream=True)
     gen = engine.infer([infer_request], request_config)
     query = infer_request.messages[0]['content']
-    
+
     print(f'query: {query}\nresponse: ', end='')
-    
+
     # 用来保存完整的回复
     full_response = []
-    
+
     # 流式输出部分
     for resp_list in gen:
         # 获取每次返回的部分内容并打印
         part = resp_list[0].choices[0].delta.content
         print(part, end='', flush=True)
-        
+
         # 将每次输出的部分保存到full_response列表中
         full_response.append(part)
-    
+
     # 将整个字符串拼接并返回
     final_response = ''.join(full_response)
     print()  # 输出换行
     print(f'Final Response: {final_response}')
-    
+
     return final_response
-  
+
   @classmethod
   def encode_image(cls, image: np.ndarray) -> str:
     return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
@@ -825,7 +826,7 @@ class Qwen2VL72bWrapper(LlmWrapper, MultimodalLlmWrapper):
       text_prompt: str,
   ) -> tuple[str, Optional[bool], Any]:
     return self.predict_mm(text_prompt, [])
-  
+
   def predict_mm(
       self, text_prompt: str, images: list[np.ndarray]
   ) -> tuple[str, Optional[bool], Any]:
@@ -854,7 +855,7 @@ class Qwen2VL72bWrapper(LlmWrapper, MultimodalLlmWrapper):
               ],
           }
       ]
-    
+
     result = self.infer_stream(self.engine, InferRequest(messages=messages))
 
     return(
@@ -872,7 +873,7 @@ def convert_action_format(action_str: str):
     # 处理 END() 动作
     if action_str.startswith('END'):
         return {"action_type": "status", "goal_status": "complete"}
-    
+
     # 处理 CLICK 和 DOUBLE_CLICK
     if action_str.startswith('CLICK') or action_str.startswith('DOUBLE_CLICK'):
         match = re.match(r"(CLICK|DOUBLE_CLICK)\(box=\[\[(\d+),(\d+),(\d+),(\d+)\]", action_str)
@@ -890,7 +891,7 @@ def convert_action_format(action_str: str):
                 "x": normalized_x,
                 "y": normalized_y
             }
-    
+
     # 处理 SCROLL
     elif action_str.startswith('SCROLL'):
         match = re.match(r"(SCROLL_UP|SCROLL_DOWN|SCROLL_LEFT|SCROLL_RIGHT)\(box=\[\[(\d+),(\d+),(\d+),(\d+)\]", action_str)
@@ -901,7 +902,7 @@ def convert_action_format(action_str: str):
                 "action_type": action_type,
                 "direction": direction
             }
-    
+
     # 处理 TYPE（文本输入）
     elif action_str.startswith('TYPE'):
         match = re.match(r"TYPE\(box=\[\[(\d+),(\d+),(\d+),(\d+)\], text='([^']+)'\)", action_str)
@@ -916,7 +917,7 @@ def convert_action_format(action_str: str):
                 "x": normalized_x,
                 "y": normalized_y
             }
-    
+
     # 不支持的动作类型
     print("CogAgent输出了一个不支持的动作类型, 具体内容为:", action_str)
     return None
@@ -927,15 +928,15 @@ class CogAgentWrapper(LlmWrapper, MultimodalLlmWrapper):
   """CogAgent24.12.22版本 wrapper.非常特别的模型，希望有好表现
 
   Attributes:
-    
+
   """
-  
+
   def __init__(
       self,
       max_new_tokens = 5120,
       model_id_or_path = "/data7/Users/lyx/.cache/huggingface/hub/models--THUDM--cogagent-9b-20241220/snapshots/0de2cad8d51f2621a15f9d6ba3eb2944a41f0292",
       format_key = "status_plan_action_op",
-      platform = "Mobile", 
+      platform = "Mobile",
       top_k = 1,
       max_retry = 2,# cogagent有可能无法输出正常格式的回复
   ):
@@ -981,7 +982,7 @@ class CogAgentWrapper(LlmWrapper, MultimodalLlmWrapper):
       text_prompt: str,
   ) -> tuple[str, Optional[bool], Any]:
     return self.predict_mm(text_prompt, [])
-  
+
   def predict_mm(
       self, task: str, history_step: list, history_action: list, image: Image
   ):
@@ -1047,7 +1048,7 @@ class CogAgentWrapper(LlmWrapper, MultimodalLlmWrapper):
           matches_history = matches_history.group(1)  # 提取匹配的字符串
       else:
           matches_history = ''  # 处理没有匹配到的情况
-      
+
       matches_actions = re.search(action_pattern, response) # 动作的描述
       if matches_actions:
           matches_actions = matches_actions.group(1)  # 提取匹配的字符串
@@ -1059,12 +1060,12 @@ class CogAgentWrapper(LlmWrapper, MultimodalLlmWrapper):
       if matches_grounded_action is None:
          max_retry -= 1
          print("CogAgent输出的动作处理不来。目前cogAgent还有",max_retry,"次机会")
-    
+
 
     if max_retry <= 0:
        # 出现这种情况，那只能说是cogAgent的锅了
        return response, None
-    
+
     # 假如正常的话
     # 整理成字典，用于返回
     response_dic = {
@@ -1075,7 +1076,7 @@ class CogAgentWrapper(LlmWrapper, MultimodalLlmWrapper):
     }
 
     return response, response_dic
-  
+
 from PIL import Image
 from gradio_client import Client
 import gradio
@@ -1086,9 +1087,9 @@ import io
 class CogAgentAPIWrapper(LlmWrapper, MultimodalLlmWrapper):
   """CogAgent24.12.22版本 wrapper.非常特别的模型，希望有好表现。把它弄成api了，用来适应多开
   Attributes:
-    
+
   """
-  
+
   def __init__(
       self,
   ):
@@ -1103,7 +1104,7 @@ class CogAgentAPIWrapper(LlmWrapper, MultimodalLlmWrapper):
       text_prompt: str,
   ) -> tuple[str, Optional[bool], Any]:
     return self.predict_mm(text_prompt, [])
-  
+
   def predict_mm(
       self, task: str, history_step: list, history_action: list, image: Image
   ):
@@ -1128,7 +1129,7 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
   """
   使用训练过的qwen2vl模型作为reward模型，不能用来生成动作，只能作为判断轨迹正误的模型
   """
-  
+
   def __init__(
       self,max_new_tokens = 512,temperature = 0,stream = True,device = 'auto'
   ):
@@ -1143,16 +1144,16 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
         #"/home/wentao/project/gui_ads/OS-Atlas-Base-7B", torch_dtype="auto", device_map="auto"
     )
     self.processor = AutoProcessor.from_pretrained("/data1/Models/Qwen2-VL-2B-Instruct")
-  
+
   def get_image_info(self, image_path, min_pixel=256 * 28 * 28, max_pixel=1280 * 28 * 28):
     # Using this because of process_vision_info function
-    # Need to fix this in the future    
-    
+    # Need to fix this in the future
+
     messages = [
-        {"role": "user", 
+        {"role": "user",
         "content": [
             {
-                "type": "image", 
+                "type": "image",
                 "image": image_path,
                 "min_pixels": min_pixel,
                 "max_pixels": max_pixel,
@@ -1211,7 +1212,7 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
         return_tensors="pt",
     )
     inputs = inputs.to(self.device)
-    
+
 #    import pdb
 #    pdb.set_trace()
 
@@ -1232,7 +1233,7 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
     )[0][0:-10]
 
     return output_text
-    
+
   @classmethod
   def encode_image(cls, image: np.ndarray) -> str:
     return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
@@ -1242,13 +1243,13 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
       text_prompt: str,
   ) -> tuple[str, Optional[bool], Any]:
     return self.predict_mm(text_prompt, [])
-  
+
   def predict_mm(
       self, text_prompt: str, images: list[np.ndarray]
   ) -> tuple[str, Optional[bool], Any]:
-    
+
     pil_images = [Image.fromarray(image) for image in images]
-    
+
     # 调用生成函数，传入转换后的 PIL.Image 列表
     result = self.generate_grounding(pil_images, text_prompt)
 
@@ -1257,7 +1258,7 @@ class SftRewardModelWrapper(LlmWrapper, MultimodalLlmWrapper):
       None,
       result,
     )
-  
+
 
 class UITarsWrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
   """UI Tars wrapper.使用部署在同一个机器上面的服务器，用openai的库
@@ -1291,7 +1292,7 @@ class UITarsWrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
       text_prompt: str,
   ) -> tuple[str, Optional[bool], Any]:
     return self.predict_mm(text_prompt, [])
-  
+
   def get_response_with_retry(self, client, messages):
     retries = 0
     while retries < self.max_retry:
@@ -1339,9 +1340,616 @@ class UITarsWrapperOpenaiWay(LlmWrapper, MultimodalLlmWrapper):
             }
     ]
     messages[0]['content'] = messages[0]['content'] + image_dic_list
-    
+
     response = self.get_response_with_retry(
-      client=self.client, 
+      client=self.client,
+      messages=messages
+    )
+    if response is None:
+      return(
+        None,
+        None,
+        None,
+      )
+    response_text = response.choices[0].message.content
+    # 记录调用时间
+    #usage_info = response.usage
+    current_time_str = str(datetime.now())
+    usage = {
+        'request_time': current_time_str,
+    }
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
+    # 读取已有文件或创建新文件
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    else:
+        data = []
+
+    # 添加新的 usage 数据
+    data.append(usage)
+
+    # 保存回文件
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
+    return (
+        response_text,
+        None,
+        response,
+    )
+
+
+class UITarsWrapperOpenaiWayV2(LlmWrapper, MultimodalLlmWrapper):
+  """UI Tars wrapper.修改了输入，现在有了直接输入message的方法
+
+  Attributes:
+    openai_api_key: The class gets the OpenAI api key either explicitly, or
+      through env variable in which case just leave this empty.
+    max_retry: Max number of retries when some error happens.
+    temperature: The temperature parameter in LLM to control result stability.
+    model: GPT model to use based on if it is multimodal.
+  """
+  RETRY_WAITING_SECONDS = 20
+
+  def __init__(
+      self,
+      max_retry = 3,
+  ):
+    #self.client = OpenAI(
+    #  base_url="http://127.0.0.1:8000/v1",
+    #  api_key="empty",
+    #)
+
+    # 在ai station上面进行活动，端口每次都可能要改
+    self.client = OpenAI(
+      base_url="http://10.251.171.18:30773/v1",
+      api_key="empty",
+    )
+
+    self.max_retry = max_retry
+
+  @classmethod
+  def encode_image(cls, image: np.ndarray) -> str:
+    return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
+
+  def predict(
+      self,
+      text_prompt: str,
+  ) -> tuple[str, Optional[bool], Any]:
+    return self.predict_mm(text_prompt, [])
+
+  def get_response_with_retry(self, client, messages):
+    retries = 0
+    while retries < self.max_retry:
+        try:
+            response = client.chat.completions.create(
+                model="ui-tars",
+                temperature=0,
+                messages=messages,
+            )
+            if response is None:
+               retries += 1
+               continue
+            return response
+        except (RequestException) as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+        except Exception as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+    print("Failed to get response after maximum retries.")
+    return None
+
+  def predict_mm(
+      self, text_prompt: str, images: list[np.ndarray]
+  ) -> tuple[str, Optional[bool], Any]:
+    image_dic_list = []
+    for image in images:
+      image_dic = {
+                      "type": "image_url",
+                      "image_url": {"url": f"data:image/jpeg;base64,{self.encode_image(image)}"},
+                  }
+      image_dic_list.append(image_dic)
+
+    messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": text_prompt,
+                    },
+                ],
+            }
+    ]
+    messages[0]['content'] = messages[0]['content'] + image_dic_list
+
+    response = self.get_response_with_retry(
+      client=self.client,
+      messages=messages
+    )
+    if response is None:
+      return(
+        None,
+        None,
+        None,
+      )
+    response_text = response.choices[0].message.content
+    # 记录调用时间
+    #usage_info = response.usage
+    current_time_str = str(datetime.now())
+    usage = {
+        'request_time': current_time_str,
+    }
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
+    # 读取已有文件或创建新文件
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    else:
+        data = []
+
+    # 添加新的 usage 数据
+    data.append(usage)
+
+    # 保存回文件
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
+    return (
+        response_text,
+        None,
+        response,
+    )
+  def predict_mm_message(
+      self, messages,
+  ) -> tuple[str, Optional[bool], Any]:
+    """
+    默认输入的直接就是message
+    """
+
+    response = self.get_response_with_retry(
+      client=self.client,
+      messages=messages
+    )
+    if response is None:
+      return(
+        None,
+        None,
+        None,
+      )
+    response_text = response.choices[0].message.content
+    # 记录调用时间
+    #usage_info = response.usage
+    current_time_str = str(datetime.now())
+    usage = {
+        'request_time': current_time_str,
+    }
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
+    # 读取已有文件或创建新文件
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    else:
+        data = []
+
+    # 添加新的 usage 数据
+    data.append(usage)
+
+    # 保存回文件
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
+    return (
+        response_text,
+        None,
+        response,
+    )
+
+class SftRewardModelWrapperV2(LlmWrapper, MultimodalLlmWrapper):
+  """以服务器的形式调用sft reward
+
+  Attributes:
+    max_retry: 连不上服务器的时候最多尝试几次
+    mode: 可选"llm"模式和"rule"模式。llm模式下会尝试获取sft reward的回复。rule模式则只会输出No
+  """
+  RETRY_WAITING_SECONDS = 20
+
+  def __init__(
+      self,
+      max_retry = 3,
+      mode = "llm"
+  ):
+    #self.client = OpenAI(
+    #  base_url="http://127.0.0.1:8000/v1",
+    #  api_key="empty",
+    #)
+
+    # 在ai station上面进行活动，端口每次都可能要改
+    self.client = OpenAI(
+      base_url="http://10.251.171.18:30440/v1",
+      api_key="empty",
+    )
+
+    self.max_retry = max_retry
+    self.mode = mode
+
+  @classmethod
+  def encode_image(cls, image: np.ndarray) -> str:
+    return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
+
+  def predict(
+      self,
+      text_prompt: str,
+  ) -> tuple[str, Optional[bool], Any]:
+    return self.predict_mm(text_prompt, [])
+
+  def get_response_with_retry(self, client, messages):
+    if self.mode == "rule":
+       # rule模式不连接llm，直接返回No
+      response = {
+          "id": "simulated-response-id",  # 模拟的响应 ID
+          "object": "chat.completion",  # 对象类型
+          "created": 1682712345,  # 创建时间戳（可以根据需要修改）
+          "model": "sft-reward",  # 模型名称
+          "choices": [  # 选择列表
+              {
+                  "index": 0,  # 选择的索引
+                  "message": {  # 消息内容
+                      "role": "assistant",  # 响应的角色（通常是 assistant）
+                      "content": "No"  # 文本内容始终为 "No"
+                  },
+                  "finish_reason": "stop"  # 结束原因
+              }
+          ],
+          "usage": {  # 使用情况
+              "prompt_tokens": 10,  # 提示词的 token 数量
+              "completion_tokens": 1,  # 完成的 token 数量
+              "total_tokens": 11  # 总 token 数量
+          }
+      }
+      return response
+       
+    retries = 0
+    while retries < self.max_retry:
+        try:
+            response = client.chat.completions.create(
+                model="sft-reward",
+                temperature=0,
+                messages=messages,
+            )
+            if response is None:
+               retries += 1
+               continue
+            return response
+        except (RequestException) as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+        except Exception as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+    print("Failed to get response after maximum retries.")
+    return None
+
+  def predict_mm(
+      self, text_prompt: str, images: list[np.ndarray]
+  ) -> tuple[str, Optional[bool], Any]:
+    image_dic_list = []
+    for image in images:
+      image_dic = {
+                      "type": "image_url",
+                      "image_url": {"url": f"data:image/jpeg;base64,{self.encode_image(image)}"},
+                  }
+      image_dic_list.append(image_dic)
+
+    messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": text_prompt,
+                    },
+                ],
+            }
+    ]
+    messages[0]['content'] = messages[0]['content'] + image_dic_list
+
+    response = self.get_response_with_retry(
+      client=self.client,
+      messages=messages
+    )
+    if response is None:
+      return(
+        None,
+        None,
+        None,
+      )
+    if self.mode == "llm":
+      response_text = response.choices[0].message.content
+    else:
+      response_text = response["choices"][0]["message"]["content"]
+    # 记录调用时间
+    #usage_info = response.usage
+    current_time_str = str(datetime.now())
+    usage = {
+        'request_time': current_time_str,
+    }
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
+    # 读取已有文件或创建新文件
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    else:
+        data = []
+
+    # 添加新的 usage 数据
+    data.append(usage)
+
+    # 保存回文件
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
+    return (
+        response_text,
+        None,
+        response,
+    )
+  def predict_mm_message(
+      self, messages,
+  ) -> tuple[str, Optional[bool], Any]:
+    """
+    默认输入的直接就是message
+    """
+
+    response = self.get_response_with_retry(
+      client=self.client,
+      messages=messages
+    )
+    if response is None:
+      return(
+        None,
+        None,
+        None,
+      )
+    response_text = response.choices[0].message.content
+    # 记录调用时间
+    #usage_info = response.usage
+    current_time_str = str(datetime.now())
+    usage = {
+        'request_time': current_time_str,
+    }
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
+    # 读取已有文件或创建新文件
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    else:
+        data = []
+
+    # 添加新的 usage 数据
+    data.append(usage)
+
+    # 保存回文件
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
+    return (
+        response_text,
+        None,
+        response,
+    )
+  
+class Qwen2_5vlWrapperV2(LlmWrapper, MultimodalLlmWrapper):
+  """以服务器的形式调用Qwen2.5vl
+
+  Attributes:
+    openai_api_key: The class gets the OpenAI api key either explicitly, or
+      through env variable in which case just leave this empty.
+    max_retry: Max number of retries when some error happens.
+    temperature: The temperature parameter in LLM to control result stability.
+    model: GPT model to use based on if it is multimodal.
+  """
+  RETRY_WAITING_SECONDS = 20
+
+  def __init__(
+      self,
+      max_retry = 3,
+  ):
+    #self.client = OpenAI(
+    #  base_url="http://127.0.0.1:8000/v1",
+    #  api_key="empty",
+    #)
+
+    # 在ai station上面进行活动，端口每次都可能要改
+    self.client = OpenAI(
+      base_url="http://10.251.171.18:30753/v1",
+      api_key="empty",
+    )
+
+    self.max_retry = max_retry
+
+  @classmethod
+  def encode_image(cls, image: np.ndarray) -> str:
+    return base64.b64encode(array_to_jpeg_bytes(image)).decode('utf-8')
+
+  def predict(
+      self,
+      text_prompt: str,
+  ) -> tuple[str, Optional[bool], Any]:
+    return self.predict_mm(text_prompt, [])
+
+  def get_response_with_retry(self, client, messages):
+    retries = 0
+    while retries < self.max_retry:
+        try:
+            response = client.chat.completions.create(
+                model="Qwen2.5vl",
+                temperature=0,
+                messages=messages,
+            )
+            if response is None:
+               retries += 1
+               continue
+            return response
+        except (RequestException) as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+        except Exception as e:
+            retries += 1
+            print(f"Error calling API: {e}. Retrying {retries}/{self.max_retry}...")
+            time.sleep(2 ** retries)  # 指数级等待时间
+    print("Failed to get response after maximum retries.")
+    return None
+
+  def predict_mm(
+      self, text_prompt: str, images: list[np.ndarray]
+  ) -> tuple[str, Optional[bool], Any]:
+    image_dic_list = []
+    for image in images:
+      image_dic = {
+                      "type": "image_url",
+                      "image_url": {"url": f"data:image/jpeg;base64,{self.encode_image(image)}"},
+                  }
+      image_dic_list.append(image_dic)
+
+    messages = [
+            {
+                "role": "user",
+                "content": [
+                    {
+                        "type": "text",
+                        "text": text_prompt,
+                    },
+                ],
+            }
+    ]
+    messages[0]['content'] = messages[0]['content'] + image_dic_list
+
+    response = self.get_response_with_retry(
+      client=self.client,
+      messages=messages
+    )
+    if response is None:
+      return(
+        None,
+        None,
+        None,
+      )
+    response_text = response.choices[0].message.content
+    # 记录调用时间
+    #usage_info = response.usage
+    current_time_str = str(datetime.now())
+    usage = {
+        'request_time': current_time_str,
+    }
+    pid = os.getpid()
+    pid_str = str(pid)
+    json_name = "api_usage_"+pid_str+".json"
+    file_path = json_name
+    # 读取已有文件或创建新文件
+    if os.path.exists(file_path):
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    else:
+        data = []
+
+    # 添加新的 usage 数据
+    data.append(usage)
+
+    # 保存回文件
+    with open(file_path, "w") as file:
+        json.dump(data, file, indent=4)
+    """
+    try:
+      pid = os.getpid()
+      pid_str = str(pid)
+      json_name = "api_usage_"+pid_str+".json"
+      append_to_json_list(json_name, usage)
+    except Exception as e:
+       print("记录成本失败了。没办法只能先不记录了")
+       print("报错为:", e)
+    """
+    return (
+        response_text,
+        None,
+        response,
+    )
+  def predict_mm_message(
+      self, messages,
+  ) -> tuple[str, Optional[bool], Any]:
+    """
+    默认输入的直接就是message
+    """
+
+    response = self.get_response_with_retry(
+      client=self.client,
       messages=messages
     )
     if response is None:

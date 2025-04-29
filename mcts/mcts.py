@@ -257,6 +257,7 @@ class MCTS(Generic[State, Action, Example]):
                 state=None,
                 action=ranked_action['action'],
                 action_output=ranked_action['action_output'],
+                history_action=ranked_action['history_action'],
                 parent=node,
                 fast_reward=fast_reward,
                 calc_q=self.calc_q,
@@ -361,7 +362,7 @@ class MCTS(Generic[State, Action, Example]):
                 print("找到成功轨迹了，目前迭代次数是：",iter,"可以结束了")
                 break
 
-        if self.output_strategy == "max_reward": 
+        if self.output_strategy == "max_reward":
             self._output_cum_reward, self._output_iter = self._dfs_max_reward(
                 [self.root]
             )
@@ -408,7 +409,7 @@ class MCTS(Generic[State, Action, Example]):
             tree_state_after_each_iter=tree_state_after_each_iter,
         )
         return result
-    
+
 import itertools
 import math
 from abc import ABC
@@ -668,6 +669,7 @@ class MCTSForAndroidWorld(Generic[State, Action, Example]):
                 state=None,
                 action=ranked_action['action'],
                 action_output=ranked_action['action_output'],
+                history_action=ranked_action["history_action"],
                 parent=node,
                 fast_reward=fast_reward,
                 calc_q=self.calc_q,
@@ -772,7 +774,7 @@ class MCTSForAndroidWorld(Generic[State, Action, Example]):
                 print("找到成功轨迹了，目前迭代次数是：",iter,"可以结束了")
                 break
 
-        if self.output_strategy == "max_reward": 
+        if self.output_strategy == "max_reward":
             self._output_cum_reward, self._output_iter = self._dfs_max_reward(
                 [self.root]
             )

@@ -43,6 +43,7 @@ class MCTSNode(Generic[Action, Example]):
         state: Optional[State], # 这里的state是android world的state
         action: Optional[json_action.JSONAction], # 就是execute_action用的那种action
         action_output: str = "no action output yet", # 包含有cot的action
+        history_action: str = "no history action yet",
         parent: "Optional[MCTSNode]" = None,
         fast_reward: float = 0.0,
         is_terminal: bool = False,
@@ -65,6 +66,8 @@ class MCTSNode(Generic[Action, Example]):
 
         self.action = action
         self.action_output = action_output
+
+        self.history_action = history_action
 
         self.summary = None
         self.summary_prompt = None
@@ -145,6 +148,9 @@ def save_ui_elements(ui_elements, folder, txt_name = 'ui_element.txt'):
     
     
 def save_node_state(node:MCTSNode, doc = "temp_state/"):
+    # 暂时停止这个函数的使用，在并行的时候太容易出bug了
+    return
+
     if node.state is None:
         print("本节点没有state，保存不了")
         return
@@ -156,7 +162,10 @@ def save_node_state(node:MCTSNode, doc = "temp_state/"):
     formatted_time = current_time.strftime("%Y-%m-%d_%H-%M-%S")
     path = doc + formatted_time
     if not os.path.exists(path):
-        os.makedirs(path)
+        try:
+            os.makedirs(path)
+        except:
+            print("保存save")
     save_array_as_image(screenshot, path, 'screenshot.png')
     save_ui_elements(ui_elements, path, 'ui_element.txt')
 
@@ -172,6 +181,8 @@ def save_node_state(node:MCTSNode, doc = "temp_state/"):
         shutil.rmtree(oldest)
 
 def save_state(state, doc = "temp_state/"):
+    # 暂时停止这个函数的使用，在并行的时候太容易出bug了
+    return
     if state is None:
         print("本节点没有state，保存不了")
         return
@@ -813,15 +824,21 @@ class SearchConfigForAndroidWorldTaskSFTRewardUITarsActor:
     """
     使用开源模型来作为actor和reward
     """
-    def __init__(self, env: interface.AsyncEnv, actor, critic, vision, task_goal:str):
+    def __init__(self, env: interface.AsyncEnv, actor, critic, vision, task_goal:str, app_name:str):
         self.actor = actor
         self.critic = critic
         self.vision = vision
         self.task_goal = task_goal
+        self.app_name = app_name
         self.env = env
 
     def reward(self, node: MCTSNode):
         # 输入状态，返回真实奖励（1就是1,0就是-0.01）
+        # ui tars有可能输出finish动作，而且一输出就停不下来。假如action是finish，那就让它
+
+        # 检查动作是否是finish
+        if node.action.action_type == "status":
+            return 1, "Actor believes task has been finished."
         while True:
             # 不输出正确格式的答复就出不去的函数
             terminal_state, terminal_output = self.is_terminal(node=node)
@@ -844,7 +861,7 @@ class SearchConfigForAndroidWorldTaskSFTRewardUITarsActor:
             # 马上要获取动作，先看一下当前节点的state长什么样：
             save_node_state(node)
             # 使用ui tars获得动作
-            action_list = self.actor.get_actions_androidworld_uitars(node=node, task_goal=self.task_goal)
+            action_list = self.actor.get_actions_androidworld_uitars_v2(node=node, task_goal=self.task_goal, all_apps=self.app_name)
             print("获得action_list的长度为:",len(action_list))
             print("获得的action_list如下")
             print(action_list)
@@ -890,7 +907,7 @@ class SearchConfigForAndroidWorldTaskSFTRewardUITarsActor:
                 break
             temp_node = temp_node.parent
         
-        terminal, terminal_output = self.vision.is_terminal_sft(task_goal=self.task_goal, state_list=state_list, env=self.env, history_action=history_action)
+        terminal, terminal_output = self.vision.is_terminal_sft(task_goal=self.task_goal, state_list=state_list, history_action=history_action)
         print("本状态的terminal值为",terminal)
         return terminal, terminal_output
     
@@ -1204,9 +1221,14 @@ def write_trajectry_to_file(trajectry, doc_path: str, env: interface.AsyncEnv, t
             item['action'] = node.action.json_str()
         else:
             item['action'] = None
+        if node.history_action is not None:
+            item['history_action'] = node.history_action
+        else:
+            item['history_action'] = None
         item['summary'] = node.summary
         item['summary_prompt'] = node.summary_prompt
         item['reward_output'] = node.reward_output
+        
         ui_action_summary.append(item)
     
     import json
@@ -1257,46 +1279,40 @@ def draw_ui_border(image_path, output_path, ui_bbox, border_color=(255, 0, 0), b
     except Exception as e:
         print(f"发生错误：{e}")
 
-def draw_click_on_image(image_path, click_info, output_path, color="red", radius=5):
+def draw_click_point(image_path, x, y, output_path, point_color=(255, 0, 0), point_radius=5):
     """
-    在图像上绘制点击坐标（支持百分比坐标）。
+    在图像上绘制一个红点。
 
     参数:
         image_path (str): 输入图像的路径。
-        click_info (dict): 包含点击信息的字典，格式为 {'action_type': 'click', 'x': float, 'y': float}，
-                           其中 x 和 y 是百分比（例如 0.5 表示 50%）。
+        x (int): 点的 x 坐标（范围 0-1000，表示图像宽度的百分比）。
+        y (int): 点的 y 坐标（范围 0-1000，表示图像高度的百分比）。
         output_path (str): 输出图像的路径。
-        color (str, optional): 绘制的圆点颜色，默认为红色。
-        radius (int, optional): 圆点的半径，默认为5像素。
+        point_color (tuple): 点的颜色，默认为红色 (255, 0, 0)。
+        point_radius (int): 点的半径，默认为 5。
     """
     try:
-        # 打开图像文件
+        # 打开图像
         image = Image.open(image_path)
-        width, height = image.size  # 获取图像的宽度和高度
-    except FileNotFoundError:
-        print(f"错误：文件 {image_path} 未找到！")
-        return
+        width, height = image.size
+
+        # 将 x 和 y 的百分比转换为实际像素坐标
+        x_pixel = int(x / 1000 * width)
+        y_pixel = int(y / 1000 * height)
+
+        # 创建一个可以在图像上绘图的对象
+        draw = ImageDraw.Draw(image)
+
+        # 绘制一个圆形点
+        draw.ellipse([(x_pixel - point_radius, y_pixel - point_radius), 
+                      (x_pixel + point_radius, y_pixel + point_radius)], 
+                     fill=point_color)
+
+        # 保存图像
+        image.save(output_path)
+        print(f"带有红点的图像已保存到 {output_path}")
     except Exception as e:
-        print(f"打开图像时出错：{e}")
-        return
-
-    # 创建绘图对象
-    draw = ImageDraw.Draw(image)
-
-    # 获取百分比形式的点击坐标
-    x_percent = click_info.get('x', 0)
-    y_percent = click_info.get('y', 0)
-
-    # 将百分比转换为像素坐标
-    x = int(x_percent * width)
-    y = int(y_percent * height)
-
-    # 在图像上绘制一个圆点
-    draw.ellipse([x - radius, y - radius, x + radius, y + radius], fill=color)
-
-    # 保存绘制后的图像
-    image.save(output_path)
-    print(f"图像已保存到 {output_path}")
+        print(f"发生错误：{e}")
 import shutil
 def copy_file(source_path, destination_path):
     try:
@@ -1337,7 +1353,7 @@ def draw_action(doc_path, trajectry_lenth):
                 ui_bbox = ui_element_list[ui_index]["ui_bbox"]
                 draw_ui_border(image_path, output_with_action_path, ui_bbox)
             elif "x" in action_dic and "y" in action_dic:
-                draw_click_on_image(image_path=image_path, click_info=action_dic, output_path=output_with_action_path)
+                draw_click_point(image_path=image_path, click_info=action_dic, output_path=output_with_action_path)
             else:
                 copy_file(image_path, output_with_action_path)
         except Exception as e:

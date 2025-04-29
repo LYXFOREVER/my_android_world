@@ -8,55 +8,55 @@
     {
         "id": 1,
         "task_description": "In app broccoli app, Create a new recipe with the title 'My Special Dish' and the description 'A delicious and easy-to-make recipe'. Add an image to the recipe and save it.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 2,
         "task_description": "In app broccoli app, Create a new recipe with a title, category, description, source, servings, time, ingredients, and directions, then save the recipe.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 3,
         "task_description": "In app broccoli app, Task-Oriented: Create a new recipe by adding a title, selecting a category, and adding a description, then save the recipe.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 4,
         "task_description": "In app broccoli app, Create a new recipe with the title 'My Special Soup', category 'Soup', description 'A delicious and hearty soup', source 'My Grandma', servings '4', time '60 minutes', ingredients 'Vegetables, broth, noodles', and directions 'Combine all ingredients and simmer for 60 minutes. Save the recipe.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 5,
         "task_description": "In app broccoli app, Close the bottom panel and then share the app with friends.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 6,
         "task_description": "In app broccoli app, Create a new recipe, but first acknowledge that no categories have been created by clicking 'OK' in the dialog box.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 7,
         "task_description": "In app broccoli app, Return to the main recipe list after deciding not to create a new recipe.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 8,
         "task_description": "In app broccoli app, Navigate to the 'Recipes' section of the Broccoli app to browse available recipes.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 9,
         "task_description": "In app broccoli app, Task-Oriented: Share the Broccoli app with a friend using the 'Messages' app.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {

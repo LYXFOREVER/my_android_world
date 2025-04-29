@@ -13,10 +13,11 @@
 # limitations under the License.
 
 """A Multimodal Autonomous Agent for Android (M3A)."""
-import math
-import time
+
 import base64
 from io import BytesIO
+import math
+import time
 from android_world.agents import agent_utils
 from android_world.agents import base_agent
 from android_world.agents import infer
@@ -24,6 +25,7 @@ from android_world.agents import m3a_utils
 from android_world.env import interface
 from android_world.env import json_action
 from android_world.env import representation_utils
+from android_world.env.adb_utils import get_all_apps
 from android_world.env.interface import State
 from android_world.agents import t3a
 from android_world.task_evals.lyx_single import lyx_task_util
@@ -1710,11 +1712,13 @@ def convert_unicode_escapes(input_string):
     result = pattern.sub(replace_unicode, input_string)
     return result
 
+
 def pil_to_base64(image):
     buffer = BytesIO()
     image.save(buffer, format="PNG")  # 你可以改成 "JPEG" 等格式
     return base64.b64encode(buffer.getvalue()).decode("utf-8")
 
+#todo: 和androidworld不一致
 def convert_action_format_for_uitars(model_output: str) -> str:
     """
     Converts the model's action output format to the desired format.
@@ -1725,18 +1729,17 @@ def convert_action_format_for_uitars(model_output: str) -> str:
     Returns:
         str: The converted action output in the desired format.
     """
+    #todo: x,y 转换成 androidworld里的绝对坐标
     # 定义一个转换规则的字典
     action_mapping = {
         r"click\(start_box='\((\d+),(\d+)\)'\)":
             lambda match: f'{{"action_type": "click", "x": {match.group(1)}, "y": {match.group(2)}}}',
         r"long_press\(start_box='\((\d+),(\d+)\)'\)":
             lambda match: f'{{"action_type": "long_press", "x": {match.group(1)}, "y": {match.group(2)}}}',
-        r"type\(content='(.*?)'(\s*\\n)?\)":
+        r"type\(content='([^']*)'(\s*\\n)?\)":
             lambda match: f'{{"action_type": "input_text", "text": "{match.group(1)}"}}',
         r"scroll\(start_box='\((\d+),(\d+)\)', direction='(\w+)'\)":
             lambda match: f'{{"action_type": "scroll", "direction": "{match.group(3)}", "x": {match.group(1)}, "y": {match.group(2)}}}',
-        r"scroll\((?:[^,]*,)*direction='(\w+)'(?:,[^,]*)*\)":
-            lambda match: f'{{"action_type": "scroll", "direction": "{match.group(1)}"}}',
         r"open_app\(app_name='([^']*)'\)":
             lambda match: f'{{"action_type": "open_app", "app_name": "{match.group(1)}"}}',
         r"drag\(start_box='\((\d+),(\d+)\)', end_box='\((\d+),(\d+)\)'\)":
@@ -1746,11 +1749,7 @@ def convert_action_format_for_uitars(model_output: str) -> str:
         r"press_back\(\)":
             lambda match: f'{{"action_type": "navigate_back"}}',
         r"finished\(content='([^']*)'\)":
-            lambda match: f'{{"action_type": "status", "goal_status": "complete"}}',
-        r"finished\(\)":  # 新增的规则，匹配不带 content 的 finished 动作
-            lambda match: f'{{"action_type": "status", "goal_status": "complete"}}',
-        r"wait\(.*\)": 
-            lambda match: f'{{"action_type": "wait"}}'
+            lambda match: f'{{"action_type": "finish", "content": "{match.group(1)}"}}'
     }
 
     # 遍历每个转换规则
@@ -1841,6 +1840,7 @@ class M3A(base_agent.EnvironmentInteractingAgent):
     self.history = []
     self.additional_guidelines = None
     self.wait_after_action_seconds = wait_after_action_seconds
+    self.all_apps = get_all_apps(self.env.controller.env)
 
   def set_task_guidelines(self, task_guidelines: list[str]) -> None:
     self.additional_guidelines = task_guidelines
@@ -2673,7 +2673,7 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
     elif result == 0:
       return -0.01, terminal_output
 
-  def is_terminal_sft(self, task_goal:str, state_list:list[State], history_action: list):
+  def is_terminal_sft(self, task_goal:str, state_list:list[State], env: interface.AsyncEnv, history_action: list):
     # TODO:sft reward接受的prompt不一样，接受的照片要三张,动作要两个对应的
 
     # 完成文本部分处理
@@ -3076,155 +3076,10 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
     """
     允许输出 open app 动作,并使用ui tars的风格获取动作
     """
-    #logical_screen_size = self.env.logical_screen_size
-    #orientation = self.env.orientation
-    #physical_frame_boundary = self.env.physical_frame_boundary
-
-    #before_ui_elements = state.ui_elements
-    #before_ui_elements_list = _generate_ui_elements_description_list(
-    #    before_ui_elements, logical_screen_size
-    #)
-    #raw_screenshot = state.pixels.copy()
-    #before_screenshot = state.pixels.copy()
-    #for index, ui_element in enumerate(before_ui_elements):
-    #  if m3a_utils.validate_ui_element(ui_element, logical_screen_size):
-    #    m3a_utils.add_ui_element_mark(
-    #        before_screenshot,
-    #        ui_element,
-    #        index,
-    #        logical_screen_size,
-    #        physical_frame_boundary,
-    #        orientation,
-    #    )
-
-    # 获取历史的summary ??事后看起来有点奇怪，不应该是action_output吗？
-    # 25-4-19修改了
     history_action = []
     history_screenshot = []
     while node.parent is not None and node.action is not None:
       history_action.append(node.action_output)
-      history_screenshot.append(node.state.pixels.copy())
-      node = node.parent
-    history_action.reverse()
-    history_screenshot.reverse()
-    history_screenshot = history_screenshot[-4:]
-
-    # 把history列表转化为字符串
-    action_history_str = ""
-    if history_action is None:
-      action_history_str = "No history action"
-    else:
-      for i, action in enumerate(history_action):
-        action_history_str += "Step "+str(i)+", "+str(action)+"\n"
-    #action_prompt = _mutil_action_selection_textonly_allow_openapp_prompt(
-    #    task_goal,
-    #    [
-    #        'Step ' + str(i + 1) + '- ' + summary
-    #        for i, summary in enumerate(history_summary)
-    #    ],
-    #    before_ui_elements_list,
-    #    self.additional_guidelines,
-    #)
-    ui_tars_action_prompt = """You are a GUI agent. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task.
-    ## Output Format
-    ```
-    Thought: ...
-    Action: ...
-    ```
-    ## Action Space
-
-    click(start_box='<|box_start|>(x1,y1)<|box_end|>')
-    long_press(start_box='<|box_start|>(x1,y1)<|box_end|>')
-    type(content='') #If you want to submit your input, use "\\n" at the end of `content`.
-    scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
-    open_app(app_name=\'\')
-    drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
-    press_home()
-    press_back()
-    finished(content='xxx') # Use escape characters \\', \\", and \\n in content part to ensure we can parse the content in normal python string format.
-
-
-    ## Note
-    - Use {language} in `Thought` part.
-    - Write a small plan and finally summarize your next action (with its target element) in one sentence in `Thought` part.
-    - User instructions usually start with "In app <name>," where <name> is the name of the app you need to operate on this time.
-
-    ## History Action
-    {action_history}
-
-    ## Task App
-    {app_name}
-
-    ## User Instruction
-    {instruction}
-    """
-    language = "English"
-    action_prompt = ui_tars_action_prompt.format(language=language, instruction=task_goal, action_history=action_history_str, app_name=app_name)
-
-    # ui tars一次只能输出一个动作，因此让他输出两次
-    converted_action_and_actionoutput = []
-    for i in range(3):
-      try:
-        action_output, is_safe, raw_response = self.llm.predict_mm(
-            action_prompt,
-            history_screenshot,
-        )
-        print("ui tars输出结果:")
-        print(action_output)
-
-        # 检查结果安全性
-        if is_safe is False:  # pylint: disable=singleton-comparison
-          #  is_safe could be None
-          action_output = """Reason: Triggered LLM safety classifier.
-          Action: {"action_type": "status", "goal_status": "infeasible"}"""
-
-        if not raw_response:
-          raise RuntimeError('Error calling LLM in action selection phase.')
-
-        action_output = convert_action_format_for_uitars(action_output)
-        print("转换动作格式之后的输出结果:")
-        print(action_output)
-
-        thought_action_list = m3a_utils.parse_thought_action_output(action_output)
-        #print("通过处理action_output获得的reason_action_list是这样的:")
-        #print(reason_action_list)
-
-        for reason, action in thought_action_list:
-          converted_action_and_actionoutput_dic = {}
-          converted_action_and_actionoutput_dic['action_output'] = reason
-          if (not reason) or (not action):
-            print('Action prompt output is not in the correct format.')
-
-          print('经过处理的理由与动作如下:')
-          print('Action: ' + action)
-          print('Reason: ' + reason)
-          try:
-            converted_action = json_action.JSONAction(
-                **agent_utils.extract_json(action),
-            )
-            converted_action_and_actionoutput_dic['action'] = converted_action
-          except Exception as e:  # pylint: disable=broad-exception-caught
-            print('Failed to convert the output to a valid action.')
-            print(str(e))
-            continue # 出错了，本条动作就不要了
-          converted_action_and_actionoutput.append(converted_action_and_actionoutput_dic)
-      except Exception as e:
-        print("通过ui tars获取动作的时候出现错误了，问题如下:",e)
-        print("自动再尝试一遍")
-
-
-    # 成功返回动作+cot动作的字典
-    return converted_action_and_actionoutput
-  #todo: open app name
-  def get_actions_androidworld_uitars_v2(self, node:MCTSNode, task_goal:str, all_apps:str):
-    """
-    允许输出 open app 动作,并使用ui tars的风格获取动作
-    """
-    history_action = []
-    history_screenshot = []
-    history_screenshot.append(node.state.pixels.copy())
-    while node.parent is not None and node.action is not None:
-      history_action.append(node.history_action)
       history_screenshot.append(node.state.pixels.copy())
       node = node.parent
     history_action.reverse()
@@ -3266,32 +3121,33 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
 
         images.append(image)
     ui_tars_action_prompt = """You are a GUI agent. The mobile phone contains some apps: {apps}. You are given a task and your action history, with screenshots. You need to perform the next action to complete the task.
-        ## Output Format
-        ```
-        Thought: ...
-        Action: ...
-        ```
-        ## Action Space
+    ## Output Format
+    ```
+    Thought: ...
+    Action: ...
+    ```
+    ## Action Space
 
-        click(start_box='<|box_start|>(x1,y1)<|box_end|>')
-        long_press(start_box='<|box_start|>(x1,y1)<|box_end|>')
-        type(content='') #If you want to submit your input, use "\\n" at the end of `content`.
-        scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
-        open_app(app_name=\'\')
-        drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
-        press_home()
-        press_back()
+    click(start_box='<|box_start|>(x1,y1)<|box_end|>')
+    long_press(start_box='<|box_start|>(x1,y1)<|box_end|>')
+    type(content='') #If you want to submit your input, use "\\n" at the end of `content`.
+    scroll(start_box='<|box_start|>(x1,y1)<|box_end|>', direction='down or up or right or left')
+    open_app(app_name=\'\')
+    drag(start_box='<|box_start|>(x1,y1)<|box_end|>', end_box='<|box_start|>(x3,y3)<|box_end|>')
+    press_home()
+    press_back()
+    finished(content='xxx') # Use escape characters \\', \\", and \\n in content part to ensure we can parse the content in normal python string format.
 
 
-        ## Note
-        - Use {language} in `Thought` part.
-        - Write a small plan and finally summarize your next action (with its target element) in one sentence in `Thought` part.
+    ## Note
+    - Use {language} in `Thought` part.
+    - Write a small plan and finally summarize your next action (with its target element) in one sentence in `Thought` part.
 
-        ## User Instruction
-        {instruction}
-    """
+    ## User Instruction
+    {instruction}
+"""
     language = "English"
-    action_prompt = ui_tars_action_prompt.format(language=language, instruction=task_goal,apps=all_apps)
+    action_prompt = ui_tars_action_prompt.format(language=language, instruction=task_goal,apps=self.all_apps)
     messages = [
       {
           "role": "user",
@@ -3314,7 +3170,7 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
 
             messages.append({
                 "role": "assistant",
-                "content": [{"type": "text", "text": history_response}]
+                "content": [history_response]
             })
 
         cur_image = images[image_num]
@@ -3332,9 +3188,7 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
             "content": [{"type": "image_url", "image_url": {"url": f"data:image/png;base64,{encoded_string}"}}]
         })
         image_num += 1
-    # print("--------------")
-    # print(messages)
-    # print("--------------")
+
     # ui tars一次只能输出一个动作，因此让他输出两次
     converted_action_and_actionoutput = []
     for i in range(3):
@@ -3355,7 +3209,6 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
         if not raw_response:
           raise RuntimeError('Error calling LLM in action selection phase.')
 
-        _action_output = action_output
         action_output = convert_action_format_for_uitars(action_output)
         print("转换动作格式之后的输出结果:")
         print(action_output)
@@ -3366,7 +3219,6 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
 
         for reason, action in thought_action_list:
           converted_action_and_actionoutput_dic = {}
-          converted_action_and_actionoutput_dic["history_action"] = _action_output
           converted_action_and_actionoutput_dic['action_output'] = reason
           if (not reason) or (not action):
             print('Action prompt output is not in the correct format.')
@@ -3437,7 +3289,6 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
         for item in remaining_action:
           action_output_dic = {}
           action_output_dic['action_output'] = item['action_output']
-          action_output_dic["history_action"] = item["history_action"]
           remaining_action_output.append(action_output_dic)
         action_list_str = json.dumps(remaining_action_output, ensure_ascii=False, indent=4)
         #print("本次llm需要判断这几个动作中谁是最好的:")
@@ -3453,20 +3304,20 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
 
         # 测试阶段，默认输出0
         # 现在修改回去
-        rank_action_output, is_safe, raw_response = self.llm.predict_mm(
-            rank_action_prompt,
-            [
-                raw_screenshot,
-                before_screenshot,
-            ],# 就是给原始图像和som图像的意思，是同一张截图
-        )
+        #rank_action_output, is_safe, raw_response = self.llm.predict_mm(
+        #    rank_action_prompt,
+        #    [
+        #        raw_screenshot,
+        #        before_screenshot,
+        #    ],# 就是给原始图像和som图像的意思，是同一张截图
+        #)
 
         #if not raw_response:
         #  raise RuntimeError('Error calling LLM in ranking actions phase.')
 
-        print("本次rank得到的原始答复是:")
-        print(rank_action_output)
-        #rank_action_output = '0'
+        #print("本次rank得到的原始答复是:")
+        #print(rank_action_output)
+        rank_action_output = '0'
 
         # 这里得到的是action output字符串
         top_index = m3a_utils.extract_first_digit(rank_action_output)
@@ -3485,8 +3336,6 @@ Action: {"action_type": "status", "goal_status": "infeasible"}"""
       ranked_action['action'] = item['action']
       ranked_action['rank'] = rank
       ranked_action['action_output'] = item['action_output']
-      if "history_action" in item:
-        ranked_action['history_action'] = item['history_action']
       ranked_actions.append(ranked_action)
       iteration_times = iteration_times + 1
 

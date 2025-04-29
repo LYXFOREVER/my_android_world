@@ -1,0 +1,28 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "run_androidworldtask_mcts.py",
+            "console": "integratedTerminal",
+            "env": {
+                "OPENAI_API_KEY": "sk-IR2q"
+            },
+            "args": [
+                "--task",
+                "UniversalTaskFramework",
+                "--console_port",
+                "5554",
+                "--grpc_port",
+                "8554",
+                "--app_name",
+                "files"
+            ]
+        }
+    ]
+}

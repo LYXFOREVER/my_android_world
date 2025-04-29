@@ -152,9 +152,9 @@ def _main():
     #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o-mini',max_retry=6))
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=6))
     # gemini配置
-    agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
-    actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
-    critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100)) # 新增summary职能
+    #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    #actor = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
+    #critic = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100)) # 新增summary职能
     #vision = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
     # gpt4o配置
     #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gpt-4o',max_retry=100))
@@ -164,7 +164,11 @@ def _main():
     #agent_generate_task = m3a.M3A(env, infer.Gpt4WrapperOpenaiWay(model_name='gemini-2.0-flash',max_retry=100))
     #actor = m3a.M3A(env, infer.UITarsWrapperOpenaiWay())
     #critic = m3a.M3A(env, infer.UITarsWrapperOpenaiWay())
-    vision = m3a.M3A(env, infer.SftRewardModelWrapper(device='cuda:7'))
+    # 新增正确的，message版本的ui tars使用方法
+    agent_generate_task = m3a.M3A(env, infer.Qwen2_5vlWrapperV2(max_retry=100))
+    actor = m3a.M3A(env, infer.UITarsWrapperOpenaiWayV2(max_retry=100))
+    critic = m3a.M3A(env, infer.Qwen2_5vlWrapperV2(max_retry=100))
+    vision = m3a.M3A(env, infer.SftRewardModelWrapperV2(max_retry=100,mode="rule"))
     
 
     # 以下都是需要循环多次执行的
@@ -246,8 +250,8 @@ def _main():
             #world_model = WorldModel(env=env, task_goal=str(task.goal), critic=critic, vision=vision)
             #search_config = SearchConfigForAndroidWorldTask(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
             world_model = WorldModelSFTReward(env=env, task_goal=str(task.goal), critic=critic, vision=vision)
-            search_config = SearchConfigForAndroidWorldTaskSFTReward(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
-            #search_config = SearchConfigForAndroidWorldTaskSFTRewardUITarsActor(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
+            #search_config = SearchConfigForAndroidWorldTaskSFTReward(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal))
+            search_config = SearchConfigForAndroidWorldTaskSFTRewardUITarsActor(env=env, actor=actor, critic=critic, vision=vision, task_goal=str(task.goal), app_name=app_name)
             #world_and_search = WorldAndSearchModelForGPT4oAtlas(
             #    env=env, 
             #    task_goal=str(task.goal),
@@ -318,18 +322,18 @@ def _main():
             print("你手动终止了程序。模拟器不管也行")
             #stop_emulator(_DEVICE_CONSOLE_PORT.value)
             sys.exit(1)
-        except Exception as e:
-            current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
-            id = task_info["id"]
-            task_goal = task_info["task_description"]
-            error_message = f"报错时间: {current_time}, 任务编号: {id}, 任务内容: {task_goal}"
-            custom_info = "执行该任务时发生错误"
-            if custom_info:
-                error_message += f", {custom_info}"
-            error_message += f", 错误详情: {e}"
-            # 使用标准库的 logging 模块记录错误信息
-            print("遇到了错误:",e,",并非手动中断。这样的话不如先跳过当下这个任务，继续下一个")
-            continue
+        #except Exception as e:
+        #    current_time = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+        #    id = task_info["id"]
+        #    task_goal = task_info["task_description"]
+        #    error_message = f"报错时间: {current_time}, 任务编号: {id}, 任务内容: {task_goal}"
+        #    custom_info = "执行该任务时发生错误"
+        #    if custom_info:
+        #        error_message += f", {custom_info}"
+        #    error_message += f", 错误详情: {e}"
+        #    # 使用标准库的 logging 模块记录错误信息
+        #    print("遇到了错误:",e,",并非手动中断。这样的话不如先跳过当下这个任务，继续下一个")
+        #    continue
 
     # 代码跑完了记得把模拟器关掉
     print("顺利完成任务，结束的时候不一定要关模拟器，可以开在这里记一下端口号就行")

@@ -2,103 +2,103 @@
     {
         "id": 0,
         "task_description": "In app pro expense, Task-Oriented: Add a new expense entry with the name 'Lunch', amount '15', category 'Food', and note 'Lunch with colleagues', then save the entry.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 1,
         "task_description": "In app pro expense, Change the date of the expense entry to March 29, 2025.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 2,
         "task_description": "In app pro expense, Task-Oriented: Change the time of the expense entry to 8:00 AM and then save the expense entry with the name 'Breakfast', amount '10', and note 'Breakfast at Tiffany's'.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 3,
         "task_description": "In app pro expense, Record a housing expense for 'Rent' of $1500 with the note 'March Rent' in the Pro Expense app.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 4,
         "task_description": "In app pro expense, Add a note 'Meeting with John' to the expense entry and save it.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 5,
         "task_description": "In app pro expense, Task-Oriented: Change the time of the expense entry to 8:00 AM and then save the expense.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 6,
         "task_description": "In app pro expense, Create a new expense entry with the name 'Lunch', amount '15', category 'Food', and note 'Lunch with colleagues', then save the entry.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 7,
         "task_description": "In app pro expense, Create a new expense entry for 'Food' on March 25, 2025, with an amount of $50 and save the entry.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 8,
         "task_description": "In app pro expense, Create a new expense entry for March 27, 2025, with the name 'Lunch', amount '15', and notes 'Business lunch with client'.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 9,
         "task_description": "In app pro expense, Add a new expense entry with the date '30 Mar 2025 8:15 AM', including a name, amount, and a note, then save the entry.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 10,
         "task_description": "In app pro expense, Task-Oriented: Discard the current time selection of 8:10 AM and return to the expense entry screen to continue filling out the expense details.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 11,
         "task_description": "In app pro expense, Return to the home screen and check the total income and outcome for the week of March 30 - April 6.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 12,
         "task_description": "In app pro expense, Task-Oriented: Create a new expense entry for March 30, 2025, by filling out the 'Name', 'Amount', 'Food', 'Entertainment', and 'Notes' fields, and then save the entry.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
         "id": 13,
         "task_description": "In app pro expense, Task-Oriented: Change the time of the expense entry to 8:00 AM and then save the expense.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 14,
         "task_description": "In app pro expense, Create a new expense entry with the name 'Rent', amount '1200', category 'Housing', and save the entry.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 15,
         "task_description": "In app pro expense, Task-Oriented: Change the time of the expense entry to 8:00 AM.",
-        "executed": 0,
-        "succeeded": 0.0
+        "executed": 1,
+        "succeeded": 1.0
     },
     {
         "id": 16,
         "task_description": "In app pro expense, Create an expense entry with the name 'Lunch', amount '15', category 'Food', and note 'Lunch with colleagues' for 30 Mar 2025 at 8:10 AM, without changing the time.",
-        "executed": 0,
+        "executed": 1,
         "succeeded": 0.0
     },
     {
